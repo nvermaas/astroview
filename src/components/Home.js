@@ -1,8 +1,8 @@
 import React from 'react';
-import logo from '../logo.svg';
 import stars from '../assets/astrobase.gif';
 
 export function Home() {
+
     return (
         <div className="App">
             <header className="App-header">

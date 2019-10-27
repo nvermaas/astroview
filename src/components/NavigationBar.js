@@ -6,7 +6,7 @@ import logo from '../logo.ico';
 export function NavigationBar() {
     return (
         <Navbar bg="dark" variant="dark">
-            <img src={logo} width="30" height="30" className="d-inline-block align-top"/>
+            <img alt='' src={logo} width="30" height="30" className="d-inline-block align-top"/>
 
             <Navbar.Brand href="/">&nbsp;AstroView</Navbar.Brand>
             <Nav className="mr-auto">

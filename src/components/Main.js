@@ -1,20 +1,17 @@
 import React from 'react';
 import '../App.css';
 
-import { Container, Jumbotron, Row, Col } from 'react-bootstrap';
-
 import { NavigationBar } from './NavigationBar';
 
 import { Home } from './Home';
-import { Observations } from './Observations';
-import { Dataproducts } from './Dataproducts';
+import Observations from './ObservationsPage';
+import Dataproducts from './Dataproducts';
 import { About } from './About';
 
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
-    Link
+    Route
 } from "react-router-dom";
 
 // This site has multiple pages, all of which are rendered
@@ -55,6 +52,7 @@ function Main () {
                     </Route>
                 </Switch>
             </div>
+            <footer><small> (C) 2019 - Nico Vermaas - version 1.0.0 - 27 oct 2019</small></footer>
         </Router>
     );
 }
