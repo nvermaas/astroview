@@ -11,7 +11,7 @@ export function NavigationBar() {
             <Navbar.Brand href="/">&nbsp;AstroView</Navbar.Brand>
             <Nav className="mr-auto">
                 <Nav.Link href="/observations">Observations</Nav.Link>
-                <Nav.Link href="/dataproducts">Dataproducts</Nav.Link>
+                <Nav.Link href="/details">Details</Nav.Link>
                 <Nav.Link href="/about">About</Nav.Link>
             </Nav>
             <Form inline>

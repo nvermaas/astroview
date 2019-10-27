@@ -5,13 +5,15 @@ import { NavigationBar } from './NavigationBar';
 
 import { Home } from './Home';
 import Observations from './ObservationsPage';
+import ObservationDetails from './ObservationDetails';
 import Dataproducts from './Dataproducts';
 import { About } from './About';
 
 import {
     BrowserRouter as Router,
     Switch,
-    Route
+    Route,
+    useParams
 } from "react-router-dom";
 
 // This site has multiple pages, all of which are rendered
@@ -44,12 +46,12 @@ function Main () {
                     <Route path="/observations">
                         <Observations />
                     </Route>
-                    <Route path="/dataproducts">
-                        <Dataproducts />
-                    </Route>
+
                     <Route path="/about">
                         <About />
                     </Route>
+
+                    <Route path="/details/:id" children={<ObservationDetailsForward />} />
                 </Switch>
             </div>
             <footer><small> (C) 2019 - Nico Vermaas - version 1.0.0 - 27 oct 2019</small></footer>
@@ -57,5 +59,24 @@ function Main () {
     );
 }
 
+// reroute to dataproduct details
+function ObservationDetailsForward() {
+    let { id } = useParams();
+    return (
+        <ObservationDetails taskid={id}/>
+    );
+}
+
+function Child() {
+    // We can use the `useParams` hook here to access
+    // the dynamic pieces of the URL.
+    let { id } = useParams();
+
+    return (
+        <div>
+            <h4>ID: {id}</h4>
+        </div>
+    );
+}
 
 export default Main;

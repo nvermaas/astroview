@@ -7,12 +7,14 @@ import {
 // get the specific details
 // https://reacttraining.com/react-router/web/example/url-params
 
-export default function Dataproducts(props) {
+export default function ObservationDetails(props) {
+    // get the observation info from the global state.
 
+    // fetch dataproducts of this taskid
 
     return (
         <div>
-            <h2>Dataproducts {props.taskid}</h2>
+            <h2>Details {props.taskid}</h2>
             <Container>
                 <Row>
                     <Col sm={8}>sm=8</Col>
