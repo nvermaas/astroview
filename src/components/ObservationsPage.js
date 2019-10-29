@@ -4,10 +4,17 @@ import { Container, Jumbotron, Row, Col } from 'react-bootstrap';
 import LoadingSpinner from './LoadingSpinner';
 import ObservationTiles from './ObservationTiles'
 
+import { SET_FETCHED_OBSERVATIONS, SET_ACTIVE_TASKID} from '../reducers/GlobalStateReducer';
+import { useGlobalReducer } from '../Store';
+//import { reducer, initialState } from '../reducers/GlobalStateReducer';
+
 //const url = "http://uilennest.net:81/astrobase/observations"
 const url = "http://localhost:8000/astrobase/observations"
 
 export default function Observations(props) {
+
+    const [ my_state , my_dispatch] = useGlobalReducer()
+    // const [ my_state, my_dispatch] = useReducer(reducer, initialState)
 
     const [status, setStatus] = useState("unfetched")
     const [fetchedObservations, setFetchedObservations] = useState("ready")
@@ -43,6 +50,8 @@ export default function Observations(props) {
                 })
                 .then(data => {
                     setFetchedObservations(data.results)
+                    my_dispatch({type: SET_FETCHED_OBSERVATIONS, fetched_observations: data.results})
+                    //my_dispatch({type: SET_ACTIVE_TASKID, taskid: "321"})
                     setStatus('fetched')
                 })
                 .catch(function () {
@@ -66,6 +75,7 @@ export default function Observations(props) {
 
                 {loading ? <LoadingSpinner /> :
                     <div>
+                        {my_state.taskid}
                         {renderObservations}
                     </div>
                 }

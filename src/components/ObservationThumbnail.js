@@ -6,7 +6,7 @@ export default function ObservationThumbnail(props) {
 
     // this function is called when the presentation choice changes (gas, power, etc)
     const handleClick = (obs) => {
-        // alert(obs.name)
+        alert(obs.name)
         // dispatch current observation to the reducer (make reducer first)
         //... nah, better to fetch the dataproduct details in the detail screen.
         /*
@@ -25,7 +25,7 @@ export default function ObservationThumbnail(props) {
     return (
         <a href={details_link}>
             <Card className="card-img-top">
-                <Card.Img variant top src={thumbnail} onClick={handleClick}/>
+                <Card.Img variant top src={thumbnail} onClick={() => handleClick(props.observation)}/>
 
                 <Card.ImgOverlay>
                     <h2>{title}</h2>

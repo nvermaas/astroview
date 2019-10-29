@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 import ObservationThumbnail from './ObservationThumbnail';
 
-// loop through a list of observations and create a card with a thumbnail for all of them
+// loop through a list of observations and create a Card with a clickable thumbnail for all of them
 export default function ObservationTiles(props) {
 
     return (
