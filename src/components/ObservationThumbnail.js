@@ -1,18 +1,22 @@
 import React from 'react';
 import {Card, Button } from 'react-bootstrap'
+import { Link } from "react-router-dom"
+
+import { useGlobalReducer } from '../Store';
+import { SET_ACTIVE_TASKID } from '../reducers/GlobalStateReducer'
 
 // display a single observation on a card
 export default function ObservationThumbnail(props) {
+    const [ my_state , my_dispatch] = useGlobalReducer()
 
-    // this function is called when the presentation choice changes (gas, power, etc)
-    const handleClick = (obs) => {
-        alert(obs.name)
-        // dispatch current observation to the reducer (make reducer first)
-        //... nah, better to fetch the dataproduct details in the detail screen.
-        /*
-          or else add this to the component
-         <Button variant="info" onClick={() => handleClick(props.observation)}>{title}</Button>&nbsp;
-         */
+    const handleClick = (observation) => {
+        // dispatch current observation to the global store
+        my_dispatch({type: SET_ACTIVE_TASKID, taskid: observation.taskID})
+    }
+
+    const getLink = (observation) => {
+        let details_link = "/details/"+props.observation.taskID
+        return details_link
     }
 
     let title = props.observation.name
@@ -23,17 +27,19 @@ export default function ObservationThumbnail(props) {
     let details_link = "/details/"+props.observation.taskID
 
     return (
-        <a href={details_link}>
+
             <Card className="card-img-top">
                 <Card.Img variant top src={thumbnail} onClick={() => handleClick(props.observation)}/>
 
                 <Card.ImgOverlay>
                     <h2>{title}</h2>
+                    <Link to={() => getLink(props.observation)}>
+                        <Button variant="success" onClick={() => handleClick(props.observation)}>Details</Button>&nbsp;
+                    </Link>
 
                 </Card.ImgOverlay>
 
             </Card>
-        </a>
 
     );
 

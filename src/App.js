@@ -7,13 +7,10 @@ import Main from './components/Main';
 // This is the App, only application global stuff goes here, like the global state provider.
 
 
-function App () {
-
+export default function App () {
     return (
         <StoreProvider initialState={initialState} reducer={reducer}>
             <Main />
         </StoreProvider>
     );
 }
-
-export default App;

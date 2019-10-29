@@ -2,7 +2,7 @@ import React, { useReducer, useContext }  from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 
 import { useGlobalReducer } from '../Store';
-
+import { SET_ACTIVE_TASKID } from '../reducers/GlobalStateReducer'
 // get the specific details
 // https://reacttraining.com/react-router/web/example/url-params
 
@@ -20,7 +20,6 @@ export default function ObservationDetails(props) {
     return (
 
         <div>
-            <h2>state {my_state.taskid}</h2>
             <h2>Details {props.taskid}</h2>
 
             <Container>

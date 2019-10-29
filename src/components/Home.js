@@ -1,7 +1,16 @@
 import React from 'react';
 import stars from '../assets/astrobase.gif';
 
+import { SET_FETCHED_OBSERVATIONS, SET_ACTIVE_TASKID} from '../reducers/GlobalStateReducer';
+import { useGlobalReducer } from '../Store';
+
+//const url = "http://uilennest.net:81/astrobase/observations"
+const url = "http://localhost:8000/astrobase/observations"
+
 export function Home() {
+
+    // preload the observations
+
 
     return (
         <div className="App">

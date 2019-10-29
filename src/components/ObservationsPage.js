@@ -4,9 +4,8 @@ import { Container, Jumbotron, Row, Col } from 'react-bootstrap';
 import LoadingSpinner from './LoadingSpinner';
 import ObservationTiles from './ObservationTiles'
 
-import { SET_FETCHED_OBSERVATIONS, SET_ACTIVE_TASKID} from '../reducers/GlobalStateReducer';
+import { SET_FETCHED_OBSERVATIONS, SET_ACTIVE_TASKID, SET_STATUS} from '../reducers/GlobalStateReducer';
 import { useGlobalReducer } from '../Store';
-//import { reducer, initialState } from '../reducers/GlobalStateReducer';
 
 //const url = "http://uilennest.net:81/astrobase/observations"
 const url = "http://localhost:8000/astrobase/observations"
@@ -14,10 +13,7 @@ const url = "http://localhost:8000/astrobase/observations"
 export default function Observations(props) {
 
     const [ my_state , my_dispatch] = useGlobalReducer()
-    // const [ my_state, my_dispatch] = useReducer(reducer, initialState)
 
-    const [status, setStatus] = useState("unfetched")
-    const [fetchedObservations, setFetchedObservations] = useState("ready")
     const [timer, setTimer] = useState(undefined)
 
     // this executes fetchObservations only once (because the 'dependencies array' is empty: [])
@@ -40,33 +36,31 @@ export default function Observations(props) {
 
     // get the data from the api
     const fetchObservations = (url) => {
-        if ((status !== 'fetching') && (status !== 'do_config')) {
+        if (my_state.status !== 'fetching')  {
             console.log('fetchObservations: ' + (url))
-            setStatus('fetching')
 
             fetch(url)
                 .then(results => {
                     return results.json();
                 })
                 .then(data => {
-                    setFetchedObservations(data.results)
                     my_dispatch({type: SET_FETCHED_OBSERVATIONS, fetched_observations: data.results})
-                    //my_dispatch({type: SET_ACTIVE_TASKID, taskid: "321"})
-                    setStatus('fetched')
+                    my_dispatch({type: SET_STATUS, status: 'fetched'})
                 })
                 .catch(function () {
-                    setStatus('failed')
+                    my_dispatch({type: SET_STATUS, status: 'failed'})
                     alert("fetch to " + url + " failed.");
                 })
         }
     }
 
-    const loading = status === 'fetching'
+    const loading = my_state.status === 'fetching'
 
     // conditional render. Only render the observations when the status is 'fetched'
     let renderObservations
-    if (status==='fetched') {
-        renderObservations = <ObservationTiles data = {fetchedObservations} />
+
+    if (my_state.status==='fetched') {
+        renderObservations = <ObservationTiles data = {my_state.fetched_observations} />
     }
 
     return (
@@ -75,7 +69,6 @@ export default function Observations(props) {
 
                 {loading ? <LoadingSpinner /> :
                     <div>
-                        {my_state.taskid}
                         {renderObservations}
                     </div>
                 }
