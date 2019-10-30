@@ -13,7 +13,7 @@ export function Home() {
 
                 <img src={stars} className="App-logo" alt="logo" />
 
-                Your images automatically annotated with <a
+                Images automatically annotated with <a
                     className="App-link"
                     href="http://uilennest.net:81/astrobase/"
                     target="_blank"

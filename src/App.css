@@ -38,3 +38,10 @@
   object-fit: cover;
   background-color: darkgrey;
 }
+
+.card-dataproduct {
+  width: 90vh;
+
+  object-fit: cover;
+  background-color: lightgrey;
+}

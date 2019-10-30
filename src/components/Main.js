@@ -1,7 +1,7 @@
-import React, {useState, useEffect, useReducer }  from 'react';
+import React, {useState, useEffect }  from 'react';
 import '../App.css';
 
-import { SET_FETCHED_OBSERVATIONS, SET_ACTIVE_TASKID, SET_STATUS} from '../reducers/GlobalStateReducer';
+import { SET_FETCHED_OBSERVATIONS, SET_STATUS} from '../reducers/GlobalStateReducer';
 import { useGlobalReducer } from '../Store';
 
 import { NavigationBar } from './NavigationBar';
@@ -20,8 +20,10 @@ import {
 // the url to the backend
 // the data is fetched at the start of the application for performance reasons,
 // but also to have direct links to the details page working, like http://localhost:3000/details/090311003
-const url = "http://localhost:8000/astrobase/observations"
+
+//const url = "http://localhost:8000/astrobase/observations"
 //const url = "http://uilennest.net:81/astrobase/observations"
+const url = "http://192.168.178.62:8018/astrobase/observations"
 
 
 // This site has multiple pages, all of which are rendered
@@ -107,7 +109,7 @@ function Main () {
                     <Route path="/details/:id" children={<ObservationDetailsForward />} />
                 </Switch>
             </div>
-            <footer><small> (C) 2019 - Nico Vermaas - version 1.0.0 - 28 oct 2019</small></footer>
+            <footer><small> (C) 2019 - Nico Vermaas - version 1.0.0 - 30 oct 2019</small></footer>
         </Router>
     );
 }
@@ -115,6 +117,7 @@ function Main () {
 // reroute to dataproduct details
 function ObservationDetailsForward() {
     let { id } = useParams();
+
     return (
         <ObservationDetails taskid={id}/>
     );

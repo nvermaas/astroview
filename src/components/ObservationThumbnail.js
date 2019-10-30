@@ -12,7 +12,7 @@ export default function ObservationThumbnail(props) {
     const handleClick = (observation) => {
         // dispatch current observation to the global store
         my_dispatch({type: SET_ACTIVE_TASKID, taskid: observation.taskID})
-        my_dispatch({type: SET_ACTIVE_OBSERVATION, observation: observation})
+        //my_dispatch({type: SET_ACTIVE_OBSERVATION, observation: observation})
     }
 
     // generate the details link to forward to
@@ -22,26 +22,25 @@ export default function ObservationThumbnail(props) {
     }
 
     let title = props.observation.name
-    let description = props.observation.description
     // let thumbnail = props.observation.derived_raw_image
     let thumbnail = props.observation.derived_sky_plot_image
-    let thumbnail_raw = props.observation.derived_annotated_image
-    let details_link = "/details/"+props.observation.taskID
+    let thumbnail_annotated = props.observation.derived_annotated_image
+
 
     return (
 
-            <Card className="card-img-top">
-                <Card.Img variant top src={thumbnail} />
+        <Card className="card-img-top">
+            <Card.Img variant top src={thumbnail} />
 
-                <Card.ImgOverlay>
-                    <h2>{title}</h2>
-                    <Link to={() => getLink(props.observation)}>
-                        <Button variant="success" onClick={() => handleClick(props.observation)}>Details</Button>&nbsp;
-                    </Link>
+            <Card.ImgOverlay>
+                <h2>{title}</h2>
+                <Link to={() => getLink(props.observation)}>
+                    <Button variant="success" onClick={() => handleClick(props.observation)}>Details</Button>&nbsp;
+                </Link>
 
-                </Card.ImgOverlay>
+            </Card.ImgOverlay>
 
-            </Card>
+        </Card>
 
     );
 

@@ -1,10 +1,9 @@
 
-import React, {useState, useEffect, useReducer }  from 'react';
-import { Container, Jumbotron, Row, Col } from 'react-bootstrap';
+import React from 'react';
+
 import LoadingSpinner from './LoadingSpinner';
 import ObservationTiles from './ObservationTiles'
 
-import { SET_FETCHED_OBSERVATIONS, SET_ACTIVE_TASKID, SET_STATUS} from '../reducers/GlobalStateReducer';
 import { useGlobalReducer } from '../Store';
 
 

@@ -28,7 +28,7 @@ export function NavigationBar() {
 
             <Navbar.Brand href="/">&nbsp;AstroView</Navbar.Brand>
             <Nav className="mr-auto">
-                <Nav.Link as={NavLink} to="/observations">Observations</Nav.Link>
+                <Nav.Link as={NavLink} to="/observations">My Observations</Nav.Link>
                 {renderDetails}
                 <Nav.Link as={NavLink} to="/about">About</Nav.Link>
             </Nav>
