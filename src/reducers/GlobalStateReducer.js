@@ -9,7 +9,7 @@ export const SET_FETCHED_OBSERVATIONS = 'SET_FETCHED_OBSERVATIONS'
 
 export const initialState = {
         status: "unfetched",
-        taskid: "0",
+        taskid: undefined,
         observation: undefined,
         fetched_observations: undefined
 }
@@ -32,7 +32,9 @@ export const reducer = (state, action) => {
             };
 
         case SET_ACTIVE_OBSERVATION:
+            //alert('reducer: SET_ACTIVE_OBSERVATION '+action.observation)
             return {
+
                 ...state,
                 observation: action.observation
             };

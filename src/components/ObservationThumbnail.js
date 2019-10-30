@@ -3,7 +3,7 @@ import {Card, Button } from 'react-bootstrap'
 import { Link } from "react-router-dom"
 
 import { useGlobalReducer } from '../Store';
-import { SET_ACTIVE_TASKID } from '../reducers/GlobalStateReducer'
+import { SET_ACTIVE_TASKID, SET_ACTIVE_OBSERVATION } from '../reducers/GlobalStateReducer'
 
 // display a single observation on a card
 export default function ObservationThumbnail(props) {
@@ -12,8 +12,10 @@ export default function ObservationThumbnail(props) {
     const handleClick = (observation) => {
         // dispatch current observation to the global store
         my_dispatch({type: SET_ACTIVE_TASKID, taskid: observation.taskID})
+        my_dispatch({type: SET_ACTIVE_OBSERVATION, observation: observation})
     }
 
+    // generate the details link to forward to
     const getLink = (observation) => {
         let details_link = "/details/"+props.observation.taskID
         return details_link
@@ -29,7 +31,7 @@ export default function ObservationThumbnail(props) {
     return (
 
             <Card className="card-img-top">
-                <Card.Img variant top src={thumbnail} onClick={() => handleClick(props.observation)}/>
+                <Card.Img variant top src={thumbnail} />
 
                 <Card.ImgOverlay>
                     <h2>{title}</h2>

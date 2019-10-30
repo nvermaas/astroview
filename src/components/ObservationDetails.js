@@ -10,17 +10,13 @@ export default function ObservationDetails(props) {
 
     // get the observation info from the global state.
     const [ my_state , my_dispatch] = useGlobalReducer()
-
-    // dispatch the current task_id to the global state
-    //my_dispatch({type: SET_ACTIVE_TASKID, taskid: props.taskid})
-
-
-    //alert(fetched_observations)
+    //alert(props.taskid)
+    // alert(my_state.observation['name'])
 
     return (
 
         <div>
-            <h2>Details {props.taskid}</h2>
+            <h2>Details {props.taskid} </h2>
 
             <Container>
                 {my_state.taskid}

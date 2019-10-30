@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useState, useEffect, useReducer }  from 'react';
 import '../App.css';
 
-import { NavigationBar } from './NavigationBar';
+import { SET_FETCHED_OBSERVATIONS, SET_ACTIVE_TASKID, SET_STATUS} from '../reducers/GlobalStateReducer';
+import { useGlobalReducer } from '../Store';
 
+import { NavigationBar } from './NavigationBar';
 import { Home } from './Home';
 import Observations from './ObservationsPage';
 import ObservationDetails from './ObservationDetails';
@@ -15,6 +17,13 @@ import {
     useParams
 } from "react-router-dom";
 
+// the url to the backend
+// the data is fetched at the start of the application for performance reasons,
+// but also to have direct links to the details page working, like http://localhost:3000/details/090311003
+const url = "http://localhost:8000/astrobase/observations"
+//const url = "http://uilennest.net:81/astrobase/observations"
+
+
 // This site has multiple pages, all of which are rendered
 // dynamically in the browser (not server rendered).
 //
@@ -25,6 +34,51 @@ import {
 // work properly.
 
 function Main () {
+
+    // use global state
+    const [ my_state , my_dispatch] = useGlobalReducer()
+
+    // a timer is used for a 60 second polling of the data.
+    const [timer, setTimer] = useState(undefined)
+
+    // this executes fetchObservations only once (because the 'dependencies array' is empty: [])
+    useEffect(() => {
+            fetchObservations(url)
+        },[]
+    );
+
+    // this executes 'setTimer' once, which refreshes the observationlist every minute.
+    useEffect(() => {
+            setTimer(setInterval(() => fetchObservations(url), 60000))
+
+            // this function is automatically called when the component unmounts
+            return function cleanup() {
+                clearInterval(timer);
+            }
+        },[]
+    );
+
+
+    // get the data from the api
+    const fetchObservations = (url) => {
+        if (my_state.status !== 'fetching')  {
+            console.log('fetchObservations: ' + (url))
+
+            fetch(url)
+                .then(results => {
+                    return results.json();
+                })
+                .then(data => {
+                    my_dispatch({type: SET_FETCHED_OBSERVATIONS, fetched_observations: data.results})
+                    my_dispatch({type: SET_STATUS, status: 'fetched'})
+                })
+                .catch(function () {
+                    my_dispatch({type: SET_STATUS, status: 'failed'})
+                    alert("fetch to " + url + " failed.");
+                })
+        }
+    }
+
     return (
         <Router>
             <div>
