@@ -22,8 +22,8 @@ import {
 // but also to have direct links to the details page working, like http://localhost:3000/details/090311003
 
 //const url = "http://localhost:8000/astrobase/observations"
-//const url = "http://uilennest.net:81/astrobase/observations"
-const url = "http://192.168.178.62:8018/astrobase/observations"
+const url = "http://uilennest.net:81/astrobase/observations"
+//const url = "http://192.168.178.62:8018/astrobase/observations"
 
 
 // This site has multiple pages, all of which are rendered
@@ -95,7 +95,7 @@ function Main () {
                  */}
 
                 <Switch>
-                    <Route exact path="/">
+                    <Route exact path="/home">
                         <Home />
                     </Route>
                     <Route path="/observations">

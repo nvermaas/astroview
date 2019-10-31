@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "AstroView",
+  "name": "AstroView",
+  "homepage": "http://uilennest.net:81/astroview",
   "icons": [
     {
       "src": "favicon.ico",
