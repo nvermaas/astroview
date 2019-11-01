@@ -3,9 +3,10 @@ import { Container, Row, Col, Card, Table } from 'react-bootstrap';
 
 import { useGlobalReducer } from '../Store';
 import { deg2HMS, deg2DMS} from '../utils/astro'
-import { getUrlAladin, getUrlESASky, getUrlSDSS} from '../utils/skyserver'
+import { getUrlAladin, getUrlESASky, getUrlSDSS, getUrlCDSPortal} from '../utils/skyserver'
 import DetailsThumbnail from './DetailsThumbnail'
 import ImageCard from './ImageCard'
+import { url } from './Main'
 
 export default function ObservationDetails(props) {
 
@@ -35,12 +36,14 @@ export default function ObservationDetails(props) {
     let url_aladin = getUrlAladin(observation.field_ra,observation.field_dec,observation.field_fov,"DSS Colored")
     let sdss_image = getUrlSDSS(observation.field_ra.RA, observation.field_dec, observation.field_fov, 300, 300, 'S')
     let url_esa_sky = getUrlESASky(observation.field_ra,observation.field_dec,"J2000",fov,"DSS2 color")
+    let url_cds = getUrlCDSPortal(observation.field_ra,observation.field_dec)
 
+
+    let api = url + '/' + observation.id.toString()
     return (
 
         <div>
-            <h2>{observation.name} </h2>
-
+            <tr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<td><h2>{observation.name} </h2></td></tr>
             <Container fluid>
 
                 <Row>
@@ -50,13 +53,16 @@ export default function ObservationDetails(props) {
                             <DetailsThumbnail key={observation.taskID} observation = {observation} />
                         </Card>
                             <Card>
-                            <Table striped bordered condensed hover>
+                            <Table striped bordered hover size="sm">
                                 <tbody>
                                 <tr>
-                                    <td className="key">RA {deg2HMS(observation.field_ra)} H</td>
-                                    <td className="value">dec {deg2DMS(observation.field_dec)} deg</td>
+                                    <td className="key">RA</td>
+                                    <td className="value">{deg2HMS(observation.field_ra)}</td>
                                 </tr>
-
+                                <tr>
+                                    <td className="key">dec</td>
+                                    <td className="value">{deg2DMS(observation.field_dec)}</td>
+                                </tr>
                                 <tr>
                                     <td className="key">Field of View</td>
                                     <td className="value">{fov}</td>
@@ -66,17 +72,26 @@ export default function ObservationDetails(props) {
                                     <td className="value">{observation.date}</td>
                                 </tr>
                                 <tr>
-                                    <td className="key">Links</td>
-                                    <td className="value"><a href={url_esa_sky} target="_blank">ESA</a></td>
-                                </tr>
-
-                                <tr>
                                     <td className="key">Quality</td>
                                     <td className="value">{observation.quality}</td>
                                 </tr>
                                 <tr>
+                                    <td className="key">Data Centers</td>
+                                    <td className="value">
+                                        <a href={url_esa_sky} target="_blank">ESA</a>&nbsp;
+                                        <a href={url_cds} target="_blank">CDS</a>&nbsp;
+
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td className="key">Astrometry Job</td>
-                                    <td className="value"><a href={astrometryLink} target="_blank">{observation.job}</a></td>
+                                    <td className="value"><a href={astrometryLink} target="_blank">{observation.job}</a>&nbsp;</td>
+
+                                </tr>
+                                <tr>
+                                    <td className="key">AstroBase</td>
+                                    <td className="value"><a href={api} target="_blank">API</a>
+                                    </td>
                                 </tr>
 
                                 </tbody>
@@ -84,14 +99,16 @@ export default function ObservationDetails(props) {
 
                         </Card>
                     </Col>
-                    <Col sm={9} md={9}>
+                    <Col sm={6} md={6}>
                         <Card>
-
                             <ImageCard key={observation.taskID} observation = {observation} />
                         </Card>
                     </Col>
+                    <Col sm={3} md={3}>
+                        <img src={observation.derived_sky_globe_image} width="200"/>
+
+                    </Col>
                 </Row>
-                <img src={observation.derived_sky_globe_image} width="200"/>
 
             </Container>
 

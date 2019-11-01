@@ -3,7 +3,7 @@ import React from 'react';
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 import logo from '../logo.ico';
 import { useGlobalReducer } from '../Store';
-import { NavLink } from "react-router-dom"
+import { NavLink, useLocation } from "react-router-dom"
 
 
 export function NavigationBar() {
@@ -12,6 +12,7 @@ export function NavigationBar() {
     const getLink = (taskid) => {
         let details_link = "/details/" + taskid
         return details_link
+
     }
 
     // conditional render. Only show and activate the link when an observation has been selected before
@@ -24,9 +25,10 @@ export function NavigationBar() {
 
     return (
         <Navbar bg="dark" variant="dark">
+
             <img alt='' src={logo} width="30" height="30" className="d-inline-block align-top"/>
 
-            <Navbar.Brand href="/">&nbsp;AstroView</Navbar.Brand>
+            <Navbar.Brand href="/astroview">&nbsp;AstroView</Navbar.Brand>
             <Nav className="mr-auto">
                 <Nav.Link as={NavLink} to="/observations">My Observations</Nav.Link>
                 {renderDetails}

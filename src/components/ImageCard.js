@@ -1,11 +1,12 @@
 import React from 'react';
-import {Card, Button } from 'react-bootstrap'
+import {Card, Button, Row } from 'react-bootstrap'
 import { Link } from "react-router-dom"
 
 import { useGlobalReducer } from '../Store';
 import { SET_IMAGE_TYPE } from '../reducers/GlobalStateReducer'
 
 import { getUrlAladin, getUrlSDSS} from '../utils/skyserver'
+import { url } from './Main'
 
 // display a single observation on a card
 export default function ImageCard(props) {
@@ -39,18 +40,26 @@ export default function ImageCard(props) {
     }
     let sdss_button=<Button variant="warning" onClick={() => handleClick(props.observation,'SDSS')}>SDSS</Button>
 
+    let api = url + '/' + props.observation.id.toString()
+
     return (
 
         <Card className="card-dataproduct">
             <Card.Body>
-                <img src={thumbnail} width="600"/>
+                <tr>
+                <img src={thumbnail} width="650"/>
+                </tr>
+                &nbsp;
+                <tr>
                     <Button variant="primary" onClick={() => handleClick(props.observation,'raw')}>RAW</Button>&nbsp;
                     <Button variant="success" onClick={() => handleClick(props.observation,"annotated")}>Annotated</Button>&nbsp;
                     <Button variant="success" onClick={() => handleClick(props.observation,'redgreen')}>Red/Green</Button>&nbsp;
 
                     <a href = {thumbnail} target="_blank">
-                        <Button variant="info">Full Screen</Button>
+                        <Button variant="info">Full Screen</Button>&nbsp;
                     </a>
+
+                </tr>
             </Card.Body>
 
         </Card>

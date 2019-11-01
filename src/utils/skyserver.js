@@ -37,9 +37,11 @@ export function getUrlAladin(ra,dec,fov,survey) {
 }
 
 // http://cdsportal.u-strasbg.fr/?target=202.5%2047.2
-export function getUrlCDSPortal(ra,dec,fov,survey) {
+export function getUrlCDSPortal(ra,dec) {
   // NVSS intensitiy maps
-  let url = 'http:/http://cdsportal.u-strasbg.fr/'
-  url += '&target=' + ra + ' ' + dec
+  let url = 'http://cdsportal.u-strasbg.fr/'
+  url += '?target=' + ra + '%20' + dec
   return url
+
+
 }

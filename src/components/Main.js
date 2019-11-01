@@ -22,7 +22,7 @@ import {
 // but also to have direct links to the details page working, like http://localhost:3000/details/090311003
 
 //const url = "http://localhost:8000/astrobase/observations"
-const url = "http://uilennest.net:81/astrobase/observations"
+export const url = "http://uilennest.net:81/astrobase/observations"
 //const url = "http://192.168.178.62:8018/astrobase/observations"
 
 
@@ -82,7 +82,7 @@ function Main () {
     }
 
     return (
-        <Router>
+        <Router basename="/astroview">
             <div>
                 <NavigationBar/>
 
@@ -95,7 +95,7 @@ function Main () {
                  */}
 
                 <Switch>
-                    <Route exact path="/home">
+                    <Route exact path="/">
                         <Home />
                     </Route>
                     <Route path="/observations">

@@ -1,7 +1,7 @@
 {
   "short_name": "AstroView",
   "name": "AstroView",
-  "homepage": "http://uilennest.net:81/astroview",
+  "homepage": "http://uilennest.net/astroview",
   "icons": [
     {
       "src": "favicon.ico",

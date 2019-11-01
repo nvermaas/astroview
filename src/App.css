@@ -40,8 +40,7 @@
 }
 
 .card-dataproduct {
-  width: 90vh;
-
+  display: flex;
   object-fit: cover;
   background-color: lightgrey;
 }
