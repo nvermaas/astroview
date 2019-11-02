@@ -8,15 +8,37 @@ import { SET_IMAGE_TYPE } from '../reducers/GlobalStateReducer'
 import { getUrlAladin, getUrlSDSS} from '../utils/skyserver'
 import { url } from './Main'
 
+
+
+// display the main image depending on the dispatched imageType
+function getThumbnail(observation, imageType) {
+    let thumbnail =  observation.derived_raw_image
+    if (imageType==='annotated') {
+        thumbnail = observation.derived_annotated_image
+    } else
+    if (imageType==='redgreen') {
+        thumbnail = observation.derived_red_green_image
+    } else
+    if (imageType==='SDSS') {
+        thumbnail = getUrlSDSS(observation.field_ra, observation.field_dec, observation.field_fov, 600, 500, 'S')
+    }
+    return thumbnail
+}
+
+// display the main image
+function MainImage(props) {
+    let thumbnail =  getThumbnail(props.observation, props.imageType)
+    return <img src={thumbnail} width="650"/>
+}
+
 // display a single observation on a card
 export default function ImageCard(props) {
 
     const [ my_state , my_dispatch] = useGlobalReducer()
 
+    // dispatch current observation to the global store
     const handleClick = (observation,imageType) => {
-        // dispatch current observation to the global store
         my_dispatch({type: SET_IMAGE_TYPE, image_type: imageType})
-
     }
 
     // generate the details link to forward to
@@ -26,20 +48,7 @@ export default function ImageCard(props) {
     }
 
     let title = props.observation.name
-
-    let thumbnail = props.observation.derived_raw_image
-
-    if (my_state.image_type==='annotated') {
-        thumbnail = props.observation.derived_annotated_image
-    }
-    if (my_state.image_type==='redgreen') {
-        thumbnail = props.observation.derived_red_green_image
-    }
-    if (my_state.image_type==='SDSS') {
-        thumbnail = getUrlSDSS(props.observation.field_ra, props.observation.field_dec, props.observation.field_fov, 600, 500, 'S')
-    }
     let sdss_button=<Button variant="warning" onClick={() => handleClick(props.observation,'SDSS')}>SDSS</Button>
-
     let api = url + '/' + props.observation.id.toString()
 
     return (
@@ -47,7 +56,7 @@ export default function ImageCard(props) {
         <Card className="card-dataproduct">
             <Card.Body>
                 <tr>
-                <img src={thumbnail} width="650"/>
+                    <MainImage observation={props.observation} imageType={my_state.image_type}/>
                 </tr>
                 &nbsp;
                 <tr>
@@ -55,7 +64,7 @@ export default function ImageCard(props) {
                     <Button variant="success" onClick={() => handleClick(props.observation,"annotated")}>Annotated</Button>&nbsp;
                     <Button variant="success" onClick={() => handleClick(props.observation,'redgreen')}>Red/Green</Button>&nbsp;
 
-                    <a href = {thumbnail} target="_blank">
+                    <a href = {getThumbnail(props.observation,my_state.image_type)} target="_blank">
                         <Button variant="info">Full Screen</Button>&nbsp;
                     </a>
 

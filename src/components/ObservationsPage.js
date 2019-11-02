@@ -19,6 +19,9 @@ export default function Observations(props) {
 
     if (my_state.status==='fetched') {
         renderObservations = <ObservationTiles data = {my_state.fetched_observations} />
+    } else
+    if (my_state.status==='filtered') {
+        renderObservations = <ObservationTiles data = {my_state.filtered_observations} />
     }
 
     return (

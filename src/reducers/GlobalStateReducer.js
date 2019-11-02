@@ -6,14 +6,18 @@ export const SET_STATUS = 'SET_STATUS'
 export const SET_ACTIVE_TASKID = 'SET_ACTIVE_TASKID'
 export const SET_ACTIVE_OBSERVATION = 'SET_ACTIVE_OBSERVATION'
 export const SET_FETCHED_OBSERVATIONS = 'SET_FETCHED_OBSERVATIONS'
+export const SET_FILTERED_OBSERVATIONS = 'SET_FILTERED_OBSERVATIONS'
 export const SET_IMAGE_TYPE = 'SET_IMAGE_TYPE'
+export const SET_THUMBNAIL_IMAGE_TYPE = 'SET_THUMBNAIL_IMAGE_TYPE'
 
 export const initialState = {
         status: "unfetched",
         taskid: undefined,
         observation: undefined,
         fetched_observations: undefined,
-        image_type: "raw"
+        filtered_observations: undefined,
+        image_type: "raw",
+        thumbnail_image_type: "sky_plot"
 }
 
 export const reducer = (state, action) => {
@@ -48,11 +52,24 @@ export const reducer = (state, action) => {
                 fetched_observations: action.fetched_observations
             };
 
+
+        case SET_FILTERED_OBSERVATIONS:
+            //alert('reducer: SET_FILTERED_OBSERVATIONS '+action.filtered_observations)
+            return {
+                ...state,
+                filtered_observations: action.filtered_observations
+            };
+
         case SET_IMAGE_TYPE:
-            //alert('reducer: SET_IMAGE_TYPE '+action.imageType)
             return {
                 ...state,
                 image_type: action.image_type
+            };
+
+        case SET_THUMBNAIL_IMAGE_TYPE:
+            return {
+                ...state,
+                thumbnail_image_type: action.thumbnail_image_type
             };
 
         default:

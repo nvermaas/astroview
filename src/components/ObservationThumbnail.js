@@ -22,10 +22,24 @@ export default function ObservationThumbnail(props) {
     }
 
     let title = props.observation.name
-    // let thumbnail = props.observation.derived_raw_image
-    let thumbnail = props.observation.derived_sky_plot_image
-    let thumbnail_annotated = props.observation.derived_annotated_image
 
+    let thumbnail
+    switch (my_state.thumbnail_image_type) {
+        case "sky_plot":
+            thumbnail = props.observation.derived_sky_plot_image
+            break;
+        case "raw":
+            thumbnail = props.observation.derived_raw_image
+            break;
+        case "annotated":
+            thumbnail = props.observation.derived_annotated_image
+            break;
+        case "sky_globe":
+            thumbnail = props.observation.derived_sky_globe_image
+            break;
+        default:
+            thumbnail = props.observation.derived_skyplot_image
+    }
 
     return (
 
@@ -35,7 +49,7 @@ export default function ObservationThumbnail(props) {
             <Card.ImgOverlay>
                 <h2>{title}</h2>
                 <Link to={() => getLink(props.observation)}>
-                    <Button variant="success" onClick={() => handleClick(props.observation)}>Details</Button>&nbsp;
+                    <Button variant="outline-warning" onClick={() => handleClick(props.observation)}>Details</Button>&nbsp;
                 </Link>
 
             </Card.ImgOverlay>
