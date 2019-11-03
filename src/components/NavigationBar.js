@@ -15,7 +15,7 @@ function getLink(taskid) {
 
 // conditionally render the details link
 function DetailsLink(props) {
-    if (props.taskid==undefined) {
+    if (props.taskid===undefined) {
         return <Nav.Link  disabled >Details</Nav.Link>
     } else {
         return <Nav.Link as={NavLink} to={getLink(props.taskid)}>Details</Nav.Link>

@@ -9,7 +9,7 @@ export default function Description(props) {
     const [open, setOpen] = useState(false);
 
     // only show the info button when there is a description
-    if (props.observation.description=='') {
+    if (props.observation.description==='') {
         return null
     }
 

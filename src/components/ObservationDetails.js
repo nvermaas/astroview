@@ -1,4 +1,4 @@
-import React, { useReducer, useContext }  from 'react';
+import React from 'react';
 import { Container, Row, Col, Card, Table } from 'react-bootstrap';
 
 import { useGlobalReducer } from '../Store';
@@ -7,7 +7,7 @@ import { getUrlAladin, getUrlESASky, getUrlSDSS, getUrlCDSPortal} from '../utils
 
 import DetailsThumbnail from './DetailsThumbnail'
 import ImageCard from './ImageCard'
-import Description from './Description'
+
 import { url } from './Main'
 
 export default function ObservationDetails(props) {
@@ -18,11 +18,11 @@ export default function ObservationDetails(props) {
 
     function findElement(arr, propName, propValue) {
         for (var i=0; i < arr.length; i++)
-            if (arr[i][propName] == propValue)
+            if (arr[i][propName] === propValue)
                 return arr[i];
     }
 
-    if (my_state.status == 'unfetched') {
+    if (my_state.status === 'unfetched') {
         return null
     }
 
@@ -31,12 +31,11 @@ export default function ObservationDetails(props) {
     let astrometryLink = "http://nova.astrometry.net/status/"+observation.job
 
     let fov = parseFloat(observation.field_fov) * 3
-    if (fov == 0) {
+    if (fov === 0) {
         fov = 60
     }
 
     // links to various datacenters
-    let url_aladin = getUrlAladin(observation.field_ra,observation.field_dec,observation.field_fov,"DSS Colored")
     let sdss_image = getUrlSDSS(observation.field_ra.RA, observation.field_dec, observation.field_fov, 300, 300, 'S')
     let url_esa_sky = getUrlESASky(observation.field_ra,observation.field_dec,"J2000",fov,"DSS2 color")
     let url_cds = getUrlCDSPortal(observation.field_ra,observation.field_dec)
@@ -52,7 +51,7 @@ export default function ObservationDetails(props) {
     return (
 
         <div>
-            <tr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<td><h2>{observation.name} {my_status} <Description observation={observation}/></h2> </td></tr>
+            <tr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<td><h2>{observation.name} {my_status} </h2> </td></tr>
             <Container fluid>
 
                 <Row>
@@ -87,19 +86,19 @@ export default function ObservationDetails(props) {
                                 <tr>
                                     <td className="key">Data Centers</td>
                                     <td className="value">
-                                        <a href={url_esa_sky} target="_blank">ESA</a>&nbsp;
-                                        <a href={url_cds} target="_blank">CDS</a>&nbsp;
+                                        <a href={url_esa_sky} target="_blank" rel="noopener noreferrer">ESA</a>&nbsp;
+                                        <a href={url_cds} target="_blank" rel="noopener noreferrer">CDS</a>&nbsp;
 
                                     </td>
                                 </tr>
                                 <tr>
                                     <td className="key">Astrometry Job</td>
-                                    <td className="value"><a href={astrometryLink} target="_blank">{observation.job}</a>&nbsp;</td>
+                                    <td className="value"><a href={astrometryLink} target="_blank" rel="noopener noreferrer">{observation.job}</a>&nbsp;</td>
 
                                 </tr>
                                 <tr>
-                                    <td className="key">AstroBase</td>
-                                    <td className="value"><a href={api} target="_blank">API</a>
+                                    <td className="key"><a href="http://uilennest.net:81/astrobase/">AstroBase</a></td>
+                                    <td className="value"><a href={api} target="_blank" rel="noopener noreferrer">API</a>
                                     </td>
                                 </tr>
 

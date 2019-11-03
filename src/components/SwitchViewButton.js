@@ -29,7 +29,7 @@ export default function SwitchViewButton(props) {
     }
 
     let location = useLocation()
-    if (location.pathname == '/observations') {
+    if (location.pathname === '/observations') {
         return <Button variant="outline-info" onClick={() => handleClick(props.observation)}>Switch View</Button>
     } else {
         return null

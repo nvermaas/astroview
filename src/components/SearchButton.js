@@ -4,7 +4,7 @@ import { useGlobalReducer } from '../Store';
 import { useLocation } from "react-router-dom"
 import filterObservations from '../utils/filterObservations'
 
-import { SET_FILTERED_OBSERVATIONS, SET_FETCHED_OBSERVATIONS, SET_STATUS } from '../reducers/GlobalStateReducer'
+import { SET_FILTERED_OBSERVATIONS, SET_STATUS } from '../reducers/GlobalStateReducer'
 
 // typing in the search box will execute a filter and dispatch it. The observation screen responds instantly.
 export default function SearchButton(props) {
@@ -34,7 +34,7 @@ export default function SearchButton(props) {
 
     // only show this button on the observations screen
     let location = useLocation()
-    if (location.pathname == '/observations') {
+    if (location.pathname === '/observations') {
         return <Form inline>
             <FormControl type="text" placeholder="Search" className="mr-sm-2" onChange={handleChange} />
             <Button variant="outline-info" onClick={handleClick}>Reset Filter</Button>

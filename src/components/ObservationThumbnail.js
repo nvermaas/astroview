@@ -3,7 +3,7 @@ import {Card, Button } from 'react-bootstrap'
 import { Link } from "react-router-dom"
 
 import { useGlobalReducer } from '../Store';
-import { SET_ACTIVE_TASKID, SET_ACTIVE_OBSERVATION } from '../reducers/GlobalStateReducer'
+import { SET_ACTIVE_TASKID } from '../reducers/GlobalStateReducer'
 
 import Description from './Description'
 
