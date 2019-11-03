@@ -7,13 +7,13 @@ export function Home() {
     return (
         <div className="App">
             <header className="App-header">
-                <h1>
-                    Explore Your Sky!
-                </h1>
-
+                <h2>
+                    Explore Your Sky with AstroView
+                </h2>
+                <h4>yet another automated imaging pipeline.</h4>
                 <img src={stars} className="App-logo" alt="logo" />
 
-                Images automatically annotated by astrometry.net with
+                <h5>Images automatically annotated with astrometry.net by</h5>
                 <a
                     className="App-link"
                     href="http://uilennest.net:81/astrobase/"

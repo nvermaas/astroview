@@ -3,10 +3,7 @@ import React from 'react';
 
 import LoadingSpinner from './LoadingSpinner';
 import ObservationTiles from './ObservationTiles'
-
 import { useGlobalReducer } from '../Store';
-
-
 
 export default function Observations(props) {
 

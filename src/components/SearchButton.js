@@ -6,10 +6,7 @@ import filterObservations from '../utils/filterObservations'
 
 import { SET_FILTERED_OBSERVATIONS, SET_FETCHED_OBSERVATIONS, SET_STATUS } from '../reducers/GlobalStateReducer'
 
-// this search component uses 2 mechanisms to do the same thing.
-// typing in the searchbox and hitting 'enter' will trigger a search
-// clicking on the 'search button' will also trigger a seach
-
+// typing in the search box will execute a filter and dispatch it. The observation screen responds instantly.
 export default function SearchButton(props) {
     const [ my_state , my_dispatch] = useGlobalReducer()
 
@@ -28,13 +25,6 @@ export default function SearchButton(props) {
 
     const handleClick = (event) => {
         my_dispatch({type: SET_STATUS, status: "fetched"})
-        //doTheFilter()
-    }
-
-    const handleKeyPress = (event) => {
-        if(event.charCode==13){
-            doTheFilter()
-        }
     }
 
     const handleChange = (event) => {

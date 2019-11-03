@@ -1,6 +1,9 @@
 import React from 'react';
-import {Card, Button, Row } from 'react-bootstrap'
+import {Card, Button } from 'react-bootstrap'
 import { Link } from "react-router-dom"
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faImage, faArrowsAlt } from '@fortawesome/free-solid-svg-icons'
 
 import { useGlobalReducer } from '../Store';
 import { SET_IMAGE_TYPE } from '../reducers/GlobalStateReducer'
@@ -8,7 +11,8 @@ import { SET_IMAGE_TYPE } from '../reducers/GlobalStateReducer'
 import { getUrlAladin, getUrlSDSS} from '../utils/skyserver'
 import { url } from './Main'
 
-
+import Description from './Description'
+import InfoLink from './InfoLink'
 
 // display the main image depending on the dispatched imageType
 function getThumbnail(observation, imageType) {
@@ -51,23 +55,60 @@ export default function ImageCard(props) {
     let sdss_button=<Button variant="warning" onClick={() => handleClick(props.observation,'SDSS')}>SDSS</Button>
     let api = url + '/' + props.observation.id.toString()
 
+    // conditionally render the buttons if the underlying dataproduct exists
+
+    let buttonRaw=''
+    if (props.observation.derived_raw_image!=undefined) {
+        buttonRaw = <Button variant="primary" onClick={() => handleClick(props.observation, "raw")}>
+                        <FontAwesomeIcon icon={faImage} />&nbsp;Original
+                    </Button>
+    }
+
+    let buttonAnnotated=''
+    if (props.observation.derived_annotated_image!=undefined) {
+        buttonAnnotated = <Button variant="success"
+                                  onClick={() => handleClick(props.observation, "annotated")}>Annotated
+            </Button>
+    }
+
+    let buttonRedGreen=''
+    if (props.observation.derived_red_green_image!=undefined) {
+        buttonRedGreen = <Button variant="success"
+                                  onClick={() => handleClick(props.observation, "redgreen")}>Red/Green
+        </Button>
+    }
+
+    let buttonFITS=''
+    if (props.observation.derived_fits!=undefined) {
+        buttonFITS=<a href = {props.observation.derived_fits} target="_blank">
+                <Button variant="info">FITS</Button>
+            </a>
+    }
+
+    let buttonFullScreen=
+        <a href = {getThumbnail(props.observation,my_state.image_type)} target="_blank">
+            <Button variant="warning">
+                <FontAwesomeIcon icon={faArrowsAlt} />&nbsp;Full Screen
+            </Button>
+        </a>
+
     return (
 
         <Card className="card-dataproduct">
             <Card.Body>
+
                 <tr>
-                    <MainImage observation={props.observation} imageType={my_state.image_type}/>
+                    <Description observation={props.observation}/>&nbsp;
+                    <InfoLink observation={props.observation}/>&nbsp;
+                    {buttonRaw}&nbsp;
+                    {buttonAnnotated}&nbsp;
+                    {buttonRedGreen}&nbsp;
+                    {buttonFITS}&nbsp;
+                    {buttonFullScreen}&nbsp;
                 </tr>
                 &nbsp;
                 <tr>
-                    <Button variant="primary" onClick={() => handleClick(props.observation,'raw')}>RAW</Button>&nbsp;
-                    <Button variant="success" onClick={() => handleClick(props.observation,"annotated")}>Annotated</Button>&nbsp;
-                    <Button variant="success" onClick={() => handleClick(props.observation,'redgreen')}>Red/Green</Button>&nbsp;
-
-                    <a href = {getThumbnail(props.observation,my_state.image_type)} target="_blank">
-                        <Button variant="info">Full Screen</Button>&nbsp;
-                    </a>
-
+                    <MainImage observation={props.observation} imageType={my_state.image_type}/>
                 </tr>
             </Card.Body>
 

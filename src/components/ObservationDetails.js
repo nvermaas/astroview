@@ -4,8 +4,10 @@ import { Container, Row, Col, Card, Table } from 'react-bootstrap';
 import { useGlobalReducer } from '../Store';
 import { deg2HMS, deg2DMS} from '../utils/astro'
 import { getUrlAladin, getUrlESASky, getUrlSDSS, getUrlCDSPortal} from '../utils/skyserver'
+
 import DetailsThumbnail from './DetailsThumbnail'
 import ImageCard from './ImageCard'
+import Description from './Description'
 import { url } from './Main'
 
 export default function ObservationDetails(props) {
@@ -33,21 +35,28 @@ export default function ObservationDetails(props) {
         fov = 60
     }
 
+    // links to various datacenters
     let url_aladin = getUrlAladin(observation.field_ra,observation.field_dec,observation.field_fov,"DSS Colored")
     let sdss_image = getUrlSDSS(observation.field_ra.RA, observation.field_dec, observation.field_fov, 300, 300, 'S')
     let url_esa_sky = getUrlESASky(observation.field_ra,observation.field_dec,"J2000",fov,"DSS2 color")
     let url_cds = getUrlCDSPortal(observation.field_ra,observation.field_dec)
 
-
+    // link to AstroBase REST API
     let api = url + '/' + observation.id.toString()
+
+    let my_status = ''
+    if (observation.my_status!=='done') {
+        my_status = ' ('+observation.my_status+')'
+    }
+
     return (
 
         <div>
-            <tr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<td><h2>{observation.name} </h2></td></tr>
+            <tr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<td><h2>{observation.name} {my_status} <Description observation={observation}/></h2> </td></tr>
             <Container fluid>
 
                 <Row>
-                    <Col sm={3} md={3}>
+                    <Col sm={3} md={3} lg={3}>
 
                         <Card>
                             <DetailsThumbnail key={observation.taskID} observation = {observation} />
@@ -99,15 +108,12 @@ export default function ObservationDetails(props) {
 
                         </Card>
                     </Col>
-                    <Col sm={6} md={6}>
+                    <Col sm={9} md={9} lg={9}>
                         <Card>
                             <ImageCard key={observation.taskID} observation = {observation} />
                         </Card>
                     </Col>
-                    <Col sm={3} md={3}>
-                        <img src={observation.derived_sky_globe_image} width="200"/>
 
-                    </Col>
                 </Row>
 
             </Container>

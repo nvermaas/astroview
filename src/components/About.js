@@ -4,6 +4,8 @@ export function About() {
 
     return (
         <div>
+        <div>
+
             <p></p>
             <p>
                 AstroView is a ReactJS frontend on top of the AstroBase backend. AstroView is served by an Apache2 webserver and runs in the browser. It communicates with the AstroBase backend through a REST API.
@@ -31,8 +33,12 @@ export function About() {
                 > github
                 </a>
             </p>
-            <img alt='' src={architecture}  className="d-inline-block align-top"/>
-
         </div>
+            <div  className="App">
+            <header >
+            <img alt='' src={architecture}  className="d-inline-block align-top"/>
+            </header>
+        </div>
+            </div>
     );
 }

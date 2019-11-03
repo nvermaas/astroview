@@ -5,6 +5,8 @@ import { Link } from "react-router-dom"
 import { useGlobalReducer } from '../Store';
 import { SET_ACTIVE_TASKID, SET_ACTIVE_OBSERVATION } from '../reducers/GlobalStateReducer'
 
+import Description from './Description'
+
 // display a single observation on a card
 export default function ObservationThumbnail(props) {
     const [ my_state , my_dispatch] = useGlobalReducer()
@@ -41,13 +43,24 @@ export default function ObservationThumbnail(props) {
             thumbnail = props.observation.derived_skyplot_image
     }
 
+
+    let my_status = ''
+    if (props.observation.my_status!=='done') {
+        my_status = ' ('+props.observation.my_status+')'
+    }
+
+
+
+
     return (
 
         <Card className="card-img-top">
             <Card.Img variant top src={thumbnail} />
 
             <Card.ImgOverlay>
+                <Description observation={props.observation}/>
                 <h2>{title}</h2>
+                <h3>{my_status}</h3>
                 <Link to={() => getLink(props.observation)}>
                     <Button variant="outline-warning" onClick={() => handleClick(props.observation)}>Details</Button>&nbsp;
                 </Link>

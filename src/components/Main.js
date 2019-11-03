@@ -8,6 +8,7 @@ import { NavigationBar } from './NavigationBar';
 import { Home } from './Home';
 import Observations from './ObservationsPage';
 import ObservationDetails from './ObservationDetails';
+import Survey from './Survey';
 import { About } from './About';
 
 import {
@@ -21,9 +22,8 @@ import {
 // the data is fetched at the start of the application for performance reasons,
 // but also to have direct links to the details page working, like http://localhost:3000/details/090311003
 
-//const url = "http://localhost:8000/astrobase/observations"
+// export const url = "http://localhost:8000/astrobase/observations"
 export const url = "http://uilennest.net:81/astrobase/observations"
-//const url = "http://192.168.178.62:8018/astrobase/observations"
 
 
 // This site has multiple pages, all of which are rendered
@@ -82,7 +82,7 @@ function Main () {
     }
 
     return (
-        <Router basename="/astroview">
+        <Router basename="astroview">
             <div>
                 <NavigationBar/>
 
@@ -98,8 +98,13 @@ function Main () {
                     <Route exact path="/">
                         <Home />
                     </Route>
+
                     <Route path="/observations">
                         <Observations />
+                    </Route>
+
+                    <Route path="/survey">
+                        <Survey />
                     </Route>
 
                     <Route path="/about">
@@ -109,7 +114,7 @@ function Main () {
                     <Route path="/details/:id" children={<ObservationDetailsForward />} />
                 </Switch>
             </div>
-            <footer><small> (C) 2019 - Nico Vermaas - version 1.0.0 - 2 nov 2019</small></footer>
+            <footer><small> (C) 2019 - Nico Vermaas - version 1.0.0 - 3 nov 2019</small></footer>
         </Router>
     );
 }

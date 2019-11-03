@@ -34,6 +34,8 @@ export function NavigationBar() {
             <Nav className="mr-auto">
                 <Nav.Link as={NavLink} to="/observations">My Observations</Nav.Link>
                 <DetailsLink taskid={my_state.taskid} />
+                <Nav.Link as={NavLink} to="/survey">Survey</Nav.Link>
+
                 <Nav.Link as={NavLink} to="/about">About</Nav.Link>
             </Nav>
             <SwitchViewButton/>
