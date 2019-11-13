@@ -38,27 +38,29 @@ export default function ObservationsGrid(props) {
             sortable: true,
         },
         {
-            name: 'name',
+            name: 'Name',
             selector: 'name',
+            sortable: true,
+        },
+        {
+            name: 'Mode',
+            selector: 'observing_mode',
             sortable: true,
         },
         {
             name: 'Field',
             selector: 'field_name',
             sortable: true,
-            right: true,
         },
         {
             name: 'Status',
             selector: 'my_status',
             sortable: true,
-            right: true,
-        },
+          },
         {
             name: 'Quality',
             selector: 'quality',
             sortable: true,
-            right: true,
         },
 
         {
@@ -147,6 +149,17 @@ export default function ObservationsGrid(props) {
 
         },
         {
+            when: row => row.quality == 'medium',
+            style: {
+                backgroundColor: 'lightgrey',
+                color: 'black',
+                '&:hover': {
+                    cursor: 'pointer',
+                },
+            },
+
+        },
+        {
             when: row => row.quality == 'bad',
             style: {
                 backgroundColor: '#ffddd3',
@@ -162,6 +175,7 @@ export default function ObservationsGrid(props) {
 
     // this creates an 'expand' icon in front of every row and shows additional information (images)
     const ExpandableComponent = ({ data }) => <div>
+        <p>{data.description}</p>
         <img src={data.derived_sky_plot_image} height={200} />;
         &nbsp;
         <a href = {data.derived_raw_image} target="_blank" rel="noopener noreferrer"><img src={data.derived_raw_image} height={200} /></a>
@@ -178,6 +192,7 @@ export default function ObservationsGrid(props) {
                 conditionalRowStyles={conditionalRowStyles}
                 pagination
                 //customTheme={myTheme}
+
                 expandableRows
                 expandableRowsComponent={<ExpandableComponent />}
             />

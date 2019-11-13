@@ -51,7 +51,7 @@ export default function ObservationDetails(props) {
     return (
 
         <div>
-            <tr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<td><h2>{observation.name} {my_status} </h2> </td></tr>
+            <tr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<td><h2>{observation.name} </h2> </td></tr>
             <Container fluid>
 
                 <Row>
@@ -78,6 +78,10 @@ export default function ObservationDetails(props) {
                                 <tr>
                                     <td className="key">Date</td>
                                     <td className="value">{observation.date}</td>
+                                </tr>
+                                <tr>
+                                    <td className="key">Mode</td>
+                                    <td className="value">{observation.observing_mode}</td>
                                 </tr>
                                 <tr>
                                     <td className="key">Quality</td>

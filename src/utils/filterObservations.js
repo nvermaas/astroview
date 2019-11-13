@@ -11,6 +11,9 @@ export default function filterObservations(searchText, fetched_observations, max
         if (observation.field_name.toUpperCase().includes(searchText)) {
             return true;
         }
+        if (observation.my_status.toUpperCase().includes(searchText)) {
+            return true;
+        }
         if (observation.date.toString().includes(searchText)) {
             return true;
         }
