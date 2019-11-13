@@ -6,6 +6,7 @@ import { useGlobalReducer } from '../Store';
 import { NavLink } from "react-router-dom"
 
 import SwitchViewButton from './SwitchViewButton'
+import SwitchThumbnailButton from './SwitchThumbnailButton'
 import SearchButton from './SearchButton'
 
 function getLink(taskid) {
@@ -38,6 +39,8 @@ export function NavigationBar() {
 
                 <Nav.Link as={NavLink} to="/about">About</Nav.Link>
             </Nav>
+            <SwitchThumbnailButton/>
+            &nbsp;
             <SwitchViewButton/>
             &nbsp;
             <SearchButton/>

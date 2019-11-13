@@ -7,8 +7,10 @@ export const SET_ACTIVE_TASKID = 'SET_ACTIVE_TASKID'
 export const SET_ACTIVE_OBSERVATION = 'SET_ACTIVE_OBSERVATION'
 export const SET_FETCHED_OBSERVATIONS = 'SET_FETCHED_OBSERVATIONS'
 export const SET_FILTERED_OBSERVATIONS = 'SET_FILTERED_OBSERVATIONS'
+export const SET_FILTER_TYPE = 'SET_FILTER_TYPE'
 export const SET_IMAGE_TYPE = 'SET_IMAGE_TYPE'
 export const SET_THUMBNAIL_IMAGE_TYPE = 'SET_THUMBNAIL_IMAGE_TYPE'
+export const SET_VIEW = 'SET_VIEW'
 
 export const initialState = {
         status: "unfetched",
@@ -16,8 +18,10 @@ export const initialState = {
         observation: undefined,
         fetched_observations: undefined,
         filtered_observations: undefined,
+        filter_type: "show_fetched",
         image_type: "raw",
-        thumbnail_image_type: "sky_plot"
+        thumbnail_image_type: "sky_plot",
+        view: "list"
 }
 
 export const reducer = (state, action) => {
@@ -60,6 +64,12 @@ export const reducer = (state, action) => {
                 filtered_observations: action.filtered_observations
             };
 
+        case SET_FILTER_TYPE:
+            return {
+                ...state,
+                filter_type: action.filter_type
+            };
+
         case SET_IMAGE_TYPE:
             return {
                 ...state,
@@ -70,6 +80,12 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 thumbnail_image_type: action.thumbnail_image_type
+            };
+
+        case SET_VIEW:
+            return {
+                ...state,
+                view: action.view
             };
 
         default:

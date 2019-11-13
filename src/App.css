@@ -39,6 +39,12 @@
   background-color: darkgrey;
 }
 
+.card-img-observation {
+  width: 45vh;
+  height: 15vw;
+  background-color: darkgrey;
+}
+
 .card-dataproduct {
   display: flex;
   object-fit: cover;

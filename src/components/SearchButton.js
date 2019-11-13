@@ -4,7 +4,7 @@ import { useGlobalReducer } from '../Store';
 import { useLocation } from "react-router-dom"
 import filterObservations from '../utils/filterObservations'
 
-import { SET_FILTERED_OBSERVATIONS, SET_STATUS } from '../reducers/GlobalStateReducer'
+import { SET_FILTERED_OBSERVATIONS, SET_FILTER_TYPE } from '../reducers/GlobalStateReducer'
 
 // typing in the search box will execute a filter and dispatch it. The observation screen responds instantly.
 export default function SearchButton(props) {
@@ -20,11 +20,11 @@ export default function SearchButton(props) {
         my_dispatch({type: SET_FILTERED_OBSERVATIONS, filtered_observations: filtered_observations})
 
         // ..and let the application know about it by setting the global state to 'filtered'
-        my_dispatch({type: SET_STATUS, status: "filtered"})
+        my_dispatch({type: SET_FILTER_TYPE, filter_type: "show_filtered"})
     }
 
-    const handleClick = (event) => {
-        my_dispatch({type: SET_STATUS, status: "fetched"})
+    const handleResetClick = (event) => {
+        my_dispatch({type: SET_FILTER_TYPE, filter_type: "show_fetched"})
     }
 
     const handleChange = (event) => {
@@ -37,7 +37,7 @@ export default function SearchButton(props) {
     if (location.pathname === '/observations') {
         return <Form inline>
             <FormControl type="text" placeholder="Search" className="mr-sm-2" onChange={handleChange} />
-            <Button variant="outline-info" onClick={handleClick}>Reset Filter</Button>
+            <Button variant="outline-info" onClick={handleResetClick}>Reset Filter</Button>
         </Form>
     } else {
         return null

@@ -4,28 +4,25 @@ import { useLocation } from "react-router-dom"
 import { useGlobalReducer } from '../Store';
 
 
-import { SET_THUMBNAIL_IMAGE_TYPE } from '../reducers/GlobalStateReducer'
+import { SET_VIEW } from '../reducers/GlobalStateReducer'
 
 // conditionally render the switch view button
 export default function SwitchViewButton(props) {
     const [ my_state , my_dispatch] = useGlobalReducer()
 
-    let imageType
+    let view
     const handleClick = (observation) => {
-        switch (my_state.thumbnail_image_type) {
-            case "sky_plot":
-                imageType = "raw"
+        switch (my_state.view) {
+            case "list":
+                view = "tiles"
                 break;
-            case "raw":
-                imageType = "sky_globe"
-                break;
-            case "sky_globe":
-                imageType = "sky_plot"
+            case "tiles":
+                view = "list"
                 break;
             default:
-                imageType = "sky_plot"
+                view = "list"
         }
-        my_dispatch({type: SET_THUMBNAIL_IMAGE_TYPE, thumbnail_image_type: imageType})
+        my_dispatch({type: SET_VIEW, view: view})
     }
 
     let location = useLocation()

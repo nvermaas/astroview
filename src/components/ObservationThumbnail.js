@@ -19,7 +19,7 @@ export default function ObservationThumbnail(props) {
 
     // generate the details link to forward to
     const getLink = (observation) => {
-        let details_link = "/details/"+props.observation.taskID
+        let details_link = "/details/"+observation.taskID
         return details_link
     }
 
@@ -54,7 +54,7 @@ export default function ObservationThumbnail(props) {
 
     return (
 
-        <Card className="card-img-top">
+        <Card className="card-img-observation">
             <Card.Img variant top src={thumbnail} />
 
             <Card.ImgOverlay>
