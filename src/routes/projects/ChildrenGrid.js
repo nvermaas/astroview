@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from "react-router-dom"
 import { Button } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
-import { useGlobalReducer } from '../Store';
-import { SET_ACTIVE_TASKID } from '../reducers/GlobalStateReducer'
-import { url } from './Main'
+import { useGlobalReducer } from '../../Store';
+import { SET_ACTIVE_TASKID } from '../../reducers/GlobalStateReducer'
+import { url } from '../../components/Main'
 
-export default function ObservationsGrid(props) {
+export default function ChildrenGrid(props) {
     const [ my_state , my_dispatch] = useGlobalReducer()
 
     const handleClick = (observation) => {
@@ -33,7 +33,7 @@ export default function ObservationsGrid(props) {
             sortable: true,
         },
         {
-            name: 'Date',
+            name: 'Processing Date',
             selector: 'date',
             sortable: true,
         },
@@ -169,8 +169,16 @@ export default function ObservationsGrid(props) {
                 },
             },
         },
-
-
+        {
+            when: row => row.quality == 'simulated',
+            style: {
+                backgroundColor: 'lightblue',
+                color: 'black',
+                '&:hover': {
+                    cursor: 'pointer',
+                },
+            },
+        },
     ];
 
     // this creates an 'expand' icon in front of every row and shows additional information (images)
@@ -190,7 +198,6 @@ export default function ObservationsGrid(props) {
                 columns={columns}
                 data={props.data}
                 conditionalRowStyles={conditionalRowStyles}
-                pagination
                 //customTheme={myTheme}
 
                 expandableRows

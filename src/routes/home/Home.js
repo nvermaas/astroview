@@ -1,5 +1,5 @@
 import React from 'react';
-import stars from '../assets/astrobase.gif';
+import stars from '../../assets/astrobase.gif';
 
 // the Home page
 export function Home() {

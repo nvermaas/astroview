@@ -5,11 +5,13 @@ import { SET_FETCHED_OBSERVATIONS, SET_STATUS} from '../reducers/GlobalStateRedu
 import { useGlobalReducer } from '../Store';
 
 import { NavigationBar } from './NavigationBar';
-import { Home } from './Home';
-import Observations from './ObservationsPage';
-import ObservationDetails from './ObservationDetails';
-import Survey from './Survey';
-import { About } from './About';
+import { Home } from '../routes/home/Home';
+import Observations from '../routes/observations/ObservationsPage';
+import Projects from '../routes/projects/ProjectsPage';
+import ObservationDetails from '../routes/details/ObservationDetails';
+import Survey from '../routes/survey/Survey';
+import { About } from '../routes/about/About';
+
 
 import {
     BrowserRouter as Router,
@@ -65,6 +67,7 @@ function Main () {
     const fetchObservations = (url) => {
         if (my_state.status !== 'fetching')  {
             console.log('fetchObservations: ' + (url))
+            my_dispatch({type: SET_STATUS, status: 'fetching'})
 
             fetch(url)
                 .then(results => {
@@ -99,6 +102,10 @@ function Main () {
                         <Home />
                     </Route>
 
+                    <Route path="/projects">
+                        <Projects />
+                    </Route>
+
                     <Route path="/observations">
                         <Observations />
                     </Route>
@@ -114,7 +121,7 @@ function Main () {
                     <Route path="/details/:id" children={<ObservationDetailsForward />} />
                 </Switch>
             </div>
-            <footer><small> (C) 2019 - Nico Vermaas - version 1.1.0 - 13 nov 2019</small></footer>
+            <footer><small> (C) 2019 - Nico Vermaas - version 1.3.0 - 23 nov 2019</small></footer>
         </Router>
     );
 }

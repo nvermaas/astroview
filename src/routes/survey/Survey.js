@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-import { useGlobalReducer } from '../Store';
+import { useGlobalReducer } from '../../Store';
 
 // display the main image
 function MOC(props) {

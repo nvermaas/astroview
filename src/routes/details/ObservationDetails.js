@@ -1,14 +1,14 @@
 import React from 'react';
 import { Container, Row, Col, Card, Table } from 'react-bootstrap';
 
-import { useGlobalReducer } from '../Store';
-import { deg2HMS, deg2DMS} from '../utils/astro'
-import { getUrlAladin, getUrlESASky, getUrlSDSS, getUrlCDSPortal} from '../utils/skyserver'
+import { useGlobalReducer } from '../../Store';
+import { deg2HMS, deg2DMS} from '../../utils/astro'
+import { getUrlAladin, getUrlESASky, getUrlSDSS, getUrlCDSPortal} from '../../utils/skyserver'
 
 import DetailsThumbnail from './DetailsThumbnail'
-import ImageCard from './ImageCard'
+import ImageCard from '../../components/cards/ImageCard'
 
-import { url } from './Main'
+import { url } from '../../components/Main'
 
 export default function ObservationDetails(props) {
 

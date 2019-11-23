@@ -1,12 +1,17 @@
 // Nico Vermaas - 28 oct 2019
 // This is the reducer for the global state providor.
 
+import { getProjects } from '../utils/filterObservations'
+
 // possible actions
 export const SET_STATUS = 'SET_STATUS'
 export const SET_ACTIVE_TASKID = 'SET_ACTIVE_TASKID'
 export const SET_ACTIVE_OBSERVATION = 'SET_ACTIVE_OBSERVATION'
 export const SET_FETCHED_OBSERVATIONS = 'SET_FETCHED_OBSERVATIONS'
 export const SET_FILTERED_OBSERVATIONS = 'SET_FILTERED_OBSERVATIONS'
+export const SET_FETCHED_PROJECTS = 'SET_FETCHED_PROJECTS'
+export const SET_FILTERED_PROJECTS = 'SET_FILTERED_PROJECTS'
+
 export const SET_FILTER_TYPE = 'SET_FILTER_TYPE'
 export const SET_IMAGE_TYPE = 'SET_IMAGE_TYPE'
 export const SET_THUMBNAIL_IMAGE_TYPE = 'SET_THUMBNAIL_IMAGE_TYPE'
@@ -51,17 +56,33 @@ export const reducer = (state, action) => {
 
         case SET_FETCHED_OBSERVATIONS:
             //alert('reducer: SET_FETCHED_OBSERVATIONS '+action.fetched_observations)
+                let fetched_projects = getProjects(action.fetched_observations,100)
+
             return {
                 ...state,
-                fetched_observations: action.fetched_observations
+                fetched_observations: action.fetched_observations,
+                fetched_projects: fetched_projects
             };
 
+        case SET_FETCHED_PROJECTS:
+            //alert('reducer: SET_FETCHED_PROJECTS '+action.fetched_observations)
+            return {
+                ...state,
+                fetched_projects: action.fetched_projects
+            };
 
         case SET_FILTERED_OBSERVATIONS:
             //alert('reducer: SET_FILTERED_OBSERVATIONS '+action.filtered_observations)
             return {
                 ...state,
                 filtered_observations: action.filtered_observations
+            };
+
+        case SET_FILTERED_PROJECTS:
+            //alert('reducer: SET_FILTERED_PROJECTS '+action.filtered_observations)
+            return {
+                ...state,
+                filtered_projects: action.filtered_projects
             };
 
         case SET_FILTER_TYPE:

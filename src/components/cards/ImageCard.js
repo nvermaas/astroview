@@ -4,13 +4,13 @@ import {Card, Button } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faImage, faArrowsAlt, faProjectDiagram } from '@fortawesome/free-solid-svg-icons'
 
-import { useGlobalReducer } from '../Store';
-import { SET_IMAGE_TYPE } from '../reducers/GlobalStateReducer'
+import { useGlobalReducer } from '../../Store';
+import { SET_IMAGE_TYPE } from '../../reducers/GlobalStateReducer'
 
-import { getUrlSDSS} from '../utils/skyserver'
+import { getUrlSDSS} from '../../utils/skyserver'
 
-import Description from './Description'
-import InfoLink from './InfoLink'
+import Description from '../buttons/DescriptionButton'
+import InfoLink from '../buttons/InfoLink'
 
 // display the main image depending on the dispatched imageType
 function getThumbnail(observation, imageType) {

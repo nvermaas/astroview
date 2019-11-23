@@ -5,9 +5,9 @@ import logo from '../logo.ico';
 import { useGlobalReducer } from '../Store';
 import { NavLink } from "react-router-dom"
 
-import SwitchViewButton from './SwitchViewButton'
-import SwitchThumbnailButton from './SwitchThumbnailButton'
-import SearchButton from './SearchButton'
+import SwitchViewButton from './buttons/SwitchViewButton'
+import SwitchThumbnailButton from './buttons/SwitchThumbnailButton'
+import SearchButton from './buttons/SearchButton'
 
 function getLink(taskid) {
     let details_link = "/details/" + taskid
@@ -31,9 +31,10 @@ export function NavigationBar() {
 
             <img alt='' src={logo} width="30" height="30" className="d-inline-block align-top"/>
 
-            <Navbar.Brand href="/astroview">&nbsp;AstroView</Navbar.Brand>
+            <Navbar.Brand href="/astroview">&nbsp;AstroView ({my_state.status})</Navbar.Brand>
             <Nav className="mr-auto">
-                <Nav.Link as={NavLink} to="/observations">My Observations</Nav.Link>
+                <Nav.Link as={NavLink} to="/projects">Projects</Nav.Link>
+                <Nav.Link as={NavLink} to="/observations">All Observations</Nav.Link>
                 <DetailsLink taskid={my_state.taskid} />
                 <Nav.Link as={NavLink} to="/survey">Survey</Nav.Link>
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import architecture from '../assets/architecture.png';
+import architecture from '../../assets/architecture.png';
 export function About() {
 
     return (

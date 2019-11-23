@@ -1,10 +1,10 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { useLocation } from "react-router-dom"
-import { useGlobalReducer } from '../Store';
+import { useGlobalReducer } from '../../Store';
 
 
-import { SET_THUMBNAIL_IMAGE_TYPE } from '../reducers/GlobalStateReducer'
+import { SET_THUMBNAIL_IMAGE_TYPE } from '../../reducers/GlobalStateReducer'
 
 // conditionally render the switch view button
 export default function SwitchThumbnailButton(props) {

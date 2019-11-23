@@ -2,10 +2,10 @@ import React from 'react';
 import {Card, Button } from 'react-bootstrap'
 import { Link } from "react-router-dom"
 
-import { useGlobalReducer } from '../Store';
-import { SET_ACTIVE_TASKID } from '../reducers/GlobalStateReducer'
+import { useGlobalReducer } from '../../Store';
+import { SET_ACTIVE_TASKID } from '../../reducers/GlobalStateReducer'
 
-import Description from './Description'
+import Description from '../../components/buttons/DescriptionButton'
 
 // display a single observation on a card
 export default function ObservationThumbnail(props) {
