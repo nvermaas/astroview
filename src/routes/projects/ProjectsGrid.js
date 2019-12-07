@@ -56,11 +56,6 @@ export default function ProjectsGrid(props) {
             sortable: true,
         },
         {
-            name: 'Status',
-            selector: 'my_status',
-            sortable: true,
-          },
-        {
             name: 'Quality',
             selector: 'quality',
             sortable: true,
@@ -182,16 +177,7 @@ export default function ProjectsGrid(props) {
                 },
             },
         },
-        {
-            when: row => row.my_status == 'master',
-            style: {
-                backgroundColor: 'grey',
-                color: 'white',
-                '&:hover': {
-                    cursor: 'pointer',
-                },
-            },
-        },
+
     ];
 
     // this creates an 'expand' icon in front of every row and shows additional information (images)
@@ -200,6 +186,7 @@ export default function ProjectsGrid(props) {
             let children = getChildren(my_state.fetched_observations,data.id)
 
         return <div>
+            <h2>Imaging for {data.name} </h2>
             <p>{data.description}</p>
 
             <img src={data.derived_sky_plot_image} height={200}/>;
@@ -210,8 +197,10 @@ export default function ProjectsGrid(props) {
             <a href={data.derived_annotated_image} target="_blank" rel="noopener noreferrer"><img
                 src={data.derived_annotated_image} height={200}/></a>
 
-            <ChildrenGrid data={children}/>
+            <hr />
 
+            <ChildrenGrid data={children}/>
+            <hr />
         </div>;
     }
     return (

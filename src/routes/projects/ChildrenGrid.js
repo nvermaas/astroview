@@ -192,6 +192,14 @@ export default function ChildrenGrid(props) {
 
     </div>;
 
+    // default expand all children tabs to show all the images of a project when it is opened
+    let i = 0
+    while (i < props.data.length) {
+        props.data[i].defaultExpanded = true;
+        i++;
+    }
+
+
     return (
         <div>
             <DataTable
@@ -199,8 +207,9 @@ export default function ChildrenGrid(props) {
                 data={props.data}
                 conditionalRowStyles={conditionalRowStyles}
                 //customTheme={myTheme}
-
+                dense
                 expandableRows
+                defaultExpandedField="defaultExpanded"
                 expandableRowsComponent={<ExpandableComponent />}
             />
         </div>

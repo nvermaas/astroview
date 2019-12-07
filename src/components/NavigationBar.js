@@ -3,7 +3,7 @@ import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import logo from '../logo.ico';
 import { useGlobalReducer } from '../Store';
-import { NavLink } from "react-router-dom"
+import { NavLink, Link } from "react-router-dom"
 
 import SwitchViewButton from './buttons/SwitchViewButton'
 import SwitchThumbnailButton from './buttons/SwitchThumbnailButton'
@@ -29,14 +29,15 @@ export function NavigationBar() {
     return (
         <Navbar bg="dark" variant="dark">
 
-            <img alt='' src={logo} width="30" height="30" className="d-inline-block align-top"/>
-
-            <Navbar.Brand href="/astroview">&nbsp;AstroView ({my_state.status})</Navbar.Brand>
+            <a href="http://uilennest.net:81/astrobase/">
+                <img alt='' src={logo} width="30" height="30" className="d-inline-block align-top"/>
+            </a>
+            <Navbar.Brand href="/astroview">&nbsp;AstroView </Navbar.Brand>
             <Nav className="mr-auto">
                 <Nav.Link as={NavLink} to="/projects">Projects</Nav.Link>
-                <Nav.Link as={NavLink} to="/observations">All Observations</Nav.Link>
+                <Nav.Link as={NavLink} to="/observations">Observations</Nav.Link>
                 <DetailsLink taskid={my_state.taskid} />
-                <Nav.Link as={NavLink} to="/survey">Survey</Nav.Link>
+                <Nav.Link target="_blank" href="http://uilennest.net:81/astrobase/">AstroBase</Nav.Link>
 
                 <Nav.Link as={NavLink} to="/about">About</Nav.Link>
             </Nav>

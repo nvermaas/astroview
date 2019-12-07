@@ -73,9 +73,11 @@ export const reducer = (state, action) => {
 
         case SET_FILTERED_OBSERVATIONS:
             //alert('reducer: SET_FILTERED_OBSERVATIONS '+action.filtered_observations)
+            let filtered_projects = getProjects(action.filtered_observations,100)
             return {
                 ...state,
-                filtered_observations: action.filtered_observations
+                filtered_observations: action.filtered_observations,
+                filtered_projects: filtered_projects
             };
 
         case SET_FILTERED_PROJECTS:

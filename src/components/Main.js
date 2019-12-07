@@ -5,7 +5,6 @@ import { SET_FETCHED_OBSERVATIONS, SET_STATUS} from '../reducers/GlobalStateRedu
 import { useGlobalReducer } from '../Store';
 
 import { NavigationBar } from './NavigationBar';
-import { Home } from '../routes/home/Home';
 import Observations from '../routes/observations/ObservationsPage';
 import Projects from '../routes/projects/ProjectsPage';
 import ObservationDetails from '../routes/details/ObservationDetails';
@@ -99,7 +98,7 @@ function Main () {
 
                 <Switch>
                     <Route exact path="/">
-                        <Home />
+                        <Projects />
                     </Route>
 
                     <Route path="/projects">
@@ -121,7 +120,7 @@ function Main () {
                     <Route path="/details/:id" children={<ObservationDetailsForward />} />
                 </Switch>
             </div>
-            <footer><small> (C) 2019 - Nico Vermaas - version 1.3.0 - 23 nov 2019</small></footer>
+            <footer><small> (C) 2019 - Nico Vermaas - version 1.4.0 - 7 dec 2019</small></footer>
         </Router>
     );
 }

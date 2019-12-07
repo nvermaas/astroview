@@ -4,6 +4,16 @@ export function filterObservations(searchText, fetched_observations, maxResults)
     //alert("filterObservations("+searchText+")")
 
     return fetched_observations.filter((observation) => {
+        if (observation.id.toString().includes(searchText)) {
+            return true;
+        }
+
+        if (observation.parent!==null) {
+            if (observation.parent.toString().includes(searchText)) {
+                return true;
+            }
+        }
+
         if (observation.name.toUpperCase().includes(searchText)) {
 
             return true;
