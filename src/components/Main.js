@@ -24,7 +24,7 @@ import {
 // but also to have direct links to the details page working, like http://localhost:3000/details/090311003
 
 // export const url = "http://localhost:8000/astrobase/observations"
-export const url = "http://uilennest.net:81/astrobase/observations"
+export const url = "http://uilennest.net:82/astrobase/observations"
 
 
 // This site has multiple pages, all of which are rendered
@@ -120,7 +120,7 @@ function Main () {
                     <Route path="/details/:id" children={<ObservationDetailsForward />} />
                 </Switch>
             </div>
-            <footer><small> (C) 2019 - Nico Vermaas - version 1.4.0 - 7 dec 2019</small></footer>
+            <footer><small> (C) 2019 - Nico Vermaas - version 1.5.0 - 15 dec 2019</small></footer>
         </Router>
     );
 }

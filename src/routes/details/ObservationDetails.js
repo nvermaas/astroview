@@ -3,7 +3,7 @@ import { Container, Row, Col, Card, Table } from 'react-bootstrap';
 
 import { useGlobalReducer } from '../../Store';
 import { deg2HMS, deg2DMS} from '../../utils/astro'
-import { getUrlAladin, getUrlESASky, getUrlSDSS, getUrlCDSPortal} from '../../utils/skyserver'
+import { ASTROBASE_URL, getUrlAladin, getUrlESASky, getUrlSDSS, getUrlCDSPortal} from '../../utils/skyserver'
 
 import DetailsThumbnail from './DetailsThumbnail'
 import ImageCard from '../../components/cards/ImageCard'
@@ -101,7 +101,7 @@ export default function ObservationDetails(props) {
 
                                 </tr>
                                 <tr>
-                                    <td className="key"><a href="http://uilennest.net:81/astrobase/">AstroBase</a></td>
+                                    <td className="key"><a href={ASTROBASE_URL}>AstroBase</a></td>
                                     <td className="value"><a href={api} target="_blank" rel="noopener noreferrer">API</a>
                                     </td>
                                 </tr>

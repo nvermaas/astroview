@@ -5,6 +5,7 @@ import logo from '../logo.ico';
 import { useGlobalReducer } from '../Store';
 import { NavLink, Link } from "react-router-dom"
 
+import { ASTROBASE_URL } from '../utils/skyserver'
 import SwitchViewButton from './buttons/SwitchViewButton'
 import SwitchThumbnailButton from './buttons/SwitchThumbnailButton'
 import SearchButton from './buttons/SearchButton'
@@ -29,7 +30,7 @@ export function NavigationBar() {
     return (
         <Navbar bg="dark" variant="dark">
 
-            <a href="http://uilennest.net:81/astrobase/">
+            <a href={ASTROBASE_URL}>
                 <img alt='' src={logo} width="30" height="30" className="d-inline-block align-top"/>
             </a>
             <Navbar.Brand href="/astroview">&nbsp;AstroView </Navbar.Brand>
@@ -37,7 +38,7 @@ export function NavigationBar() {
                 <Nav.Link as={NavLink} to="/projects">Projects</Nav.Link>
                 <Nav.Link as={NavLink} to="/observations">Observations</Nav.Link>
                 <DetailsLink taskid={my_state.taskid} />
-                <Nav.Link target="_blank" href="http://uilennest.net:81/astrobase/">AstroBase</Nav.Link>
+                <Nav.Link target="_blank" href={ASTROBASE_URL}>AstroBase</Nav.Link>
 
                 <Nav.Link as={NavLink} to="/about">About</Nav.Link>
             </Nav>
