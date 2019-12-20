@@ -8,10 +8,13 @@ export function filterObservations(searchText, fetched_observations, maxResults)
             return true;
         }
 
-        if (observation.parent!==null) {
-            if (observation.parent.toString().includes(searchText)) {
-                return true;
+        try {
+            if (observation.parent !== undefined) {
+                if (observation.parent.toString().includes(searchText)) {
+                    return true;
+                }
             }
+        } catch (e) {
         }
 
         if (observation.name.toUpperCase().includes(searchText)) {
