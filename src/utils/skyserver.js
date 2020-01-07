@@ -5,8 +5,11 @@
 
 // http://skyserver.sdss.org/dr12/en/help/docs/api.aspx#RestWebServices
 
-export const ASTROBASE_URL = "http://uilennest.net:82/astrobase/"
-//export const ASTROBASE_URL = "http://uilennest.net:81/astrobase/"
+//export const ASTROBASE_URL = "http://uilennest.net/astrobeest/"
+
+// export const ASTROBASE_URL = "http://uilennest.net:82/astrobase/"
+export const ASTROBASE_URL = "http://uilennest.net:81/astrobase/"
+// export const ASTROBASE_URL = "http://uilennest.net/raspiastro_astrobase/"
 
 export function getUrlSDSS(ra,dec,scale, width,height,opt) {
     let url = 'https://skyserver.sdss.org/dr12/SkyserverWS/ImgCutout/getjpeg'

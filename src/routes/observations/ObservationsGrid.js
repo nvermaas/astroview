@@ -32,6 +32,10 @@ export default function ObservationsGrid(props) {
             selector: 'id',
             size: 50,
             sortable: true,
+            cell: row =>
+                <Link to={() => getLink(row)}>
+                    {row.id}&nbsp;
+                </Link>,
         },
         {
             name: 'TaskID',
@@ -76,22 +80,22 @@ export default function ObservationsGrid(props) {
             selector: 'quality',
             sortable: true,
         },
-
-        {
-            cell: row =>
-                <a href={getAPI(row)} target="_blank" rel="noopener noreferrer">
-                    <Button variant="outline-info" onClick={() => handleClick(row)}>API</Button>&nbsp;
-                </a>,
-            button: true,
-        },
         {
             cell: row =>
                 <Link to={() => getLink(row)}>
-                    <Button variant="warning" onClick={() => handleClick(row)}>Details</Button>&nbsp;
+                    <Button variant="warning" onClick={() => handleClick(row)}>Details</Button>
                 </Link>,
 
             button: true,
         },
+        {
+            cell: row =>
+                <a href={getAPI(row)} target="_blank" rel="noopener noreferrer">
+                    <Button variant="outline-info" onClick={() => handleClick(row)}>API</Button>
+                </a>,
+            button: true,
+        },
+
     ];
 
     const myTheme = {

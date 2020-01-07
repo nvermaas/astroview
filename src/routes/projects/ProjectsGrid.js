@@ -60,22 +60,22 @@ export default function ProjectsGrid(props) {
             selector: 'quality',
             sortable: true,
         },
-
-        {
-            cell: row =>
-                <a href={getAPI(row)} target="_blank" rel="noopener noreferrer">
-                    <Button variant="outline-info" onClick={() => handleClick(row)}>API</Button>&nbsp;
-                </a>,
-            button: true,
-        },
         {
             cell: row =>
                 <Link to={() => getLink(row)}>
-                    <Button variant="warning" onClick={() => handleClick(row)}>Details</Button>&nbsp;
+                    <Button variant="warning" onClick={() => handleClick(row)}>Details</Button>
                 </Link>,
 
             button: true,
         },
+        {
+            cell: row =>
+                <a href={getAPI(row)} target="_blank" rel="noopener noreferrer">
+                    <Button variant="outline-info" onClick={() => handleClick(row)}>API</Button>
+                </a>,
+            button: true,
+        },
+
     ];
 
     const myTheme = {

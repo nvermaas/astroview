@@ -64,6 +64,10 @@ export default function ObservationDetails(props) {
                             <Table striped bordered hover size="sm">
                                 <tbody>
                                 <tr>
+                                    <td className="key">Field</td>
+                                    <td className="value">observation.field</td>
+                                </tr>
+                                <tr>
                                     <td className="key">RA</td>
                                     <td className="value">{deg2HMS(observation.field_ra)}</td>
                                 </tr>
