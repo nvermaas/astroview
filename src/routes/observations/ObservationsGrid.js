@@ -3,8 +3,9 @@ import { Link } from "react-router-dom"
 import { Button } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
 import { useGlobalReducer } from '../../Store';
-import { SET_ACTIVE_TASKID } from '../../reducers/GlobalStateReducer'
-import { url } from '../../components/Main'
+import { SET_ACTIVE_TASKID, SET_FETCHED_OBSERVATIONS, SET_TOTAL_OBSERVATIONS, SET_STATUS } from '../../reducers/GlobalStateReducer'
+//import { url } from '../../components/Main'
+import { ASTROBASE_URL } from '../../utils/skyserver'
 
 export default function ObservationsGrid(props) {
     const [ my_state , my_dispatch] = useGlobalReducer()
@@ -12,6 +13,40 @@ export default function ObservationsGrid(props) {
     const handleClick = (observation) => {
         // dispatch current observation to the global store
         my_dispatch({type: SET_ACTIVE_TASKID, taskid: observation.taskID})
+    }
+
+    const handlePageChange = (page) => {
+        // get the data from the api
+        let url = ASTROBASE_URL + "observations?page=" +page.toString()
+
+        // if a backend_filter is defined then add it to the url
+        if (my_state.backend_filter!=undefined) {
+            url = url + my_state.backend_filter
+        }
+        //alert(my_state.total_observations)
+
+        if (my_state.status !== 'fetching')  {
+            console.log('fetchObservations: ' + (url))
+            my_dispatch({type: SET_STATUS, status: 'fetching'})
+
+            fetch(url)
+                .then(results => {
+                    return results.json();
+                })
+                .then(data => {
+                    my_dispatch({type: SET_FETCHED_OBSERVATIONS, fetched_observations: data.results})
+                    my_dispatch({type: SET_TOTAL_OBSERVATIONS, total_observations: data.count})
+                    my_dispatch({type: SET_STATUS, status: 'fetched'})
+                })
+                .catch(function () {
+                    my_dispatch({type: SET_STATUS, status: 'failed'})
+                    alert("fetch to " + url + " failed.");
+                })
+            }
+    }
+
+    const handlePerRowsChange = () => {
+        alert('handlePerRowsChange')
     }
 
     // generate the details link to forward to
@@ -22,11 +57,12 @@ export default function ObservationsGrid(props) {
 
     // generate the api link
     const getAPI = (observation) => {
-        let api_link = url + '/' + observation.id.toString()
+        let api_link = ASTROBASE_URL + "observations/" + observation.id.toString()
         return api_link
     }
 
     const columns = [
+        /*
         {
             name: 'id',
             selector: 'id',
@@ -37,6 +73,7 @@ export default function ObservationsGrid(props) {
                     {row.id}&nbsp;
                 </Link>,
         },
+        */
         {
             name: 'TaskID',
             selector: 'taskID',
@@ -219,7 +256,12 @@ export default function ObservationsGrid(props) {
         <a href = {data.derived_annotated_image} target="_blank" rel="noopener noreferrer"><img src={data.derived_annotated_image} height={200} /></a>
 
     </div>;
-
+/*
+    try {
+        alert(props.data.length)
+    } catch (e) {
+    }
+*/
     return (
         <div>
             <DataTable
@@ -227,8 +269,18 @@ export default function ObservationsGrid(props) {
                 data={props.data}
                 conditionalRowStyles={conditionalRowStyles}
                 pagination
-                //customTheme={myTheme}
 
+                // disable this section to return to the original client side pagination
+                // but then make sure to set PAGE_SIZE in the backend to something huge to get all the data
+                // documentation: https://jbetancur.github.io/react-data-table-component/?path=/story/pagination--server-side
+                paginationServer
+                paginationTotalRows={my_state.total_observations}
+                onChangePage={handlePageChange}
+                onChangeRowsPerPage={handlePerRowsChange}
+
+                paginationPerPage={25}
+                // paginationRowsPerPageOptions={[50, 100]}
+                paginationRowsPerPageOptions={[25]}
                 expandableRows
                 expandableRowsComponent={<ExpandableComponent />}
             />

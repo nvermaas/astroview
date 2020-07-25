@@ -39,6 +39,7 @@ export default function Observations(props) {
     return (
         <div className="App">
             <div>
+                {my_state.backend_filter}
                 {renderSpinner}
                 {renderObservations}
             </div>

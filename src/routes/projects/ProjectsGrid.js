@@ -210,8 +210,8 @@ export default function ProjectsGrid(props) {
                 data={props.data}
                 conditionalRowStyles={conditionalRowStyles}
                 pagination
-                //customTheme={myTheme}
-
+                paginationPerPage={50}
+                paginationRowsPerPageOptions={[50, 100]}
                 expandableRows
                 expandableRowsComponent={<ExpandableComponent />}
             />

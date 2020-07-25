@@ -9,7 +9,12 @@
 
 // export const ASTROBASE_URL = "http://uilennest.net:82/astrobase/"
 // export const ASTROBASE_URL = "http://uilennest.net:81/astrobase/"
-export const ASTROBASE_URL = "http://uilennest.net/my_astrobase/"
+
+export const ASTROBASE_URL =
+    process.env.NODE_ENV === "development"
+        ? "http://localhost:8000/my_astrobase/"
+        : "http://uilennest.net/my_astrobase/";
+
 
 // export const ASTROBASE_URL = "http://uilennest.net/raspiastro_astrobase/"
 

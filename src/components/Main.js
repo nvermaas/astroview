@@ -1,7 +1,7 @@
 import React, {useState, useEffect }  from 'react';
 import '../App.css';
 
-import { SET_FETCHED_OBSERVATIONS, SET_STATUS} from '../reducers/GlobalStateReducer';
+import { SET_FETCHED_OBSERVATIONS, SET_STATUS, SET_TOTAL_OBSERVATIONS} from '../reducers/GlobalStateReducer';
 import { ASTROBASE_URL } from '../utils/skyserver'
 
 import { useGlobalReducer } from '../Store';
@@ -46,15 +46,19 @@ function Main () {
     // a timer is used for a 60 second polling of the data.
     const [timer, setTimer] = useState(undefined)
 
-    // this executes fetchObservations only once (because the 'dependencies array' is empty: [])
+    // this executes fetchObservations only once when 'dependencies array' is empty: [])
+    // this executes fetchObservations every time that my_state.backend_filter changes [my_state.backend_filter])
+
+    // Q: how do I execute it only when my_state.status==='unfetched'?
     useEffect(() => {
             fetchObservations(url)
-        },[]
+        },[my_state.backend_filter]
     );
 
-    // this executes 'setTimer' once, which refreshes the observationlist every minute.
+    // this executes 'setTimer' once, which refreshes the observationlist every 5 minutes
+/*
     useEffect(() => {
-            setTimer(setInterval(() => fetchObservations(url), 60000))
+            setTimer(setInterval(() => fetchObservations(url), 300000))
 
             // this function is automatically called when the component unmounts
             return function cleanup() {
@@ -62,11 +66,16 @@ function Main () {
             }
         },[]
     );
-
+*/
 
     // get the data from the api
     const fetchObservations = (url) => {
         if (my_state.status !== 'fetching')  {
+
+            if (my_state.backend_filter!=undefined) {
+                url = url + '?' + my_state.backend_filter
+            }
+
             console.log('fetchObservations: ' + (url))
             my_dispatch({type: SET_STATUS, status: 'fetching'})
 
@@ -76,6 +85,7 @@ function Main () {
                 })
                 .then(data => {
                     my_dispatch({type: SET_FETCHED_OBSERVATIONS, fetched_observations: data.results})
+                    my_dispatch({type: SET_TOTAL_OBSERVATIONS, total_observations: data.count})
                     my_dispatch({type: SET_STATUS, status: 'fetched'})
                 })
                 .catch(function () {
@@ -122,7 +132,7 @@ function Main () {
                     <Route path="/details/:id" children={<ObservationDetailsForward />} />
                 </Switch>
             </div>
-            <footer><small> (C) 2019 - Nico Vermaas - version 1.5.6 - 27 jun 2020</small></footer>
+            <footer><small> (C) 2020 - Nico Vermaas - version 1.6 - 25 jul 2020</small></footer>
         </Router>
     );
 }

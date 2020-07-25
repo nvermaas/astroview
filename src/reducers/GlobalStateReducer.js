@@ -8,11 +8,15 @@ export const SET_STATUS = 'SET_STATUS'
 export const SET_ACTIVE_TASKID = 'SET_ACTIVE_TASKID'
 export const SET_ACTIVE_OBSERVATION = 'SET_ACTIVE_OBSERVATION'
 export const SET_FETCHED_OBSERVATIONS = 'SET_FETCHED_OBSERVATIONS'
+export const SET_TOTAL_OBSERVATIONS = 'SET_TOTAL_OBSERVATIONS'
+
 export const SET_FILTERED_OBSERVATIONS = 'SET_FILTERED_OBSERVATIONS'
 export const SET_FETCHED_PROJECTS = 'SET_FETCHED_PROJECTS'
 export const SET_FILTERED_PROJECTS = 'SET_FILTERED_PROJECTS'
 
 export const SET_FILTER_TYPE = 'SET_FILTER_TYPE'
+export const SET_BACKEND_FILTER = 'SET_BACKEND_FILTER'
+
 export const SET_IMAGE_TYPE = 'SET_IMAGE_TYPE'
 export const SET_THUMBNAIL_IMAGE_TYPE = 'SET_THUMBNAIL_IMAGE_TYPE'
 export const SET_VIEW = 'SET_VIEW'
@@ -22,8 +26,10 @@ export const initialState = {
         taskid: undefined,
         observation: undefined,
         fetched_observations: undefined,
+        total_observations: undefined,
         filtered_observations: undefined,
         filter_type: "show_fetched",
+        backend_filter: undefined,
         image_type: "raw",
         thumbnail_image_type: "sky_plot",
         view: "list"
@@ -56,12 +62,18 @@ export const reducer = (state, action) => {
 
         case SET_FETCHED_OBSERVATIONS:
             //alert('reducer: SET_FETCHED_OBSERVATIONS '+action.fetched_observations)
-                let fetched_projects = getProjects(action.fetched_observations,100)
+                let fetched_projects = getProjects(action.fetched_observations,1000)
 
             return {
                 ...state,
                 fetched_observations: action.fetched_observations,
                 fetched_projects: fetched_projects
+            };
+
+        case SET_TOTAL_OBSERVATIONS:
+            return {
+                ...state,
+                total_observations: action.total_observations,
             };
 
         case SET_FETCHED_PROJECTS:
@@ -91,6 +103,12 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 filter_type: action.filter_type
+            };
+
+        case SET_BACKEND_FILTER:
+            return {
+                ...state,
+                backend_filter: action.backend_filter
             };
 
         case SET_IMAGE_TYPE:

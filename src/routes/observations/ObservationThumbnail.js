@@ -43,19 +43,16 @@ export default function ObservationThumbnail(props) {
             thumbnail = props.observation.derived_skyplot_image
     }
 
-
     let my_status = ''
     if (props.observation.my_status!=='done') {
         my_status = ' ('+props.observation.my_status+')'
     }
 
 
-
-
     return (
 
         <Card className="card-img-observation">
-            <Card.Img variant top src={thumbnail} />
+            <Card.Img variant top src={thumbnail} width="400" height="300" />
 
             <Card.ImgOverlay>
                 <Description observation={props.observation}/>
