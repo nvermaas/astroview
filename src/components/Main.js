@@ -7,7 +7,6 @@ import { ASTROBASE_URL } from '../utils/skyserver'
 import { useGlobalReducer } from '../Store';
 
 import { NavigationBar } from './NavigationBar';
-import { ButtonBar } from './ButtonBar';
 import Observations from '../routes/observations/ObservationsPage';
 import Projects from '../routes/projects/ProjectsPage';
 import ObservationDetails from '../routes/details/ObservationDetails';
@@ -114,7 +113,7 @@ function Main () {
         <Router basename="astroview">
             <div>
                 <NavigationBar/>
-                <ButtonBar />
+
                 {/*
                  A <Switch> looks through all its children <Route>
                  elements and renders the first one whose path
