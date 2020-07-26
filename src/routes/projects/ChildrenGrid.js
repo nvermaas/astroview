@@ -31,53 +31,59 @@ export default function ChildrenGrid(props) {
             name: 'TaskID',
             selector: 'taskID',
             sortable: true,
+            width: "5%"
         },
         {
             name: 'Processing Date',
             selector: 'date',
             sortable: true,
+            width: "10%"
         },
         {
             name: 'Name',
             selector: 'name',
             sortable: true,
         },
-        {
-            name: 'Mode',
-            selector: 'observing_mode',
-            sortable: true,
-        },
+
         {
             name: 'Field',
             selector: 'field_name',
             sortable: true,
         },
         {
-            name: 'Status',
-            selector: 'my_status',
+            name: 'Mode',
+            selector: 'observing_mode',
             sortable: true,
-          },
+            width: "10%"
+        },
         {
             name: 'Quality',
             selector: 'quality',
             sortable: true,
+            width: "5%"
         },
-
         {
-            cell: row =>
-                <a href={getAPI(row)} target="_blank" rel="noopener noreferrer">
-                    <Button variant="outline-info" onClick={() => handleClick(row)}>API</Button>&nbsp;
-                </a>,
-            button: true,
+            name: 'Status',
+            selector: 'my_status',
+            sortable: true,
+            width: "5%"
         },
         {
             cell: row =>
                 <Link to={() => getLink(row)}>
-                    <Button variant="warning" onClick={() => handleClick(row)}>Details</Button>&nbsp;
+                    <Button variant="warning" onClick={() => handleClick(row)}>Details</Button>
                 </Link>,
 
             button: true,
         },
+        {
+            cell: row =>
+                <a href={getAPI(row)} target="_blank" rel="noopener noreferrer">
+                    <Button variant="outline-info" onClick={() => handleClick(row)}>API</Button>
+                </a>,
+            button: true,
+        },
+
     ];
 
     const myTheme = {

@@ -33,21 +33,18 @@ export default function ProjectsGrid(props) {
             name: 'TaskID',
             selector: 'taskID',
             sortable: true,
+            width: "5%"
         },
 
         {
             name: 'Observation Date',
             selector: 'date',
             sortable: true,
+            width: "10%"
         },
         {
             name: 'Name',
             selector: 'name',
-            sortable: true,
-        },
-        {
-            name: 'Mode',
-            selector: 'observing_mode',
             sortable: true,
         },
         {
@@ -56,9 +53,16 @@ export default function ProjectsGrid(props) {
             sortable: true,
         },
         {
+            name: 'Mode',
+            selector: 'observing_mode',
+            sortable: true,
+            width: "10%"
+        },
+        {
             name: 'Quality',
             selector: 'quality',
             sortable: true,
+            width: "5%"
         },
         {
             cell: row =>
