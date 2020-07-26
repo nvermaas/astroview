@@ -49,16 +49,15 @@ function Main () {
     // this executes fetchObservations only once when 'dependencies array' is empty: [])
     // this executes fetchObservations every time that my_state.backend_filter changes [my_state.backend_filter])
 
-    // Q: how do I execute it only when my_state.status==='unfetched'?
     useEffect(() => {
             fetchObservations(url)
-        },[my_state.backend_filter]
+        },[my_state.backend_filter, my_state.observation_page]
     );
 
-    // this executes 'setTimer' once, which refreshes the observationlist every 5 minutes
+    // this executes 'setTimer' once, which refreshes the observationlist every minute
 /*
     useEffect(() => {
-            setTimer(setInterval(() => fetchObservations(url), 300000))
+            setTimer(setInterval(() => fetchObservations(url), 60000))
 
             // this function is automatically called when the component unmounts
             return function cleanup() {
@@ -72,8 +71,10 @@ function Main () {
     const fetchObservations = (url) => {
         if (my_state.status !== 'fetching')  {
 
+            url = url + "?page=" +my_state.observation_page
+
             if (my_state.backend_filter!=undefined) {
-                url = url + '?' + my_state.backend_filter
+                url = url + my_state.backend_filter
             }
 
             console.log('fetchObservations: ' + (url))

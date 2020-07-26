@@ -4,7 +4,7 @@ import { useGlobalReducer } from '../../Store';
 import { useLocation } from "react-router-dom"
 import { filterObservations } from '../../utils/filterObservations'
 
-import { SET_STATUS, SET_FILTERED_OBSERVATIONS, SET_FILTER_TYPE, SET_BACKEND_FILTER } from '../../reducers/GlobalStateReducer'
+import { SET_OBSERVATION_PAGE, SET_FILTERED_OBSERVATIONS, SET_FILTER_TYPE, SET_BACKEND_FILTER } from '../../reducers/GlobalStateReducer'
 
 // typing in the search box will execute a filter and dispatch it. The observation screen responds instantly.
 export default function SearchButton(props) {
@@ -28,7 +28,7 @@ export default function SearchButton(props) {
 
         // execute the filter...
         my_dispatch({type: SET_BACKEND_FILTER, backend_filter: backend_filter})
-        my_dispatch({type: SET_STATUS, status: 'unfetched'})
+        my_dispatch({type: SET_OBSERVATION_PAGE, observation_page: 1})
     }
 
     const handleResetClick = (event) => {

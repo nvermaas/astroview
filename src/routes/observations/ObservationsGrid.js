@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { Button } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
 import { useGlobalReducer } from '../../Store';
-import { SET_ACTIVE_TASKID, SET_FETCHED_OBSERVATIONS, SET_TOTAL_OBSERVATIONS, SET_STATUS } from '../../reducers/GlobalStateReducer'
+import { SET_ACTIVE_TASKID, SET_FETCHED_OBSERVATIONS, SET_TOTAL_OBSERVATIONS, SET_OBSERVATION_PAGE } from '../../reducers/GlobalStateReducer'
 //import { url } from '../../components/Main'
 import { ASTROBASE_URL } from '../../utils/skyserver'
 
@@ -23,26 +23,11 @@ export default function ObservationsGrid(props) {
         if (my_state.backend_filter!=undefined) {
             url = url + my_state.backend_filter
         }
-        //alert(my_state.total_observations)
 
-        if (my_state.status !== 'fetching')  {
-            console.log('fetchObservations: ' + (url))
-            my_dispatch({type: SET_STATUS, status: 'fetching'})
+        // a change in observation_page is used to trigger a new fetch,
+        // see the useEffect in the Main.js how that is done.
+        my_dispatch({type: SET_OBSERVATION_PAGE, observation_page: page})
 
-            fetch(url)
-                .then(results => {
-                    return results.json();
-                })
-                .then(data => {
-                    my_dispatch({type: SET_FETCHED_OBSERVATIONS, fetched_observations: data.results})
-                    my_dispatch({type: SET_TOTAL_OBSERVATIONS, total_observations: data.count})
-                    my_dispatch({type: SET_STATUS, status: 'fetched'})
-                })
-                .catch(function () {
-                    my_dispatch({type: SET_STATUS, status: 'failed'})
-                    alert("fetch to " + url + " failed.");
-                })
-            }
     }
 
     const handlePerRowsChange = () => {

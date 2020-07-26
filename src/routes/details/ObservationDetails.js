@@ -22,7 +22,7 @@ export default function ObservationDetails(props) {
                 return arr[i];
     }
 
-    if (my_state.status === 'unfetched') {
+    if (my_state.status != 'fetched') {
         return null
     }
 
@@ -65,7 +65,7 @@ export default function ObservationDetails(props) {
                                 <tbody>
                                 <tr>
                                     <td className="key">Field</td>
-                                    <td className="value">observation.field</td>
+                                    <td className="value">{observation.field_name}</td>
                                 </tr>
                                 <tr>
                                     <td className="key">RA</td>

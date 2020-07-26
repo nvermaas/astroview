@@ -9,6 +9,7 @@ export const SET_ACTIVE_TASKID = 'SET_ACTIVE_TASKID'
 export const SET_ACTIVE_OBSERVATION = 'SET_ACTIVE_OBSERVATION'
 export const SET_FETCHED_OBSERVATIONS = 'SET_FETCHED_OBSERVATIONS'
 export const SET_TOTAL_OBSERVATIONS = 'SET_TOTAL_OBSERVATIONS'
+export const SET_OBSERVATION_PAGE = 'SET_OBSERVATION_PAGE'
 
 export const SET_FILTERED_OBSERVATIONS = 'SET_FILTERED_OBSERVATIONS'
 export const SET_FETCHED_PROJECTS = 'SET_FETCHED_PROJECTS'
@@ -27,6 +28,7 @@ export const initialState = {
         observation: undefined,
         fetched_observations: undefined,
         total_observations: undefined,
+        observation_page: 1,
         filtered_observations: undefined,
         filter_type: "show_fetched",
         backend_filter: undefined,
@@ -74,6 +76,14 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 total_observations: action.total_observations,
+            };
+
+        case SET_OBSERVATION_PAGE:
+            // a change in observation_page is used to trigger a new fetch,
+            // see the useEffect in the Main.js how that is done.
+            return {
+                ...state,
+                observation_page: action.observation_page,
             };
 
         case SET_FETCHED_PROJECTS:
