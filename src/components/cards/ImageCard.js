@@ -92,14 +92,14 @@ export default function ImageCard(props) {
                     <InfoLink observation={props.observation}/>&nbsp;
                     {buttonRaw}&nbsp;
                     {buttonAnnotated}&nbsp;
-                    {buttonRedGreen}&nbsp;
                     {buttonFITS}&nbsp;
-                    {buttonFullScreen}&nbsp;
+
                 </tr>
                 &nbsp;
                 <tr>
                     <MainImage observation={props.observation} imageType={my_state.image_type}/>
                 </tr>
+                (click for fullscreen)
             </Card.Body>
 
         </Card>

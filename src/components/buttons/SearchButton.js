@@ -24,7 +24,8 @@ export default function SearchButton(props) {
 
     function doTheBackendFilter() {
         //alert('doTheBackendFilter('+text_to_search+')')
-        let backend_filter = '&field_name__icontains='+text_to_search
+        // let backend_filter = '&field_name__icontains='+text_to_search
+        let backend_filter = '&fieldsearch='+text_to_search
 
         // execute the filter...
         my_dispatch({type: SET_BACKEND_FILTER, backend_filter: backend_filter})
