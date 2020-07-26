@@ -7,6 +7,7 @@ import { ASTROBASE_URL } from '../utils/skyserver'
 import { useGlobalReducer } from '../Store';
 
 import { NavigationBar } from './NavigationBar';
+import { ButtonBar } from './ButtonBar';
 import Observations from '../routes/observations/ObservationsPage';
 import Projects from '../routes/projects/ProjectsPage';
 import ObservationDetails from '../routes/details/ObservationDetails';
@@ -51,7 +52,8 @@ function Main () {
 
     useEffect(() => {
             fetchObservations(url)
-        },[my_state.backend_filter, my_state.observation_page]
+        }, [my_state.backend_filter, my_state.observation_page, my_state.observation_mode,
+        my_state.observation_quality, my_state.observation_status]
     );
 
     // this executes 'setTimer' once, which refreshes the observationlist every minute
@@ -77,7 +79,19 @@ function Main () {
                 url = url + my_state.backend_filter
             }
 
-            console.log('fetchObservations: ' + (url))
+            if (my_state.observation_mode!=="All") {
+                url = url + '&observing_mode__icontains='+my_state.observation_mode
+            }
+
+            if (my_state.observation_quality!=="All") {
+                url = url + '&quality__icontains='+my_state.observation_quality
+            }
+
+            if (my_state.observation_status!=="All") {
+                url = url + '&my_status__icontains='+my_state.observation_status
+            }
+
+            //alert('fetchObservations: ' + (url))
             my_dispatch({type: SET_STATUS, status: 'fetching'})
 
             fetch(url)
@@ -100,7 +114,7 @@ function Main () {
         <Router basename="astroview">
             <div>
                 <NavigationBar/>
-
+                <ButtonBar />
                 {/*
                  A <Switch> looks through all its children <Route>
                  elements and renders the first one whose path

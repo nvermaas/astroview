@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { Button } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
 import { useGlobalReducer } from '../../Store';
-import { SET_ACTIVE_TASKID, SET_FETCHED_OBSERVATIONS, SET_TOTAL_OBSERVATIONS, SET_OBSERVATION_PAGE } from '../../reducers/GlobalStateReducer'
+import { SET_ACTIVE_TASKID, SET_OBSERVATION_PAGE } from '../../reducers/GlobalStateReducer'
 //import { url } from '../../components/Main'
 import { ASTROBASE_URL } from '../../utils/skyserver'
 

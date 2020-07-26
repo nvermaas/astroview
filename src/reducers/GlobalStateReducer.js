@@ -10,6 +10,9 @@ export const SET_ACTIVE_OBSERVATION = 'SET_ACTIVE_OBSERVATION'
 export const SET_FETCHED_OBSERVATIONS = 'SET_FETCHED_OBSERVATIONS'
 export const SET_TOTAL_OBSERVATIONS = 'SET_TOTAL_OBSERVATIONS'
 export const SET_OBSERVATION_PAGE = 'SET_OBSERVATION_PAGE'
+export const SET_OBSERVATION_MODE = 'SET_OBSERVATION_MODE'
+export const SET_OBSERVATION_QUALITY = 'SET_OBSERVATION_QUALITY'
+export const SET_OBSERVATION_STATUS = 'SET_OBSERVATION_STATUS'
 
 export const SET_FILTERED_OBSERVATIONS = 'SET_FILTERED_OBSERVATIONS'
 export const SET_FETCHED_PROJECTS = 'SET_FETCHED_PROJECTS'
@@ -29,6 +32,9 @@ export const initialState = {
         fetched_observations: undefined,
         total_observations: undefined,
         observation_page: 1,
+        observation_mode: "All",
+        observation_quality: "All",
+        observation_status: "All",
         filtered_observations: undefined,
         filter_type: "show_fetched",
         backend_filter: undefined,
@@ -41,10 +47,27 @@ export const reducer = (state, action) => {
     switch (action.type) {
 
         case SET_STATUS:
-            //alert('reducer: SET_STATUS '+action.status)
             return {
                 ...state,
                 status: action.status
+            };
+
+        case SET_OBSERVATION_MODE:
+            return {
+                ...state,
+                observation_mode: action.observation_mode
+            };
+
+        case SET_OBSERVATION_QUALITY:
+            return {
+                ...state,
+                observation_quality: action.observation_quality
+            };
+
+        case SET_OBSERVATION_STATUS:
+            return {
+                ...state,
+                observation_status: action.observation_status
             };
 
         case SET_ACTIVE_TASKID:
