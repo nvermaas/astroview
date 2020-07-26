@@ -72,7 +72,7 @@ export function ButtonBar() {
                 <Dropdown.Item onClick={(e) => handleStatus("Raw")}>Raw</Dropdown.Item>
                 <Dropdown.Item onClick={(e) => handleStatus("Master")}>Master</Dropdown.Item>
             </DropdownButton>
-            {my_state.backend_filter}
+
             <FormControl aria-describedby="basic-addon1" />
 
         </InputGroup>

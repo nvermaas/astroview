@@ -30,10 +30,20 @@ export default function ProjectsGrid(props) {
 
     const columns = [
         {
+            name: 'id',
+            selector: 'id',
+            width: "5%",
+            sortable: true,
+            cell: row =>
+                <Link to={() => getLink(row)}>
+                    {row.id}&nbsp;
+                </Link>,
+        },
+        {
             name: 'TaskID',
             selector: 'taskID',
             sortable: true,
-            width: "5%"
+            width: "7%"
         },
 
         {

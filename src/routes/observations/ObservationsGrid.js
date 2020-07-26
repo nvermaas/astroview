@@ -63,7 +63,7 @@ export default function ObservationsGrid(props) {
             name: 'TaskID',
             selector: 'taskID',
             sortable: true,
-            width: "5%"
+            width: "7%"
         },
         {
             name: 'Project',
@@ -249,12 +249,7 @@ export default function ObservationsGrid(props) {
         <a href = {data.derived_annotated_image} target="_blank" rel="noopener noreferrer"><img src={data.derived_annotated_image} height={200} /></a>
 
     </div>;
-/*
-    try {
-        alert(props.data.length)
-    } catch (e) {
-    }
-*/
+
     return (
         <div>
             <DataTable
@@ -274,6 +269,7 @@ export default function ObservationsGrid(props) {
                 paginationPerPage={25}
                 // paginationRowsPerPageOptions={[50, 100]}
                 paginationRowsPerPageOptions={[25]}
+
                 expandableRows
                 expandableRowsComponent={<ExpandableComponent />}
             />
