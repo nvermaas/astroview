@@ -46,6 +46,7 @@ export function ButtonBar() {
                 <Dropdown.Item onClick={(e) => handleMode("raw_single")}>raw_single</Dropdown.Item>
                 <Dropdown.Item onClick={(e) => handleMode("Wild")}>Wild</Dropdown.Item>
                 <Dropdown.Item onClick={(e) => handleMode("Simulation")}>Simulation</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleMode("unknown")}>unknown</Dropdown.Item>
             </DropdownButton>
 
             <DropdownButton
