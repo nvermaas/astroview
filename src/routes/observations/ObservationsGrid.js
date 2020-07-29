@@ -66,13 +66,24 @@ export default function ObservationsGrid(props) {
             width: "7%"
         },
         {
+            name: 'Type',
+            selector: 'task_type',
+            sortable: true,
+            width: "7%",
+            cell: row => {
+                if (row.task_type === 'master') {
+                    return <div style={{ fontWeight: "bold" }}>Project</div>
+                }},
+        },
+        {
             name: 'Project',
-            selector: 'parent',
+            selector: 'derived_parent_taskid',
             sortable: true,
             style: {
                 fontweight: "bold",
             },
-            width: "5%"
+            width: "5%",
+            cell: row => <div style={{ fontWeight: "bold" }}>{row.derived_parent_taskid}</div>
         },
         {
             name: 'Observation Date',
@@ -174,6 +185,16 @@ export default function ObservationsGrid(props) {
 
     const conditionalRowStyles = [
         {
+            when: row => row.task_type == 'master',
+            style: {
+                backgroundColor: 'yellow',
+                color: 'black',
+                '&:hover': {
+                    cursor: 'pointer',
+                },
+            },
+        },
+        {
             when: row => row.quality == 'great',
             style: {
                 backgroundColor: 'green',
@@ -228,7 +249,7 @@ export default function ObservationsGrid(props) {
             },
         },
         {
-            when: row => row.my_status == 'master',
+            when: row => row.my_status == 'master_xx',
             style: {
                 backgroundColor: 'grey',
                 color: 'white',

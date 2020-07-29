@@ -41,12 +41,11 @@ export function ButtonBar() {
                 id="input-group-dropdown-1"
             >
                 <Dropdown.Item onClick={(e) => handleMode("All")}>All</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleMode("proc_stacked")}>proc_stacked</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleMode("proc_single")}>proc_single</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleMode("raw_single")}>raw_single</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleMode("Stacked")}>Stacked</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleMode("Single")}>Single Shot</Dropdown.Item>
                 <Dropdown.Item onClick={(e) => handleMode("Wild")}>Wild</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleMode("Simulation")}>Simulation</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleMode("unknown")}>unknown</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleMode("Sim")}>Simulation</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleMode("Unknown")}>Unknown</Dropdown.Item>
             </DropdownButton>
 
             <DropdownButton
@@ -71,7 +70,6 @@ export function ButtonBar() {
                 <Dropdown.Item onClick={(e) => handleStatus("All")}>All</Dropdown.Item>
                 <Dropdown.Item onClick={(e) => handleStatus("Done")}>Done</Dropdown.Item>
                 <Dropdown.Item onClick={(e) => handleStatus("Raw")}>Raw</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleStatus("Master")}>Master</Dropdown.Item>
             </DropdownButton>
 
             <FormControl aria-describedby="basic-addon1" />

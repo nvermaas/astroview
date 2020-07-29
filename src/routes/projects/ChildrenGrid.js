@@ -31,7 +31,7 @@ export default function ChildrenGrid(props) {
             name: 'TaskID',
             selector: 'taskID',
             sortable: true,
-            width: "5%"
+            width: "7%"
         },
         {
             name: 'Processing Date',
