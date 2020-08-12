@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Row, Col, Card, Table } from 'react-bootstrap';
 
 import { useGlobalReducer } from '../../Store';
-import { deg2HMS, deg2DMS, getExposure} from '../../utils/astro'
+import { deg2HMS, deg2DMS, getExposure, getIcon} from '../../utils/astro'
 import { ASTROBASE_URL, getUrlAladin, getUrlESASky, getUrlSDSS, getUrlCDSPortal} from '../../utils/skyserver'
 
 import DetailsThumbnail from './DetailsThumbnail'
@@ -63,15 +63,24 @@ export default function ObservationDetails(props) {
     // link to AstroBase REST API
     let api = url + '/' + observation.id.toString()
 
+    let d = new Date(observation.date.toString());
+    let date = d.toDateString()
+
     let my_status = ''
     if (observation.my_status!=='done') {
         my_status = ' ('+observation.my_status+')'
     }
 
+    let magnitude = ''
+    if (observation.magnitude) {
+        magnitude = ' (magnitude: ' + observation.magnitude + ')'
+    }
+
+
     return (
 
         <div>
-            <tr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<td><h2>{observation.name} </h2> </td></tr>
+            <tr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<td><h2>{getIcon(observation.image_type)}&nbsp;&nbsp;{observation.name} - {observation.field_name}</h2> </td></tr>
             <Container fluid>
 
                 <Row>
@@ -89,15 +98,15 @@ export default function ObservationDetails(props) {
                                 </tr>
                                 <tr>
                                     <td className="key">Image</td>
-                                    <td className="value">{observation.image_type}</td>
+                                    <td className="value">{getIcon(observation.image_type)}&nbsp;&nbsp;{observation.image_type}</td>
                                 </tr>
                                 <tr>
                                     <td className="key">RA, dec</td>
-                                    <td className="value">{deg2HMS(observation.field_ra)} {'Hours'}, {deg2DMS(observation.field_dec)} {'degrees'}</td>
+                                    <td className="value">{deg2HMS(observation.field_ra)} {'H'}, {deg2DMS(observation.field_dec)} {'deg'}</td>
                                 </tr>
                                 <tr>
                                     <td className="key">Date</td>
-                                    <td className="value">{observation.date}</td>
+                                    <td className="value">{date}</td>
                                 </tr>
                                 <tr>
                                     <td className="key">Mode</td>
@@ -105,7 +114,7 @@ export default function ObservationDetails(props) {
                                 </tr>
                                 <tr>
                                     <td className="key">Quality</td>
-                                    <td className="value">{observation.quality}</td>
+                                    <td className="value">{observation.quality}{magnitude}</td>
                                 </tr>
                                 <tr>
                                     <td className="key">Data Centers</td>

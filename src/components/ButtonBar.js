@@ -60,9 +60,7 @@ export function ButtonBar() {
 
 
     let image_type_title = "Image Type : "+my_state.observation_image_type
-    let mode_title = "Mode : "+my_state.observation_mode
     let iso_title = "ISO : "+my_state.observation_iso
-    let focal_title = "Focal : "+my_state.observation_focal_length
     let quality_title = "Quality : "+my_state.observation_quality
     let status_title = "Status : "+my_state.observation_status
 
@@ -88,19 +86,6 @@ export function ButtonBar() {
                 <Dropdown.Item onClick={(e) => handleImageType("other")}>{getIcon('other')}{' '}Other</Dropdown.Item>
             </DropdownButton>
 
-            <DropdownButton
-                as={InputGroup.Prepend}
-                variant="outline-secondary"
-                title={mode_title}
-                id="input-group-dropdown-1"
-            >
-                <Dropdown.Item onClick={(e) => handleMode("All")}>All</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleMode("Stacked")}>Stacked</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleMode("Single")}>Single Shot</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleMode("Wild")}>Wild</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleMode("Sim")}>Simulation</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleMode("Unknown")}>Unknown</Dropdown.Item>
-            </DropdownButton>
 
             <DropdownButton
                 as={InputGroup.Prepend}
@@ -118,16 +103,6 @@ export function ButtonBar() {
                 <Dropdown.Item onClick={(e) => handleISO("6400")}>ISO 6400</Dropdown.Item>
             </DropdownButton>
 
-            <DropdownButton
-                as={InputGroup.Prepend}
-                variant="outline-secondary"
-                title={focal_title}
-                id="input-group-dropdown-1"
-            >
-                <Dropdown.Item onClick={(e) => handleFocal("All")}>All</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleFocal("18")}>18 mm</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleFocal("200")}>200 mm</Dropdown.Item>
-                </DropdownButton>
 
             <DropdownButton
                 as={InputGroup.Prepend}
@@ -140,7 +115,7 @@ export function ButtonBar() {
                 <Dropdown.Item onClick={(e) => handleQuality("Good")}>Good</Dropdown.Item>
                 <Dropdown.Item onClick={(e) => handleQuality("Medium")}>Medium</Dropdown.Item>
                 <Dropdown.Item onClick={(e) => handleQuality("Bad")}>Bad</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleQuality("Simulated")}>Simulated</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleQuality("Annotated")}>Annotated</Dropdown.Item>
             </DropdownButton>
             <FormControl aria-describedby="basic-addon1" />
 

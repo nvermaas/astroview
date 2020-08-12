@@ -179,7 +179,7 @@ export default function ObservationsGrid(props) {
             }
         },
         {
-            name: 'Secs',
+            name: 'T(s)',
             selector: 'exposure_in_seconds',
             sortable: true,
             width: "4%",
@@ -189,7 +189,7 @@ export default function ObservationsGrid(props) {
             }
         },
         {
-            name: 'Focal',
+            name: 'F(mm)',
             selector: 'focal_length',
             sortable: true,
             width: "3%"
@@ -299,9 +299,9 @@ export default function ObservationsGrid(props) {
 
     const conditionalRowStyles = [
         {
-            when: row => row.task_type == 'master',
+            when: row => row.quality == 'annotated',
             style: {
-                backgroundColor: 'yellow',
+                backgroundColor: 'lightblue',
                 color: 'black',
                 '&:hover': {
                     cursor: 'pointer',

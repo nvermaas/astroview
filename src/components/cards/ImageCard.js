@@ -15,6 +15,17 @@ import InfoLink from '../buttons/InfoLink'
 // display the main image depending on the dispatched imageType
 function getThumbnail(observation, imageType) {
     let thumbnail =  observation.derived_raw_image
+
+    // annotated quality means that there is probably no extra processed annotated image,
+    // so show the raw image instead
+    if (observation.quality == 'annotated') {
+        imageType = 'raw'
+    }
+
+    if (imageType==='raw') {
+        thumbnail = observation.derived_raw_image
+    } else
+
     if (imageType==='annotated') {
         thumbnail = observation.derived_annotated_image
     } else
@@ -30,7 +41,7 @@ function getThumbnail(observation, imageType) {
 // display the main image
 function MainImage(props) {
     let thumbnail =  getThumbnail(props.observation, props.imageType)
-    return <a href={thumbnail} target=""_blank><img src={thumbnail} width="650"/></a>
+    return <a href={thumbnail} target=""_blank><img src={thumbnail} width="1000"/></a>
 }
 
 // display a single observation on a card
@@ -71,7 +82,7 @@ export default function ImageCard(props) {
     let buttonFITS=''
     if (props.observation.derived_fits!==null) {
         buttonFITS=<a href = {props.observation.derived_fits} target="_blank" rel="noopener noreferrer">
-                <Button variant="info">FITS</Button>
+                <Button variant="info">FITS (header)</Button>
             </a>
     }
 
@@ -80,7 +91,7 @@ export default function ImageCard(props) {
         // https://js9.si.edu/js9/js9.html?url=http://uilennest.net/astrobase/data/191231001/3836665.fits&colormap=heat&scale=log
         let link  = "https://js9.si.edu/js9/js9.html?url=" + props.observation.derived_fits + "&colormap=viridis&scale=log"
         buttonJS9=<a href = {link} target="_blank" rel="noopener noreferrer">
-            <Button variant="info">JS9</Button>
+            <Button variant="info">FITS viewer (JS9)</Button>
         </a>
     }
 

@@ -46,7 +46,7 @@ export const initialState = {
         filtered_observations: undefined,
         filter_type: "show_fetched",
         backend_filter: undefined,
-        image_type: "raw",
+        image_type: "annotated",
         thumbnail_image_type: "sky_plot",
         view: "list"
 }

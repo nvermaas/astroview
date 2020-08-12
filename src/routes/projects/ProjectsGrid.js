@@ -85,7 +85,7 @@ export default function ProjectsGrid(props) {
             }
         },
         {
-            name: 'Secs',
+            name: 'T(s)',
             selector: 'exposure_in_seconds',
             sortable: true,
             width: "4%",
@@ -95,7 +95,7 @@ export default function ProjectsGrid(props) {
             }
         },
         {
-            name: 'Focal',
+            name: 'F(m)',
             selector: 'focal_length',
             sortable: true,
             width: "3%"
@@ -204,6 +204,16 @@ export default function ProjectsGrid(props) {
     };
 
     const conditionalRowStyles = [
+        {
+            when: row => row.quality == 'annotated',
+            style: {
+                backgroundColor: 'lightblue',
+                color: 'black',
+                '&:hover': {
+                    cursor: 'pointer',
+                },
+            },
+        },
         {
             when: row => row.quality == 'great',
             style: {
