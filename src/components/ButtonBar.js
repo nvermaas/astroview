@@ -1,7 +1,7 @@
 import React from 'react';
 import { useGlobalReducer } from '../Store';
 import { Button, InputGroup, Dropdown, DropdownButton, FormControl } from 'react-bootstrap';
-import { getMode, getExposure, getIcon } from '../utils/astro'
+import { getMode, getExposure, getImageTypeIcon, getQualityIcon } from '../utils/styling'
 
 import { SET_OBSERVATION_MODE,
     SET_OBSERVATION_QUALITY,
@@ -74,16 +74,16 @@ export function ButtonBar() {
                 id="input-group-dropdown-1"
             >
                 <Dropdown.Item onClick={(e) => handleImageType("All")}>All</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleImageType("solar system")}>{getIcon('solar system')}{' '}Solar System</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleImageType("stars wide angle")}>{getIcon('stars wide angle')}{' '}Stars (wide angle)</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleImageType("stars zoomed-in")}>{getIcon('stars zoomed-in')}{' '}Stars (zoomed-in)</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleImageType("deep sky")}>{getIcon('deep sky')}{' '}Deep Sky</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleImageType("moon")}>{getIcon('moon')}{' '}Moon</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleImageType("spacecraft")}>{getIcon('spacecraft')}{' '}Spacecraft</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleImageType("scenery")}>{getIcon('scenery')}{' '}Scenery</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleImageType("technical")}>{getIcon('technical')}{' '}Technical</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleImageType("event")}>{getIcon('event')}{' '}Event</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleImageType("other")}>{getIcon('other')}{' '}Other</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleImageType("solar system")}>{getImageTypeIcon('solar system')}{' '}Solar System</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleImageType("stars wide angle")}>{getImageTypeIcon('stars wide angle')}{' '}Stars (wide angle)</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleImageType("stars zoomed-in")}>{getImageTypeIcon('stars zoomed-in')}{' '}Stars (zoomed-in)</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleImageType("deep sky")}>{getImageTypeIcon('deep sky')}{' '}Deep Sky</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleImageType("moon")}>{getImageTypeIcon('moon')}{' '}Moon</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleImageType("spacecraft")}>{getImageTypeIcon('spacecraft')}{' '}Spacecraft</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleImageType("scenery")}>{getImageTypeIcon('scenery')}{' '}Scenery</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleImageType("technical")}>{getImageTypeIcon('technical')}{' '}Technical</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleImageType("event")}>{getImageTypeIcon('event')}{' '}Event</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleImageType("other")}>{getImageTypeIcon('other')}{' '}Other</Dropdown.Item>
             </DropdownButton>
 
 
@@ -111,11 +111,11 @@ export function ButtonBar() {
                 id="input-group-dropdown-1"
             >
                 <Dropdown.Item onClick={(e) => handleQuality("All")}>All</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleQuality("Great")}>Great</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleQuality("Good")}>Good</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleQuality("Medium")}>Medium</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleQuality("Bad")}>Bad</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleQuality("Annotated")}>Annotated</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleQuality("Great")}>{getQualityIcon('great')}{' '}Great</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleQuality("Good")}>{getQualityIcon('good')}{' '}Good</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleQuality("Medium")}>{getQualityIcon('medium')}{' '}Medium</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleQuality("Bad")}>{getQualityIcon('bad')}{' '}Bad</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleQuality("Annotated")}>{getQualityIcon('annotated')}{' '}Annotated</Dropdown.Item>
             </DropdownButton>
             <FormControl aria-describedby="basic-addon1" />
 

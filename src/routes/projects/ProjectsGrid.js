@@ -7,7 +7,7 @@ import { SET_ACTIVE_TASKID } from '../../reducers/GlobalStateReducer'
 import { ASTROBASE_URL } from '../../utils/skyserver'
 import ChildrenGrid from './ChildrenGrid'
 import { getChildren } from '../../utils/filterObservations'
-import { getMode, getExposure, getIcon } from '../../utils/astro'
+import { getMode, getExposure, getImageTypeIcon, getQualityIcon } from '../../utils/styling'
 
 export default function ProjectsGrid(props) {
     const [ my_state , my_dispatch] = useGlobalReducer()
@@ -61,11 +61,10 @@ export default function ProjectsGrid(props) {
             sortable: true,
             width: "15%",
             cell: row => {
-                let icon = getIcon(row.image_type)
+                let icon = getImageTypeIcon(row.image_type)
                 return <div>{icon}&nbsp;&nbsp;{row.name}</div>
             }
         },
-
         {
             name: 'Field',
             selector: 'field_name',
@@ -95,16 +94,20 @@ export default function ProjectsGrid(props) {
             }
         },
         {
-            name: 'F(m)',
+            name: 'F(mm)',
             selector: 'focal_length',
             sortable: true,
             width: "3%"
         },
         {
-            name: 'Quality',
+            name: 'Q',
             selector: 'quality',
             sortable: true,
-            width: "4%",
+            width: "3%",
+            cell: row => {
+                let icon = getQualityIcon(row.quality)
+                return <div>{icon}</div>
+            }
         },
         {
             name: 'M',

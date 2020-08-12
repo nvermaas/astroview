@@ -2,7 +2,8 @@ import React from 'react';
 import { Container, Row, Col, Card, Table } from 'react-bootstrap';
 
 import { useGlobalReducer } from '../../Store';
-import { deg2HMS, deg2DMS, getExposure, getIcon} from '../../utils/astro'
+import { deg2HMS, deg2DMS} from '../../utils/astro'
+import { getExposure, getImageTypeIcon, getQualityIcon} from '../../utils/styling'
 import { ASTROBASE_URL, getUrlAladin, getUrlESASky, getUrlSDSS, getUrlCDSPortal} from '../../utils/skyserver'
 
 import DetailsThumbnail from './DetailsThumbnail'
@@ -76,11 +77,12 @@ export default function ObservationDetails(props) {
         magnitude = ' (magnitude: ' + observation.magnitude + ')'
     }
 
+    let api_link = ASTROBASE_URL + "?search_box=" + observation.taskID.toString()
 
     return (
 
         <div>
-            <tr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<td><h2>{getIcon(observation.image_type)}&nbsp;&nbsp;{observation.name} - {observation.field_name}</h2> </td></tr>
+            <tr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<td><h2>{getImageTypeIcon(observation.image_type)}&nbsp;&nbsp;{observation.name} - {observation.field_name}</h2> </td></tr>
             <Container fluid>
 
                 <Row>
@@ -98,7 +100,7 @@ export default function ObservationDetails(props) {
                                 </tr>
                                 <tr>
                                     <td className="key">Image</td>
-                                    <td className="value">{getIcon(observation.image_type)}&nbsp;&nbsp;{observation.image_type}</td>
+                                    <td className="value">{getImageTypeIcon(observation.image_type)}&nbsp;&nbsp;{observation.image_type}</td>
                                 </tr>
                                 <tr>
                                     <td className="key">RA, dec</td>
@@ -114,10 +116,10 @@ export default function ObservationDetails(props) {
                                 </tr>
                                 <tr>
                                     <td className="key">Quality</td>
-                                    <td className="value">{observation.quality}{magnitude}</td>
+                                    <td className="value">{getQualityIcon(observation.quality)}&nbsp;&nbsp;{observation.quality}{magnitude}</td>
                                 </tr>
                                 <tr>
-                                    <td className="key">Data Centers</td>
+                                    <td className="key">Resource</td>
                                     <td className="value">
                                         <a href={url_esa_sky} target="_blank" rel="noopener noreferrer">ESA</a>&nbsp;
                                         <a href={url_cds} target="_blank" rel="noopener noreferrer">CDS</a>&nbsp;
@@ -125,12 +127,12 @@ export default function ObservationDetails(props) {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td className="key">Astrometry Job</td>
+                                    <td className="key">Job</td>
                                     <td className="value"><a href={astrometryLink} target="_blank" rel="noopener noreferrer">{observation.job}</a>&nbsp;</td>
 
                                 </tr>
                                 <tr>
-                                    <td className="key"><a href={ASTROBASE_URL}>AstroBase</a></td>
+                                    <td className="key"><a href={api_link}>AstroBase</a></td>
                                     <td className="value"><a href={api} target="_blank" rel="noopener noreferrer">API</a>
                                     </td>
                                 </tr>

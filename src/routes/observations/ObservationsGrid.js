@@ -5,8 +5,10 @@ import DataTable from 'react-data-table-component';
 import { useGlobalReducer } from '../../Store';
 import { SET_ACTIVE_TASKID, SET_OBSERVATION_PAGE, SET_BACKEND_FILTER } from '../../reducers/GlobalStateReducer'
 //import { url } from '../../components/Main'
+import InfoLink from '../../components/buttons/InfoLink'
+
 import { ASTROBASE_URL } from '../../utils/skyserver'
-import { getMode, getExposure, getIcon } from '../../utils/astro'
+import { getMode, getExposure, getImageTypeIcon, getQualityIcon } from '../../utils/styling'
 
 
 export default function ObservationsGrid(props) {
@@ -156,7 +158,7 @@ export default function ObservationsGrid(props) {
             sortable: true,
             width: "15%",
             cell: row => {
-                let icon = getIcon(row.image_type)
+                let icon = getImageTypeIcon(row.image_type)
                 return <div>{icon}&nbsp;&nbsp;{row.name}</div>
             }
         },
@@ -195,10 +197,14 @@ export default function ObservationsGrid(props) {
             width: "3%"
         },
         {
-            name: 'Quality',
+            name: 'Q',
             selector: 'quality',
             sortable: true,
-            width: "4%",
+            width: "3%",
+            cell: row => {
+                let icon = getQualityIcon(row.quality)
+                return <div>{icon}</div>
+            }
         },
         {
             name: 'M',
@@ -250,7 +256,6 @@ export default function ObservationsGrid(props) {
                 </a>,
             button: true,
         },
-
     ];
 
     const myTheme = {
