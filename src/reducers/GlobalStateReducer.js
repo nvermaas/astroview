@@ -10,9 +10,14 @@ export const SET_ACTIVE_OBSERVATION = 'SET_ACTIVE_OBSERVATION'
 export const SET_FETCHED_OBSERVATIONS = 'SET_FETCHED_OBSERVATIONS'
 export const SET_TOTAL_OBSERVATIONS = 'SET_TOTAL_OBSERVATIONS'
 export const SET_OBSERVATION_PAGE = 'SET_OBSERVATION_PAGE'
+
+// filter actions
+export const SET_OBSERVATION_IMAGE_TYPE = 'SET_OBSERVATION_IMAGE_TYPE'
 export const SET_OBSERVATION_MODE = 'SET_OBSERVATION_MODE'
 export const SET_OBSERVATION_QUALITY = 'SET_OBSERVATION_QUALITY'
 export const SET_OBSERVATION_STATUS = 'SET_OBSERVATION_STATUS'
+export const SET_OBSERVATION_ISO = 'SET_OBSERVATION_ISO'
+export const SET_OBSERVATION_FOCAL_LENGTH = 'SET_OBSERVATION_FOCAL_LENGTH'
 
 export const SET_FILTERED_OBSERVATIONS = 'SET_FILTERED_OBSERVATIONS'
 export const SET_FETCHED_PROJECTS = 'SET_FETCHED_PROJECTS'
@@ -32,9 +37,12 @@ export const initialState = {
         fetched_observations: undefined,
         total_observations: undefined,
         observation_page: 1,
+        observation_image_type: "All",
         observation_mode: "All",
         observation_quality: "All",
         observation_status: "All",
+        observation_iso: "All",
+        observation_focal_length: "All",
         filtered_observations: undefined,
         filter_type: "show_fetched",
         backend_filter: undefined,
@@ -50,6 +58,12 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 status: action.status
+            };
+
+        case SET_OBSERVATION_IMAGE_TYPE:
+            return {
+                ...state,
+                observation_image_type: action.observation_image_type
             };
 
         case SET_OBSERVATION_MODE:
@@ -68,6 +82,18 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 observation_status: action.observation_status
+            };
+
+        case SET_OBSERVATION_ISO:
+            return {
+                ...state,
+                observation_iso: action.observation_iso
+            };
+
+        case SET_OBSERVATION_FOCAL_LENGTH:
+            return {
+                ...state,
+                observation_focal_length: action.observation_focal_length
             };
 
         case SET_ACTIVE_TASKID:

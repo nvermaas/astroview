@@ -1,7 +1,7 @@
 import React, {useState, useEffect }  from 'react';
 import '../App.css';
 
-import { SET_FETCHED_OBSERVATIONS, SET_STATUS, SET_TOTAL_OBSERVATIONS} from '../reducers/GlobalStateReducer';
+import { SET_FETCHED_OBSERVATIONS, SET_STATUS, SET_TOTAL_OBSERVATIONS, SET_BACKEND_FILTER} from '../reducers/GlobalStateReducer';
 import { ASTROBASE_URL } from '../utils/skyserver'
 
 import { useGlobalReducer } from '../Store';
@@ -51,8 +51,14 @@ function Main () {
 
     useEffect(() => {
             fetchObservations(url)
-        }, [my_state.backend_filter, my_state.observation_page, my_state.observation_mode,
-        my_state.observation_quality, my_state.observation_status]
+        }, [my_state.backend_filter,
+        my_state.observation_page,
+        my_state.observation_mode,
+        my_state.observation_quality,
+        my_state.observation_status,
+        my_state.observation_iso,
+        my_state.observation_focal_length,
+        my_state.observation_image_type]
     );
 
     // this executes 'setTimer' once, which refreshes the observationlist every minute
@@ -78,6 +84,10 @@ function Main () {
                 url = url + my_state.backend_filter
             }
 
+            if (my_state.observation_image_type!=="All") {
+                url = url + '&image_type__icontains='+my_state.observation_image_type
+            }
+
             if (my_state.observation_mode!=="All") {
                 url = url + '&observing_mode__icontains='+my_state.observation_mode
             }
@@ -88,6 +98,14 @@ function Main () {
 
             if (my_state.observation_status!=="All") {
                 url = url + '&my_status__icontains='+my_state.observation_status
+            }
+
+            if (my_state.observation_iso!=="All") {
+                url = url + '&iso='+my_state.observation_iso
+            }
+
+            if (my_state.observation_focal_length!=="All") {
+                url = url + '&focal_length='+my_state.observation_focal_length
             }
 
             //alert('fetchObservations: ' + (url))
@@ -124,12 +142,14 @@ function Main () {
 
                 <Switch>
                     <Route exact path="/">
-                        <Projects />
+                        <Observations />
                     </Route>
 
                     <Route path="/projects">
                         <Projects />
                     </Route>
+
+                    <Route path="/projectsss/:id" children={<ProjectsForward />} />
 
                     <Route path="/observations">
                         <Observations />
@@ -146,7 +166,7 @@ function Main () {
                     <Route path="/details/:id" children={<ObservationDetailsForward />} />
                 </Switch>
             </div>
-            <footer><small> (C) 2020 - Nico Vermaas - version 1.6.0 - 29 jul 2020</small></footer>
+            <footer><small> (C) 2020 - Nico Vermaas - version 1.7.0 - 10 aug 2020</small></footer>
         </Router>
     );
 }
@@ -157,6 +177,20 @@ function ObservationDetailsForward() {
 
     return (
         <ObservationDetails taskid={id}/>
+    );
+}
+
+// reroute to projects details
+function ProjectsForward() {
+    const [ my_state , my_dispatch] = useGlobalReducer()
+    let { id } = useParams();
+
+    //let backend_filter = '&fieldsearch='+id
+    //alert(backend_filter)
+    //my_dispatch({type: SET_BACKEND_FILTER, backend_filter: backend_filter})
+
+    return (
+        <Projects taskid={id}/>
     );
 }
 

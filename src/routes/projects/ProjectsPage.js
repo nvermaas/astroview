@@ -4,8 +4,8 @@ import LoadingSpinner from '../../components/LoadingSpinner';
 import ProjectsGrid from './ProjectsGrid'
 import { useGlobalReducer } from '../../Store';
 
-import { getProjects } from '../../utils/filterObservations'
-import { SET_FILTERED_PROJECTS} from '../../reducers/GlobalStateReducer';
+import { filterProjects } from '../../utils/filterObservations'
+import { SET_FILTERED_PROJECTS, SET_BACKEND_FILTER} from '../../reducers/GlobalStateReducer';
 
 export default function Projects(props) {
 
@@ -16,11 +16,10 @@ export default function Projects(props) {
     let renderProjects
 
     if (my_state!=='unfetched') {
-        let projects
-        if (my_state.filter_type === 'show_fetched') {
-            projects = my_state.fetched_projects
-        } else if (my_state.filter_type === 'show_filtered') {
-            projects = my_state.filtered_projects
+        let projects = my_state.fetched_projects
+        if (props.taskid) {
+            //alert(props.taskid)
+            projects = filterProjects(projects,props.taskid,1)
         }
         renderProjects = <ProjectsGrid data={projects}/>
     }

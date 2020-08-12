@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from "react-router-dom"
-import { Button } from 'react-bootstrap';
+import { Button,Badge } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
 import { useGlobalReducer } from '../../Store';
 import { SET_ACTIVE_TASKID } from '../../reducers/GlobalStateReducer'
-import { url } from '../../components/Main'
+import { ASTROBASE_URL } from '../../utils/skyserver'
 import ChildrenGrid from './ChildrenGrid'
 import { getChildren } from '../../utils/filterObservations'
+import { getMode, getExposure, getIcon } from '../../utils/astro'
 
 export default function ProjectsGrid(props) {
     const [ my_state , my_dispatch] = useGlobalReducer()
@@ -24,8 +25,15 @@ export default function ProjectsGrid(props) {
 
     // generate the api link
     const getAPI = (observation) => {
-        let api_link = url + '/' + observation.id.toString()
+        //let api_link = ASTROBASE_URL + "observations/" + observation.id.toString()
+        let api_link = ASTROBASE_URL + "?search_box=" + observation.taskID.toString()
         return api_link
+    }
+
+    // generate the api link
+    const getDPSlink = (observation) => {
+        let dps_link = ASTROBASE_URL + "task/" + observation.taskID.toString()
+        return dps_link
     }
 
     const columns = [
@@ -34,38 +42,92 @@ export default function ProjectsGrid(props) {
             name: 'TaskID',
             selector: 'taskID',
             sortable: true,
-            width: "7%"
+            width: "6%"
         },
-
         {
             name: 'Observation Date',
             selector: 'date',
             sortable: true,
-            width: "10%"
+            width: "8%",
+            cell: row => {
+                var d = new Date(row.date.toString());
+                var n = d.toDateString()
+                return <div>{n}</div>
+            }
         },
         {
             name: 'Name',
             selector: 'name',
             sortable: true,
+            width: "15%",
+            cell: row => {
+                let icon = getIcon(row.image_type)
+                return <div>{icon}&nbsp;&nbsp;{row.name}</div>
+            }
         },
+
         {
             name: 'Field',
             selector: 'field_name',
             sortable: true,
+            wrap : true,
+            compact: true
         },
+
         {
             name: 'Mode',
             selector: 'observing_mode',
             sortable: true,
-            width: "10%"
+            width: "7%",
+            cell: row => {
+                let mode = getMode(row)
+                return <div>{mode}</div>
+            }
+        },
+        {
+            name: 'Secs',
+            selector: 'exposure_in_seconds',
+            sortable: true,
+            width: "4%",
+            cell: row => {
+                let exposure = getExposure(row)
+                return <div>{exposure}</div>
+            }
+        },
+        {
+            name: 'Focal',
+            selector: 'focal_length',
+            sortable: true,
+            width: "3%"
         },
         {
             name: 'Quality',
             selector: 'quality',
             sortable: true,
-            width: "5%"
+            width: "4%",
         },
         {
+            name: 'M',
+            selector: 'magnitude',
+            sortable: true,
+            width: "3%",
+            cell: row => {
+                return <div>
+                    <Badge pill variant="light">
+                        {row.magnitude}
+                    </Badge></div>
+            }
+        },
+        /*
+         {
+         name: 'Status',
+         selector: 'my_status',
+         sortable: true,
+         width: "5%"
+         },
+         */
+        {
+            name: 'Details',
             cell: row =>
                 <Link to={() => getLink(row)}>
                     <Button variant="warning" onClick={() => handleClick(row)}>Details</Button>
@@ -74,6 +136,20 @@ export default function ProjectsGrid(props) {
             button: true,
         },
         {
+            name: 'Dataproducts',
+            sortable: true,
+            width: "5%",
+            cell: row => {
+
+                if (row.generated_dataproducts.length > 1) {
+                    return <a href={getDPSlink(row)} target="_blank" rel="noopener noreferrer">
+                        <Button variant="outline-info" onClick={() => handleClick(row)}>DPS</Button>
+                    </a>
+                }
+            }
+        },
+        {
+            name: 'Astrobase',
             cell: row =>
                 <a href={getAPI(row)} target="_blank" rel="noopener noreferrer">
                     <Button variant="outline-info" onClick={() => handleClick(row)}>API</Button>
@@ -131,8 +207,8 @@ export default function ProjectsGrid(props) {
         {
             when: row => row.quality == 'great',
             style: {
-                backgroundColor: 'green',
-                color: 'white',
+                backgroundColor: '#9FFF7F',
+                color: 'black',
                 '&:hover': {
                     cursor: 'pointer',
                 },

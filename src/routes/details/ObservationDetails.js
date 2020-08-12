@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Row, Col, Card, Table } from 'react-bootstrap';
 
 import { useGlobalReducer } from '../../Store';
-import { deg2HMS, deg2DMS} from '../../utils/astro'
+import { deg2HMS, deg2DMS, getExposure} from '../../utils/astro'
 import { ASTROBASE_URL, getUrlAladin, getUrlESASky, getUrlSDSS, getUrlCDSPortal} from '../../utils/skyserver'
 
 import DetailsThumbnail from './DetailsThumbnail'
@@ -34,6 +34,26 @@ export default function ObservationDetails(props) {
     if (fov === 0) {
         fov = 60
     }
+
+    let mode = ''
+    let stacked = 1
+    if (observation.stacked_images>0) {
+        stacked = observation.stacked_images
+    }
+    mode = mode + stacked + ' x'
+
+    if (observation.iso!="none") {
+        mode = mode + ' ISO' + observation.iso
+    }
+
+    if (observation.exposure_in_seconds>0) {
+        mode = mode + ' ' + observation.exposure_in_seconds + 's'
+    }
+
+    if (observation.focal_length>0) {
+       mode = mode + ' ' + observation.focal_length + 'mm'
+    }
+
 
     // links to various datacenters
     let sdss_image = getUrlSDSS(observation.field_ra.RA, observation.field_dec, observation.field_fov, 300, 300, 'S')
@@ -68,16 +88,12 @@ export default function ObservationDetails(props) {
                                     <td className="value">{observation.field_name}</td>
                                 </tr>
                                 <tr>
-                                    <td className="key">RA</td>
-                                    <td className="value">{deg2HMS(observation.field_ra)}</td>
+                                    <td className="key">Image</td>
+                                    <td className="value">{observation.image_type}</td>
                                 </tr>
                                 <tr>
-                                    <td className="key">dec</td>
-                                    <td className="value">{deg2DMS(observation.field_dec)}</td>
-                                </tr>
-                                <tr>
-                                    <td className="key">Field of View</td>
-                                    <td className="value">{fov}</td>
+                                    <td className="key">RA, dec</td>
+                                    <td className="value">{deg2HMS(observation.field_ra)} {'Hours'}, {deg2DMS(observation.field_dec)} {'degrees'}</td>
                                 </tr>
                                 <tr>
                                     <td className="key">Date</td>
@@ -85,7 +101,7 @@ export default function ObservationDetails(props) {
                                 </tr>
                                 <tr>
                                     <td className="key">Mode</td>
-                                    <td className="value">{observation.observing_mode}</td>
+                                    <td className="value">{mode}</td>
                                 </tr>
                                 <tr>
                                     <td className="key">Quality</td>

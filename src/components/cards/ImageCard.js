@@ -48,32 +48,42 @@ export default function ImageCard(props) {
     // conditionally render the buttons if the underlying dataproduct exists
 
     let buttonRaw=''
-    if (props.observation.derived_raw_image!==undefined) {
+    if (props.observation.derived_raw_image!==null) {
         buttonRaw = <Button variant="primary" onClick={() => handleClick(props.observation, "raw")}>
                         <FontAwesomeIcon icon={faImage} />&nbsp;Original
                     </Button>
     }
 
     let buttonAnnotated=''
-    if (props.observation.derived_annotated_image!==undefined) {
+    if (props.observation.derived_annotated_image!==null) {
         buttonAnnotated = <Button variant="success" onClick={() => handleClick(props.observation, "annotated")}>
                         <FontAwesomeIcon icon={faProjectDiagram} />&nbsp;Annotated
             </Button>
     }
 
     let buttonRedGreen=''
-    if (props.observation.derived_red_green_image!==undefined) {
+    if (props.observation.derived_red_green_image!==null) {
         buttonRedGreen = <Button variant="success"
                                   onClick={() => handleClick(props.observation, "redgreen")}>Red/Green
         </Button>
     }
 
     let buttonFITS=''
-    if (props.observation.derived_fits!==undefined) {
+    if (props.observation.derived_fits!==null) {
         buttonFITS=<a href = {props.observation.derived_fits} target="_blank" rel="noopener noreferrer">
                 <Button variant="info">FITS</Button>
             </a>
     }
+
+    let buttonJS9=''
+    if (props.observation.derived_fits!==null) {
+        // https://js9.si.edu/js9/js9.html?url=http://uilennest.net/astrobase/data/191231001/3836665.fits&colormap=heat&scale=log
+        let link  = "https://js9.si.edu/js9/js9.html?url=" + props.observation.derived_fits + "&colormap=viridis&scale=log"
+        buttonJS9=<a href = {link} target="_blank" rel="noopener noreferrer">
+            <Button variant="info">JS9</Button>
+        </a>
+    }
+
 
     let buttonFullScreen=
         <a href = {getThumbnail(props.observation,my_state.image_type)} target="_blank" rel="noopener noreferrer">
@@ -93,7 +103,7 @@ export default function ImageCard(props) {
                     {buttonRaw}&nbsp;
                     {buttonAnnotated}&nbsp;
                     {buttonFITS}&nbsp;
-
+                    {buttonJS9}&nbsp;
                 </tr>
                 &nbsp;
                 <tr>

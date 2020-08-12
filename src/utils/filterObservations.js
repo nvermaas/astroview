@@ -49,6 +49,18 @@ export function getProjects(observations, maxResults) {
     }).slice(0, maxResults);
 }
 
+export function filterProjects(observations, taskid, maxResults) {
+      return observations.filter((observation) => {
+        if (observation.task_type==='master') {
+            if (observation.taskID===taskid) {
+                return true;
+            }
+        }
+        return false;
+    }).slice(0, maxResults);
+}
+
+
 // get child observations of a master observation
 export function getChildren(observations, id) {
     return observations.filter((observation) => {

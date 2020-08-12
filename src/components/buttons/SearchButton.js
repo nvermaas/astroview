@@ -3,8 +3,20 @@ import { Form, FormControl, Button } from 'react-bootstrap';
 import { useGlobalReducer } from '../../Store';
 import { useLocation } from "react-router-dom"
 import { filterObservations } from '../../utils/filterObservations'
+import { ResetFilters } from '../ButtonBar'
 
-import { SET_OBSERVATION_PAGE, SET_FILTERED_OBSERVATIONS, SET_FILTER_TYPE, SET_BACKEND_FILTER } from '../../reducers/GlobalStateReducer'
+import {
+    SET_OBSERVATION_PAGE,
+    SET_FILTERED_OBSERVATIONS,
+    SET_FILTER_TYPE,
+    SET_OBSERVATION_MODE,
+    SET_BACKEND_FILTER,
+    SET_OBSERVATION_IMAGE_TYPE,
+    SET_OBSERVATION_QUALITY,
+    SET_OBSERVATION_STATUS,
+    SET_OBSERVATION_ISO,
+    SET_OBSERVATION_FOCAL_LENGTH
+} from '../../reducers/GlobalStateReducer'
 
 // typing in the search box will execute a filter and dispatch it. The observation screen responds instantly.
 export default function SearchButton(props) {
@@ -36,6 +48,14 @@ export default function SearchButton(props) {
         my_dispatch({type: SET_FILTER_TYPE, filter_type: "show_fetched"})
         my_dispatch({type: SET_BACKEND_FILTER, backend_filter: undefined})
 
+        // also reset all button filters
+        my_dispatch({type: SET_OBSERVATION_IMAGE_TYPE, observation_image_type: "All"})
+        my_dispatch({type: SET_OBSERVATION_MODE, observation_mode: "All"})
+        my_dispatch({type: SET_OBSERVATION_QUALITY, observation_quality: "All"})
+        my_dispatch({type: SET_OBSERVATION_STATUS, observation_status: "All"})
+        my_dispatch({type: SET_OBSERVATION_ISO, observation_iso: "All"})
+        my_dispatch({type: SET_OBSERVATION_FOCAL_LENGTH, observation_focal_length: "All"})
+
     }
 
     // use if you want the search to start while you type
@@ -62,7 +82,8 @@ export default function SearchButton(props) {
 
     // only show this button on the observations screen
     let location = useLocation()
-    if (location.pathname === '/observations' || location.pathname === '/projects') {
+
+    if (location.pathname === '/' || location.pathname === '/observations' || location.pathname === '/projects') {
         return <Form inline>
             <FormControl type="text" placeholder="Search" className="mr-sm-2" onKeyPress={handleKeyPress} />
             <Button variant="outline-info" onClick={handleResetClick}>Reset Filter</Button>
