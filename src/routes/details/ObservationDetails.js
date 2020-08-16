@@ -9,7 +9,7 @@ import { ASTROBASE_URL, getUrlAladin, getUrlESASky, getUrlSDSS, getUrlCDSPortal}
 import DetailsThumbnail from './DetailsThumbnail'
 import ImageCard from '../../components/cards/ImageCard'
 
-import { url } from '../../components/Main'
+import { url_observations } from '../../components/Main'
 
 export default function ObservationDetails(props) {
 
@@ -29,6 +29,11 @@ export default function ObservationDetails(props) {
 
     // find the current observation in the fetched observations by taskID
     let observation = findElement(my_state.fetched_observations,"taskID",props.taskid)
+    if (observation==undefined) {
+        // this happens when the observation wasn't fetched.... improve this
+        return null
+    }
+
     let astrometryLink = "http://nova.astrometry.net/status/"+observation.job
 
     let fov = parseFloat(observation.field_fov) * 3
@@ -62,7 +67,7 @@ export default function ObservationDetails(props) {
     let url_cds = getUrlCDSPortal(observation.field_ra,observation.field_dec)
 
     // link to AstroBase REST API
-    let api = url + '/' + observation.id.toString()
+    let api = url_observations + '/' + observation.id.toString()
 
     let d = new Date(observation.date.toString());
     let date = d.toDateString()

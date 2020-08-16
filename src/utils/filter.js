@@ -1,0 +1,31 @@
+
+// apply the filters that are set in the state to the url_observations
+export const getFilteredUrl = (url, my_state) => {
+
+    url = url + "?page=" + my_state.observation_page
+
+    if (my_state.backend_filter != undefined) {
+        url = url + my_state.backend_filter
+    }
+
+    if (my_state.observation_image_type !== "All") {
+        url = url + '&image_type__icontains=' + my_state.observation_image_type
+    }
+
+    if (my_state.observation_quality !== "All") {
+        url = url + '&quality__icontains=' + my_state.observation_quality
+    }
+
+    if (my_state.observation_status !== "All") {
+        url = url + '&my_status__icontains=' + my_state.observation_status
+    }
+
+    if (my_state.observation_iso !== "All") {
+        url = url + '&iso=' + my_state.observation_iso
+    }
+
+    if (my_state.observation_focal_length !== "All") {
+        url = url + '&focal_length=' + my_state.observation_focal_length
+    }
+    return url
+}

@@ -4,7 +4,7 @@ import { Button, Badge } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
 import { useGlobalReducer } from '../../Store';
 import { SET_ACTIVE_TASKID, SET_OBSERVATION_PAGE, SET_BACKEND_FILTER } from '../../reducers/GlobalStateReducer'
-//import { url } from '../../components/Main'
+//import { url_observations } from '../../components/Main'
 import InfoLink from '../../components/buttons/InfoLink'
 
 import { ASTROBASE_URL } from '../../utils/skyserver'
@@ -30,7 +30,7 @@ export default function ObservationsGrid(props) {
         // get the data from the api
         let url = ASTROBASE_URL + "observations?page=" +page.toString()
 
-        // if a backend_filter is defined then add it to the url
+        // if a backend_filter is defined then add it to the url_observations
         if (my_state.backend_filter!=undefined) {
             url = url + my_state.backend_filter
         }
@@ -143,10 +143,10 @@ export default function ObservationsGrid(props) {
             }
         },
         {
-            name: 'Observation Date',
+            name: 'Date',
             selector: 'date',
             sortable: true,
-            width: "8%",
+            width: "9%",
             cell: row => {
                 var d = new Date(row.date.toString());
                 return <div>{d.toDateString()}</div>

@@ -90,7 +90,7 @@ export default function ImageCard(props) {
     let buttonJS9=''
     if (props.observation.derived_fits!==null) {
         // https://js9.si.edu/js9/js9.html?url=http://uilennest.net/astrobase/data/191231001/3836665.fits&colormap=heat&scale=log
-        let link  = "https://js9.si.edu/js9/js9.html?url=" + props.observation.derived_fits + "&colormap=viridis&scale=log"
+        let link  = "https://js9.si.edu/js9/js9.html?url_observations=" + props.observation.derived_fits + "&colormap=viridis&scale=log"
         buttonJS9=<a href = {link} target="_blank" rel="noopener noreferrer">
             <Button variant="info">FITS viewer (JS9)</Button>
         </a>

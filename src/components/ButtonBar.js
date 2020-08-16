@@ -3,7 +3,7 @@ import { useGlobalReducer } from '../Store';
 import { Button, InputGroup, Dropdown, DropdownButton, FormControl } from 'react-bootstrap';
 import { getMode, getExposure, getImageTypeIcon, getQualityIcon } from '../utils/styling'
 
-import { SET_OBSERVATION_MODE,
+import {
     SET_OBSERVATION_QUALITY,
     SET_OBSERVATION_STATUS,
     SET_OBSERVATION_ISO,
@@ -17,7 +17,6 @@ export function ButtonBar() {
 
     function ResetFilters() {
         my_dispatch({type: SET_OBSERVATION_IMAGE_TYPE, observation_image_type: "All"})
-        my_dispatch({type: SET_OBSERVATION_MODE, observation_mode: "All"})
         my_dispatch({type: SET_OBSERVATION_QUALITY, observation_quality: "All"})
         my_dispatch({type: SET_OBSERVATION_STATUS, observation_status: "All"})
         my_dispatch({type: SET_OBSERVATION_ISO, observation_iso: "All"})
@@ -29,12 +28,6 @@ export function ButtonBar() {
         // see the useEffect in the Main.js how that is done.
 
         my_dispatch({type: SET_OBSERVATION_IMAGE_TYPE, observation_image_type: image_type})
-    }
-
-    function handleMode(mode) {
-        // a change in observation_quality is used to trigger a new fetch,
-        // see the useEffect in the Main.js how that is done.
-        my_dispatch({type: SET_OBSERVATION_MODE, observation_mode: mode})
     }
 
     function handleQuality(quality) {

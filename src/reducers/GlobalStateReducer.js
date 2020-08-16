@@ -4,24 +4,31 @@
 import { getProjects } from '../utils/filterObservations'
 
 // possible actions
-export const SET_STATUS = 'SET_STATUS'
+
 export const SET_ACTIVE_TASKID = 'SET_ACTIVE_TASKID'
 export const SET_ACTIVE_OBSERVATION = 'SET_ACTIVE_OBSERVATION'
+
+export const SET_STATUS = 'SET_STATUS'
 export const SET_FETCHED_OBSERVATIONS = 'SET_FETCHED_OBSERVATIONS'
 export const SET_TOTAL_OBSERVATIONS = 'SET_TOTAL_OBSERVATIONS'
 export const SET_OBSERVATION_PAGE = 'SET_OBSERVATION_PAGE'
+export const SET_FILTERED_OBSERVATIONS = 'SET_FILTERED_OBSERVATIONS'
+
+export const SET_STATUS_PROJECTS = 'SET_STATUS_PROJECTS'
+export const SET_FETCHED_PROJECTS = 'SET_FETCHED_PROJECTS'
+export const SET_TOTAL_PROJECTS = 'SET_TOTAL_PROJECTS'
+export const SET_PROJECT_PAGE = 'SET_PROJECT_PAGE'
+export const SET_FILTERED_PROJECTS = 'SET_FILTERED_PROJECTS'
+
 
 // filter actions
 export const SET_OBSERVATION_IMAGE_TYPE = 'SET_OBSERVATION_IMAGE_TYPE'
-export const SET_OBSERVATION_MODE = 'SET_OBSERVATION_MODE'
 export const SET_OBSERVATION_QUALITY = 'SET_OBSERVATION_QUALITY'
 export const SET_OBSERVATION_STATUS = 'SET_OBSERVATION_STATUS'
 export const SET_OBSERVATION_ISO = 'SET_OBSERVATION_ISO'
 export const SET_OBSERVATION_FOCAL_LENGTH = 'SET_OBSERVATION_FOCAL_LENGTH'
 
-export const SET_FILTERED_OBSERVATIONS = 'SET_FILTERED_OBSERVATIONS'
-export const SET_FETCHED_PROJECTS = 'SET_FETCHED_PROJECTS'
-export const SET_FILTERED_PROJECTS = 'SET_FILTERED_PROJECTS'
+
 
 export const SET_FILTER_TYPE = 'SET_FILTER_TYPE'
 export const SET_BACKEND_FILTER = 'SET_BACKEND_FILTER'
@@ -31,14 +38,20 @@ export const SET_THUMBNAIL_IMAGE_TYPE = 'SET_THUMBNAIL_IMAGE_TYPE'
 export const SET_VIEW = 'SET_VIEW'
 
 export const initialState = {
-        status: "unfetched",
         taskid: undefined,
         observation: undefined,
+
+        status: "unfetched",
         fetched_observations: undefined,
         total_observations: undefined,
         observation_page: 1,
+
+        project_status : "unfetched",
+        fetched_projects: undefined,
+        total_projects: undefined,
+        project_page: 1,
+    
         observation_image_type: "All",
-        observation_mode: "All",
         observation_quality: "All",
         observation_status: "All",
         observation_iso: "All",
@@ -59,17 +72,11 @@ export const reducer = (state, action) => {
                 ...state,
                 status: action.status
             };
-
+            
         case SET_OBSERVATION_IMAGE_TYPE:
             return {
                 ...state,
                 observation_image_type: action.observation_image_type
-            };
-
-        case SET_OBSERVATION_MODE:
-            return {
-                ...state,
-                observation_mode: action.observation_mode
             };
 
         case SET_OBSERVATION_QUALITY:
@@ -112,13 +119,12 @@ export const reducer = (state, action) => {
             };
 
         case SET_FETCHED_OBSERVATIONS:
-            //alert('reducer: SET_FETCHED_OBSERVATIONS '+action.fetched_observations)
-                let fetched_projects = getProjects(action.fetched_observations,1000)
+                // let fetched_projects = getProjects(action.fetched_observations,1000)
 
             return {
                 ...state,
                 fetched_observations: action.fetched_observations,
-                fetched_projects: fetched_projects
+                // fetched_projects: fetched_projects
             };
 
         case SET_TOTAL_OBSERVATIONS:
@@ -135,6 +141,12 @@ export const reducer = (state, action) => {
                 observation_page: action.observation_page,
             };
 
+        case SET_STATUS_PROJECTS:
+            return {
+                ...state,
+                status_projects: action.status_projects
+            };
+            
         case SET_FETCHED_PROJECTS:
             //alert('reducer: SET_FETCHED_PROJECTS '+action.fetched_observations)
             return {
@@ -142,6 +154,20 @@ export const reducer = (state, action) => {
                 fetched_projects: action.fetched_projects
             };
 
+        case SET_TOTAL_PROJECTS:
+            return {
+                ...state,
+                total_projects: action.total_projects,
+            };
+
+        case SET_PROJECT_PAGE:
+            // a change in project_page is used to trigger a new fetch,
+            // see the useEffect in the Main.js how that is done.
+            return {
+                ...state,
+                project_page: action.project_page,
+            };
+            
         case SET_FILTERED_OBSERVATIONS:
             //alert('reducer: SET_FILTERED_OBSERVATIONS '+action.filtered_observations)
             let filtered_projects = getProjects(action.filtered_observations,100)

@@ -9,7 +9,6 @@ import {
     SET_OBSERVATION_PAGE,
     SET_FILTERED_OBSERVATIONS,
     SET_FILTER_TYPE,
-    SET_OBSERVATION_MODE,
     SET_BACKEND_FILTER,
     SET_OBSERVATION_IMAGE_TYPE,
     SET_OBSERVATION_QUALITY,
@@ -50,7 +49,6 @@ export default function SearchButton(props) {
 
         // also reset all button filters
         my_dispatch({type: SET_OBSERVATION_IMAGE_TYPE, observation_image_type: "All"})
-        my_dispatch({type: SET_OBSERVATION_MODE, observation_mode: "All"})
         my_dispatch({type: SET_OBSERVATION_QUALITY, observation_quality: "All"})
         my_dispatch({type: SET_OBSERVATION_STATUS, observation_status: "All"})
         my_dispatch({type: SET_OBSERVATION_ISO, observation_iso: "All"})

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import LoadingSpinner from '../../components/LoadingSpinner';
-import { ButtonBar } from '../../components/ButtonBar';
 import ObservationTiles from './ObservationTiles'
 import ObservationsGrid from './ObservationsGrid'
 import { useGlobalReducer } from '../../Store';
@@ -40,8 +39,6 @@ export default function Observations(props) {
     return (
         <div className="App">
             <div>
-                <ButtonBar />
-
                 {renderSpinner}
                 {renderObservations}
             </div>
