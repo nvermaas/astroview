@@ -8,6 +8,7 @@ import {
     SET_OBSERVATION_STATUS,
     SET_OBSERVATION_ISO,
     SET_OBSERVATION_FOCAL_LENGTH,
+    SET_OBSERVATION_PAGE,
     SET_OBSERVATION_IMAGE_TYPE} from '../reducers/GlobalStateReducer'
 
 
@@ -33,6 +34,7 @@ export function ButtonBar() {
     function handleQuality(quality) {
         // a change in observation_quality is used to trigger a new fetch,
         // see the useEffect in the Main.js how that is done.
+        my_dispatch({type: SET_OBSERVATION_PAGE, observation_page: 1})
         my_dispatch({type: SET_OBSERVATION_QUALITY, observation_quality: quality})
     }
 

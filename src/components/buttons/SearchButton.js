@@ -2,13 +2,10 @@ import React from 'react';
 import { Form, FormControl, Button } from 'react-bootstrap';
 import { useGlobalReducer } from '../../Store';
 import { useLocation } from "react-router-dom"
-import { filterObservations } from '../../utils/filterObservations'
 import { ResetFilters } from '../ButtonBar'
 
 import {
     SET_OBSERVATION_PAGE,
-    SET_FILTERED_OBSERVATIONS,
-    SET_FILTER_TYPE,
     SET_BACKEND_FILTER,
     SET_OBSERVATION_IMAGE_TYPE,
     SET_OBSERVATION_QUALITY,
@@ -23,16 +20,6 @@ export default function SearchButton(props) {
 
     let text_to_search
 
-    function doTheFrontendFilter() {
-        let filtered_observations = filterObservations(text_to_search, my_state.fetched_observations, 100)
-
-        // execute the filter...
-        my_dispatch({type: SET_FILTERED_OBSERVATIONS, filtered_observations: filtered_observations})
-
-        // ..and let the application know about it by setting the global state to 'filtered'
-        my_dispatch({type: SET_FILTER_TYPE, filter_type: "show_filtered"})
-    }
-
     function doTheBackendFilter() {
         //alert('doTheBackendFilter('+text_to_search+')')
         // let backend_filter = '&field_name__icontains='+text_to_search
@@ -44,7 +31,6 @@ export default function SearchButton(props) {
     }
 
     const handleResetClick = (event) => {
-        my_dispatch({type: SET_FILTER_TYPE, filter_type: "show_fetched"})
         my_dispatch({type: SET_BACKEND_FILTER, backend_filter: undefined})
 
         // also reset all button filters
@@ -54,13 +40,6 @@ export default function SearchButton(props) {
         my_dispatch({type: SET_OBSERVATION_ISO, observation_iso: "All"})
         my_dispatch({type: SET_OBSERVATION_FOCAL_LENGTH, observation_focal_length: "All"})
 
-    }
-
-    // use if you want the search to start while you type
-    // onChange={handleKeyPress}
-    const handleChange = (event) => {
-        text_to_search = event.target.value.toUpperCase()
-        doTheFrontendFilter()
     }
 
     // use if you want the search to start while you hit enter

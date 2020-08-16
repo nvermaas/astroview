@@ -30,11 +30,6 @@ export default function ObservationsGrid(props) {
         // get the data from the api
         let url = ASTROBASE_URL + "observations?page=" +page.toString()
 
-        // if a backend_filter is defined then add it to the url_observations
-        if (my_state.backend_filter!=undefined) {
-            url = url + my_state.backend_filter
-        }
-
         // a change in observation_page is used to trigger a new fetch,
         // see the useEffect in the Main.js how that is done.
         my_dispatch({type: SET_OBSERVATION_PAGE, observation_page: page})
@@ -69,6 +64,7 @@ export default function ObservationsGrid(props) {
         if (observation.derived_parent_taskid===undefined) {
             return null
         }
+
         let project_link = "projectsss/" + observation.derived_parent_taskid.toString()
         return project_link
     }

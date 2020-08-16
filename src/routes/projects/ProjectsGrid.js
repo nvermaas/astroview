@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { Button,Badge } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
 import { useGlobalReducer } from '../../Store';
-import { SET_ACTIVE_TASKID } from '../../reducers/GlobalStateReducer'
+import { SET_ACTIVE_TASKID, SET_PROJECT_PAGE } from '../../reducers/GlobalStateReducer'
 import { ASTROBASE_URL } from '../../utils/skyserver'
 import ChildrenGrid from './ChildrenGrid'
 import { getChildren } from '../../utils/filterObservations'
@@ -15,6 +15,20 @@ export default function ProjectsGrid(props) {
     const handleClick = (observation) => {
         // dispatch current observation to the global store
         my_dispatch({type: SET_ACTIVE_TASKID, taskid: observation.taskID})
+    }
+
+    const handlePageChange = (page) => {
+        // get the data from the api
+        let url = ASTROBASE_URL + "projects?page=" +page.toString()
+
+        // a change in project_page is used to trigger a new fetch,
+        // see the useEffect in the Main.js how that is done.
+        my_dispatch({type: SET_PROJECT_PAGE, project_page: page})
+
+    }
+
+    const handlePerRowsChange = () => {
+        alert('handlePerRowsChange')
     }
 
     // generate the details link to forward to
@@ -304,8 +318,14 @@ export default function ProjectsGrid(props) {
                 data={props.data}
                 conditionalRowStyles={conditionalRowStyles}
                 pagination
-                paginationPerPage={50}
-                paginationRowsPerPageOptions={[50, 100]}
+                paginationServer
+                paginationTotalRows={my_state.total_projects}
+                onChangePage={handlePageChange}
+                onChangeRowsPerPage={handlePerRowsChange}
+
+                paginationPerPage={10}
+                // paginationRowsPerPageOptions={[50, 100]}
+                paginationRowsPerPageOptions={[10,25]}
                 expandableRows
                 expandableRowsComponent={<ExpandableComponent />}
             />

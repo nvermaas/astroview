@@ -9,7 +9,7 @@ import { ASTROBASE_URL, getUrlAladin, getUrlESASky, getUrlSDSS, getUrlCDSPortal}
 import DetailsThumbnail from './DetailsThumbnail'
 import ImageCard from '../../components/cards/ImageCard'
 
-import { url_observations } from '../../components/Main'
+import { url_observations } from '../../FetchData'
 
 export default function ObservationDetails(props) {
 

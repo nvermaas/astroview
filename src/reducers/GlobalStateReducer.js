@@ -12,14 +12,11 @@ export const SET_STATUS = 'SET_STATUS'
 export const SET_FETCHED_OBSERVATIONS = 'SET_FETCHED_OBSERVATIONS'
 export const SET_TOTAL_OBSERVATIONS = 'SET_TOTAL_OBSERVATIONS'
 export const SET_OBSERVATION_PAGE = 'SET_OBSERVATION_PAGE'
-export const SET_FILTERED_OBSERVATIONS = 'SET_FILTERED_OBSERVATIONS'
 
 export const SET_STATUS_PROJECTS = 'SET_STATUS_PROJECTS'
 export const SET_FETCHED_PROJECTS = 'SET_FETCHED_PROJECTS'
 export const SET_TOTAL_PROJECTS = 'SET_TOTAL_PROJECTS'
 export const SET_PROJECT_PAGE = 'SET_PROJECT_PAGE'
-export const SET_FILTERED_PROJECTS = 'SET_FILTERED_PROJECTS'
-
 
 // filter actions
 export const SET_OBSERVATION_IMAGE_TYPE = 'SET_OBSERVATION_IMAGE_TYPE'
@@ -28,11 +25,7 @@ export const SET_OBSERVATION_STATUS = 'SET_OBSERVATION_STATUS'
 export const SET_OBSERVATION_ISO = 'SET_OBSERVATION_ISO'
 export const SET_OBSERVATION_FOCAL_LENGTH = 'SET_OBSERVATION_FOCAL_LENGTH'
 
-
-
-export const SET_FILTER_TYPE = 'SET_FILTER_TYPE'
 export const SET_BACKEND_FILTER = 'SET_BACKEND_FILTER'
-
 export const SET_IMAGE_TYPE = 'SET_IMAGE_TYPE'
 export const SET_THUMBNAIL_IMAGE_TYPE = 'SET_THUMBNAIL_IMAGE_TYPE'
 export const SET_VIEW = 'SET_VIEW'
@@ -46,7 +39,7 @@ export const initialState = {
         total_observations: undefined,
         observation_page: 1,
 
-        project_status : "unfetched",
+        status_projects : "unfetched",
         fetched_projects: undefined,
         total_projects: undefined,
         project_page: 1,
@@ -56,8 +49,6 @@ export const initialState = {
         observation_status: "All",
         observation_iso: "All",
         observation_focal_length: "All",
-        filtered_observations: undefined,
-        filter_type: "show_fetched",
         backend_filter: undefined,
         image_type: "annotated",
         thumbnail_image_type: "sky_plot",
@@ -85,6 +76,7 @@ export const reducer = (state, action) => {
                 observation_quality: action.observation_quality
             };
 
+        // note that this is not the fetching status, but a filter to get observations of a certain status
         case SET_OBSERVATION_STATUS:
             return {
                 ...state,
@@ -168,28 +160,6 @@ export const reducer = (state, action) => {
                 project_page: action.project_page,
             };
             
-        case SET_FILTERED_OBSERVATIONS:
-            //alert('reducer: SET_FILTERED_OBSERVATIONS '+action.filtered_observations)
-            let filtered_projects = getProjects(action.filtered_observations,100)
-            return {
-                ...state,
-                filtered_observations: action.filtered_observations,
-                filtered_projects: filtered_projects
-            };
-
-        case SET_FILTERED_PROJECTS:
-            //alert('reducer: SET_FILTERED_PROJECTS '+action.filtered_observations)
-            return {
-                ...state,
-                filtered_projects: action.filtered_projects
-            };
-
-        case SET_FILTER_TYPE:
-            return {
-                ...state,
-                filter_type: action.filter_type
-            };
-
         case SET_BACKEND_FILTER:
             return {
                 ...state,
