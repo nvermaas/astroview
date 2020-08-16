@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { Button, Badge } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
 import { useGlobalReducer } from '../../Store';
-import { SET_ACTIVE_TASKID, SET_OBSERVATION_PAGE, SET_BACKEND_FILTER } from '../../reducers/GlobalStateReducer'
+import { SET_OBSERVATION_PAGE, SET_BACKEND_FILTER, SET_CURRENT_PROJECT } from '../../reducers/GlobalStateReducer'
 //import { url_observations } from '../../components/Main'
 import InfoLink from '../../components/buttons/InfoLink'
 
@@ -14,16 +14,15 @@ import { getMode, getExposure, getImageTypeIcon, getQualityIcon } from '../../ut
 export default function ObservationsGrid(props) {
     const [ my_state , my_dispatch] = useGlobalReducer()
 
-    const handleClick = (observation) => {
+    const handleDefaultClick = (observation) => {
         // dispatch current observation to the global store
-        my_dispatch({type: SET_ACTIVE_TASKID, taskid: observation.taskID})
+        my_dispatch({type: SET_CURRENT_PROJECT, current_project: observation.taskID})
     }
 
     const handleProjectClick = (observation) => {
         let backend_filter = '&fieldsearch='+observation.derived_parent_taskid
         my_dispatch({type: SET_BACKEND_FILTER, backend_filter: backend_filter})
     }
-
 
 
     const handlePageChange = (page) => {
@@ -41,7 +40,7 @@ export default function ObservationsGrid(props) {
     }
 
     // generate the details link to forward to
-    const getLink = (observation) => {
+    const getDetailsLink = (observation) => {
         let details_link = "/details/"+observation.taskID
         return details_link
     }
@@ -86,7 +85,7 @@ export default function ObservationsGrid(props) {
             size: 50,
             sortable: true,
             cell: row =>
-                <Link to={() => getLink(row)}>
+                <Link to={() => getDetailsLink(row)}>
                     {row.id}&nbsp;
                 </Link>,
         },
@@ -227,8 +226,8 @@ export default function ObservationsGrid(props) {
         {
             name: 'Details',
             cell: row =>
-                <Link to={() => getLink(row)}>
-                    <Button variant="warning" onClick={() => handleClick(row)}>Details</Button>
+                <Link to={() => getDetailsLink(row)}>
+                    <Button variant="warning" onClick={() => handleDefaultClick(row)}>Details</Button>
                 </Link>,
 
             button: true,
@@ -241,7 +240,7 @@ export default function ObservationsGrid(props) {
 
                 if (row.generated_dataproducts.length > 1) {
                     return <a href={getDPSlink(row)} target="_blank" rel="noopener noreferrer">
-                        <Button variant="outline-info" onClick={() => handleClick(row)}>DPS</Button>
+                        <Button variant="outline-info" onClick={() => handleDefaultClick(row)}>DPS</Button>
                     </a>
                 }
             }
@@ -250,7 +249,7 @@ export default function ObservationsGrid(props) {
             name: 'Astrobase',
             cell: row =>
                 <a href={getAPI(row)} target="_blank" rel="noopener noreferrer">
-                    <Button variant="outline-info" onClick={() => handleClick(row)}>API</Button>
+                    <Button variant="outline-info" onClick={() => handleDefaultClick(row)}>API</Button>
                 </a>,
             button: true,
         },

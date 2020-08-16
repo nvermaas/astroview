@@ -28,7 +28,7 @@ export default function ObservationDetails(props) {
     }
 
     // find the current observation in the fetched observations by taskID
-    let observation = findElement(my_state.fetched_observations,"taskID",props.taskid)
+    let observation = findElement(props.data,"taskID",props.taskid)
     if (observation==undefined) {
         // this happens when the observation wasn't fetched.... improve this
         return null

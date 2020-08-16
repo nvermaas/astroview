@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { Button, Badge } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
 import { useGlobalReducer } from '../../Store';
-import { SET_ACTIVE_TASKID } from '../../reducers/GlobalStateReducer'
+// import { SET_ACTIVE_TASKID } from '../../reducers/GlobalStateReducer'
 import { ASTROBASE_URL } from '../../utils/skyserver'
 import { getMode, getExposure, getImageTypeIcon, getQualityIcon } from '../../utils/styling'
 
@@ -12,7 +12,7 @@ export default function ChildrenGrid(props) {
 
     const handleClick = (observation) => {
         // dispatch current observation to the global store
-        my_dispatch({type: SET_ACTIVE_TASKID, taskid: observation.taskID})
+        // my_dispatch({type: SET_ACTIVE_TASKID, taskid: observation.taskID})
     }
 
     // generate the details link to forward to

@@ -5,7 +5,6 @@ import { getProjects } from '../utils/filterObservations'
 
 // possible actions
 
-export const SET_ACTIVE_TASKID = 'SET_ACTIVE_TASKID'
 export const SET_ACTIVE_OBSERVATION = 'SET_ACTIVE_OBSERVATION'
 
 export const SET_STATUS = 'SET_STATUS'
@@ -17,6 +16,8 @@ export const SET_STATUS_PROJECTS = 'SET_STATUS_PROJECTS'
 export const SET_FETCHED_PROJECTS = 'SET_FETCHED_PROJECTS'
 export const SET_TOTAL_PROJECTS = 'SET_TOTAL_PROJECTS'
 export const SET_PROJECT_PAGE = 'SET_PROJECT_PAGE'
+export const SET_CURRENT_PROJECT = 'SET_CURRENT_PROJECT'
+export const SET_CURRENT_OBSERVATIONS = 'SET_CURRENT_OBSERVATIONS'
 
 // filter actions
 export const SET_OBSERVATION_IMAGE_TYPE = 'SET_OBSERVATION_IMAGE_TYPE'
@@ -43,7 +44,9 @@ export const initialState = {
         fetched_projects: undefined,
         total_projects: undefined,
         project_page: 1,
-    
+        current_project: undefined,
+        current_observations: undefined,
+
         observation_image_type: "All",
         observation_quality: "All",
         observation_status: "All",
@@ -95,12 +98,6 @@ export const reducer = (state, action) => {
                 observation_focal_length: action.observation_focal_length
             };
 
-        case SET_ACTIVE_TASKID:
-            //alert('reducer: SET_ACTIVE_TASKID '+action.taskid)
-            return {
-                ...state,
-                taskid: action.taskid
-            };
 
         case SET_ACTIVE_OBSERVATION:
             //alert('reducer: SET_ACTIVE_OBSERVATION '+action.observation)
@@ -159,7 +156,21 @@ export const reducer = (state, action) => {
                 ...state,
                 project_page: action.project_page,
             };
-            
+
+        case SET_CURRENT_PROJECT:
+            //alert('SET_CURRENT_PROJECT '+action.current_project)
+            return {
+                ...state,
+                current_project: action.current_project,
+            };
+
+        case SET_CURRENT_OBSERVATIONS:
+            // alert(action.current_observations.length)
+            return {
+                ...state,
+                current_observations: action.current_observations,
+            };
+
         case SET_BACKEND_FILTER:
             return {
                 ...state,

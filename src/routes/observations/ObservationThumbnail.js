@@ -3,7 +3,7 @@ import {Card, Button } from 'react-bootstrap'
 import { Link } from "react-router-dom"
 
 import { useGlobalReducer } from '../../Store';
-import { SET_ACTIVE_TASKID } from '../../reducers/GlobalStateReducer'
+import { SET_CURRENT_PROJECT } from '../../reducers/GlobalStateReducer'
 
 import Description from '../../components/buttons/DescriptionButton'
 
@@ -13,7 +13,7 @@ export default function ObservationThumbnail(props) {
 
     const handleClick = (observation) => {
         // dispatch current observation to the global store
-        my_dispatch({type: SET_ACTIVE_TASKID, taskid: observation.taskID})
+
         //my_dispatch({type: SET_ACTIVE_OBSERVATION, observation: observation})
     }
 

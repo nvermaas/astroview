@@ -9,7 +9,8 @@ import {
     SET_FETCHED_PROJECTS,
     SET_STATUS_PROJECTS,
     SET_TOTAL_PROJECTS,
-    SET_BACKEND_FILTER
+    SET_BACKEND_FILTER,
+    SET_CURRENT_OBSERVATIONS
 } from './reducers/GlobalStateReducer';
 
 import { getFilteredUrl } from './utils/filter'
@@ -51,15 +52,21 @@ export function FetchData () {
             my_state.observation_image_type]
     );
 
+    // this fetches the observations belonging to the current project when my_state current_project was changed
+    useEffect(() => {
+            fetchCurrentProject(url_observations)
+        }, [my_state.current_project]
+    );
+
     /*
      useEffect(() => {
-     setTimer(setInterval(() => fetchObservations(url_observations), 60000))
+         setTimer(setInterval(() => fetchObservations(url_observations), 60000))
 
-     // this function is automatically called when the component unmounts
-     return function cleanup() {
-     clearInterval(timer);
-     }
-     },[]
+        // this function is automatically called when the component unmounts
+        return function cleanup() {
+            clearInterval(timer);
+            }
+        },[]
      );
      */
 
@@ -109,6 +116,26 @@ export function FetchData () {
                 })
                 .catch(function () {
                     my_dispatch({type: SET_STATUS_PROJECTS, status_projects: 'failed'})
+                    alert("fetch projects to " + url + " failed.");
+                })
+        }
+    }
+
+    // fetch all the observations belonging to the my_state.current_project (a taskid)
+    const fetchCurrentProject = (url) => {
+
+        // only fetch if there is a current_project selected
+        if (my_state.current_project) {
+            url = url + '?fieldsearch=' + my_state.current_project
+
+            fetch(url)
+                .then(results => {
+                    return results.json();
+                })
+                .then(data => {
+                    my_dispatch({type: SET_CURRENT_OBSERVATIONS, current_observations: data.results})
+                })
+                .catch(function () {
                     alert("fetch projects to " + url + " failed.");
                 })
         }

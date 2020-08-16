@@ -93,7 +93,6 @@ function ObservationDetailsForward() {
     // get the observation info from the global state.
     const [ my_state , my_dispatch] = useGlobalReducer()
 
-
     let { id } = useParams();
 
     // find the current observation in the fetched observations by taskID
@@ -108,17 +107,16 @@ function ObservationDetailsForward() {
     
     if (observation.task_type==="master") {
         // show the master and its (fetched) children
-        let renderChildren = observation.children.map((taskid) => {
-            return <ObservationDetails taskid={taskid}/>
-            }
-        )
-        renderObservationDetails = <div>
-            <ObservationDetails taskid={id} />{renderChildren}
-        </div>
+        if (my_state.current_observations!==undefined) {
+            renderObservationDetails = my_state.current_observations.map((observation) => {
+                    return <ObservationDetails data={my_state.current_observations} taskid={observation.taskID}/>
+                }
+            )
+        }
 
     } else {
         // show a single observation
-        renderObservationDetails = <ObservationDetails taskid={id}/>
+        renderObservationDetails = <ObservationDetails data={my_state.fetched_observations} taskid={id}/>
     }
 
     return (
