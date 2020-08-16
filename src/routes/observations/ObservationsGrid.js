@@ -94,7 +94,7 @@ export default function ObservationsGrid(props) {
             name: 'ID (children)',
             selector: 'taskID',
             sortable: true,
-            width: "7%",
+            width: "8%",
             cell: row => {
                 if (row.task_type === 'master') {
                     let nr_of_children = row.children.length
@@ -143,7 +143,7 @@ export default function ObservationsGrid(props) {
             name: 'Date',
             selector: 'date',
             sortable: true,
-            width: "9%",
+            width: "8%",
             cell: row => {
                 var d = new Date(row.date.toString());
                 return <div>{d.toDateString()}</div>
@@ -191,7 +191,7 @@ export default function ObservationsGrid(props) {
             name: 'F(mm)',
             selector: 'focal_length',
             sortable: true,
-            width: "3%"
+            width: "4%"
         },
         {
             name: 'Q',

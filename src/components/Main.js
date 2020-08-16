@@ -2,6 +2,10 @@ import React, {useState, useEffect }  from 'react';
 import '../App.css';
 
 import { useGlobalReducer } from '../Store';
+import {
+    SET_CURRENT_PROJECT,
+} from '../reducers/GlobalStateReducer';
+
 import { FetchData } from '../FetchData'
 
 import { NavigationBar } from './NavigationBar';
@@ -83,9 +87,16 @@ function Main () {
 }
 
 function findElement(arr, propName, propValue) {
-    for (var i=0; i < arr.length; i++)
-        if (arr[i][propName] === propValue)
-            return arr[i];
+    try {
+        for (var i = 0; i < arr.length; i++) {
+            //alert(arr[i][propName] + '===' + propValue)
+            if (arr[i][propName] === propValue) {
+                return arr[i];
+            }
+        }
+    } catch (e) {
+        return undefined
+    }
 }
 
 // reroute to dataproduct details
@@ -95,11 +106,14 @@ function ObservationDetailsForward() {
 
     let { id } = useParams();
 
-    // find the current observation in the fetched observations by taskID
-    let observation
-    try {
-        observation = findElement(my_state.fetched_observations, "taskID", id)
-    } catch (e) {
+    // find the current observation in the fetched observations or projects list by taskID
+    let observation = findElement(my_state.fetched_observations, "taskID", id)
+    if (observation === undefined) {
+        observation = findElement(my_state.fetched_projects, "taskID", id)
+    }
+
+    if (observation === undefined) {
+        // todo: data has not been fetched yet, can I fetch it from here?
         return null
     }
 

@@ -298,7 +298,7 @@ export default function ProjectsGrid(props) {
             let children = getChildren(my_state.fetched_observations,data.id)
 
         return <div>
-            <h2>Imaging for {data.name} </h2>
+            <h2>Observations: {data.name} </h2>
             <p>{data.description}</p>
 
             <img src={data.derived_sky_plot_image} height={200}/>;
