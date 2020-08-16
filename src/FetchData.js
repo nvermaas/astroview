@@ -27,57 +27,6 @@ export function FetchData () {
     const [timer, setTimer] = useState(undefined)
     // get the data from the api
 
-    const fetchObservations = (url) => {
-        if (my_state.status !== 'fetching')  {
-
-            // apply all the filters in my_state to the url_observations
-            url = getFilteredUrl(url, my_state)
-
-            my_dispatch({type: SET_STATUS, status: 'fetching'})
-
-            fetch(url)
-                .then(results => {
-                    return results.json();
-                })
-                .then(data => {
-                    my_dispatch({type: SET_FETCHED_OBSERVATIONS, fetched_observations: data.results})
-                    my_dispatch({type: SET_TOTAL_OBSERVATIONS, total_observations: data.count})
-                    my_dispatch({type: SET_STATUS, status: 'fetched'})
-                })
-                .catch(function () {
-                    my_dispatch({type: SET_STATUS, status: 'failed'})
-                    alert("fetch to " + url + " failed.");
-                })
-        }
-    }
-
-    // get the data from the api
-    const fetchProjects = (url) => {
-
-        if (my_state.status_projects !== 'fetching')  {
-
-            // apply all the filters in my_state to the url_observations
-            url = getFilteredUrl(url, my_state)
-
-            //alert('fetchObservations: ' + (url_observations))
-            my_dispatch({type: SET_STATUS_PROJECTS, status_projects: 'fetching'})
-
-            fetch(url)
-                .then(results => {
-                    return results.json();
-                })
-                .then(data => {
-                    my_dispatch({type: SET_FETCHED_PROJECTS, fetched_projects: data.results})
-                    my_dispatch({type: SET_TOTAL_PROJECTS, total_projects: data.count})
-                    my_dispatch({type: SET_STATUS_PROJECTS, status_projects: 'fetched'})
-                })
-                .catch(function () {
-                    my_dispatch({type: SET_STATUS_PROJECTS, status_projects: 'failed'})
-                    alert("fetch projects to " + url + " failed.");
-                })
-        }
-    }
-
     // this executes fetchObservations every time that a filter in the state is changed
     useEffect(() => {
             fetchObservations(url_observations)
@@ -113,4 +62,55 @@ export function FetchData () {
      },[]
      );
      */
+
+    const fetchObservations = (url) => {
+        if (my_state.status !== 'fetching')  {
+
+            // apply all the filters in my_state to the url_observations
+            url = getFilteredUrl(url, my_state, my_state.observation_page)
+
+            my_dispatch({type: SET_STATUS, status: 'fetching'})
+
+            fetch(url)
+                .then(results => {
+                    return results.json();
+                })
+                .then(data => {
+                    my_dispatch({type: SET_FETCHED_OBSERVATIONS, fetched_observations: data.results})
+                    my_dispatch({type: SET_TOTAL_OBSERVATIONS, total_observations: data.count})
+                    my_dispatch({type: SET_STATUS, status: 'fetched'})
+                })
+                .catch(function () {
+                    my_dispatch({type: SET_STATUS, status: 'failed'})
+                    alert("fetch to " + url + " failed.");
+                })
+        }
+    }
+
+    // get the data from the api
+    const fetchProjects = (url) => {
+
+        if (my_state.status_projects !== 'fetching')  {
+
+            // apply all the filters in my_state to the url_observations
+            url = getFilteredUrl(url, my_state, my_state.project_page)
+
+            //alert('fetchObservations: ' + (url_observations))
+            my_dispatch({type: SET_STATUS_PROJECTS, status_projects: 'fetching'})
+
+            fetch(url)
+                .then(results => {
+                    return results.json();
+                })
+                .then(data => {
+                    my_dispatch({type: SET_FETCHED_PROJECTS, fetched_projects: data.results})
+                    my_dispatch({type: SET_TOTAL_PROJECTS, total_projects: data.count})
+                    my_dispatch({type: SET_STATUS_PROJECTS, status_projects: 'fetched'})
+                })
+                .catch(function () {
+                    my_dispatch({type: SET_STATUS_PROJECTS, status_projects: 'failed'})
+                    alert("fetch projects to " + url + " failed.");
+                })
+        }
+    }
 }

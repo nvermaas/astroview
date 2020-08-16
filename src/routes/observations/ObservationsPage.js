@@ -16,7 +16,8 @@ export default function Observations(props) {
 
         if (my_state.view === 'tiles') {
             renderObservations =
-                <header className="Observations-header"><ObservationTiles data={my_state.fetched_observations}/>
+                <header className="Observations-header">
+                    <ObservationTiles data={my_state.fetched_observations}/>
                 </header>
         } else {
             renderObservations = <ObservationsGrid data={my_state.fetched_observations}/>

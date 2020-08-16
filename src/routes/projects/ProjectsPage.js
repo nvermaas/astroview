@@ -14,7 +14,7 @@ export default function Projects(props) {
     // conditional render. Only render the observations when the status is 'fetched'
     let renderProjects
 
-    if (my_state.status_projects=='fetched') {
+    if (my_state.status_projects!=='unfetched') {
         let projects = my_state.fetched_projects
         if (props.taskid) {
             //alert(props.taskid)

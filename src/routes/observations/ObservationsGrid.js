@@ -92,15 +92,16 @@ export default function ObservationsGrid(props) {
         },
         */
         {
-            name: 'TaskID',
+            name: 'ID (children)',
             selector: 'taskID',
             sortable: true,
             width: "7%",
             cell: row => {
                 if (row.task_type === 'master') {
+                    let nr_of_children = row.children.length
                     return <div>
                         <Link to={getProjectslink(row)}>
-                            <div style={{ fontWeight: "bold" }}>{row.taskID}</div>
+                            <div style={{ fontWeight: "bold" }}>{row.taskID}{' '}({nr_of_children})</div>
                         </Link>
                     </div>
                 } else {
@@ -129,6 +130,7 @@ export default function ObservationsGrid(props) {
             },
             width: "6%",
             cell: row => {
+
                 if (row.derived_parent_taskid) {
                     return <div>
                         <Link to={getParentlink(row)}>

@@ -53,10 +53,14 @@ export default function ProjectsGrid(props) {
     const columns = [
 
         {
-            name: 'TaskID',
+            name: 'ID (children)',
             selector: 'taskID',
             sortable: true,
-            width: "6%"
+            width: "7%",
+            cell: row => {
+                let nr_of_children = row.children.length
+                return <div>{row.taskID}{' '}({nr_of_children})</div>
+            }
         },
         {
             name: 'Observation Date',
@@ -323,9 +327,9 @@ export default function ProjectsGrid(props) {
                 onChangePage={handlePageChange}
                 onChangeRowsPerPage={handlePerRowsChange}
 
-                paginationPerPage={10}
+                paginationPerPage={24}
                 // paginationRowsPerPageOptions={[50, 100]}
-                paginationRowsPerPageOptions={[10,25]}
+                paginationRowsPerPageOptions={[25]}
                 expandableRows
                 expandableRowsComponent={<ExpandableComponent />}
             />
