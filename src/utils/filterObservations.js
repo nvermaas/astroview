@@ -50,6 +50,9 @@ export function getProjects(observations, maxResults) {
 }
 
 export function filterProjects(observations, taskid, maxResults) {
+        if (observations==undefined) {
+            return false
+        }
       return observations.filter((observation) => {
         if (observation.task_type==='master') {
             if (observation.taskID===taskid) {

@@ -52,12 +52,20 @@ export function ButtonBar() {
         my_dispatch({type: SET_OBSERVATION_FOCAL_LENGTH, observation_focal_length: focal_length})
     }
 
-
-
     let image_type_title = "Image Type : "+my_state.observation_image_type
     let iso_title = "ISO : "+my_state.observation_iso
     let quality_title = "Quality : "+my_state.observation_quality
     let status_title = "Status : "+my_state.observation_status
+
+    let backend_filter
+    let render_backend_filter
+    if (my_state.backend_filter) {
+        backend_filter="filter : " + my_state.backend_filter.split('&fieldsearch=')[1]
+
+        render_backend_filter = <DropdownButton as={InputGroup.Prepend} variant="outline-secondary" title={backend_filter}>
+            {backend_filter}
+        </DropdownButton>
+    }
 
     return (
 
@@ -111,7 +119,11 @@ export function ButtonBar() {
                 <Dropdown.Item onClick={(e) => handleQuality("Medium")}>{getQualityIcon('medium')}{' '}Medium</Dropdown.Item>
                 <Dropdown.Item onClick={(e) => handleQuality("Bad")}>{getQualityIcon('bad')}{' '}Bad</Dropdown.Item>
                 <Dropdown.Item onClick={(e) => handleQuality("Annotated")}>{getQualityIcon('annotated')}{' '}Annotated</Dropdown.Item>
+
             </DropdownButton>
+            {render_backend_filter}
+
+
             <FormControl aria-describedby="basic-addon1" />
 
         </InputGroup>

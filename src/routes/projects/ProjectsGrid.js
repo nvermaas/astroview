@@ -115,7 +115,7 @@ export default function ProjectsGrid(props) {
             name: 'F(mm)',
             selector: 'focal_length',
             sortable: true,
-            width: "3%"
+            width: "4%"
         },
         {
             name: 'Q',
@@ -331,6 +331,7 @@ export default function ProjectsGrid(props) {
                 // paginationRowsPerPageOptions={[50, 100]}
                 paginationRowsPerPageOptions={[25]}
                 expandableRows
+                expandOnRowClicked
                 expandableRowsComponent={<ExpandableComponent />}
             />
         </div>

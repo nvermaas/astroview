@@ -42,7 +42,7 @@ function getThumbnail(observation, imageType) {
 // display the main image
 function MainImage(props) {
     let thumbnail =  getThumbnail(props.observation, props.imageType)
-    return <a href={thumbnail} target=""_blank><img src={thumbnail} width="1000"/></a>
+    return <a href={thumbnail} target="_blank"><img src={thumbnail} width="1000"/></a>
 }
 
 // display a single observation on a card

@@ -74,8 +74,8 @@ export function FetchData () {
         if (my_state.status !== 'fetching')  {
 
             // apply all the filters in my_state to the url_observations
-            url = getFilteredUrl(url, my_state, my_state.observation_page)
 
+            url = getFilteredUrl(url, my_state, my_state.observation_page)
             my_dispatch({type: SET_STATUS, status: 'fetching'})
 
             fetch(url)
@@ -123,11 +123,12 @@ export function FetchData () {
 
     // fetch all the observations belonging to the my_state.current_project (a taskid)
     const fetchCurrentProject = (url) => {
-
+        // alert('fetchCurrentProject: '+my_state.current_project)
         // only fetch if there is a current_project selected
+
         if (my_state.current_project) {
             url = url + '?fieldsearch=' + my_state.current_project
-
+            //alert(url)
             fetch(url)
                 .then(results => {
                     return results.json();

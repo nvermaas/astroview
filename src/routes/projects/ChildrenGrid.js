@@ -94,7 +94,7 @@ export default function ChildrenGrid(props) {
             name: 'F(mm)',
             selector: 'focal_length',
             sortable: true,
-            width: "3%"
+            width: "4%"
         },
         {
             name: 'Q',
@@ -298,6 +298,7 @@ export default function ChildrenGrid(props) {
                 //customTheme={myTheme}
                 dense
                 expandableRows
+                expandOnRowClicked
                 defaultExpandedField="defaultExpanded"
                 expandableRowsComponent={<ExpandableComponent />}
             />

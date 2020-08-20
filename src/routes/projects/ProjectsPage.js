@@ -2,8 +2,10 @@ import React from 'react';
 
 import LoadingSpinner from '../../components/LoadingSpinner';
 import ProjectsGrid from './ProjectsGrid'
+import { ButtonBar } from '../../components/ButtonBar';
 import { useGlobalReducer } from '../../Store';
 
+import { SET_CURRENT_PROJECT, SET_PROJECT_PAGE } from '../../reducers/GlobalStateReducer'
 import { filterProjects } from '../../utils/filterObservations'
 
 export default function Projects(props) {
@@ -16,9 +18,12 @@ export default function Projects(props) {
 
     if (my_state.status_projects!=='unfetched') {
         let projects = my_state.fetched_projects
+
         if (props.taskid) {
-            //alert(props.taskid)
-            projects = filterProjects(projects,props.taskid,1)
+            projects = filterProjects(my_state.fetched_projects, props.taskid, 1)
+            if (projects.length===0) {
+                projects = filterProjects(my_state.current_observations, props.taskid, 1)
+            }
         }
         renderProjects = <ProjectsGrid data={projects}/>
     }
@@ -31,6 +36,7 @@ export default function Projects(props) {
     return (
         <div className="App">
             <div>
+                <ButtonBar/>
                 {renderSpinner}
                 {renderProjects}
             </div>

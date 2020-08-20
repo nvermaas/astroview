@@ -46,7 +46,7 @@ function Main () {
         <Router basename="astroview">
             <div>
                 <NavigationBar/>
-                <ButtonBar/>
+
                 {/*
                  A <Switch> looks through all its children <Route>
                  elements and renders the first one whose path
@@ -81,7 +81,7 @@ function Main () {
                     <Route path="/details/:id" children={<ObservationDetailsForward />} />
                 </Switch>
             </div>
-            <footer><small> (C) 2020 - Nico Vermaas - version 1.8.0 - 16 aug 2020</small></footer>
+            <footer><small> (C) 2020 - Nico Vermaas - version 1.8.3 - 20 aug 2020</small></footer>
         </Router>
     );
 }
@@ -111,7 +111,9 @@ function ObservationDetailsForward() {
     if (observation === undefined) {
         observation = findElement(my_state.fetched_projects, "taskID", id)
     }
-
+    if (observation === undefined) {
+        observation = findElement(my_state.current_observations, "taskID", id)
+    }
     if (observation === undefined) {
         // todo: data has not been fetched yet, can I fetch it from here?
         return null

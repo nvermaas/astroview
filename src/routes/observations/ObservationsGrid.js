@@ -20,8 +20,10 @@ export default function ObservationsGrid(props) {
     }
 
     const handleProjectClick = (observation) => {
-        let backend_filter = '&fieldsearch='+observation.derived_parent_taskid
-        my_dispatch({type: SET_BACKEND_FILTER, backend_filter: backend_filter})
+        // let backend_filter = '&fieldsearch='+observation.derived_parent_taskid
+        // my_dispatch({type: SET_BACKEND_FILTER, backend_filter: backend_filter})
+        my_dispatch({type: SET_CURRENT_PROJECT, current_project: observation.derived_parent_taskid})
+
     }
 
 
@@ -127,13 +129,13 @@ export default function ObservationsGrid(props) {
             style: {
                 fontweight: "bold",
             },
-            width: "6%",
+            width: "8%",
             cell: row => {
 
                 if (row.derived_parent_taskid) {
                     return <div>
                         <Link to={getParentlink(row)}>
-                            <div style={{ fontWeight: "bold" }}>{row.derived_parent_taskid}</div>
+                            <div onClick={() => handleProjectClick(row)} style={{ fontWeight: "bold" }}>{row.derived_parent_taskid}</div>
                         </Link>
                     </div>
                 }
@@ -143,7 +145,7 @@ export default function ObservationsGrid(props) {
             name: 'Date',
             selector: 'date',
             sortable: true,
-            width: "8%",
+            width: "7%",
             cell: row => {
                 var d = new Date(row.date.toString());
                 return <div>{d.toDateString()}</div>
@@ -407,6 +409,7 @@ export default function ObservationsGrid(props) {
                 // paginationRowsPerPageOptions={[50, 100]}
                 paginationRowsPerPageOptions={[25]}
 
+                expandOnRowClicked
                 expandableRows
                 expandableRowsComponent={<ExpandableComponent />}
             />

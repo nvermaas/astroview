@@ -165,7 +165,7 @@ export const reducer = (state, action) => {
             };
 
         case SET_CURRENT_OBSERVATIONS:
-            // alert(action.current_observations.length)
+            //alert('SET_CURRENT_OBSERVATIONS: '+action.current_observations.length)
             return {
                 ...state,
                 current_observations: action.current_observations,
