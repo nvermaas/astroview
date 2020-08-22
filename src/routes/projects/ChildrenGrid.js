@@ -299,7 +299,7 @@ export default function ChildrenGrid(props) {
                 dense
                 expandableRows
                 expandOnRowClicked
-                defaultExpandedField="defaultExpanded"
+                expandableRowExpanded={row => row} // expand all rows
                 expandableRowsComponent={<ExpandableComponent />}
             />
         </div>

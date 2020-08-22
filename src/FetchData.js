@@ -10,6 +10,8 @@ import {
     SET_STATUS_PROJECTS,
     SET_TOTAL_PROJECTS,
     SET_BACKEND_FILTER,
+    SET_CURRENT_PROJECT,
+    SET_CURRENT_OBSERVATION,
     SET_CURRENT_OBSERVATIONS
 } from './reducers/GlobalStateReducer';
 
@@ -56,6 +58,12 @@ export function FetchData () {
     useEffect(() => {
             fetchCurrentProject(url_observations)
         }, [my_state.current_project]
+    );
+
+    // this fetches the observations belonging to the current project when my_state current_project was changed
+    useEffect(() => {
+            fetchCurrentObservation(url_observations)
+        }, [my_state.current_observation]
     );
 
     /*
@@ -123,12 +131,12 @@ export function FetchData () {
 
     // fetch all the observations belonging to the my_state.current_project (a taskid)
     const fetchCurrentProject = (url) => {
-        // alert('fetchCurrentProject: '+my_state.current_project)
+        console.log('fetchCurrentProject: '+my_state.current_project)
         // only fetch if there is a current_project selected
 
         if (my_state.current_project) {
             url = url + '?fieldsearch=' + my_state.current_project
-            //alert(url)
+
             fetch(url)
                 .then(results => {
                     return results.json();
@@ -141,4 +149,48 @@ export function FetchData () {
                 })
         }
     }
+
+    // fetch all the observations belonging to the my_state.current_project (a taskid)
+    const fetchCurrentObservation = (url) => {
+        console.log('fetchCurrentObservation: '+my_state.current_observation)
+        // only fetch if there is a current_project selected
+
+        if (my_state.current_observation) {
+            url = url + '?fieldsearch=' + my_state.current_observation
+
+            fetch(url)
+                .then(results => {
+                    return results.json();
+                })
+                .then(data => {
+                    my_dispatch({type: SET_CURRENT_OBSERVATIONS, current_observations: data.results})
+                })
+                .catch(function () {
+                    alert("fetch observation to " + url + " failed.");
+                })
+        }
+    }
 }
+
+// fetch all the observations belonging to the my_state.current_project (a taskid)
+export const FetchObservation = (taskID) => {
+    // use global state
+    const [ my_state , my_dispatch] = useGlobalReducer()
+
+    console.log('fetchObservation: '+taskID)
+
+    let url = url_observations + '?fieldsearch=' + taskID
+
+    fetch(url)
+        .then(results => {
+            return results.json();
+        })
+        .then(data => {
+            my_dispatch({type: SET_CURRENT_OBSERVATIONS, current_observations: data.results})
+            return data.results
+        })
+        .catch(function () {
+            alert("fetchObservation " + taskID + " failed.");
+        })
+}
+

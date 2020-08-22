@@ -6,7 +6,7 @@ import {
     SET_CURRENT_PROJECT,
 } from '../reducers/GlobalStateReducer';
 
-import { FetchData } from '../FetchData'
+import { FetchData, FetchObservation } from '../FetchData'
 
 import { NavigationBar } from './NavigationBar';
 import { ButtonBar } from '../components/ButtonBar';
@@ -81,7 +81,7 @@ function Main () {
                     <Route path="/details/:id" children={<ObservationDetailsForward />} />
                 </Switch>
             </div>
-            <footer><small> (C) 2020 - Nico Vermaas - version 1.8.3 - 20 aug 2020</small></footer>
+            <footer><small> (C) 2020 - Nico Vermaas - version 1.8.4 - 22 aug 2020</small></footer>
         </Router>
     );
 }
@@ -105,18 +105,26 @@ function ObservationDetailsForward() {
     const [ my_state , my_dispatch] = useGlobalReducer()
 
     let { id } = useParams();
+    console.log('ObservationDetailsForward('+id+')')
 
     // find the current observation in the fetched observations or projects list by taskID
     let observation = findElement(my_state.fetched_observations, "taskID", id)
+
+    // if not found in the current observation page, look for it as project in the projects page
     if (observation === undefined) {
         observation = findElement(my_state.fetched_projects, "taskID", id)
     }
+    // or in the list of observations belonging to the currently selected project
     if (observation === undefined) {
         observation = findElement(my_state.current_observations, "taskID", id)
     }
+
     if (observation === undefined) {
         // todo: data has not been fetched yet, can I fetch it from here?
-        return null
+        //alert('No observations are fetched yet, go fetch the requested one')
+
+        //alert('fetching')
+        return <ObservationDetails taskid={id}/>
     }
 
     let renderObservationDetails
@@ -132,8 +140,13 @@ function ObservationDetailsForward() {
 
     } else {
         // show a single observation
-        renderObservationDetails = <ObservationDetails data={my_state.fetched_observations} taskid={id}/>
+        if (my_state.current_observations!==undefined) {
+            renderObservationDetails = <ObservationDetails data={my_state.current_observations} taskid={id}/>
+        } else {
+            renderObservationDetails = <ObservationDetails data={my_state.fetched_observations} taskid={id}/>
+        }
     }
+
 
     return (
         <div>{renderObservationDetails}</div>

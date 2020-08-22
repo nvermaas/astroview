@@ -110,8 +110,8 @@ export default function ImageCard(props) {
             <Card.Body>
 
                 <tr>
-                    <Description observation={props.observation}/>&nbsp;
-                    <InfoLink observation={props.observation}/>&nbsp;
+                    <h4><InfoLink observation={props.observation}/>&nbsp;{props.observation.description}</h4>
+                    &nbsp;
                     {buttonRaw}&nbsp;
                     {buttonAnnotated}&nbsp;
                     {buttonFITS}&nbsp;

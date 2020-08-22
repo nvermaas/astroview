@@ -5,6 +5,10 @@ import { useGlobalReducer } from '../../Store';
 import { deg2HMS, deg2DMS} from '../../utils/astro'
 import { getExposure, getImageTypeIcon, getQualityIcon} from '../../utils/styling'
 import { ASTROBASE_URL, getUrlAladin, getUrlESASky, getUrlSDSS, getUrlCDSPortal} from '../../utils/skyserver'
+import {
+    SET_CURRENT_PROJECT,
+    SET_CURRENT_OBSERVATION
+} from '../../reducers/GlobalStateReducer';
 
 import DetailsThumbnail from './DetailsThumbnail'
 import ImageCard from '../../components/cards/ImageCard'
@@ -23,16 +27,32 @@ export default function ObservationDetails(props) {
                 return arr[i];
     }
 
-    if (my_state.status != 'fetched') {
+    // if no data is given to the details screen, then dispatch the request for that data based on the taskid
+    // this happens when the program is entered with a direct url like this: astroview/details/151008003
+    if (props.data === undefined) {
+        if (my_state.status ==="unfetched") {
+            my_dispatch({type: SET_CURRENT_OBSERVATION, current_observation: props.taskid})
+        }
         return null
     }
 
-    // find the current observation in the fetched observations by taskID
-    let observation = findElement(props.data,"taskID",props.taskid)
-    if (observation==undefined) {
-        // this happens when the observation wasn't fetched.... improve this
+    /*
+    // only continue when data is fetched
+    if (my_state.status != 'fetched') {
         return null
     }
+*/
+
+    // find the current observation (taskid) in the data that was given as a property
+    let observation = findElement(props.data,"taskID",props.taskid)
+    if (observation==undefined) {
+        // alert('shit')
+        // this happens when the observation wasn't fetched yet... just return and wait for the update
+        //my_dispatch({type: SET_CURRENT_OBSERVATION, current_observation: props.taskid})
+        return null
+    }
+
+    // all should be well now, a valid observation loaded.
 
     let astrometryLink = "http://nova.astrometry.net/status/"+observation.job
 

@@ -5,8 +5,6 @@ import { getProjects } from '../utils/filterObservations'
 
 // possible actions
 
-export const SET_ACTIVE_OBSERVATION = 'SET_ACTIVE_OBSERVATION'
-
 export const SET_STATUS = 'SET_STATUS'
 export const SET_FETCHED_OBSERVATIONS = 'SET_FETCHED_OBSERVATIONS'
 export const SET_TOTAL_OBSERVATIONS = 'SET_TOTAL_OBSERVATIONS'
@@ -17,6 +15,10 @@ export const SET_FETCHED_PROJECTS = 'SET_FETCHED_PROJECTS'
 export const SET_TOTAL_PROJECTS = 'SET_TOTAL_PROJECTS'
 export const SET_PROJECT_PAGE = 'SET_PROJECT_PAGE'
 export const SET_CURRENT_PROJECT = 'SET_CURRENT_PROJECT'
+
+export const SET_CURRENT_OBSERVATION = 'SET_CURRENT_OBSERVATION'
+export const SET_ACTIVE_OBSERVATION = 'SET_ACTIVE_OBSERVATION'
+
 export const SET_CURRENT_OBSERVATIONS = 'SET_CURRENT_OBSERVATIONS'
 
 // filter actions
@@ -45,6 +47,7 @@ export const initialState = {
         total_projects: undefined,
         project_page: 1,
         current_project: undefined,
+        current_observation: undefined,
         current_observations: undefined,
 
         observation_image_type: "All",
@@ -162,6 +165,13 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 current_project: action.current_project,
+            };
+
+        case SET_CURRENT_OBSERVATION:
+            //alert('SET_CURRENT_OBSERVATION: '+action.current_observation)
+            return {
+                ...state,
+                current_observation: action.current_observation,
             };
 
         case SET_CURRENT_OBSERVATIONS:

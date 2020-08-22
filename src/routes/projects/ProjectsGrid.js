@@ -56,7 +56,7 @@ export default function ProjectsGrid(props) {
             name: 'ID (children)',
             selector: 'taskID',
             sortable: true,
-            width: "7%",
+            width: "8%",
             cell: row => {
                 let nr_of_children = row.children.length
                 return <div>{row.taskID}{' '}({nr_of_children})</div>
@@ -315,6 +315,7 @@ export default function ProjectsGrid(props) {
             <hr />
         </div>;
     }
+
     return (
         <div>
             <DataTable
