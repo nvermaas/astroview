@@ -1,9 +1,9 @@
 // Nico Vermaas - 28 oct 2019
 // This is the reducer for the global state providor.
 
-import { getProjects } from '../utils/filterObservations'
-
 // possible actions
+export const SET_AUTHENTICATED = 'SET_AUTHENTICATED'
+export const RELOAD = 'RELOAD'
 
 export const SET_STATUS = 'SET_STATUS'
 export const SET_FETCHED_OBSERVATIONS = 'SET_FETCHED_OBSERVATIONS'
@@ -34,6 +34,8 @@ export const SET_THUMBNAIL_IMAGE_TYPE = 'SET_THUMBNAIL_IMAGE_TYPE'
 export const SET_VIEW = 'SET_VIEW'
 
 export const initialState = {
+        authenticated : false,
+        reload : false,
         taskid: undefined,
         observation: undefined,
 
@@ -63,6 +65,19 @@ export const initialState = {
 
 export const reducer = (state, action) => {
     switch (action.type) {
+
+        case SET_AUTHENTICATED:
+            return {
+                ...state,
+                authenticated: action.authenticated
+            };
+
+        case RELOAD:
+            //alert('reload')
+            return {
+                ...state,
+                reload: action.reload
+            };
 
         case SET_STATUS:
             return {

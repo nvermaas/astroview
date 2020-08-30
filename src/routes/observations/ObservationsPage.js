@@ -4,7 +4,7 @@ import LoadingSpinner from '../../components/LoadingSpinner';
 import ObservationTiles from './ObservationTiles'
 import ObservationsGrid from './ObservationsGrid'
 import { ButtonBar } from '../../components/ButtonBar';
-import { useGlobalReducer } from '../../Store';
+import { useGlobalReducer } from '../../contexts/GlobalContext';
 
 export default function Observations(props) {
 

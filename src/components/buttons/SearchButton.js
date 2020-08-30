@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, FormControl, Button } from 'react-bootstrap';
-import { useGlobalReducer } from '../../Store';
+import { useGlobalReducer } from '../../contexts/GlobalContext';
 import { useLocation } from "react-router-dom"
 import { ResetFilters } from '../ButtonBar'
 

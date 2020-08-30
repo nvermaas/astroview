@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from "react-router-dom"
 import { Button, Badge } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
-import { useGlobalReducer } from '../../Store';
-import { SET_OBSERVATION_PAGE, SET_BACKEND_FILTER, SET_CURRENT_PROJECT } from '../../reducers/GlobalStateReducer'
+import { useGlobalReducer } from '../../contexts/GlobalContext';
+import { SET_OBSERVATION_PAGE, SET_CURRENT_PROJECT } from '../../reducers/GlobalStateReducer'
 //import { url_observations } from '../../components/Main'
 import InfoLink from '../../components/buttons/InfoLink'
 

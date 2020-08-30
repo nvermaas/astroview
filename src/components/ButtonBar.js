@@ -1,5 +1,5 @@
 import React from 'react';
-import { useGlobalReducer } from '../Store';
+import { useGlobalReducer } from '../contexts/GlobalContext';
 import { Button, InputGroup, Dropdown, DropdownButton, FormControl } from 'react-bootstrap';
 import { getMode, getExposure, getImageTypeIcon, getQualityIcon } from '../utils/styling'
 
@@ -39,8 +39,6 @@ export function ButtonBar() {
     }
 
     function handleStatus(status) {
-        // a change in observation_quality is used to trigger a new fetch,
-        // see the useEffect in the Main.js how that is done.
         my_dispatch({type: SET_OBSERVATION_STATUS, observation_status: status})
     }
 

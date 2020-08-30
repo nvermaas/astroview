@@ -1,21 +1,21 @@
-import React, {useState, useEffect }  from 'react';
+import React, {useState, useEffect, useContext }  from 'react';
 import '../App.css';
 
-import { useGlobalReducer } from '../Store';
+import { useGlobalReducer } from '../contexts/GlobalContext';
 import {
     SET_CURRENT_PROJECT,
 } from '../reducers/GlobalStateReducer';
 
-import { FetchData, FetchObservation } from '../FetchData'
+import { FetchData } from '../FetchData'
 
 import { NavigationBar } from './NavigationBar';
-import { ButtonBar } from '../components/ButtonBar';
 import Observations from '../routes/observations/ObservationsPage';
 import Projects from '../routes/projects/ProjectsPage';
 import ObservationDetails from '../routes/details/ObservationDetails';
 import Survey from '../routes/survey/Survey';
 import { About } from '../routes/about/About';
 
+import { AuthContext } from "../contexts/AuthContext";
 
 import {
     BrowserRouter as Router,
@@ -38,6 +38,7 @@ function Main () {
 
     // use global state
     const [ my_state , my_dispatch] = useGlobalReducer()
+    const { handleLogin, handleLogout } = useContext(AuthContext);
 
     // fetch all the data. Contains the useEffect hooks that re-fetch the data when the state changes.
     FetchData()
@@ -56,9 +57,13 @@ function Main () {
                  */}
 
                 <Switch>
+
                     <Route exact path="/">
                         <Observations />
                     </Route>
+
+                    <Route exact path="/login" component={handleLogin} />
+                    <Route exact path="/logout" component={handleLogout} />
 
                     <Route path="/projects">
                         <Projects />
@@ -81,7 +86,7 @@ function Main () {
                     <Route path="/details/:id" children={<ObservationDetailsForward />} />
                 </Switch>
             </div>
-            <footer><small> (C) 2020 - Nico Vermaas - version 1.8.4 - 22 aug 2020</small></footer>
+            <footer><small> (C) 2020 - Nico Vermaas - version 1.9.0 - 30 aug 2020</small></footer>
         </Router>
     );
 }
@@ -120,10 +125,6 @@ function ObservationDetailsForward() {
     }
 
     if (observation === undefined) {
-        // todo: data has not been fetched yet, can I fetch it from here?
-        //alert('No observations are fetched yet, go fetch the requested one')
-
-        //alert('fetching')
         return <ObservationDetails taskid={id}/>
     }
 

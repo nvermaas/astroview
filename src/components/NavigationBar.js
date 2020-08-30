@@ -2,13 +2,14 @@ import React from 'react';
 
 import { Navbar, Nav } from 'react-bootstrap';
 import logo from '../logo.ico';
-import { useGlobalReducer } from '../Store';
+import { useGlobalReducer } from '../contexts/GlobalContext';
 import { NavLink, Link } from "react-router-dom"
 
 import { ASTROBASE_URL } from '../utils/skyserver'
 import SwitchViewButton from './buttons/SwitchViewButton'
 import SwitchThumbnailButton from './buttons/SwitchThumbnailButton'
 import SearchButton from './buttons/SearchButton'
+import AuthControl from "./auth/authControl";
 
 function getLink(taskid) {
     let details_link = "/details/" + taskid
@@ -47,7 +48,9 @@ export function NavigationBar() {
             <SwitchViewButton/>
             &nbsp;
             <SearchButton/>
-
+            <Nav>
+                <AuthControl />
+            </Nav>
         </Navbar>
 
     );

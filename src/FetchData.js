@@ -1,8 +1,9 @@
 import React, {useState, useEffect }  from 'react';
 
-import { useGlobalReducer } from './Store';
+import { useGlobalReducer } from './contexts/GlobalContext';
 
 import {
+    RELOAD,
     SET_FETCHED_OBSERVATIONS,
     SET_STATUS,
     SET_TOTAL_OBSERVATIONS,
@@ -39,7 +40,8 @@ export function FetchData () {
             my_state.observation_status,
             my_state.observation_iso,
             my_state.observation_focal_length,
-            my_state.observation_image_type]
+            my_state.observation_image_type,
+            my_state.reload]
     );
 
     // this executes fetchProjects every time that a filter in the state is changed
@@ -51,19 +53,20 @@ export function FetchData () {
             my_state.observation_status,
             my_state.observation_iso,
             my_state.observation_focal_length,
-            my_state.observation_image_type]
+            my_state.observation_image_type,
+            my_state.reload]
     );
 
     // this fetches the observations belonging to the current project when my_state current_project was changed
     useEffect(() => {
             fetchCurrentProject(url_observations)
-        }, [my_state.current_project]
+        }, [my_state.current_project, my_state.reload]
     );
 
     // this fetches the observations belonging to the current project when my_state current_project was changed
     useEffect(() => {
             fetchCurrentObservation(url_observations)
-        }, [my_state.current_observation]
+        }, [my_state.current_observation, my_state.reload]
     );
 
     /*
@@ -110,7 +113,6 @@ export function FetchData () {
             // apply all the filters in my_state to the url_observations
             url = getFilteredUrl(url, my_state, my_state.project_page)
 
-            //alert('fetchObservations: ' + (url_observations))
             my_dispatch({type: SET_STATUS_PROJECTS, status_projects: 'fetching'})
 
             fetch(url)

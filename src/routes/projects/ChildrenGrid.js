@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom"
 import { Button, Badge } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
-import { useGlobalReducer } from '../../Store';
+import { useGlobalReducer } from '../../contexts/GlobalContext';
 // import { SET_ACTIVE_TASKID } from '../../reducers/GlobalStateReducer'
 import { ASTROBASE_URL } from '../../utils/skyserver'
 import { getMode, getExposure, getImageTypeIcon, getQualityIcon } from '../../utils/styling'

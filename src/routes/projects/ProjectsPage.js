@@ -3,7 +3,7 @@ import React from 'react';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import ProjectsGrid from './ProjectsGrid'
 import { ButtonBar } from '../../components/ButtonBar';
-import { useGlobalReducer } from '../../Store';
+import { useGlobalReducer } from '../../contexts/GlobalContext';
 
 import { SET_CURRENT_PROJECT, SET_PROJECT_PAGE } from '../../reducers/GlobalStateReducer'
 import { filterProjects } from '../../utils/filterObservations'

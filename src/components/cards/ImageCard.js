@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useContext }  from 'react';
 import {Card, Button } from 'react-bootstrap'
+
+import { AuthContext } from '../../contexts/AuthContext'
+import { useGlobalReducer } from '../../contexts/GlobalContext'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faImage, faArrowsAlt, faProjectDiagram } from '@fortawesome/free-solid-svg-icons'
 
-import { useGlobalReducer } from '../../Store';
-import { SET_IMAGE_TYPE } from '../../reducers/GlobalStateReducer'
 
+import { SET_IMAGE_TYPE } from '../../reducers/GlobalStateReducer'
 import { getUrlSDSS} from '../../utils/skyserver'
 
-import Description from '../buttons/DescriptionButton'
 import InfoLink from '../buttons/InfoLink'
+import SetQualityButton from '../buttons/SetQualityButton'
 
 // display the main image depending on the dispatched imageType
 function getThumbnail(observation, imageType) {
@@ -49,6 +51,7 @@ function MainImage(props) {
 export default function ImageCard(props) {
 
     const [ my_state , my_dispatch] = useGlobalReducer()
+    const { isAuthenticated } = useContext(AuthContext);
 
     // dispatch current observation to the global store
     const handleClick = (observation,imageType) => {
@@ -104,8 +107,19 @@ export default function ImageCard(props) {
             </Button>
         </a>
 
-    return (
+    // the following only shows when the user is authenticated
+    let renderQualityButton
+    if (isAuthenticated) {
+        renderQualityButton=<div>
+            <SetQualityButton observation={props.observation} quality="great"/>&nbsp;
+            <SetQualityButton observation={props.observation} quality="good"/>&nbsp;
+            <SetQualityButton observation={props.observation} quality="medium"/>&nbsp;
+            <SetQualityButton observation={props.observation} quality="bad"/>&nbsp;
+            <SetQualityButton observation={props.observation} quality="annotated"/>&nbsp;
+        </div>
+    }
 
+    return (
         <Card className="card-dataproduct">
             <Card.Body>
 
@@ -116,12 +130,14 @@ export default function ImageCard(props) {
                     {buttonAnnotated}&nbsp;
                     {buttonFITS}&nbsp;
                     {buttonJS9}&nbsp;
+
                 </tr>
                 &nbsp;
                 <tr>
                     <MainImage observation={props.observation} imageType={my_state.image_type}/>
                 </tr>
                 (click for fullscreen)
+                {renderQualityButton}&nbsp;
             </Card.Body>
 
         </Card>

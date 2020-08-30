@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Card, Table } from 'react-bootstrap';
 
-import { useGlobalReducer } from '../../Store';
+import { useGlobalReducer } from '../../contexts/GlobalContext';
 import { deg2HMS, deg2DMS} from '../../utils/astro'
 import { getExposure, getImageTypeIcon, getQualityIcon} from '../../utils/styling'
 import { ASTROBASE_URL, getUrlAladin, getUrlESASky, getUrlSDSS, getUrlCDSPortal} from '../../utils/skyserver'

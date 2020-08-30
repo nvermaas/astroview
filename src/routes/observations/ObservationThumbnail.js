@@ -2,7 +2,7 @@ import React from 'react';
 import {Card, Button } from 'react-bootstrap'
 import { Link } from "react-router-dom"
 
-import { useGlobalReducer } from '../../Store';
+import { useGlobalReducer } from '../../contexts/GlobalContext';
 import { SET_CURRENT_PROJECT } from '../../reducers/GlobalStateReducer'
 
 import Description from '../../components/buttons/DescriptionButton'
