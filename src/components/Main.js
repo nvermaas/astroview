@@ -11,6 +11,7 @@ import { FetchData } from '../FetchData'
 import { NavigationBar } from './NavigationBar';
 import Observations from '../routes/observations/ObservationsPage';
 import Projects from '../routes/projects/ProjectsPage';
+import Collections from '../routes/collections/CollectionsPage';
 import ObservationDetails from '../routes/details/ObservationDetails';
 import Survey from '../routes/survey/Survey';
 import { About } from '../routes/about/About';
@@ -65,6 +66,12 @@ function Main () {
                     <Route exact path="/login" component={handleLogin} />
                     <Route exact path="/logout" component={handleLogout} />
 
+                    <Route path="/collections">
+                        <Collections />
+                    </Route>
+
+                    <Route path="/collection-details/:id" children={<CollectionDetailsForward />} />
+
                     <Route path="/projects">
                         <Projects />
                     </Route>
@@ -86,7 +93,7 @@ function Main () {
                     <Route path="/details/:id" children={<ObservationDetailsForward />} />
                 </Switch>
             </div>
-            <footer><small> (C) 2020 - Nico Vermaas - version 1.9.0 - 30 aug 2020</small></footer>
+            <footer><small> (C) 2020 - Nico Vermaas - version 1.10.0 - 28 sep 2020</small></footer>
         </Router>
     );
 }
@@ -165,6 +172,29 @@ function ProjectsForward() {
 
     return (
         <Projects taskid={id}/>
+    );
+}
+
+// reroute to collection details
+function CollectionDetailsForward() {
+    // get the observation info from the global state.
+    const [ my_state , my_dispatch] = useGlobalReducer()
+
+    let { id } = useParams();
+    //alert('CollectionDetailsForward('+id+')')
+
+    let renderObservationDetails
+
+    // show the master and its (fetched) children
+    if (my_state.current_observations!==undefined) {
+        renderObservationDetails = my_state.current_observations.map((observation) => {
+                return <ObservationDetails data={my_state.current_observations} taskid={observation.taskID}/>
+            }
+        )
+    }
+
+    return (
+        <div>{renderObservationDetails}</div>
     );
 }
 

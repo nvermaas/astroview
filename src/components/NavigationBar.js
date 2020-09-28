@@ -36,9 +36,10 @@ export function NavigationBar() {
             </a>
             <Navbar.Brand href="/astroview">&nbsp;AstroView </Navbar.Brand>
             <Nav className="mr-auto">
-                <Nav.Link as={NavLink} to="/projects">Projects</Nav.Link>
                 <Nav.Link as={NavLink} to="/observations">Observations</Nav.Link>
-                <DetailsLink taskid={my_state.taskid} />
+                <Nav.Link as={NavLink} to="/projects">Masters</Nav.Link>
+                <Nav.Link as={NavLink} to="/collections">Collections</Nav.Link>
+
                 <Nav.Link target="_blank" href={ASTROBASE_URL}>AstroBase</Nav.Link>
 
                 <Nav.Link as={NavLink} to="/about">About</Nav.Link>

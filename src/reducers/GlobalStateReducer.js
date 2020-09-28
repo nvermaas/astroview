@@ -16,6 +16,12 @@ export const SET_TOTAL_PROJECTS = 'SET_TOTAL_PROJECTS'
 export const SET_PROJECT_PAGE = 'SET_PROJECT_PAGE'
 export const SET_CURRENT_PROJECT = 'SET_CURRENT_PROJECT'
 
+export const SET_STATUS_COLLECTIONS = 'SET_STATUS_COLLECTIONS'
+export const SET_FETCHED_COLLECTIONS = 'SET_FETCHED_COLLECTIONS'
+export const SET_TOTAL_COLLECTIONS = 'SET_TOTAL_COLLECTIONS'
+export const SET_COLLECTION_PAGE = 'SET_COLLECTION_PAGE'
+export const SET_CURRENT_COLLECTION = 'SET_CURRENT_COLLECTION'
+
 export const SET_CURRENT_OBSERVATION = 'SET_CURRENT_OBSERVATION'
 export const SET_ACTIVE_OBSERVATION = 'SET_ACTIVE_OBSERVATION'
 
@@ -52,6 +58,12 @@ export const initialState = {
         current_observation: undefined,
         current_observations: undefined,
 
+        status_collections : "unfetched",
+        fetched_collections: undefined,
+        total_collections: undefined,
+        collection_page: 1,
+        current_collection: undefined,
+     
         observation_image_type: "All",
         observation_quality: "All",
         observation_status: "All",
@@ -182,6 +194,40 @@ export const reducer = (state, action) => {
                 current_project: action.current_project,
             };
 
+        case SET_STATUS_COLLECTIONS:
+            return {
+                ...state,
+                status_collections: action.status_collections
+            };
+
+        case SET_FETCHED_COLLECTIONS:
+            //alert('reducer: SET_FETCHED_COLLECTIONS '+action.fetched_observations)
+            return {
+                ...state,
+                fetched_collections: action.fetched_collections
+            };
+
+        case SET_TOTAL_COLLECTIONS:
+            return {
+                ...state,
+                total_collections: action.total_collections,
+            };
+
+        case SET_COLLECTION_PAGE:
+            // a change in collection_page is used to trigger a new fetch,
+            // see the useEffect in the Main.js how that is done.
+            return {
+                ...state,
+                collection_page: action.collection_page,
+            };
+
+        case SET_CURRENT_COLLECTION:
+            //alert('SET_CURRENT_COLLECTION '+action.current_collection)
+            return {
+                ...state,
+                current_collection: action.current_collection,
+            };
+            
         case SET_CURRENT_OBSERVATION:
             //alert('SET_CURRENT_OBSERVATION: '+action.current_observation)
             return {

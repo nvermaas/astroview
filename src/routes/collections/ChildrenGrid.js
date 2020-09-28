@@ -3,46 +3,20 @@ import { Link } from "react-router-dom"
 import { Button, Badge } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
 import { useGlobalReducer } from '../../contexts/GlobalContext';
-import { SET_OBSERVATION_PAGE, SET_CURRENT_PROJECT } from '../../reducers/GlobalStateReducer'
-//import { url_observations } from '../../components/Main'
-import InfoLink from '../../components/buttons/InfoLink'
-
+// import { SET_ACTIVE_TASKID } from '../../reducers/GlobalStateReducer'
 import { ASTROBASE_URL } from '../../utils/skyserver'
 import { getMode, getExposure, getImageTypeIcon, getQualityIcon } from '../../utils/styling'
 
-
-export default function ObservationsGrid(props) {
+export default function ChildrenGrid(props) {
     const [ my_state , my_dispatch] = useGlobalReducer()
 
-    const handleDefaultClick = (observation) => {
+    const handleClick = (observation) => {
         // dispatch current observation to the global store
-        my_dispatch({type: SET_CURRENT_PROJECT, current_project: observation.taskID})
-    }
-
-    const handleProjectClick = (observation) => {
-        // let backend_filter = '&fieldsearch='+observation.derived_parent_taskid
-        // my_dispatch({type: SET_BACKEND_FILTER, backend_filter: backend_filter})
-        my_dispatch({type: SET_CURRENT_PROJECT, current_project: observation.derived_parent_taskid})
-
-    }
-
-
-    const handlePageChange = (page) => {
-        // get the data from the api
-        let url = ASTROBASE_URL + "observations?page=" +page.toString()
-
-        // a change in observation_page is used to trigger a new fetch,
-        // see the useEffect in the Main.js how that is done.
-        my_dispatch({type: SET_OBSERVATION_PAGE, observation_page: page})
-
-    }
-
-    const handlePerRowsChange = () => {
-        alert('handlePerRowsChange')
+        // my_dispatch({type: SET_ACTIVE_TASKID, taskid: observation.taskID})
     }
 
     // generate the details link to forward to
-    const getDetailsLink = (observation) => {
+    const getLink = (observation) => {
         let details_link = "/details/"+observation.taskID
         return details_link
     }
@@ -60,95 +34,22 @@ export default function ObservationsGrid(props) {
         return dps_link
     }
 
-    // generate the api link
-    const getParentlink = (observation) => {
-        if (observation.derived_parent_taskid===undefined) {
-            return null
-        }
-
-        let project_link = "projectsss/" + observation.derived_parent_taskid.toString()
-        return project_link
-    }
-
-    // generate the api link
-    const getProjectslink = (observation) => {
-        if (observation.taskID===undefined) {
-            return null
-        }
-        let project_link = "projectsss/" + observation.taskID.toString()
-        return project_link
-    }
-
     const columns = [
-        /*
         {
-            name: 'id',
-            selector: 'id',
-            size: 50,
-            sortable: true,
-            cell: row =>
-                <Link to={() => getDetailsLink(row)}>
-                    {row.id}&nbsp;
-                </Link>,
-        },
-        */
-        {
-            name: 'ID (children)',
+            name: 'TaskID',
             selector: 'taskID',
             sortable: true,
-            width: "8%",
-            cell: row => {
-                if (row.task_type === 'master') {
-                    let nr_of_children = row.children.length
-                    return <div>
-                        <Link to={getProjectslink(row)}>
-                            <div style={{ fontWeight: "bold" }}>{row.taskID}{' '}({nr_of_children})</div>
-                        </Link>
-                    </div>
-                } else {
-                    return <div>{row.taskID}</div>
-                }
-            }
-        },
-        /*
-        {
-            name: 'Type',
-            selector: 'task_type',
-            sortable: true,
-            width: "5%",
-            cell: row => {
-                if (row.task_type === 'master') {
-                    return <div style={{ fontWeight: "bold" }}>Project</div>
-                }},
-        },
-        */
-        {
-            name: 'Master',
-            selector: 'derived_parent_taskid',
-            sortable: true,
-            style: {
-                fontweight: "bold",
-            },
-            width: "8%",
-            cell: row => {
-
-                if (row.derived_parent_taskid) {
-                    return <div>
-                        <Link to={getParentlink(row)}>
-                            <div onClick={() => handleProjectClick(row)} style={{ fontWeight: "bold" }}>{row.derived_parent_taskid}</div>
-                        </Link>
-                    </div>
-                }
-            }
+            width: "7%"
         },
         {
-            name: 'Date',
+            name: 'Observation Date',
             selector: 'date',
             sortable: true,
-            width: "7%",
+            width: "8%",
             cell: row => {
                 var d = new Date(row.date.toString());
-                return <div>{d.toDateString()}</div>
+                var n = d.toDateString()
+                return <div>{n}</div>
             }
         },
         {
@@ -217,19 +118,19 @@ export default function ObservationsGrid(props) {
                     </Badge></div>
             }
         },
-/*
-        {
-            name: 'Status',
-            selector: 'my_status',
-            sortable: true,
-            width: "5%"
-        },
-*/
+        /*
+         {
+         name: 'Status',
+         selector: 'my_status',
+         sortable: true,
+         width: "5%"
+         },
+         */
         {
             name: 'Details',
             cell: row =>
-                <Link to={() => getDetailsLink(row)}>
-                    <Button variant="warning" onClick={() => handleDefaultClick(row)}>Details</Button>
+                <Link to={() => getLink(row)}>
+                    <Button variant="warning" onClick={() => handleClick(row)}>Details</Button>
                 </Link>,
 
             button: true,
@@ -240,21 +141,20 @@ export default function ObservationsGrid(props) {
             width: "5%",
             cell: row => {
 
-                if (row.generated_dataproducts.length > 1) {
                     return <a href={getDPSlink(row)} target="_blank" rel="noopener noreferrer">
-                        <Button variant="outline-info" onClick={() => handleDefaultClick(row)}>DPS</Button>
+                        <Button variant="outline-info" onClick={() => handleClick(row)}>DPS</Button>
                     </a>
                 }
-            }
         },
         {
             name: 'Astrobase',
             cell: row =>
                 <a href={getAPI(row)} target="_blank" rel="noopener noreferrer">
-                    <Button variant="outline-info" onClick={() => handleDefaultClick(row)}>API</Button>
+                    <Button variant="outline-info" onClick={() => handleClick(row)}>API</Button>
                 </a>,
             button: true,
         },
+
     ];
 
     const myTheme = {
@@ -366,16 +266,6 @@ export default function ObservationsGrid(props) {
                 },
             },
         },
-        {
-            when: row => row.my_status == 'master_xx',
-            style: {
-                backgroundColor: 'grey',
-                color: 'white',
-                '&:hover': {
-                    cursor: 'pointer',
-                },
-            },
-        },
     ];
 
     // this creates an 'expand' icon in front of every row and shows additional information (images)
@@ -389,28 +279,25 @@ export default function ObservationsGrid(props) {
 
     </div>;
 
+    // default expand all children tabs to show all the images of a project when it is opened
+    let i = 0
+    while (i < props.data.length) {
+        props.data[i].defaultExpanded = true;
+        i++;
+    }
+
+
     return (
         <div>
             <DataTable
                 columns={columns}
                 data={props.data}
                 conditionalRowStyles={conditionalRowStyles}
-                pagination
-
-                // disable this section to return to the original client side pagination
-                // but then make sure to set PAGE_SIZE in the backend to something huge to get all the data
-                // documentation: https://jbetancur.github.io/react-data-table-component/?path=/story/pagination--server-side
-                paginationServer
-                paginationTotalRows={my_state.total_observations}
-                onChangePage={handlePageChange}
-                onChangeRowsPerPage={handlePerRowsChange}
-
-                paginationPerPage={25}
-                // paginationRowsPerPageOptions={[50, 100]}
-                paginationRowsPerPageOptions={[25]}
-
+                //customTheme={myTheme}
+                dense
+                //expandableRows
                 expandOnRowClicked
-                expandableRows
+                expandableRowExpanded={row => row} // expand all rows
                 expandableRowsComponent={<ExpandableComponent />}
             />
         </div>

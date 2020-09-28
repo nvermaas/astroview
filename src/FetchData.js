@@ -3,24 +3,25 @@ import React, {useState, useEffect }  from 'react';
 import { useGlobalReducer } from './contexts/GlobalContext';
 
 import {
-    RELOAD,
     SET_FETCHED_OBSERVATIONS,
     SET_STATUS,
     SET_TOTAL_OBSERVATIONS,
     SET_FETCHED_PROJECTS,
     SET_STATUS_PROJECTS,
     SET_TOTAL_PROJECTS,
-    SET_BACKEND_FILTER,
-    SET_CURRENT_PROJECT,
-    SET_CURRENT_OBSERVATION,
+    SET_STATUS_COLLECTIONS,
+    SET_TOTAL_COLLECTIONS,
+    SET_FETCHED_COLLECTIONS,
     SET_CURRENT_OBSERVATIONS
 } from './reducers/GlobalStateReducer';
 
 import { getFilteredUrl } from './utils/filter'
+import { getIds } from './utils/filterObservations'
 import { ASTROBASE_URL } from './utils/skyserver'
 
 export const url_observations = ASTROBASE_URL + "observations"
 export const url_projects = ASTROBASE_URL + "projects"
+export const url_collections = ASTROBASE_URL + "collections"
 
 export function FetchData () {
 
@@ -57,10 +58,25 @@ export function FetchData () {
             my_state.reload]
     );
 
+    // this executes fetchCollections every time that a filter in the state is changed
+    useEffect(() => {
+            fetchCollections(url_collections)
+        }, [my_state.backend_filter,
+            my_state.collection_page,
+            my_state.observation_image_type,
+            my_state.reload]
+    );
+
     // this fetches the observations belonging to the current project when my_state current_project was changed
     useEffect(() => {
             fetchCurrentProject(url_observations)
         }, [my_state.current_project, my_state.reload]
+    );
+
+    // this fetches the observations belonging to the current project when my_state current_project was changed
+    useEffect(() => {
+            fetchCurrentCollection(url_observations)
+        }, [my_state.current_collection, my_state.reload]
     );
 
     // this fetches the observations belonging to the current project when my_state current_project was changed
@@ -131,6 +147,32 @@ export function FetchData () {
         }
     }
 
+    // get the data from the api
+    const fetchCollections = (url) => {
+
+        if (my_state.status_collections !== 'fetching')  {
+
+            // apply all the filters in my_state to the url_observations
+            url = getFilteredUrl(url, my_state, my_state.collection_page)
+
+            my_dispatch({type: SET_STATUS_COLLECTIONS, status_collections: 'fetching'})
+
+            fetch(url)
+                .then(results => {
+                    return results.json();
+                })
+                .then(data => {
+                    my_dispatch({type: SET_FETCHED_COLLECTIONS, fetched_collections: data.results})
+                    my_dispatch({type: SET_TOTAL_COLLECTIONS, total_collections: data.count})
+                    my_dispatch({type: SET_STATUS_COLLECTIONS, status_collections: 'fetched'})
+                })
+                .catch(function () {
+                    my_dispatch({type: SET_STATUS_COLLECTIONS, status_collections: 'failed'})
+                    alert("fetch collections to " + url + " failed.");
+                })
+        }
+    }
+    
     // fetch all the observations belonging to the my_state.current_project (a taskid)
     const fetchCurrentProject = (url) => {
         console.log('fetchCurrentProject: '+my_state.current_project)
@@ -152,6 +194,29 @@ export function FetchData () {
         }
     }
 
+    // fetch all the observations belonging to the my_state.current_collection
+    const fetchCurrentCollection = (url) => {
+
+        // only fetch if there is a current_collection selected
+        // http://localhost:8000/my_astrobase/observations/?id__in=2815,2817
+
+        if (my_state.current_collection) {
+            let ids = getIds(my_state.current_collection.observations)
+            url = url + '?id__in=' + ids
+            //alert(url)
+            fetch(url)
+                .then(results => {
+                    return results.json();
+                })
+                .then(data => {
+                    my_dispatch({type: SET_CURRENT_OBSERVATIONS, current_observations: data.results})
+                })
+                .catch(function () {
+                    alert("fetch collections to " + url + " failed.");
+                })
+        }
+    }
+    
     // fetch all the observations belonging to the my_state.current_project (a taskid)
     const fetchCurrentObservation = (url) => {
         console.log('fetchCurrentObservation: '+my_state.current_observation)
@@ -172,27 +237,5 @@ export function FetchData () {
                 })
         }
     }
-}
-
-// fetch all the observations belonging to the my_state.current_project (a taskid)
-export const FetchObservation = (taskID) => {
-    // use global state
-    const [ my_state , my_dispatch] = useGlobalReducer()
-
-    console.log('fetchObservation: '+taskID)
-
-    let url = url_observations + '?fieldsearch=' + taskID
-
-    fetch(url)
-        .then(results => {
-            return results.json();
-        })
-        .then(data => {
-            my_dispatch({type: SET_CURRENT_OBSERVATIONS, current_observations: data.results})
-            return data.results
-        })
-        .catch(function () {
-            alert("fetchObservation " + taskID + " failed.");
-        })
 }
 

@@ -27,9 +27,6 @@ export function filterObservations(searchText, fetched_observations, maxResults)
         if (observation.my_status.toUpperCase().includes(searchText)) {
             return true;
         }
-        if (observation.observing_mode.toUpperCase().includes(searchText)) {
-            return true;
-        }
         if (observation.date.toString().includes(searchText)) {
             return true;
         }
@@ -63,7 +60,6 @@ export function filterProjects(observations, taskid, maxResults) {
     }).slice(0, maxResults);
 }
 
-
 // get child observations of a master observation
 export function getChildren(observations, id) {
     return observations.filter((observation) => {
@@ -72,4 +68,38 @@ export function getChildren(observations, id) {
         }
         return false;
     }).slice(0);
+}
+
+export function filterCollections(collections, id, maxResults) {
+    if (collections==undefined) {
+        return false
+    }
+    return collections.filter((collection) => {
+        if (collection.taskID===id) {
+            return true;
+        }
+        return false;
+    }).slice(0, maxResults);
+}
+
+// get child observations of a master observation
+export function getCollectionChildren(observations, id) {
+    return observations.filter((observation) => {
+        if (observation.parent===id) {
+            return true;
+        }
+        return false;
+    }).slice(0);
+}
+
+// create a comma separated list of id's from a json list of observations (used as id__in=<ids>)
+export function getIds(observations) {
+    let ids = ''
+
+    ids = observations.map( (observation) => {
+        return observation.id}
+
+    )
+    return ids
+
 }
