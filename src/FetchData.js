@@ -15,7 +15,7 @@ import {
     SET_CURRENT_OBSERVATIONS
 } from './reducers/GlobalStateReducer';
 
-import { getFilteredUrl } from './utils/filter'
+import { getFilteredUrl, getFilteredUrlCollections } from './utils/filter'
 import { getIds } from './utils/filterObservations'
 import { ASTROBASE_URL } from './utils/skyserver'
 
@@ -149,11 +149,11 @@ export function FetchData () {
 
     // get the data from the api
     const fetchCollections = (url) => {
-
+        // alert('fetchCollections('+url+')')
         if (my_state.status_collections !== 'fetching')  {
 
             // apply all the filters in my_state to the url_observations
-            url = getFilteredUrl(url, my_state, my_state.collection_page)
+            url = getFilteredUrlCollections(url, my_state, my_state.collection_page)
 
             my_dispatch({type: SET_STATUS_COLLECTIONS, status_collections: 'fetching'})
 
@@ -199,6 +199,7 @@ export function FetchData () {
 
         // only fetch if there is a current_collection selected
         // http://localhost:8000/my_astrobase/observations/?id__in=2815,2817
+        // alert('fetchCurrentCollection: '+my_state.current_collection)
 
         if (my_state.current_collection) {
             let ids = getIds(my_state.current_collection.observations)
@@ -219,7 +220,7 @@ export function FetchData () {
     
     // fetch all the observations belonging to the my_state.current_project (a taskid)
     const fetchCurrentObservation = (url) => {
-        console.log('fetchCurrentObservation: '+my_state.current_observation)
+        //alert('fetchCurrentObservation: '+my_state.current_observation)
         // only fetch if there is a current_project selected
 
         if (my_state.current_observation) {

@@ -224,6 +224,7 @@ export default function ProjectsGrid(props) {
     return (
         <div>
             <DataTable
+                title="Collections of Observations"
                 columns={columns}
                 data={props.data}
                 conditionalRowStyles={conditionalRowStyles}

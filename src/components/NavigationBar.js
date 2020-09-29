@@ -27,7 +27,7 @@ function DetailsLink(props) {
 
 export function NavigationBar() {
     const [ my_state , my_dispatch] = useGlobalReducer()
-
+    let ASTROBASE_URL_ADMIN = ASTROBASE_URL + 'admin'
     return (
         <Navbar bg="dark" variant="dark">
 
@@ -37,12 +37,11 @@ export function NavigationBar() {
             <Navbar.Brand href="/astroview">&nbsp;AstroView </Navbar.Brand>
             <Nav className="mr-auto">
                 <Nav.Link as={NavLink} to="/observations">Observations</Nav.Link>
-                <Nav.Link as={NavLink} to="/projects">Masters</Nav.Link>
+                <Nav.Link as={NavLink} to="/projects">Parents</Nav.Link>
                 <Nav.Link as={NavLink} to="/collections">Collections</Nav.Link>
 
                 <Nav.Link target="_blank" href={ASTROBASE_URL}>AstroBase</Nav.Link>
 
-                <Nav.Link as={NavLink} to="/about">About</Nav.Link>
             </Nav>
             <SwitchThumbnailButton/>
             &nbsp;
@@ -50,6 +49,7 @@ export function NavigationBar() {
             &nbsp;
             <SearchButton/>
             <Nav>
+                <Nav.Link target="_blank" href={ASTROBASE_URL_ADMIN}>Admin</Nav.Link>
                 <AuthControl />
             </Nav>
         </Navbar>

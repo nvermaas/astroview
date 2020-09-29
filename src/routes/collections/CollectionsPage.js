@@ -2,7 +2,7 @@ import React from 'react';
 
 import LoadingSpinner from '../../components/LoadingSpinner';
 import CollectionsGrid from './CollectionsGrid'
-import { ButtonBar } from '../../components/ButtonBar';
+import { ButtonBarCollections } from '../../components/ButtonBarCollections';
 import { useGlobalReducer } from '../../contexts/GlobalContext';
 
 import { SET_CURRENT_COLLECTION, SET_COLLECTION_PAGE } from '../../reducers/GlobalStateReducer'
@@ -36,7 +36,7 @@ export default function Collections(props) {
     return (
         <div className="App">
             <div>
-                <ButtonBar/>
+                <ButtonBarCollections/>
                 {renderSpinner}
                 {renderCollections}
             </div>

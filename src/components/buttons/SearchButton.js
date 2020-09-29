@@ -60,7 +60,10 @@ export default function SearchButton(props) {
     // only show this button on the observations screen
     let location = useLocation()
 
-    if (location.pathname === '/' || location.pathname === '/observations' || location.pathname === '/projects') {
+    if (location.pathname === '/' ||
+        location.pathname === '/observations' ||
+        location.pathname === '/projects' ||
+        location.pathname === '/collections') {
         return <Form inline>
             <FormControl type="text" placeholder="Search" className="mr-sm-2" onKeyPress={handleKeyPress} />
             <Button variant="outline-info" onClick={handleResetClick}>Reset Filter</Button>

@@ -36,6 +36,16 @@ export default function ChildrenGrid(props) {
 
     const columns = [
         {
+            name: 'Name',
+            selector: 'name',
+            sortable: true,
+            width: "15%",
+            cell: row => {
+                let icon = getImageTypeIcon(row.image_type)
+                return <div>{icon}&nbsp;&nbsp;{row.name}</div>
+            }
+        },
+        {
             name: 'TaskID',
             selector: 'taskID',
             sortable: true,
@@ -50,16 +60,6 @@ export default function ChildrenGrid(props) {
                 var d = new Date(row.date.toString());
                 var n = d.toDateString()
                 return <div>{n}</div>
-            }
-        },
-        {
-            name: 'Name',
-            selector: 'name',
-            sortable: true,
-            width: "15%",
-            cell: row => {
-                let icon = getImageTypeIcon(row.image_type)
-                return <div>{icon}&nbsp;&nbsp;{row.name}</div>
             }
         },
         {
@@ -203,7 +203,7 @@ export default function ChildrenGrid(props) {
 
     const conditionalRowStyles = [
         {
-            when: row => row.quality == 'annotated',
+            when: row => row.quality === 'annotated',
             style: {
                 backgroundColor: 'lightblue',
                 color: 'black',
@@ -213,7 +213,7 @@ export default function ChildrenGrid(props) {
             },
         },
         {
-            when: row => row.quality == 'great',
+            when: row => row.quality === 'great',
             style: {
                 backgroundColor: '#9FFF7F',
                 color: 'black',
@@ -224,7 +224,7 @@ export default function ChildrenGrid(props) {
 
         },
         {
-            when: row => row.quality == 'good',
+            when: row => row.quality === 'good',
             style: {
                 backgroundColor: '#C0FFC0',
                 color: 'black',
@@ -236,7 +236,7 @@ export default function ChildrenGrid(props) {
 
         },
         {
-            when: row => row.quality == 'medium',
+            when: row => row.quality === 'medium',
             style: {
                 backgroundColor: 'lightgrey',
                 color: 'black',
@@ -247,7 +247,7 @@ export default function ChildrenGrid(props) {
 
         },
         {
-            when: row => row.quality == 'bad',
+            when: row => row.quality === 'bad',
             style: {
                 backgroundColor: '#ffddd3',
                 color: 'black',
@@ -257,7 +257,7 @@ export default function ChildrenGrid(props) {
             },
         },
         {
-            when: row => row.quality == 'simulated',
+            when: row => row.quality === 'simulated',
             style: {
                 backgroundColor: 'lightblue',
                 color: 'black',
@@ -295,7 +295,7 @@ export default function ChildrenGrid(props) {
                 conditionalRowStyles={conditionalRowStyles}
                 //customTheme={myTheme}
                 dense
-                //expandableRows
+                expandableRows
                 expandOnRowClicked
                 expandableRowExpanded={row => row} // expand all rows
                 expandableRowsComponent={<ExpandableComponent />}

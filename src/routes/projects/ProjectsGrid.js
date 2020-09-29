@@ -51,7 +51,16 @@ export default function ProjectsGrid(props) {
     }
 
     const columns = [
-
+        {
+            name: 'Name',
+            selector: 'name',
+            sortable: true,
+            width: "15%",
+            cell: row => {
+                let icon = getImageTypeIcon(row.image_type)
+                return <div>{icon}&nbsp;&nbsp;{row.name}</div>
+            }
+        },
         {
             name: 'ID (children)',
             selector: 'taskID',
@@ -71,16 +80,6 @@ export default function ProjectsGrid(props) {
                 var d = new Date(row.date.toString());
                 var n = d.toDateString()
                 return <div>{n}</div>
-            }
-        },
-        {
-            name: 'Name',
-            selector: 'name',
-            sortable: true,
-            width: "15%",
-            cell: row => {
-                let icon = getImageTypeIcon(row.image_type)
-                return <div>{icon}&nbsp;&nbsp;{row.name}</div>
             }
         },
         {
@@ -319,6 +318,7 @@ export default function ProjectsGrid(props) {
     return (
         <div>
             <DataTable
+                title="Parent Observations (click '>' for children)"
                 columns={columns}
                 data={props.data}
                 conditionalRowStyles={conditionalRowStyles}

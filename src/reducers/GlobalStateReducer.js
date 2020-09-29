@@ -201,7 +201,7 @@ export const reducer = (state, action) => {
             };
 
         case SET_FETCHED_COLLECTIONS:
-            //alert('reducer: SET_FETCHED_COLLECTIONS '+action.fetched_observations)
+            //alert('reducer: SET_FETCHED_COLLECTIONS '+action.fetched_collections)
             return {
                 ...state,
                 fetched_collections: action.fetched_collections
@@ -222,14 +222,14 @@ export const reducer = (state, action) => {
             };
 
         case SET_CURRENT_COLLECTION:
-            //alert('SET_CURRENT_COLLECTION '+action.current_collection)
+            // alert('SET_CURRENT_COLLECTION '+action.current_collection)
             return {
                 ...state,
                 current_collection: action.current_collection,
             };
             
         case SET_CURRENT_OBSERVATION:
-            //alert('SET_CURRENT_OBSERVATION: '+action.current_observation)
+            // alert('SET_CURRENT_OBSERVATION: '+action.current_observation)
             return {
                 ...state,
                 current_observation: action.current_observation,

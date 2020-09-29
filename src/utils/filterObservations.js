@@ -75,7 +75,7 @@ export function filterCollections(collections, id, maxResults) {
         return false
     }
     return collections.filter((collection) => {
-        if (collection.taskID===id) {
+        if (collection.id===id) {
             return true;
         }
         return false;

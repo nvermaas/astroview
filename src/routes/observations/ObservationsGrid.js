@@ -93,6 +93,16 @@ export default function ObservationsGrid(props) {
         },
         */
         {
+            name: 'Name',
+            selector: 'name',
+            sortable: true,
+            width: "15%",
+            cell: row => {
+                let icon = getImageTypeIcon(row.image_type)
+                return <div>{icon}&nbsp;&nbsp;{row.name}</div>
+            }
+        },
+        {
             name: 'ID (children)',
             selector: 'taskID',
             sortable: true,
@@ -123,7 +133,7 @@ export default function ObservationsGrid(props) {
         },
         */
         {
-            name: 'Master',
+            name: 'Parent',
             selector: 'derived_parent_taskid',
             sortable: true,
             style: {
@@ -149,16 +159,6 @@ export default function ObservationsGrid(props) {
             cell: row => {
                 var d = new Date(row.date.toString());
                 return <div>{d.toDateString()}</div>
-            }
-        },
-        {
-            name: 'Name',
-            selector: 'name',
-            sortable: true,
-            width: "15%",
-            cell: row => {
-                let icon = getImageTypeIcon(row.image_type)
-                return <div>{icon}&nbsp;&nbsp;{row.name}</div>
             }
         },
         {
@@ -392,6 +392,7 @@ export default function ObservationsGrid(props) {
     return (
         <div>
             <DataTable
+                title="All Observations"
                 columns={columns}
                 data={props.data}
                 conditionalRowStyles={conditionalRowStyles}
