@@ -149,7 +149,7 @@ export function FetchData () {
 
     // get the data from the api
     const fetchCollections = (url) => {
-        // alert('fetchCollections('+url+')')
+        //alert('fetchCollections('+url+')')
         if (my_state.status_collections !== 'fetching')  {
 
             // apply all the filters in my_state to the url_observations

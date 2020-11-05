@@ -29,7 +29,7 @@ export default function Collections(props) {
     }
 
     let renderSpinner
-    if (my_state.collection_status === "fetching") {
+    if (my_state.status_collections === "fetching") {
         renderSpinner = <LoadingSpinner/>
     }
 

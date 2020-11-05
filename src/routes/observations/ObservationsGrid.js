@@ -139,7 +139,7 @@ export default function ObservationsGrid(props) {
             style: {
                 fontweight: "bold",
             },
-            width: "8%",
+            width: "7%",
             cell: row => {
 
                 if (row.derived_parent_taskid) {

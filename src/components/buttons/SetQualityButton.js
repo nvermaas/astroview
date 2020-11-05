@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import { useLocation } from "react-router-dom"
 import { useGlobalReducer } from '../../contexts/GlobalContext';
-import { RELOAD } from '../../reducers/GlobalStateReducer'
+import { RELOAD, REFRESH } from '../../reducers/GlobalStateReducer'
 
 import { getQualityIcon } from '../../utils/styling'
 import { ASTROBASE_URL } from '../../utils/skyserver'
@@ -14,9 +14,10 @@ export default function SetQualityButton(props) {
 
 
     const handleClick = (observation) => {
+        // this posts a new quality (or rather, it abuses a get)
         let url = url_quality + '/' + observation.id + '/setquality/' + props.quality + '/1'
-        //alert(url)
         fetch(url)
+
         my_dispatch({type: RELOAD, reload: !my_state.reload})
     }
 

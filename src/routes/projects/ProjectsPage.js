@@ -29,7 +29,7 @@ export default function Projects(props) {
     }
 
     let renderSpinner
-    if (my_state.project_status === "fetching") {
+    if (my_state.status_projects === "fetching") {
         renderSpinner = <LoadingSpinner/>
     }
 

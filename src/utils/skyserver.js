@@ -15,6 +15,8 @@ export const ASTROBASE_URL =
         ? "http://localhost:8000/my_astrobase/"
         : "https://uilennest.net/my_astrobase/";
 
+// https://uilennest.net/my_astrobase/;
+// http://raspiastro:8008/my_astrobase/
 
 // export const ASTROBASE_URL = "http://uilennest.net/raspiastro_astrobase/"
 
