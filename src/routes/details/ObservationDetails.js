@@ -13,7 +13,7 @@ import {
 import DetailsThumbnail from './DetailsThumbnail'
 import ImageCard from '../../components/cards/ImageCard'
 
-import { url_observations } from '../../FetchData'
+import { url_observations, url_admin } from '../../FetchData'
 
 export default function ObservationDetails(props) {
 
@@ -88,6 +88,9 @@ export default function ObservationDetails(props) {
 
     // link to AstroBase REST API
     let api = url_observations + '/' + observation.id.toString()
+    let admin_api = url_admin + '/' + observation.id.toString() + '/change/'
+
+    //alert(admin_api)
 
     let d = new Date(observation.date.toString());
     let date = d.toDateString()
@@ -136,6 +139,14 @@ export default function ObservationDetails(props) {
                                     <td className="value">{date}</td>
                                 </tr>
                                 <tr>
+                                    <td className="key">Instrument</td>
+                                    <td className="value">{observation.instrument}</td>
+                                </tr>
+                                <tr>
+                                    <td className="key">Filter</td>
+                                    <td className="value">{observation.filter}</td>
+                                </tr>
+                                <tr>
                                     <td className="key">Mode</td>
                                     <td className="value">{mode}</td>
                                 </tr>
@@ -144,21 +155,26 @@ export default function ObservationDetails(props) {
                                     <td className="value">{getQualityIcon(observation.quality)}&nbsp;&nbsp;{observation.quality}{magnitude}</td>
                                 </tr>
                                 <tr>
-                                    <td className="key">Resource</td>
+                                    <td className="key">Science</td>
                                     <td className="value">
-                                        <a href={url_esa_sky} target="_blank" rel="noopener noreferrer">ESA</a>&nbsp;
-                                        <a href={url_cds} target="_blank" rel="noopener noreferrer">CDS</a>&nbsp;
+                                        <a href={url_esa_sky} target="_blank" rel="noopener noreferrer">ESA Sky</a>&nbsp;
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="key"></td>
+                                    <td className="value">
+                                        <a href={url_cds} target="_blank" rel="noopener noreferrer">CDS (Aladin)</a>&nbsp;
 
                                     </td>
                                 </tr>
                                 <tr>
                                     <td className="key">Job</td>
                                     <td className="value"><a href={astrometryLink} target="_blank" rel="noopener noreferrer">{observation.job}</a>&nbsp;</td>
-
                                 </tr>
                                 <tr>
                                     <td className="key"><a href={api_link}>AstroBase</a></td>
-                                    <td className="value"><a href={api} target="_blank" rel="noopener noreferrer">API</a>
+                                    <td className="value">
+                                        <a href={api} target="_blank" rel="noopener noreferrer">ReST API</a>&nbsp;
                                     </td>
                                 </tr>
 

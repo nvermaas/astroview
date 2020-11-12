@@ -3,7 +3,6 @@ import { Button } from 'react-bootstrap';
 import { useLocation } from "react-router-dom"
 import { useGlobalReducer } from '../../contexts/GlobalContext';
 
-
 import { SET_THUMBNAIL_IMAGE_TYPE } from '../../reducers/GlobalStateReducer'
 
 // conditionally render the switch view button

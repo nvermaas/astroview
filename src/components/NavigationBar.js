@@ -37,11 +37,10 @@ export function NavigationBar() {
             <Navbar.Brand href="/astroview">&nbsp;AstroView </Navbar.Brand>
             <Nav className="mr-auto">
                 <Nav.Link as={NavLink} to="/observations">Observations</Nav.Link>
-                <Nav.Link as={NavLink} to="/projects">Parents</Nav.Link>
                 <Nav.Link as={NavLink} to="/collections">Collections</Nav.Link>
-
+                <Nav.Link as={NavLink} to="/projects">Parents</Nav.Link>
                 <Nav.Link target="_blank" href={ASTROBASE_URL}>AstroBase</Nav.Link>
-
+                <Nav.Link target="_blank" href={ASTROBASE_URL_ADMIN}>Admin</Nav.Link>
             </Nav>
             <SwitchThumbnailButton/>
             &nbsp;
@@ -49,7 +48,6 @@ export function NavigationBar() {
             &nbsp;
             <SearchButton/>
             <Nav>
-                <Nav.Link target="_blank" href={ASTROBASE_URL_ADMIN}>Admin</Nav.Link>
                 <AuthControl />
             </Nav>
         </Navbar>
