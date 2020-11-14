@@ -5,13 +5,11 @@ import ProjectsGrid from './ProjectsGrid'
 import { ButtonBar } from '../../components/ButtonBar';
 import { useGlobalReducer } from '../../contexts/GlobalContext';
 
-import { SET_CURRENT_PROJECT, SET_PROJECT_PAGE } from '../../reducers/GlobalStateReducer'
 import { filterProjects } from '../../utils/filterObservations'
 
 export default function Projects(props) {
 
     const [ my_state, my_dispatch] = useGlobalReducer()
-    const loading = my_state.status_projects === 'fetching'
 
     // conditional render. Only render the observations when the status is 'fetched'
     let renderProjects

@@ -4,8 +4,6 @@ import { Button, Badge } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
 import { useGlobalReducer } from '../../contexts/GlobalContext';
 import { SET_OBSERVATION_PAGE, SET_CURRENT_PROJECT } from '../../reducers/GlobalStateReducer'
-//import { url_observations } from '../../components/Main'
-import InfoLink from '../../components/buttons/InfoLink'
 
 import { ASTROBASE_URL } from '../../utils/skyserver'
 import { getMode, getExposure, getImageTypeIcon, getQualityIcon } from '../../utils/styling'
@@ -28,9 +26,6 @@ export default function ObservationsGrid(props) {
 
 
     const handlePageChange = (page) => {
-        // get the data from the api
-        let url = ASTROBASE_URL + "observations?page=" +page.toString()
-
         // a change in observation_page is used to trigger a new fetch,
         // see the useEffect in the Main.js how that is done.
         my_dispatch({type: SET_OBSERVATION_PAGE, observation_page: page})
@@ -257,53 +252,9 @@ export default function ObservationsGrid(props) {
         },
     ];
 
-    const myTheme = {
-        title: {
-            fontSize: '22px',
-            fontColor: '#FFFFFF',
-            backgroundColor: '#363640',
-        },
-        contextMenu: {
-            backgroundColor: '#E91E63',
-            fontColor: '#FFFFFF',
-        },
-        header: {
-            fontSize: '12px',
-            fontColorActive: 'FFFFFF',
-            fontColor: '#FFFFFF',
-            backgroundColor: '#363640',
-            borderColor: 'rgba(255, 255, 255, .12)',
-        },
-        rows: {
-            fontColor: '#FFFFFF',
-            backgroundColor: '#363640',
-            borderColor: 'rgba(255, 255, 255, .12)',
-            hoverFontColor: 'black',
-            hoverBackgroundColor: 'rgba(0, 0, 0, .24)',
-        },
-        cells: {
-            cellPadding: '48px',
-        },
-        pagination: {
-            fontSize: '13px',
-            fontColor: '#FFFFFF',
-            backgroundColor: '#363640',
-            buttonFontColor: '#FFFFFF',
-            buttonHoverBackground: 'rgba(255, 255, 255, .12)',
-        },
-        expander: {
-            fontColor: '#FFFFFF',
-            backgroundColor: '#363640',
-            expanderColor: '#FFFFFF',
-        },
-        footer: {
-            separatorColor: 'rgba(255, 255, 255, .12)',
-        },
-    };
-
     const conditionalRowStyles = [
         {
-            when: row => row.quality == 'annotated',
+            when: row => row.quality === 'annotated',
             style: {
                 backgroundColor: 'lightblue',
                 color: 'black',
@@ -313,7 +264,7 @@ export default function ObservationsGrid(props) {
             },
         },
         {
-            when: row => row.quality == 'great',
+            when: row => row.quality === 'great',
             style: {
                 backgroundColor: '#9FFF7F',
                 color: 'black',
@@ -324,7 +275,7 @@ export default function ObservationsGrid(props) {
 
         },
         {
-            when: row => row.quality == 'good',
+            when: row => row.quality === 'good',
             style: {
                 backgroundColor: '#C0FFC0',
                 color: 'black',
@@ -336,7 +287,7 @@ export default function ObservationsGrid(props) {
 
         },
         {
-            when: row => row.quality == 'medium',
+            when: row => row.quality === 'medium',
             style: {
                 backgroundColor: 'lightgrey',
                 color: 'black',
@@ -347,7 +298,7 @@ export default function ObservationsGrid(props) {
 
         },
         {
-            when: row => row.quality == 'bad',
+            when: row => row.quality === 'bad',
             style: {
                 backgroundColor: '#ffddd3',
                 color: 'black',
@@ -357,7 +308,7 @@ export default function ObservationsGrid(props) {
             },
         },
         {
-            when: row => row.quality == 'simulated',
+            when: row => row.quality === 'simulated',
             style: {
                 backgroundColor: 'lightblue',
                 color: 'black',
@@ -367,7 +318,7 @@ export default function ObservationsGrid(props) {
             },
         },
         {
-            when: row => row.my_status == 'master_xx',
+            when: row => row.my_status === 'master_xx',
             style: {
                 backgroundColor: 'grey',
                 color: 'white',

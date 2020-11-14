@@ -14,7 +14,7 @@ export const getMode = (observation) => {
     mode = mode + stacked + ' x'
 
 
-    if (observation.iso!="none") {
+    if (observation.iso!=="none") {
         mode = mode + ' ISO' + observation.iso
     }
 
@@ -45,16 +45,16 @@ export const getExposure = (observation) => {
 
 export const getImageTypeIcon = (image_type) => {
     let icon = undefined
-    if (image_type == 'moon') { icon = faMoon }
-    if (image_type == 'solar system') { icon = faMeteor }
-    if (image_type == 'stars wide angle') { icon = faStarAndCrescent }
-    if (image_type == 'stars zoomed-in') { icon = faStar }
-    if (image_type == 'deep sky') { icon = faSmog }
-    if (image_type == 'spacecraft') { icon = faSatellite }
-    if (image_type == 'scenery') { icon = faImage }
-    if (image_type == 'technical') { icon = faWrench }
-    if (image_type == 'event') { icon = faBolt }
-    if (image_type == 'other') { icon = faQuestionCircle }
+    if (image_type === 'moon') { icon = faMoon }
+    if (image_type === 'solar system') { icon = faMeteor }
+    if (image_type === 'stars wide angle') { icon = faStarAndCrescent }
+    if (image_type === 'stars zoomed-in') { icon = faStar }
+    if (image_type === 'deep sky') { icon = faSmog }
+    if (image_type === 'spacecraft') { icon = faSatellite }
+    if (image_type === 'scenery') { icon = faImage }
+    if (image_type === 'technical') { icon = faWrench }
+    if (image_type === 'event') { icon = faBolt }
+    if (image_type === 'other') { icon = faQuestionCircle }
     return <FontAwesomeIcon icon={icon} color="darkblue"/>
 }
 
@@ -63,23 +63,23 @@ export const getQualityIcon = (quality) => {
     let color = "darkgreen"
     let size = 'md'
 
-    if (quality == 'great') {
+    if (quality === 'great') {
         icon = faThumbsUp
         size = "lg"
         color = "green"
     }
-    if (quality == 'good') {
+    if (quality === 'good') {
         icon = faThumbsUp
     }
-    if (quality == 'medium') {
+    if (quality === 'medium') {
         icon = faThumbsDown
         color = "grey"
     }
-    if (quality == 'bad') {
+    if (quality === 'bad') {
         icon = faThumbsDown
         color = 'darkgrey'
     }
-    if (quality == 'annotated') {
+    if (quality === 'annotated') {
         icon = faEdit
         color="darkblue"
     }
