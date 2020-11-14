@@ -12,7 +12,9 @@ jobs:
         run: npm run build
         env:
            CI: ""
-
+   deploy-astroview:
+     runs-on: ubuntu-latest
+     steps:
       - name: ftp files to webserver
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
