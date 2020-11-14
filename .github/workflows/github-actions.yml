@@ -12,13 +12,22 @@ jobs:
         run: npm run build
         env:
            CI: ""
+
+      - name: 📂 ftp files to webserver
+       uses: SamKirkland/FTP-Deploy-Action@4.0.0
+       with:
+         server: ${{ secrets.MY_HOST }}
+         username: ${{ secrets.MY_HOST }}
+         password: ${{ secrets.MY_PASSWORD }}
+         server-dir: ${{ secrets.MY_REMOTE_DIR }}
+
       - name: scp files to uilennest
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.MY_HOST }}
-          username: ${{ secrets.MY_USER }}
+          username: ${{ secrets.MY_HOST }}
           key: ${{ secrets.MY_PRIVATE_SSH_KEY }}
           passphrase: ${{ secrets.MY_SSH_PASSPHRASE }}
           rm: false
           source: "build/"
-          target: "${{ secrets.MY_REMOTE_DIR }}"
+          target: ${{ secrets.MY_REMOTE_DIR }}
