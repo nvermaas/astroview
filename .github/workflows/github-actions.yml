@@ -1,7 +1,7 @@
 name: build-deploy-astroview
 on: [push]
 jobs:
-  build-astroview:
+  build-deploy-astroview:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -21,7 +21,7 @@ jobs:
           password: ${{ secrets.MY_PASSWORD }}
           rm: true
           source: "build"
-          target: "www/repository/astroview"
+          target: "~/www/repository/astroview"
 
       - name: run remote script to copy files
         uses: appleboy/ssh-action@master
@@ -29,4 +29,7 @@ jobs:
           host: ${{ secrets.MY_HOST }}
           username: ${{ secrets.MY_USER }}
           password: ${{ secrets.MY_PASSWORD }}
-          script: ls
+          script: |
+             cd ~/www/astroview-cd
+             cp ~/www/repository/astroview/build/*.* .
+             mv static my_static_files
