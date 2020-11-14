@@ -24,11 +24,12 @@ jobs:
           target: "www/astroview-ci/index.html,www/astroview-ci/favicon.ico"
 
       - name: scp static files to webserver
-        uses: genietim/ftp-action
+        uses: sand4rt/ftp-deployer@v1.1
         with:
           host: ${{ secrets.MY_HOST }}
-          user: ${{ secrets.MY_USER }}
+          port: 22
+          username: ${{ secrets.MY_USER }}
           password: ${{ secrets.MY_PASSWORD }}
-          rm: true
-          localDir: "build/static"
-          remoteDir: "www/astroview-ci"
+          cleanup: true
+          local_folder: "build/static"
+          remote_folder: "www/astroview-ci"
