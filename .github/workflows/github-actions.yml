@@ -23,7 +23,10 @@ jobs:
           source: "build"
           target: "~/www/repository/astroview"
 
-      - name: run remote script to copy files
+  move-to-production:
+    runs-on: ubuntu-latest
+    steps:
+      - name: move files to production
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.MY_HOST }}
@@ -32,4 +35,4 @@ jobs:
           script: |
              cd ~/www/astroview-cd
              cp ~/www/repository/astroview/build/*.* .
-             mv static my_static_files
+             cp ~/www/repository/astroview/build/static/*.* my_static_files
