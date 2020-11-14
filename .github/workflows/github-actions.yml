@@ -31,4 +31,4 @@ jobs:
           password: ${{ secrets.MY_PASSWORD }}
           rm: true
           source: "build/static/"
-          target: ${{ secrets.MY_REMOTE_DIR/my_static_files }}
+          target: ${{ secrets.MY_REMOTE_DIR }}/my_static_files
