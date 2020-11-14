@@ -30,5 +30,5 @@ jobs:
           username: ${{ secrets.MY_USER }}
           password: ${{ secrets.MY_PASSWORD }}
           rm: true
-          source: "build/static/*.js"
-          target: ${{ secrets.MY_REMOTE_DIR }}/my_static_files/*.js
+          source: "build/static/js/"
+          target: ${{ secrets.MY_REMOTE_DIR }}/my_static_files/js
