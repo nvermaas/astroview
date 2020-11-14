@@ -13,9 +13,9 @@ jobs:
         env:
            CI: ""
 
-      - name: 📂 ftp files to webserver
-       uses: SamKirkland/FTP-Deploy-Action@4.0.0
-       with:
+      - name: ftp files to webserver
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        with:
          server: ${{ secrets.MY_HOST }}
          username: ${{ secrets.MY_HOST }}
          password: ${{ secrets.MY_PASSWORD }}
