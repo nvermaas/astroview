@@ -5,6 +5,10 @@
 ## AstroView
 A ReactJS frontend application that shows the results of the AstroBase backend.
 
+<p align="center">
+  <img src="https://github.com/nvermaas/astroview/blob/master/docs/astroview.png"/>
+</p>
+
 ## AstroBase
 A lightweight Astrophotography pipeline.
 Raw images are submitted to astrometry.net for positioning in the sky and meta data extraction.
