@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMoon, faStarAndCrescent, faStar, faWrench, faSatellite, faMeteor,
+import { faMoon, faStarAndCrescent, faStar, faWrench, faSatellite, faMeteor, faGlobe, faMap,
     faBolt, faQuestionCircle, faImage, faCloudMeatball, faSmog, faThumbsUp, faThumbsDown, faEdit }
     from '@fortawesome/free-solid-svg-icons'
 
@@ -83,5 +83,23 @@ export const getQualityIcon = (quality) => {
         icon = faEdit
         color="darkblue"
     }
+    return <FontAwesomeIcon size={size} icon={icon} color={color}/>
+}
+
+export const getCommandIcon = (command) => {
+    let icon = undefined
+    let color = "darkgreen"
+    let size = 'md'
+
+    if (command === 'foo') {
+        icon = faGlobe
+        size = "lg"
+        color = "green"
+    }
+    if (command === 'bar') {
+        icon = faMap
+        color = "green"
+    }
+
     return <FontAwesomeIcon size={size} icon={icon} color={color}/>
 }

@@ -193,7 +193,7 @@ function Main () {
                     <Route path="/details/:id" children={<ObservationDetailsForward />} />
                 </Switch>
             </div>
-            <footer><small> (C) 2020 - Nico Vermaas - version 1.11.0 - 14 nov 2020 - 15:00</small></footer>
+            <footer><small> (C) 2020 - Nico Vermaas - version 1.11.0 - 14 nov 2020 - 19:30</small></footer>
         </Router>
     );
 }

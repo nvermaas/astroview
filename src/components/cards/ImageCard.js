@@ -14,6 +14,7 @@ import { getUrlSDSS} from '../../utils/skyserver'
 import InfoLink from '../buttons/InfoLink'
 import SetQualityButton from '../buttons/SetQualityButton'
 import SetAdminEditButton from '../buttons/SetAdminEditButton'
+import DoCommandButton from '../buttons/DoCommandButton'
 
 // display the main image depending on the dispatched imageType
 function getThumbnail(observation, imageType) {
@@ -117,7 +118,10 @@ export default function ImageCard(props) {
             <SetQualityButton observation={props.observation} quality="medium"/>&nbsp;
             <SetQualityButton observation={props.observation} quality="bad"/>&nbsp;
             <SetQualityButton observation={props.observation} quality="annotated"/>&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;
             <SetAdminEditButton observation={props.observation} />&nbsp;
+            <DoCommandButton observation={props.observation} command="foo" />&nbsp;
+            <DoCommandButton observation={props.observation} command="bar" />&nbsp;
         </div>
     }
 
