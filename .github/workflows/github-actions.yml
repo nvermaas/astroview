@@ -32,4 +32,4 @@ jobs:
           script: |
              cd ~/www/astroview-cd
              cp ~/www/repository/astroview/build/*.* .
-             cp ~/www/repository/astroview/build/static/*.* my_static_files
+             cp -r ~/www/repository/astroview/build/static my_static_files
