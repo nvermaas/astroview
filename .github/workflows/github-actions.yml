@@ -30,6 +30,6 @@ jobs:
           username: ${{ secrets.MY_USER }}
           password: ${{ secrets.MY_PASSWORD }}
           script: |
-             cd ~/www/astroview-cd
+             cd ~/www/astroview
              cp ~/www/repository/astroview/build/*.* .
-             cp -r ~/www/repository/astroview/build/static/* my_static_files
+             cp -r ~/www/repository/astroview/build/static/* ~/www/my_static_files
