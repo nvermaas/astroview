@@ -23,12 +23,12 @@ jobs:
           source: "build/index.html"
           target: ${{ secrets.MY_REMOTE_DIR }}
 
-      - name: scp static files to webserver
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.MY_HOST }}
-          username: ${{ secrets.MY_USER }}
-          password: ${{ secrets.MY_PASSWORD }}
-          rm: true
-          source: "build/static"
-          target: ${{ secrets.MY_REMOTE_DIR }}/my_static_files
+#      - name: scp static files to webserver
+#        uses: appleboy/scp-action@master
+#        with:
+#          host: ${{ secrets.MY_HOST }}
+#          username: ${{ secrets.MY_USER }}
+#          password: ${{ secrets.MY_PASSWORD }}
+#          rm: true
+#          source: "build/static"
+#          target: ${{ secrets.MY_REMOTE_DIR }}/my_static_files
