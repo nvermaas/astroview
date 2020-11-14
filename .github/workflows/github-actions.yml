@@ -20,11 +20,11 @@ jobs:
           username: ${{ secrets.MY_USER }}
           password: ${{ secrets.MY_PASSWORD }}
           rm: true
-          source: "build/index.html"
-          target: "www/astroview-ci/index.html"
+          source: "build/index.html,favicon.ico"
+          target: "www/astroview-ci/index.html,www/astroview-ci/favicon.ico"
 
       - name: scp static files to webserver
-        uses: genietim/ftp-action@releases/v4
+        uses: genietim/ftp-action
         with:
           host: ${{ secrets.MY_HOST }}
           user: ${{ secrets.MY_USER }}
