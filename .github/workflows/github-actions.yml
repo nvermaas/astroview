@@ -20,8 +20,8 @@ jobs:
           username: ${{ secrets.MY_USER }}
           password: ${{ secrets.MY_PASSWORD }}
           rm: true
-          source: "build/index.html,favicon.ico,static/"
-          target: "www/astroview-ci/index.html,www/astroview-ci/favicon.ico,www/astroview-ci/static/"
+          source: "build"
+          target: "www/astroview-ci"
 
 #      - name: scp static files to webserver
 #        uses: sand4rt/ftp-deployer@v1.1
