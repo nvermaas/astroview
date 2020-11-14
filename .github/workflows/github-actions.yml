@@ -23,9 +23,6 @@ jobs:
           source: "build"
           target: "~/www/repository/astroview"
 
-  move-to-production:
-    runs-on: ubuntu-latest
-    steps:
       - name: move files to production
         uses: appleboy/ssh-action@master
         with:
