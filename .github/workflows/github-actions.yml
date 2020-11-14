@@ -24,11 +24,11 @@ jobs:
           target: "www/astroview-ci/index.html"
 
       - name: scp static files to webserver
-        uses: sebastianpopp/ftp-action@releases/v2
+        uses: genietim/ftp-action@releases/v4
         with:
           host: ${{ secrets.MY_HOST }}
           user: ${{ secrets.MY_USER }}
           password: ${{ secrets.MY_PASSWORD }}
           rm: true
-          localDir: "build/static/"
-          remoteDir: "www/astroview-ci/my_static_files/"
+          localDir: "build/static"
+          remoteDir: "www/astroview-ci"
