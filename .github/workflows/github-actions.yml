@@ -21,7 +21,7 @@ jobs:
           password: ${{ secrets.MY_PASSWORD }}
           rm: true
           source: "build/index.html"
-          target: "www/astroview-ci"
+          target: "www/astroview-ci/index.html"
 
 #      - name: scp static files to webserver
 #        uses: appleboy/scp-action@master
