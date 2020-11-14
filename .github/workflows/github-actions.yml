@@ -20,6 +20,6 @@ jobs:
           port: 22
           username: ${{ secrets.MY_USER }}
           password: ${{ secrets.MY_PASSWORD }}
-          rm: false
-          source: "."
+          rm: true
+          source: "build/"
           target: ${{ secrets.MY_REMOTE_DIR }}
