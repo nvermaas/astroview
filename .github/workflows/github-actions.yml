@@ -12,3 +12,15 @@ jobs:
         run: npm run build
         env:
            CI: ""
+
+  deploy-astroview-on-uilennest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+      - name: install node packages
+        run: npm install
+      - name: build astroview
+        run: npm run build
+        env:
+           CI: ""
