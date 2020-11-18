@@ -5,7 +5,7 @@ import { AuthContext } from '../../contexts/AuthContext'
 import { useGlobalReducer } from '../../contexts/GlobalContext'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faImage, faArrowsAlt, faProjectDiagram } from '@fortawesome/free-solid-svg-icons'
+import { faImage, faArrowsAlt, faProjectDiagram, faGlobe } from '@fortawesome/free-solid-svg-icons'
 
 
 import { SET_IMAGE_TYPE } from '../../reducers/GlobalStateReducer'
@@ -34,9 +34,15 @@ function getThumbnail(observation, imageType) {
     if (imageType==='annotated') {
         thumbnail = observation.derived_annotated_image
     } else
+
+    if (imageType==='annotated_grid') {
+        thumbnail = observation.derived_annotated_grid_image
+    } else
+
     if (imageType==='redgreen') {
         thumbnail = observation.derived_red_green_image
     } else
+
     if (imageType==='SDSS') {
         thumbnail = getUrlSDSS(observation.field_ra, observation.field_dec, observation.field_fov, 600, 500, 'S')
     }
@@ -76,6 +82,13 @@ export default function ImageCard(props) {
         buttonAnnotated = <Button variant="success" onClick={() => handleClick(props.observation, "annotated")}>
                         <FontAwesomeIcon icon={faProjectDiagram} />&nbsp;Annotated
             </Button>
+    }
+
+    let buttonAnnotatedGrid=''
+    if (props.observation.derived_annotated_grid_image!==null) {
+        buttonAnnotatedGrid = <Button variant="success" onClick={() => handleClick(props.observation, "annotated_grid")}>
+            <FontAwesomeIcon icon={faGlobe} />&nbsp;Grid
+        </Button>
     }
 
     let buttonRedGreen=''
@@ -120,8 +133,7 @@ export default function ImageCard(props) {
             <SetQualityButton observation={props.observation} quality="annotated"/>&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;
             <SetAdminEditButton observation={props.observation} />&nbsp;
-            <DoCommandButton observation={props.observation} command="foo" />&nbsp;
-            <DoCommandButton observation={props.observation} command="bar" />&nbsp;
+            <DoCommandButton observation={props.observation} title="Add Grid" command="fitsing" />&nbsp;
         </div>
     }
 
@@ -134,6 +146,7 @@ export default function ImageCard(props) {
                     &nbsp;
                     {buttonRaw}&nbsp;
                     {buttonAnnotated}&nbsp;
+                    {buttonAnnotatedGrid}&nbsp;
                     {buttonFITS}&nbsp;
                     {buttonJS9}&nbsp;
 

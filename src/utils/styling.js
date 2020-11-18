@@ -91,7 +91,7 @@ export const getCommandIcon = (command) => {
     let color = "darkgreen"
     let size = 'md'
 
-    if (command === 'foo') {
+    if (command === 'fitsing') {
         icon = faGlobe
         size = "lg"
         color = "green"

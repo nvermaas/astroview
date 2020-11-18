@@ -24,7 +24,7 @@ export default function DoCommandButton(props) {
 
     let style="info"
     switch (props.command) {
-        case "foo":
+        case "fitsing":
             style = "outline-success"
             break;
         case "bar":
@@ -33,6 +33,6 @@ export default function DoCommandButton(props) {
         default:
     }
 
-    return <Button variant={style} onClick={() => handleClick(props.observation, props.command)}>{getCommandIcon(props.command)} {props.command}</Button>
+    return <Button variant={style} onClick={() => handleClick(props.observation, props.command)}>{getCommandIcon(props.command)} {props.title}</Button>
 
 }
