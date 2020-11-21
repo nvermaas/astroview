@@ -123,6 +123,10 @@ export default function ObservationDetails(props) {
                             <Table striped bordered hover size="sm">
                                 <tbody>
                                 <tr>
+                                    <td className="key">ID</td>
+                                    <td className="value">{observation.taskid}</td>
+                                </tr>
+                                <tr>
                                     <td className="key">Field</td>
                                     <td className="value">{observation.field_name}</td>
                                 </tr>
