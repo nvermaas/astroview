@@ -70,7 +70,7 @@ export const initialState = {
         observation_iso: "All",
         observation_focal_length: "All",
         backend_filter: undefined,
-        image_type: "annotated",
+        image_type: "annotated_grid",
         thumbnail_image_type: "sky_plot",
         view: "list"
 }

@@ -22,8 +22,12 @@ function getThumbnail(observation, imageType) {
 
     // annotated quality means that there is probably no extra processed annotated image,
     // so show the raw image instead
-    if (observation.derived_annotated_image==null) {
-    //if (observation.quality == 'annotated') {
+
+    if ((imageType==='annotated_grid') && (observation.derived_annotated_grid_image===null)) {
+        imageType = 'annotated'
+    }
+
+    if ((imageType==='annotated') && (observation.derived_annotated_image===null)) {
         imageType = 'raw'
     }
 
