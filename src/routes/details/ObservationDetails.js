@@ -34,7 +34,7 @@ export default function ObservationDetails(props) {
         if (my_state.status ==="unfetched") {
             my_dispatch({type: SET_CURRENT_OBSERVATION, current_observation: props.taskid})
         }
-        return <LoadingSpinner/>
+        return <div><LoadingSpinner/></div>
     }
 
     /*
@@ -50,7 +50,7 @@ export default function ObservationDetails(props) {
         // alert('shit')
         // this happens when the observation wasn't fetched yet... just return and wait for the update
         //my_dispatch({type: SET_CURRENT_OBSERVATION, current_observation: props.taskid})
-        return <LoadingSpinner/>
+        return <div><LoadingSpinner/></div>
     }
 
     // all should be well now, a valid observation loaded.
