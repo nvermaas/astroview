@@ -12,6 +12,7 @@ import {
 
 import DetailsThumbnail from './DetailsThumbnail'
 import ImageCard from '../../components/cards/ImageCard'
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 import { url_observations, url_admin } from '../../FetchData'
 
@@ -33,7 +34,7 @@ export default function ObservationDetails(props) {
         if (my_state.status ==="unfetched") {
             my_dispatch({type: SET_CURRENT_OBSERVATION, current_observation: props.taskid})
         }
-        return null
+        return <LoadingSpinner/>
     }
 
     /*
@@ -49,7 +50,7 @@ export default function ObservationDetails(props) {
         // alert('shit')
         // this happens when the observation wasn't fetched yet... just return and wait for the update
         //my_dispatch({type: SET_CURRENT_OBSERVATION, current_observation: props.taskid})
-        return null
+        return <LoadingSpinner/>
     }
 
     // all should be well now, a valid observation loaded.
@@ -106,6 +107,7 @@ export default function ObservationDetails(props) {
     }
 
     let api_link = ASTROBASE_URL + "?search_box=" + observation.taskID.toString()
+
 
     return (
 
