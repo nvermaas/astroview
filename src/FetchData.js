@@ -12,7 +12,8 @@ import {
     SET_STATUS_COLLECTIONS,
     SET_TOTAL_COLLECTIONS,
     SET_FETCHED_COLLECTIONS,
-    SET_CURRENT_OBSERVATIONS
+    SET_CURRENT_OBSERVATIONS,
+    SET_OBSERVATION_PAGE
 } from './reducers/GlobalStateReducer';
 
 import { getFilteredUrl, getFilteredUrlCollections } from './utils/filter'
@@ -74,7 +75,7 @@ export function FetchData () {
         }, [my_state.current_project, my_state.reload]
     );
 
-    // this fetches the observations belonging to the current project when my_state current_project was changed
+    // this fetches the observations belonging to the current collection when my_state current_collection was changed
     useEffect(() => {
             fetchCurrentCollection(url_observations)
         }, [my_state.current_collection, my_state.reload]
@@ -104,6 +105,7 @@ export function FetchData () {
             // apply all the filters in my_state to the url_observations
 
             url = getFilteredUrl(url, my_state, my_state.observation_page)
+            my_dispatch({type: SET_OBSERVATION_PAGE, observation_page: 1})
             my_dispatch({type: SET_STATUS, status: 'fetching'})
 
             fetch(url)
@@ -153,7 +155,7 @@ export function FetchData () {
         //alert('fetchCollections('+url+')')
         if (my_state.status_collections !== 'fetching')  {
 
-            // apply all the filters in my_state to the url_observations
+            // apply all the filters in my_state to the url_collections
             url = getFilteredUrlCollections(url, my_state, my_state.collection_page)
 
             my_dispatch({type: SET_STATUS_COLLECTIONS, status_collections: 'fetching'})
