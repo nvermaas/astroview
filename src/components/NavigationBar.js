@@ -47,6 +47,7 @@ export function NavigationBar() {
             &nbsp;
             <SwitchViewButton/>
             &nbsp;
+
             <CoordSearchButton/>
             <SearchButton/>
             <Nav>

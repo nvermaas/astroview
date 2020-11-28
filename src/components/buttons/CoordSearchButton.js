@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, FormControl, Button } from 'react-bootstrap';
 import { useGlobalReducer } from '../../contexts/GlobalContext';
-import { useLocation } from "react-router-dom"
+import { useLocation, useHistory } from "react-router-dom"
 import { ResetFilters } from '../ButtonBar'
 
 import {
@@ -17,7 +17,7 @@ import {
 // typing in the search box will execute a filter and dispatch it. The observation screen responds instantly.
 export default function CoordSearchButton(props) {
     const [ my_state , my_dispatch] = useGlobalReducer()
-
+    const history = useHistory();
     let text_to_search
 
     function doTheBackendFilter() {
@@ -29,27 +29,17 @@ export default function CoordSearchButton(props) {
         my_dispatch({type: SET_OBSERVATION_PAGE, observation_page: 1})
     }
 
-    const handleResetClick = (event) => {
-        my_dispatch({type: SET_BACKEND_FILTER, backend_filter: undefined})
-
-        // also reset all button filters
-        my_dispatch({type: SET_OBSERVATION_IMAGE_TYPE, observation_image_type: "All"})
-        my_dispatch({type: SET_OBSERVATION_QUALITY, observation_quality: "All"})
-        my_dispatch({type: SET_OBSERVATION_STATUS, observation_status: "All"})
-        my_dispatch({type: SET_OBSERVATION_ISO, observation_iso: "All"})
-        my_dispatch({type: SET_OBSERVATION_FOCAL_LENGTH, observation_focal_length: "All"})
-
-    }
 
     // use if you want the search to start while you hit enter
     // onKeyPress={handleKeyPress}
     const handleKeyPress = (event) => {
+
         text_to_search = event.target.value.toUpperCase()
 
         if (event.charCode == 13) {
             // start the search to the backend when the <enter> button is pressed
             doTheBackendFilter()
-
+            history.push("/observations")
             // prevent the enter key to reload the whole page
             event.preventDefault()
         }
@@ -62,7 +52,8 @@ export default function CoordSearchButton(props) {
     if (location.pathname === '/' ||
         location.pathname === '/observations' ||
         location.pathname === '/projects' ||
-        location.pathname.includes('/details')) {
+        location.pathname ==='/collections' ||
+        location.pathname.includes('details')) {
         return <Form inline>
             <FormControl type="text" placeholder="84.1, 9.0" className="mr-sm-2" onKeyPress={handleKeyPress} />
         </Form>
