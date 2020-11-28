@@ -89,7 +89,7 @@ export function FetchData () {
 
 
     useEffect(() => {
-     setTimer(setInterval(() => fetchObservations(url_observations), 10000))
+     setTimer(setInterval(() => fetchObservations(url_observations), 60000))
 
         // this function is automatically called when the component unmounts
         return function cleanup() {
@@ -99,7 +99,7 @@ export function FetchData () {
     );
 
     useEffect(() => {
-            setTimer(setInterval(() => fetchCurrentObservation(url_observations), 10000))
+            setTimer(setInterval(() => fetchCurrentObservation(url_observations), 60000))
 
             // this function is automatically called when the component unmounts
             return function cleanup() {

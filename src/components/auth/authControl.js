@@ -8,7 +8,7 @@ import { ASTROBASE_URL } from '../../utils/skyserver'
 export default function AuthControl() {
   const { isAuthenticated } = useContext(AuthContext);
 
-  console.log("loggedIn: ", isAuthenticated);
+  //console.log("loggedIn: ", isAuthenticated);
 
   if (isAuthenticated) {
     return <Nav.Link href={`${ASTROBASE_URL}api-auth/logout/`}>Logout</Nav.Link>
