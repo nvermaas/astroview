@@ -108,6 +108,35 @@ export default function ObservationDetails(props) {
 
     let api_link = ASTROBASE_URL + "?search_box=" + observation.taskID.toString()
 
+    let renderRaDec
+    let renderRaDecDecimals
+    if (!((observation.field_ra===0.0) && (observation.field_dec===0.0))) {
+        renderRaDec = <tr>
+                <td className="key">RA, dec</td>
+                <td className="value">{deg2HMS(observation.field_ra)}, {deg2DMS(observation.field_dec)}</td>
+            </tr>
+        renderRaDecDecimals= <tr>
+                <td className="key">decimals</td>
+                <td className="value">{Math.round(observation.field_ra*100)/100}, {Math.round(observation.field_dec*100)/100} deg</td>
+            </tr>
+    }
+
+
+    let renderRaDecFov
+    if (observation.ra_dec_fov != null) {
+        renderRaDecFov = <tr>
+            <td className="key">fov</td>
+            <td className="value">{observation.ra_dec_fov} deg</td>
+        </tr>
+    }
+
+    let renderJob
+    if  (observation.job !== '0') {
+        renderJob = <tr>
+            <td className="key">Job</td>
+            <td className="value"><a href={astrometryLink} target="_blank" rel="noopener noreferrer">{observation.job}</a>&nbsp;</td>
+        </tr>
+    }
 
     return (
 
@@ -136,18 +165,9 @@ export default function ObservationDetails(props) {
                                     <td className="key">Image</td>
                                     <td className="value">{getImageTypeIcon(observation.image_type)}&nbsp;&nbsp;{observation.image_type}</td>
                                 </tr>
-                                <tr>
-                                    <td className="key">RA, dec</td>
-                                    <td className="value">{deg2HMS(observation.field_ra)}, {deg2DMS(observation.field_dec)}</td>
-                                </tr>
-                                <tr>
-                                    <td className="key">decimals</td>
-                                    <td className="value">{Math.round(observation.field_ra*100)/100}, {Math.round(observation.field_dec*100)/100} deg</td>
-                                </tr>
-                                <tr>
-                                    <td className="key">fov</td>
-                                    <td className="value">{observation.ra_dec_fov} deg</td>
-                                </tr>
+                                {renderRaDec}
+                                {renderRaDecDecimals}
+                                {renderRaDecFov}
                                 <tr>
                                     <td className="key">Date</td>
                                     <td className="value">{date}</td>
@@ -181,10 +201,7 @@ export default function ObservationDetails(props) {
 
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td className="key">Job</td>
-                                    <td className="value"><a href={astrometryLink} target="_blank" rel="noopener noreferrer">{observation.job}</a>&nbsp;</td>
-                                </tr>
+                                {renderJob}
                                 <tr>
                                     <td className="key"><a href={api_link}>AstroBase</a></td>
                                     <td className="value">

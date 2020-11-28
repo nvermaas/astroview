@@ -21,9 +21,13 @@ export default function SearchButton(props) {
     let text_to_search
 
     function doTheBackendFilter() {
-        //alert('doTheBackendFilter('+text_to_search+')')
-        // let backend_filter = '&field_name__icontains='+text_to_search
+
         let backend_filter = '&fieldsearch='+text_to_search
+
+        // if the search text contains a comma, then this is probably a coordinate search
+        if (text_to_search.includes(',')) {
+            backend_filter = '&coordsearch='+text_to_search
+        }
 
         // execute the filter...
         my_dispatch({type: SET_BACKEND_FILTER, backend_filter: backend_filter})
