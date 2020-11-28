@@ -9,6 +9,7 @@ import { ASTROBASE_URL } from '../utils/skyserver'
 import SwitchViewButton from './buttons/SwitchViewButton'
 import SwitchThumbnailButton from './buttons/SwitchThumbnailButton'
 import SearchButton from './buttons/SearchButton'
+import CoordSearchButton from './buttons/CoordSearchButton'
 import AuthControl from "./auth/authControl";
 
 function getLink(taskid) {
@@ -46,6 +47,7 @@ export function NavigationBar() {
             &nbsp;
             <SwitchViewButton/>
             &nbsp;
+            <CoordSearchButton/>
             <SearchButton/>
             <Nav>
                 <AuthControl />

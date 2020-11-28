@@ -15,19 +15,14 @@ import {
 } from '../../reducers/GlobalStateReducer'
 
 // typing in the search box will execute a filter and dispatch it. The observation screen responds instantly.
-export default function SearchButton(props) {
+export default function CoordSearchButton(props) {
     const [ my_state , my_dispatch] = useGlobalReducer()
 
     let text_to_search
 
     function doTheBackendFilter() {
 
-        let backend_filter = '&fieldsearch='+text_to_search
-
-        // if the search text contains a comma, then this is probably a coordinate search
-        if (text_to_search.includes(',')) {
-            backend_filter = '&coordsearch='+text_to_search
-        }
+        let backend_filter = '&coordsearch='+text_to_search
 
         // execute the filter...
         my_dispatch({type: SET_BACKEND_FILTER, backend_filter: backend_filter})
@@ -67,10 +62,9 @@ export default function SearchButton(props) {
     if (location.pathname === '/' ||
         location.pathname === '/observations' ||
         location.pathname === '/projects' ||
-        location.pathname === '/collections') {
+        location.pathname.includes('/details')) {
         return <Form inline>
-            <FormControl type="text" placeholder="Orion" className="mr-sm-2" onKeyPress={handleKeyPress} />
-            <Button variant="outline-info" onClick={handleResetClick}>Reset Filter</Button>
+            <FormControl type="text" placeholder="84.1, 9.0" className="mr-sm-2" onKeyPress={handleKeyPress} />
         </Form>
     } else {
         return null

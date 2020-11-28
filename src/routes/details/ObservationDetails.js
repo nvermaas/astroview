@@ -131,10 +131,26 @@ export default function ObservationDetails(props) {
     }
 
     let renderJob
+    let renderScience1
+    let renderScience2
     if  (observation.job !== '0') {
         renderJob = <tr>
             <td className="key">Job</td>
             <td className="value"><a href={astrometryLink} target="_blank" rel="noopener noreferrer">{observation.job}</a>&nbsp;</td>
+        </tr>
+
+        renderScience1 = <tr>
+            <td className="key">Science</td>
+            <td className="value">
+                <a href={url_esa_sky} target="_blank" rel="noopener noreferrer">ESA Sky</a>&nbsp;
+            </td>
+        </tr>
+
+        renderScience2 = <tr>
+            <td className="key"></td>
+            <td className="value">
+                <a href={url_cds} target="_blank" rel="noopener noreferrer">CDS (Aladin)</a>&nbsp;
+            </td>
         </tr>
     }
 
@@ -188,19 +204,8 @@ export default function ObservationDetails(props) {
                                     <td className="key">Quality</td>
                                     <td className="value">{getQualityIcon(observation.quality)}&nbsp;&nbsp;{observation.quality}{magnitude}</td>
                                 </tr>
-                                <tr>
-                                    <td className="key">Science</td>
-                                    <td className="value">
-                                        <a href={url_esa_sky} target="_blank" rel="noopener noreferrer">ESA Sky</a>&nbsp;
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="key"></td>
-                                    <td className="value">
-                                        <a href={url_cds} target="_blank" rel="noopener noreferrer">CDS (Aladin)</a>&nbsp;
-
-                                    </td>
-                                </tr>
+                                {renderScience1}
+                                {renderScience2}
                                 {renderJob}
                                 <tr>
                                     <td className="key"><a href={api_link}>AstroBase</a></td>

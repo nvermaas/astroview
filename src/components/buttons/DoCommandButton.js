@@ -19,7 +19,7 @@ export default function DoCommandButton(props) {
         let url = url_commands + '?command=' + props.command + '&observation_id=' + observation.id
         fetch(url)
         // alert(url)
-        my_dispatch({type: RELOAD, reload: !my_state.reload})
+        //my_dispatch({type: RELOAD, reload: !my_state.reload})
     }
 
     let style="info"
