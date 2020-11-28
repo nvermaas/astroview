@@ -88,16 +88,25 @@ export function FetchData () {
     );
 
 
-     useEffect(() => {
-         setTimer(setInterval(() => fetchObservations(url_observations), 10000))
+    useEffect(() => {
+     setTimer(setInterval(() => fetchObservations(url_observations), 10000))
 
         // this function is automatically called when the component unmounts
         return function cleanup() {
             clearInterval(timer);
             }
         },[]
-     );
+    );
 
+    useEffect(() => {
+            setTimer(setInterval(() => fetchCurrentObservation(url_observations), 10000))
+
+            // this function is automatically called when the component unmounts
+            return function cleanup() {
+                clearInterval(timer);
+            }
+        },[]
+    );
 
     const fetchObservations = (url) => {
         if (my_state.status !== 'fetching')  {
