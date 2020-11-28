@@ -87,7 +87,7 @@ export function FetchData () {
         }, [my_state.current_observation, my_state.reload]
     );
 
-
+/*
     useEffect(() => {
      setTimer(setInterval(() => fetchObservations(url_observations), 60000))
 
@@ -107,7 +107,7 @@ export function FetchData () {
             }
         },[]
     );
-
+*/
     const fetchObservations = (url) => {
         if (my_state.status !== 'fetching')  {
 
