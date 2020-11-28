@@ -222,11 +222,13 @@ export default function ObservationsGrid(props) {
 */
         {
             name: 'Details',
-            cell: row =>
-                <Link to={() => getDetailsLink(row)}>
-                    <Button variant="warning" onClick={() => handleDefaultClick(row)}>Details</Button>
-                </Link>,
-
+            cell: row => {
+                if (row.my_status==='done') {
+                    return <Link to={() => getDetailsLink(row)}>
+                        <Button variant="warning" onClick={() => handleDefaultClick(row)}>Details</Button>
+                    </Link>
+                }
+            },
             button: true,
         },
         {

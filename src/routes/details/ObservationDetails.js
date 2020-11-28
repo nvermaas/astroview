@@ -171,7 +171,7 @@ export default function ObservationDetails(props) {
                                 <tbody>
                                 <tr>
                                     <td className="key">ID</td>
-                                    <td className="value">{observation.taskID}</td>
+                                    <td className="value">{observation.taskID}&nbsp;&nbsp;({observation.my_status})</td>
                                 </tr>
                                 <tr>
                                     <td className="key">Field</td>
