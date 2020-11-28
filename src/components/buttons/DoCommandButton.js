@@ -24,10 +24,10 @@ export default function DoCommandButton(props) {
 
     let style="info"
     switch (props.command) {
-        case "fitsing":
+        case "grid":
             style = "outline-success"
             break;
-        case "bar":
+        case "min_max":
             style = "outline-success"
             break;
         default:

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function padDigits(number, digits) {
+export function padDigits(number, digits) {
   return Array(Math.max(digits - String(number).length + 1, 0)).join(0) + number;
 }
 

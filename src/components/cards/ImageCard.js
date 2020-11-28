@@ -43,10 +43,6 @@ function getThumbnail(observation, imageType) {
         thumbnail = observation.derived_annotated_grid_image
     } else
 
-    if (imageType==='redgreen') {
-        thumbnail = observation.derived_red_green_image
-    } else
-
     if (imageType==='SDSS') {
         thumbnail = getUrlSDSS(observation.field_ra, observation.field_dec, observation.field_fov, 600, 500, 'S')
     }
@@ -137,7 +133,8 @@ export default function ImageCard(props) {
             <SetQualityButton observation={props.observation} quality="annotated"/>&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;
             <SetAdminEditButton observation={props.observation} />&nbsp;
-            <DoCommandButton observation={props.observation} title="Add Grid" command="fitsing" />&nbsp;
+            <DoCommandButton observation={props.observation} title="Add Grid" command="grid" />&nbsp;
+            <DoCommandButton observation={props.observation} title="Min-Max" command="min_max" />&nbsp;
         </div>
     }
 

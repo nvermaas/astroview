@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Row, Col, Card, Table } from 'react-bootstrap';
 
 import { useGlobalReducer } from '../../contexts/GlobalContext';
-import { deg2HMS, deg2DMS} from '../../utils/astro'
+import { deg2HMS, deg2DMS, padDigits} from '../../utils/astro'
 import { getExposure, getImageTypeIcon, getQualityIcon} from '../../utils/styling'
 import { ASTROBASE_URL, getUrlAladin, getUrlESASky, getUrlSDSS, getUrlCDSPortal} from '../../utils/skyserver'
 import {
@@ -126,7 +126,7 @@ export default function ObservationDetails(props) {
                                 <tbody>
                                 <tr>
                                     <td className="key">ID</td>
-                                    <td className="value">{observation.taskid}</td>
+                                    <td className="value">{observation.taskID}</td>
                                 </tr>
                                 <tr>
                                     <td className="key">Field</td>
@@ -138,7 +138,15 @@ export default function ObservationDetails(props) {
                                 </tr>
                                 <tr>
                                     <td className="key">RA, dec</td>
-                                    <td className="value">{deg2HMS(observation.field_ra)} {'H'}, {deg2DMS(observation.field_dec)} {'deg'}</td>
+                                    <td className="value">{deg2HMS(observation.field_ra)}, {deg2DMS(observation.field_dec)}</td>
+                                </tr>
+                                <tr>
+                                    <td className="key">decimals</td>
+                                    <td className="value">{Math.round(observation.field_ra*100)/100}, {Math.round(observation.field_dec*100)/100} deg</td>
+                                </tr>
+                                <tr>
+                                    <td className="key">fov</td>
+                                    <td className="value">{observation.ra_dec_fov} deg</td>
                                 </tr>
                                 <tr>
                                     <td className="key">Date</td>

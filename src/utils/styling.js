@@ -91,12 +91,12 @@ export const getCommandIcon = (command) => {
     let color = "darkgreen"
     let size = 'md'
 
-    if (command === 'fitsing') {
+    if (command === 'grid') {
         icon = faGlobe
         size = "lg"
         color = "green"
     }
-    if (command === 'bar') {
+    if (command === 'min_max') {
         icon = faMap
         color = "green"
     }
