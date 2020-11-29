@@ -54,8 +54,11 @@ export default function ObservationDetails(props) {
     }
 
     // all should be well now, a valid observation loaded.
-
-    let astrometryLink = "http://nova.astrometry.net/status/"+observation.job
+    let astrometry_url = 'http://nova.astrometry.net'
+    if (observation.astrometry_url) {
+        astrometry_url = observation.astrometry_url
+    }
+    let astrometryLink = astrometry_url + "/status/"+observation.job
 
     let fov = parseFloat(observation.field_fov) * 3
     if (fov === 0) {
