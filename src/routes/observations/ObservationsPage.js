@@ -26,7 +26,7 @@ export default function Observations(props) {
     }
 
     let renderSpinner
-    if (my_state.status === "fetching_xxx") {
+    if (my_state.status === "fetching") {
         renderSpinner = <LoadingSpinner/>
     }
 
