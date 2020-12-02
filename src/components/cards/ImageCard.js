@@ -141,7 +141,7 @@ export default function ImageCard(props) {
     return (
         <Card className="card-dataproduct">
             <Card.Body>
-
+<table>
                 <tr>
                     <h4><InfoLink observation={props.observation}/>&nbsp;{props.observation.description}</h4>
                     &nbsp;
@@ -156,6 +156,7 @@ export default function ImageCard(props) {
                 <tr>
                     <MainImage observation={props.observation} imageType={my_state.image_type}/>
                 </tr>
+</table>
                 (click for fullscreen)
                 {renderQualityButton}&nbsp;
             </Card.Body>

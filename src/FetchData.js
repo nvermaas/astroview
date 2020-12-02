@@ -81,8 +81,9 @@ export function FetchData () {
         }, [my_state.current_collection, my_state.reload]
     );
 
-    // this fetches the observations belonging to the current project when my_state current_project was changed
+    // this fetches the observations belonging to the current project when my_state current_observation was changed
     useEffect(() => {
+            //alert('useEffect: '+my_state.current_observation)
             fetchCurrentObservation(url_observations)
         }, [my_state.current_observation, my_state.reload]
     );

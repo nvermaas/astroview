@@ -5,10 +5,7 @@ import { useGlobalReducer } from '../../contexts/GlobalContext';
 import { deg2HMS, deg2DMS, padDigits} from '../../utils/astro'
 import { getExposure, getImageTypeIcon, getQualityIcon} from '../../utils/styling'
 import { ASTROBASE_URL, getUrlAladin, getUrlESASky, getUrlSDSS, getUrlCDSPortal} from '../../utils/skyserver'
-import {
-    SET_CURRENT_PROJECT,
-    SET_CURRENT_OBSERVATION
-} from '../../reducers/GlobalStateReducer';
+import { SET_STATUS, SET_CURRENT_PROJECT, SET_CURRENT_OBSERVATION } from '../../reducers/GlobalStateReducer';
 
 import DetailsThumbnail from './DetailsThumbnail'
 import ImageCard from '../../components/cards/ImageCard'
@@ -21,7 +18,6 @@ export default function ObservationDetails(props) {
     // get the observation info from the global state.
     const [ my_state , my_dispatch] = useGlobalReducer()
 
-
     function findElement(arr, propName, propValue) {
         for (var i=0; i < arr.length; i++)
             if (arr[i][propName] === propValue)
@@ -31,18 +27,13 @@ export default function ObservationDetails(props) {
     // if no data is given to the details screen, then dispatch the request for that data based on the taskid
     // this happens when the program is entered with a direct url like this: astroview/details/151008003
     if (props.data === undefined) {
-        if (my_state.status ==="unfetched") {
+        //alert(my_state.status)
+        if (my_state.status==='unfetched') {
+            my_dispatch({type: SET_STATUS, status: "fetched"}) // to prevent maximum depth
             my_dispatch({type: SET_CURRENT_OBSERVATION, current_observation: props.taskid})
         }
         return <div><LoadingSpinner/></div>
     }
-
-    /*
-    // only continue when data is fetched
-    if (my_state.status != 'fetched') {
-        return null
-    }
-*/
 
     // find the current observation (taskid) in the data that was given as a property
     let observation = findElement(props.data,"taskID",props.taskid)

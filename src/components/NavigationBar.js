@@ -42,6 +42,7 @@ export function NavigationBar() {
                 <Nav.Link as={NavLink} to="/projects">Parents</Nav.Link>
                 <Nav.Link target="_blank" href={ASTROBASE_URL}>AstroBase</Nav.Link>
                 <Nav.Link target="_blank" href={ASTROBASE_URL_ADMIN}>Admin</Nav.Link>
+                <Nav.Link as={NavLink} to="/samp">SAMP</Nav.Link>
             </Nav>
             <SwitchThumbnailButton/>
             &nbsp;

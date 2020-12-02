@@ -229,7 +229,7 @@ export const reducer = (state, action) => {
             };
             
         case SET_CURRENT_OBSERVATION:
-            // alert('SET_CURRENT_OBSERVATION: '+action.current_observation)
+            //alert('SET_CURRENT_OBSERVATION: '+action.current_observation)
             return {
                 ...state,
                 current_observation: action.current_observation,

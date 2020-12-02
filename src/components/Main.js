@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useContext }  from 'react';
+
 import '../App.css';
 
 import { useGlobalReducer } from '../contexts/GlobalContext';
@@ -8,10 +9,12 @@ import { NavigationBar } from './NavigationBar';
 import Observations from '../routes/observations/ObservationsPage';
 import Projects from '../routes/projects/ProjectsPage';
 import Collections from '../routes/collections/CollectionsPage';
+import SampPage from '../routes/samp/SampPage';
 import ObservationDetails from '../routes/details/ObservationDetails';
 import LoadCollection from '../routes/collections/LoadCollection';
 import Survey from '../routes/survey/Survey';
 import { About } from '../routes/about/About';
+import { SET_STATUS } from '../reducers/GlobalStateReducer';
 
 import { AuthContext } from "../contexts/AuthContext";
 
@@ -66,7 +69,6 @@ function ObservationDetailsForward() {
     }
 
     if (observation === undefined) {
-        //alert(id)
         return <ObservationDetails taskid={id}/>
     }
 
@@ -190,10 +192,14 @@ function Main () {
                         <About />
                     </Route>
 
+                    <Route path="/samp">
+                        <SampPage />
+                    </Route>
+
                     <Route path="/details/:id" children={<ObservationDetailsForward />} />
                 </Switch>
             </div>
-            <footer><small> (C) 2020 - Nico Vermaas - version 1.11.3 - 29 nov 2020 - 19:00</small></footer>
+            <footer><small> (C) 2020 - Nico Vermaas - version 1.11.3 - 2 dec 2020 - 08:00</small></footer>
         </Router>
     );
 }

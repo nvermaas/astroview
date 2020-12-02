@@ -1,18 +1,22 @@
 import React from 'react';
-import { Link } from "react-router-dom"
+import { Link  } from "react-router-dom"
 import { Button, Badge } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
+
 import { useGlobalReducer } from '../../contexts/GlobalContext';
-// import { SET_ACTIVE_TASKID } from '../../reducers/GlobalStateReducer'
 import { ASTROBASE_URL } from '../../utils/skyserver'
 import { getMode, getExposure, getImageTypeIcon, getQualityIcon } from '../../utils/styling'
+import { SET_CURRENT_OBSERVATIONS, SET_STATUS } from '../../reducers/GlobalStateReducer'
 
 export default function ChildrenGrid(props) {
     const [ my_state , my_dispatch] = useGlobalReducer()
+    //const history = useHistory();
 
     const handleClick = (observation) => {
+        //alert('push')
+        //history.push("http://localhost:3000/astroview/details/191129002")
         // dispatch current observation to the global store
-        // my_dispatch({type: SET_ACTIVE_TASKID, taskid: observation.taskID})
+        my_dispatch({type: SET_STATUS, status: "unfetched"})
     }
 
     // generate the details link to forward to
@@ -128,11 +132,12 @@ export default function ChildrenGrid(props) {
          */
         {
             name: 'Details',
-            cell: row =>
-                <Link to={() => getLink(row)}>
-                    <Button variant="warning" onClick={() => handleClick(row)}>Details</Button>
-                </Link>,
+            cell: row => {
 
+                return <Link to={() => getLink(row)}>
+                    <Button variant="warning" onClick={() => handleClick(row)}>Details</Button>
+                </Link>
+            },
             button: true,
         },
         {
@@ -287,7 +292,6 @@ export default function ChildrenGrid(props) {
         props.data[i].defaultExpanded = true;
         i++;
     }
-
 
     return (
         <div>
