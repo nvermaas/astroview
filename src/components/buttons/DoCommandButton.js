@@ -27,6 +27,9 @@ export default function DoCommandButton(props) {
         case "grid":
             style = "outline-success"
             break;
+        case "stars":
+            style = "outline-success"
+            break;
         case "min_max":
             style = "outline-success"
             break;

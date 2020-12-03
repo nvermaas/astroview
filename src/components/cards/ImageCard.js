@@ -5,7 +5,7 @@ import { AuthContext } from '../../contexts/AuthContext'
 import { useGlobalReducer } from '../../contexts/GlobalContext'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faImage, faArrowsAlt, faProjectDiagram, faGlobe } from '@fortawesome/free-solid-svg-icons'
+import { faImage, faArrowsAlt, faProjectDiagram, faGlobe,faStar } from '@fortawesome/free-solid-svg-icons'
 
 
 import { SET_IMAGE_TYPE } from '../../reducers/GlobalStateReducer'
@@ -41,6 +41,10 @@ function getThumbnail(observation, imageType) {
 
     if (imageType==='annotated_grid') {
         thumbnail = observation.derived_annotated_grid_image
+    } else
+
+    if (imageType==='annotated_stars') {
+        thumbnail = observation.derived_annotated_stars_image
     } else
 
     if (imageType==='SDSS') {
@@ -91,6 +95,13 @@ export default function ImageCard(props) {
         </Button>
     }
 
+    let buttonAnnotatedStars=''
+    if (props.observation.derived_annotated_stars_image!==null) {
+        buttonAnnotatedStars = <Button variant="success" onClick={() => handleClick(props.observation, "annotated_stars")}>
+            <FontAwesomeIcon icon={faStar} />&nbsp;Stars
+        </Button>
+    }
+    
     let buttonRedGreen=''
     if (props.observation.derived_red_green_image!==null) {
         buttonRedGreen = <Button variant="success"
@@ -134,6 +145,7 @@ export default function ImageCard(props) {
             &nbsp;&nbsp;&nbsp;&nbsp;
             <SetAdminEditButton observation={props.observation} />&nbsp;
             <DoCommandButton observation={props.observation} title="Add Grid" command="grid" />&nbsp;
+            <DoCommandButton observation={props.observation} title="Stars" command="stars" />&nbsp;
             <DoCommandButton observation={props.observation} title="Min-Max" command="min_max" />&nbsp;
         </div>
     }
@@ -148,6 +160,7 @@ export default function ImageCard(props) {
                     {buttonRaw}&nbsp;
                     {buttonAnnotated}&nbsp;
                     {buttonAnnotatedGrid}&nbsp;
+                    {buttonAnnotatedStars}&nbsp;
                     {buttonFITS}&nbsp;
                     {buttonJS9}&nbsp;
 

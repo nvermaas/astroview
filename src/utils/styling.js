@@ -100,6 +100,9 @@ export const getCommandIcon = (command) => {
         icon = faMap
         color = "green"
     }
-
+    if (command === 'stars') {
+        icon = faStar
+        color = "green"
+    }
     return <FontAwesomeIcon size={size} icon={icon} color={color}/>
 }
