@@ -328,7 +328,7 @@ export default function ProjectsGrid(props) {
                 onChangePage={handlePageChange}
                 onChangeRowsPerPage={handlePerRowsChange}
 
-                paginationPerPage={24}
+                paginationPerPage={25}
                 // paginationRowsPerPageOptions={[50, 100]}
                 paginationRowsPerPageOptions={[25]}
                 expandableRows
