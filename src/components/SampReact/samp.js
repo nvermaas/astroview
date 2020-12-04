@@ -30,9 +30,9 @@ export var samp = (function() {
         var WEBSAMP_CLIENT_PREFIX = "";
 
         // Tokens representing permissible types in a SAMP object (e.g. a message)
-        TYPE_STRING = "string";
-        TYPE_LIST = "list";
-        TYPE_MAP = "map";
+        let TYPE_STRING = "string";
+        let TYPE_LIST = "list";
+        let TYPE_MAP = "map";
 
     var heir = function(proto) {
         function F() {};
@@ -466,58 +466,10 @@ export var samp = (function() {
                 this.xhr.setRequestHeader("Content-Type", mimeType);
             }
         }
-
-        // Creates an XHR facade based on an XDomainRequest (IE8+ only).
-        var XdrL2 = function(xdr) {
-            this.xdr = xdr;
-            xdr.onload = (function(l2) {
-                return function() {
-                    var e;
-                    l2.responseText = xdr.responseText;
-                    if (xdr.contentType === "text/xml" ||
-                        xdr.contentType === "application/xml" ||
-                        /\/x-/.test(xdr.contentType)) {
-                        try {
-                            var xdoc = new ActiveXObject("Microsoft.XMLDOM");
-                            xdoc.loadXML(xdr.responseText);
-                            l2.responseXML = xdoc;
-                        }
-                        catch (e) {
-                            l2.responseXML = e;
-                        }
-                    }
-                    if (l2.onload) {
-                        l2.onload();
-                    }
-                };
-            })(this);
-            xdr.onerror = (function(l2) {
-                return function(event) {
-                    if (l2.onerror) {
-                        l2.onerror(event);
-                    }
-                };
-            })(this);
-            xdr.ontimeout = (function(l2) {
-                return function(event) {
-                    if (l2.onerror) {
-                        l2.onerror(event);
-                    }
-                };
-            })(this);
-        };
-        XdrL2.prototype.open = function(method, url) {
+        XhrL2.prototype.open = function(method, url) {
             this.xdr.open(method, url);
         };
-        XdrL2.prototype.send = function(body) {
-            this.xdr.send(body);
-        };
-        XdrL2.prototype.abort = function() {
-            this.xdr.abort();
-        };
-        XdrL2.prototype.setContentType = function(mimeType) {
-            // can't do it.
-        };
+
 
         // Creates an XHR Facade based on available XMLHttpRequest-type
         // capabilibities.
@@ -527,17 +479,6 @@ export var samp = (function() {
             if ("withCredentials" in xhr) {
                 return new XhrL2(xhr);
             }
-        }
-
-        // Else if an XDomainRequest is available, use that.
-        if (typeof XDomainRequest !== "undefined") {
-            return new XdrL2(new XDomainRequest());
-        }
-
-        // Else fake an XMLHttpRequest using Flash/flXHR, if available
-        // and use that.
-        if (typeof flensed.flXHR !== "undefined") {
-            return new XhrL2(new flensed.flXHR({instancePooling: true}));
         }
 
         // No luck.
@@ -724,7 +665,7 @@ export var samp = (function() {
         catch (e) {
         }
         if (this.onclose) {
-            oc = this.onclose;
+            let oc = this.onclose;
             delete this.onclose;
             try {
                 oc();
