@@ -24,8 +24,10 @@ export const SET_CURRENT_COLLECTION = 'SET_CURRENT_COLLECTION'
 
 export const SET_CURRENT_OBSERVATION = 'SET_CURRENT_OBSERVATION'
 export const SET_ACTIVE_OBSERVATION = 'SET_ACTIVE_OBSERVATION'
-
 export const SET_CURRENT_OBSERVATIONS = 'SET_CURRENT_OBSERVATIONS'
+
+export const SET_STATUS_JOBS = 'SET_STATUS_JOBS'
+export const SET_FETCHED_JOBS = 'SET_FETCHED_JOBS'
 
 // filter actions
 export const SET_OBSERVATION_IMAGE_TYPE = 'SET_OBSERVATION_IMAGE_TYPE'
@@ -72,7 +74,9 @@ export const initialState = {
         backend_filter: undefined,
         image_type: "annotated_grid",
         thumbnail_image_type: "sky_plot",
-        view: "list"
+        view: "list",
+        status_jobs : "unfetched",
+        fetched_jobs: undefined,
 }
 
 export const reducer = (state, action) => {
@@ -266,6 +270,18 @@ export const reducer = (state, action) => {
                 view: action.view
             };
 
+        case SET_STATUS_JOBS:
+            return {
+                ...state,
+                status_jobs: action.status_jobs
+            };
+
+        case SET_FETCHED_JOBS:
+            //alert('reducer: SET_FETCHED_JOBS '+action.fetched_jobs)
+            return {
+                ...state,
+                fetched_jobs: action.fetched_jobs
+            };
         default:
             return state;
     }

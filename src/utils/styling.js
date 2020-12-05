@@ -108,7 +108,7 @@ export const getStarsIcon = (stars) => {
 export const getDetailsIcon = (onClickFunction, observation) => {
     // the onClickFunction is a weird javascript way of providing the onClick eventhandler
     // as an argument. In the calling function, this eventhandler makes sure that the
-    // selected observation is loaded into the state first.
+
     let icon = faListAlt
     let color = "darkgreen"
     let size = 'lg'

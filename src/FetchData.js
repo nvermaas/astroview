@@ -13,7 +13,9 @@ import {
     SET_TOTAL_COLLECTIONS,
     SET_FETCHED_COLLECTIONS,
     SET_CURRENT_OBSERVATIONS,
-    SET_OBSERVATION_PAGE
+    SET_OBSERVATION_PAGE,
+    SET_FETCHED_JOBS,
+    SET_STATUS_JOBS,
 } from './reducers/GlobalStateReducer';
 
 import { getFilteredUrl, getFilteredUrlCollections } from './utils/filter'
@@ -24,6 +26,7 @@ export const url_observations = ASTROBASE_URL + "observations"
 export const url_admin = ASTROBASE_URL + "admin/backend_app/observation"
 export const url_projects = ASTROBASE_URL + "projects"
 export const url_collections = ASTROBASE_URL + "collections"
+export const url_jobs = ASTROBASE_URL + "jobs"
 
 export function FetchData () {
 
@@ -109,6 +112,23 @@ export function FetchData () {
         },[]
     );
 */
+
+    // this executes fetchCollections every time that a filter in the state is changed
+    useEffect(() => {
+            fetchJobs(url_jobs)
+        }, [my_state.reload]
+    );
+
+    useEffect(() => {
+            setTimer(setInterval(() => fetchJobs(url_jobs), 10000))
+
+            // this function is automatically called when the component unmounts
+            return function cleanup() {
+                clearInterval(timer);
+            }
+        },[]
+    );
+
     const fetchObservations = (url) => {
         if (my_state.status !== 'fetching')  {
 
@@ -248,6 +268,28 @@ export function FetchData () {
                 })
                 .catch(function () {
                     alert("fetch observation to " + url + " failed.");
+                })
+        }
+    }
+
+    // get the data from the api
+    const fetchJobs = (url) => {
+        //alert('fetchJobs('+url+')')
+        if (my_state.status_jobs !== 'fetching')  {
+
+            my_dispatch({type: SET_STATUS_JOBS, status_jobs: 'fetching'})
+
+            fetch(url)
+                .then(results => {
+                    return results.json();
+                })
+                .then(data => {
+                    my_dispatch({type: SET_FETCHED_JOBS, fetched_jobs: data.results})
+                    my_dispatch({type: SET_STATUS_JOBS, status_jobs: 'fetched'})
+                })
+                .catch(function () {
+                    my_dispatch({type: SET_STATUS_JOBS, status_jobs: 'failed'})
+                    alert("fetch jobs from " + url + " failed.");
                 })
         }
     }

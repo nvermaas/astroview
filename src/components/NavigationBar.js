@@ -29,6 +29,13 @@ function DetailsLink(props) {
 export function NavigationBar() {
     const [ my_state , my_dispatch] = useGlobalReducer()
     let ASTROBASE_URL_ADMIN = ASTROBASE_URL + 'admin'
+    let ASTROBASE_URL_JOBS = ASTROBASE_URL + 'admin/backend_app/job'
+
+    let nr_of_jobs = 0
+    if (my_state.fetched_jobs!==undefined) {
+        nr_of_jobs = my_state.fetched_jobs.length
+    }
+
     return (
         <Navbar bg="dark" variant="dark">
 
@@ -40,9 +47,13 @@ export function NavigationBar() {
                 <Nav.Link as={NavLink} to="/observations">Observations</Nav.Link>
                 <Nav.Link as={NavLink} to="/collections">Collections</Nav.Link>
                 <Nav.Link as={NavLink} to="/projects">Parents</Nav.Link>
+
                 <Nav.Link target="_blank" href={ASTROBASE_URL}>AstroBase</Nav.Link>
                 <Nav.Link target="_blank" href={ASTROBASE_URL_ADMIN}>Admin</Nav.Link>
+                <Nav.Link target="_blank" href={ASTROBASE_URL_JOBS}>Jobs: {nr_of_jobs}</Nav.Link>
                 <Nav.Link as={NavLink} to="/samp">SAMP</Nav.Link>
+
+
             </Nav>
             <SwitchThumbnailButton/>
             &nbsp;
