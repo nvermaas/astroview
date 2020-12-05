@@ -9,6 +9,7 @@ import {
     SET_OBSERVATION_ISO,
     SET_OBSERVATION_FOCAL_LENGTH,
     SET_OBSERVATION_PAGE,
+    SET_COLLECTION_PAGE,
     SET_OBSERVATION_IMAGE_TYPE} from '../reducers/GlobalStateReducer'
 
 
@@ -23,7 +24,7 @@ export function ButtonBarCollections() {
     function handleImageType(image_type) {
         // a change in observation_image_type is used to trigger a new fetch,
         // see the useEffect in the Main.js how that is done.
-
+        my_dispatch({type: SET_COLLECTION_PAGE, collection_page: 1})
         my_dispatch({type: SET_OBSERVATION_IMAGE_TYPE, observation_image_type: image_type})
     }
 
