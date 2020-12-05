@@ -6,7 +6,7 @@ import { useGlobalReducer } from '../../contexts/GlobalContext';
 import { SET_OBSERVATION_PAGE, SET_CURRENT_PROJECT } from '../../reducers/GlobalStateReducer'
 
 import { ASTROBASE_URL } from '../../utils/skyserver'
-import { getMode, getExposure, getImageTypeIcon, getQualityIcon } from '../../utils/styling'
+import { getMode, getExposure, getImageTypeIcon, getQualityIcon, getStarsIcon } from '../../utils/styling'
 
 
 export default function ObservationsGrid(props) {
@@ -221,6 +221,16 @@ export default function ObservationsGrid(props) {
         },
 */
         {
+            name: 'Stars',
+            selector: 'derived_annotated_stars_image',
+            sortable: true,
+            width: "3%",
+            cell: row => {
+                let icon = getStarsIcon(row.derived_annotated_stars_image)
+                return <div>{icon}</div>
+            }
+        },
+        {
             name: 'Details',
             cell: row => {
                 if (row.my_status==='done') {
@@ -237,7 +247,7 @@ export default function ObservationsGrid(props) {
             width: "5%",
             cell: row => {
 
-                if (row.generated_dataproducts.length > 1) {
+                if (row.nr_of_dps > 1) {
                     return <a href={getDPSlink(row)} target="_blank" rel="noopener noreferrer">
                         <Button variant="outline-info" onClick={() => handleDefaultClick(row)}>DPS</Button>
                     </a>

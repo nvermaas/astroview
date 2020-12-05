@@ -161,7 +161,7 @@ export default function ProjectsGrid(props) {
             width: "5%",
             cell: row => {
 
-                if (row.generated_dataproducts.length > 1) {
+                if (row.nr_of_dps > 1) {
                     return <a href={getDPSlink(row)} target="_blank" rel="noopener noreferrer">
                         <Button variant="outline-info">DPS</Button>
                     </a>

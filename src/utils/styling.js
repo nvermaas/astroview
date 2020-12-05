@@ -1,8 +1,10 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMoon, faStarAndCrescent, faStar, faWrench, faSatellite, faMeteor, faGlobe, faMap,
+import { faMoon, faStar, faStarAndCrescent, faWrench, faSatellite, faMeteor, faGlobe, faMap,
     faBolt, faQuestionCircle, faImage, faCloudMeatball, faSmog, faThumbsUp, faThumbsDown, faEdit }
     from '@fortawesome/free-solid-svg-icons'
+
+//import { faStar } from '@fortawesome/free-regular-svg-icons'
 
 export const getMode = (observation) => {
     let mode = ''
@@ -85,6 +87,24 @@ export const getQualityIcon = (quality) => {
     }
     return <FontAwesomeIcon size={size} icon={icon} color={color}/>
 }
+
+export const getStarsIcon = (stars) => {
+    let icon = undefined
+    let color = "darkgreen"
+    let size = 'md'
+
+    if (stars) {
+        icon = faStar
+        size = "md"
+        color = "green"
+    } else {
+        icon = ["far", "faStar"]
+        size = "md"
+        color="grey"
+    }
+    return <FontAwesomeIcon size={size} icon={icon} color={color}  />
+}
+
 
 export const getCommandIcon = (command) => {
     let icon = undefined
