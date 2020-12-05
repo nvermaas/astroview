@@ -289,17 +289,9 @@ export function FetchData () {
                     my_dispatch({type: SET_FETCHED_JOBS, fetched_jobs: data.results})
                     my_dispatch({type: SET_STATUS_JOBS, status_jobs: 'fetched'})
 
-                    // if all jobs are done then refresh the data
-                    let prev_nr_of_jobs = my_state.nr_of_jobs
-
                     let nr_of_jobs = 0
                     if (data.results !==undefined) {
                         nr_of_jobs = data.results.length
-                    }
-
-                    if (nr_of_jobs < prev_nr_of_jobs) {
-                        alert("job finished, reload data")
-                        my_dispatch({type: RELOAD, reload: !my_state.reload})
                     }
                     my_dispatch({type: SET_NR_OF_JOBS, nr_of_jobs: nr_of_jobs})
 

@@ -31,11 +31,6 @@ export function NavigationBar() {
     let ASTROBASE_URL_ADMIN = ASTROBASE_URL + 'admin'
     let ASTROBASE_URL_JOBS = ASTROBASE_URL + 'admin/backend_app/job'
 
-    let nr_of_jobs = 0
-    if (my_state.fetched_jobs!==undefined) {
-        nr_of_jobs = my_state.fetched_jobs.length
-    }
-
     return (
         <Navbar bg="dark" variant="dark">
 

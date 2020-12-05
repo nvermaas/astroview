@@ -286,9 +286,19 @@ export const reducer = (state, action) => {
             };
 
         case SET_NR_OF_JOBS:
-            return {
-                ...state,
-                nr_of_jobs: action.nr_of_jobs
+            // if the number of running jobs got less, then something probably changed in the data... reload
+            let prev_nr_of_jobs = state.nr_of_jobs
+            if (action.nr_of_jobs < prev_nr_of_jobs) {
+                return {
+                    ...state,
+                    nr_of_jobs: action.nr_of_jobs,
+                    reload: !state.reload
+                };
+            } else {
+                return {
+                    ...state,
+                    nr_of_jobs: action.nr_of_jobs
+                }
             };
 
         default:
