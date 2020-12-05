@@ -28,6 +28,7 @@ export const SET_CURRENT_OBSERVATIONS = 'SET_CURRENT_OBSERVATIONS'
 
 export const SET_STATUS_JOBS = 'SET_STATUS_JOBS'
 export const SET_FETCHED_JOBS = 'SET_FETCHED_JOBS'
+export const SET_NR_OF_JOBS = 'SET_NR_OF_JOBS'
 
 // filter actions
 export const SET_OBSERVATION_IMAGE_TYPE = 'SET_OBSERVATION_IMAGE_TYPE'
@@ -77,6 +78,7 @@ export const initialState = {
         view: "list",
         status_jobs : "unfetched",
         fetched_jobs: undefined,
+        nr_of_jobs : 0
 }
 
 export const reducer = (state, action) => {
@@ -282,6 +284,13 @@ export const reducer = (state, action) => {
                 ...state,
                 fetched_jobs: action.fetched_jobs
             };
+
+        case SET_NR_OF_JOBS:
+            return {
+                ...state,
+                nr_of_jobs: action.nr_of_jobs
+            };
+
         default:
             return state;
     }

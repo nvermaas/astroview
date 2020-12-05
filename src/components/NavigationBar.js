@@ -50,7 +50,7 @@ export function NavigationBar() {
 
                 <Nav.Link target="_blank" href={ASTROBASE_URL}>AstroBase</Nav.Link>
                 <Nav.Link target="_blank" href={ASTROBASE_URL_ADMIN}>Admin</Nav.Link>
-                <Nav.Link target="_blank" href={ASTROBASE_URL_JOBS}>Jobs: {nr_of_jobs}</Nav.Link>
+                <Nav.Link target="_blank" href={ASTROBASE_URL_JOBS}>Jobs: {my_state.nr_of_jobs}</Nav.Link>
                 <Nav.Link as={NavLink} to="/samp">SAMP</Nav.Link>
 
 
