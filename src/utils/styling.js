@@ -4,7 +4,7 @@ import { faMoon, faStar, faStarAndCrescent, faWrench, faSatellite, faMeteor, faG
     faBolt, faQuestionCircle, faImage, faCloudMeatball, faSmog, faThumbsUp, faThumbsDown, faEdit }
     from '@fortawesome/free-solid-svg-icons'
 
-//import { faStar } from '@fortawesome/free-regular-svg-icons'
+import { faListAlt } from '@fortawesome/free-regular-svg-icons'
 
 export const getMode = (observation) => {
     let mode = ''
@@ -89,9 +89,9 @@ export const getQualityIcon = (quality) => {
 }
 
 export const getStarsIcon = (stars) => {
-    let icon = undefined
+    let icon = faStar
     let color = "darkgreen"
-    let size = 'md'
+    let size = 'grey'
 
     if (stars) {
         icon = faStar
@@ -105,6 +105,15 @@ export const getStarsIcon = (stars) => {
     return <FontAwesomeIcon size={size} icon={icon} color={color}  />
 }
 
+export const getDetailsIcon = (onClickFunction, observation) => {
+    // the onClickFunction is a weird javascript way of providing the onClick eventhandler
+    // as an argument. In the calling function, this eventhandler makes sure that the
+    // selected observation is loaded into the state first.
+    let icon = faListAlt
+    let color = "darkgreen"
+    let size = 'lg'
+    return <FontAwesomeIcon onClick={() => onClickFunction(observation)} size={size} icon={icon} color={color}  />
+}
 
 export const getCommandIcon = (command) => {
     let icon = undefined

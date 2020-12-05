@@ -5,22 +5,21 @@ import DataTable from 'react-data-table-component';
 
 import { useGlobalReducer } from '../../contexts/GlobalContext';
 import { ASTROBASE_URL } from '../../utils/skyserver'
-import { getMode, getExposure, getImageTypeIcon, getQualityIcon } from '../../utils/styling'
-import { SET_CURRENT_OBSERVATIONS, SET_STATUS } from '../../reducers/GlobalStateReducer'
+import { getMode, getExposure, getImageTypeIcon, getQualityIcon, getStarsIcon, getDetailsIcon } from '../../utils/styling'
+import { SET_CURRENT_OBSERVATION, SET_STATUS } from '../../reducers/GlobalStateReducer'
 
 export default function ChildrenGrid(props) {
     const [ my_state , my_dispatch] = useGlobalReducer()
-    //const history = useHistory();
 
-    const handleClick = (observation) => {
-        //alert('push')
-        //history.push("http://localhost:3000/astroview/details/191129002")
+    const handleDetailsClick = (observation) => {
+
         // dispatch current observation to the global store
+        //my_dispatch({type: SET_CURRENT_OBSERVATION, current_observation: observation.taskID})
         my_dispatch({type: SET_STATUS, status: "unfetched"})
     }
 
     // generate the details link to forward to
-    const getLink = (observation) => {
+    const getDetailsLink = (observation) => {
         let details_link = "/details/"+observation.taskID
         return details_link
     }
@@ -122,40 +121,56 @@ export default function ChildrenGrid(props) {
                     </Badge></div>
             }
         },
-        /*
-         {
-         name: 'Status',
-         selector: 'my_status',
-         sortable: true,
-         width: "5%"
-         },
-         */
         {
-            name: 'Details',
+            name: 'Stars (link)',
+            width: "3%",
             cell: row => {
+                let icon = getStarsIcon(row.derived_annotated_stars_image)
+                return <a href={row.derived_annotated_stars_image} target="_blank" rel="noopener noreferrer">
+                    <div>{icon}</div>
+                </a>
+            },
+        },
 
-                return <Link to={() => getLink(row)}>
-                    <Button variant="warning" onClick={() => handleClick(row)}>Details</Button>
+        {
+            name: 'Details (link)',
+            width: "3%",
+            cell: row => {
+                let icon = getDetailsIcon(handleDetailsClick,row)
+                return <Link to={() => getDetailsLink(row)}>
+                    <div>{icon}</div>
                 </Link>
             },
             button: true,
         },
+/*
+        {
+            name: 'Details',
+            cell: row => {
+
+                return <Link to={() => getDetailsLink(row)}>
+                    <Button variant="warning" onClick={() => handleDetailsClick(row)}>Details</Button>
+                </Link>
+            },
+            button: true,
+        },
+*/
         {
             name: 'Dataproducts',
             sortable: true,
             width: "5%",
             cell: row => {
 
-                    return <a href={getDPSlink(row)} target="_blank" rel="noopener noreferrer">
-                        <Button variant="outline-info" onClick={() => handleClick(row)}>DPS</Button>
-                    </a>
-                }
+                return <a href={getDPSlink(row)} target="_blank" rel="noopener noreferrer">
+                    <Button variant="outline-info" >DPS</Button>
+                </a>
+            }
         },
         {
             name: 'Astrobase',
             cell: row =>
                 <a href={getAPI(row)} target="_blank" rel="noopener noreferrer">
-                    <Button variant="outline-info" onClick={() => handleClick(row)}>API</Button>
+                    <Button variant="outline-info" >API</Button>
                 </a>,
             button: true,
         },

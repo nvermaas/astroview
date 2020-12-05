@@ -3,17 +3,19 @@ import { Link } from "react-router-dom"
 import { Button, Badge } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
 import { useGlobalReducer } from '../../contexts/GlobalContext';
-import { SET_OBSERVATION_PAGE, SET_CURRENT_PROJECT } from '../../reducers/GlobalStateReducer'
+import { SET_OBSERVATION_PAGE, SET_CURRENT_PROJECT, SET_CURRENT_OBSERVATION } from '../../reducers/GlobalStateReducer'
 
 import { ASTROBASE_URL } from '../../utils/skyserver'
-import { getMode, getExposure, getImageTypeIcon, getQualityIcon, getStarsIcon } from '../../utils/styling'
+import { getMode, getExposure, getImageTypeIcon, getQualityIcon, getStarsIcon, getDetailsIcon } from '../../utils/styling'
 
 
 export default function ObservationsGrid(props) {
     const [ my_state , my_dispatch] = useGlobalReducer()
 
-    const handleDefaultClick = (observation) => {
+    const handleDetailsClick = (observation) => {
         // dispatch current observation to the global store
+        //alert('handleDetailsClick')
+        my_dispatch({type: SET_CURRENT_OBSERVATION, current_observation: observation.taskID})
         my_dispatch({type: SET_CURRENT_PROJECT, current_project: observation.taskID})
     }
 
@@ -54,6 +56,7 @@ export default function ObservationsGrid(props) {
         let dps_link = ASTROBASE_URL + "task/" + observation.taskID.toString()
         return dps_link
     }
+
 
     // generate the api link
     const getParentlink = (observation) => {
@@ -198,6 +201,7 @@ export default function ObservationsGrid(props) {
             cell: row => {
                 let icon = getQualityIcon(row.quality)
                 return <div>{icon}</div>
+
             }
         },
         {
@@ -206,10 +210,13 @@ export default function ObservationsGrid(props) {
             sortable: true,
             width: "3%",
             cell: row => {
-                return <div>
-                    <Badge pill variant="light">
-                        {row.magnitude}
-                    </Badge></div>
+                return <Link to={() => getDetailsLink(row)}>
+                    <div>
+                        <Badge pill variant="light">
+                            {row.magnitude}
+                        </Badge>
+                    </div>
+                </Link>
             }
         },
 /*
@@ -221,26 +228,40 @@ export default function ObservationsGrid(props) {
         },
 */
         {
-            name: 'Stars',
-            selector: 'derived_annotated_stars_image',
-            sortable: true,
+            name: 'Stars (link)',
             width: "3%",
             cell: row => {
                 let icon = getStarsIcon(row.derived_annotated_stars_image)
-                return <div>{icon}</div>
-            }
+                return <a href={row.derived_annotated_stars_image} target="_blank" rel="noopener noreferrer">
+                    <div>{icon}</div>
+                </a>
+            },
         },
+
+        {
+            name: 'Details (link)',
+            width: "3%",
+            cell: row => {
+                let icon = getDetailsIcon(handleDetailsClick,row)
+                return <Link to={() => getDetailsLink(row)}>
+                    <div>{icon}</div>
+                </Link>
+            },
+            button: true,
+        },
+/*
         {
             name: 'Details',
             cell: row => {
                 if (row.my_status==='done') {
                     return <Link to={() => getDetailsLink(row)}>
-                        <Button variant="warning" onClick={() => handleDefaultClick(row)}>Details</Button>
+                        <Button variant="warning" onClick={() => handleDetailsClick(row)}>Details</Button>
                     </Link>
                 }
             },
             button: true,
         },
+*/
         {
             name: 'Dataproducts',
             sortable: true,
@@ -249,7 +270,7 @@ export default function ObservationsGrid(props) {
 
                 if (row.nr_of_dps > 1) {
                     return <a href={getDPSlink(row)} target="_blank" rel="noopener noreferrer">
-                        <Button variant="outline-info" onClick={() => handleDefaultClick(row)}>DPS</Button>
+                        <Button variant="outline-info" >DPS</Button>
                     </a>
                 }
             }
@@ -258,7 +279,7 @@ export default function ObservationsGrid(props) {
             name: 'Astrobase',
             cell: row =>
                 <a href={getAPI(row)} target="_blank" rel="noopener noreferrer">
-                    <Button variant="outline-info" onClick={() => handleDefaultClick(row)}>API</Button>
+                    <Button variant="outline-info" >API</Button>
                 </a>,
             button: true,
         },
