@@ -1,5 +1,4 @@
-import React, {useState, useEffect }  from 'react';
-import { Button } from 'react-bootstrap';
+import React, {useState }  from 'react';
 
 import { getVOTableAsJSON } from './ReactVOTable'
 import SampGrid from './SampGrid'
@@ -100,10 +99,10 @@ export default function SampPage(props) {
     return (
         <div className="App">
             <div>
-                <h2>SAMP</h2>
-                <Button variant="outline-warning" onClick={() => register()}>register</Button>
-                <Button variant="outline-success" onClick={() => handlePingClick()}>SAMP Ping</Button>
-                <Button variant="outline-warning" onClick={() => unregister()}>unregister</Button>
+                <h2>SAMP demo</h2>
+                <button variant="outline-warning" onClick={() => register()}>register</button>&nbsp;
+                <button variant="outline-success" onClick={() => handlePingClick()}>SAMP Ping</button>&nbsp;
+                <button variant="outline-warning" onClick={() => unregister()}>unregister</button>&nbsp;
 
                 {renderSampGrid}
             </div>
