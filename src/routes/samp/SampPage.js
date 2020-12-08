@@ -1,15 +1,13 @@
 import React, {useState, useEffect }  from 'react';
 import { Button } from 'react-bootstrap';
 
-import { useGlobalReducer } from '../../contexts/GlobalContext';
-
-import { parseString } from 'xml2js'
-// https://medium.com/better-programming/4-ways-of-adding-external-js-files-in-reactjs-823f85de3668
-// https://stackoverflow.com/questions/61912232/how-to-wrap-vanilla-javascript-functions-to-reactjs-without-major-modifications
+import { getVOTableAsJSON } from './ReactVOTable'
+import SampGrid from './SampGrid'
 
 export default function SampPage(props) {
+    const [ myVOTable, setMyVOTable] = useState([]);
 
-    const pingFunc = function(connection) {
+    const pingFunc = function (connection) {
         connection.notifyAll([new window.samp.Message("samp.app.ping", {})])
     }
 
@@ -19,41 +17,43 @@ export default function SampPage(props) {
     const unregister = () => {
         connector.unregister()
     }
-    const handlePing = () => {
+
+    const handlePingClick = () => {
         connector.runWithConnection(pingFunc)
     }
 
-    const [ my_state, my_dispatch] = useGlobalReducer()
-
-
-    var cc = new window.samp.ClientTracker();
-    var callHandler = cc.callHandler;
-
-    callHandler["samp.app.ping"] = function(senderId, message, isCall) {
-        alert('callHandler samp.app.ping')
+    const handlePing = (cc, senderId, message, isCall) => {
+        alert('handle samp.app.ping')
         if (isCall) {
             return {text: "ping to you, " + cc.getName(senderId)};
         }
-    };
+    }
 
-    callHandler["table.load.votable"] = function(senderId, message, isCall) {
+    const handleLoadVOTable = (cc, senderId, message, isCall) => {
+        // alert('handle table.load.votable')
         var params = message["samp.params"];
         var origUrl = params["url"];
         var proxyUrl = cc.connection.translateUrl(origUrl);
         var xhr = window.samp.XmlRpcClient.createXHR();
         var e;
-        //alert('callHandler table.load.votable')
 
-        var e;
-        var xhr = window.samp.XmlRpcClient.createXHR();
         xhr.open("GET", proxyUrl);
         xhr.onload = function() {
             var xml = xhr.responseXML;
             if (xml) {
                 try {
                     let tableId = params["table-id"];
-                    alert(tableId)
-                    let tableUrl = origUrl;
+                    //alert(tableId)
+
+                    // parse the VO Table in xml format
+                    let results = getVOTableAsJSON(xml)
+
+                    // assume a single resource and a single table for now
+                    let table= results.resources[0].tables[0]
+
+                    // add fieldnames and data to the state hook
+                    // this will trigger a render of this component
+                    setMyVOTable(table)
                 }
                 catch (e) {
                     alert("Error displaying table:\n" +
@@ -69,19 +69,43 @@ export default function SampPage(props) {
                 "(" + err + ")");
         };
         xhr.send(null);
+    }
+
+    var cc = new window.samp.ClientTracker();
+
+    // attach eventhandlers
+    var callHandler = cc.callHandler;
+
+    callHandler["samp.app.ping"] = function(senderId, message, isCall) {
+        handlePing(cc,senderId, message, isCall)
     };
 
+    callHandler["table.load.votable"] = function(senderId, message, isCall) {
+        handleLoadVOTable(cc,senderId, message, isCall)
+    };
+
+
     var subs = cc.calculateSubscriptions();
+
+    // initialize the connector
     var connector = new window.samp.Connector("astroview", {"samp.name": "AstroView"}, cc, subs)
+
+    // only render when myVOTable has a value
+    var renderSampGrid
+    let fieldnames = myVOTable['fieldnames']
+    if (fieldnames!==undefined) {
+        renderSampGrid = <SampGrid fieldnames={fieldnames} votable_in_json={myVOTable}/>
+    }
 
     return (
         <div className="App">
             <div>
                 <h2>SAMP</h2>
                 <Button variant="outline-warning" onClick={() => register()}>register</Button>
-                <Button variant="outline-success" onClick={() => handlePing()}>SAMP Ping</Button>
+                <Button variant="outline-success" onClick={() => handlePingClick()}>SAMP Ping</Button>
                 <Button variant="outline-warning" onClick={() => unregister()}>unregister</Button>
 
+                {renderSampGrid}
             </div>
         </div>
     );
