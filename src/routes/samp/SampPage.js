@@ -100,6 +100,7 @@ export default function SampPage(props) {
         <div className="App">
             <div>
                 <h2>SAMP demo</h2>
+                <p>Start a SAMP enabled application (like Topcat or ESA Sky), register to the hub and transmit data from Topcat or ESA Sky.</p>
                 <button variant="outline-warning" onClick={() => register()}>register</button>&nbsp;
                 <button variant="outline-success" onClick={() => handlePingClick()}>SAMP Ping</button>&nbsp;
                 <button variant="outline-warning" onClick={() => unregister()}>unregister</button>&nbsp;
