@@ -1,11 +1,12 @@
-import React, { useContext }  from 'react';
-import {Card, Button } from 'react-bootstrap'
+import React, { useContext, useState }  from 'react';
+import {Card, Button, Table, Image } from 'react-bootstrap'
 
 import { AuthContext } from '../../contexts/AuthContext'
 import { useGlobalReducer } from '../../contexts/GlobalContext'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faImage, faArrowsAlt, faProjectDiagram, faGlobe,faStar } from '@fortawesome/free-solid-svg-icons'
+import { faImage, faArrowsAlt, faProjectDiagram, faGlobe, faStar,
+faAdjust, faSlidersH, faRetweet} from '@fortawesome/free-solid-svg-icons'
 
 
 import { SET_IMAGE_TYPE } from '../../reducers/GlobalStateReducer'
@@ -56,51 +57,59 @@ function getThumbnail(observation, imageType) {
     return thumbnail
 }
 
-// display the main image
-function MainImage(props) {
-    let thumbnail =  getThumbnail(props.observation, props.imageType)
-    return <a href={thumbnail} target="_blank"><img src={thumbnail} width="1000"/></a>
-}
+
 
 // display a single observation on a card
 export default function ImageCard(props) {
 
     const [ my_state , my_dispatch] = useGlobalReducer()
     const { isAuthenticated } = useContext(AuthContext);
+    const [ myImageClass , setMyImageClass] = useState([]);
 
     // dispatch current observation to the global store
-    const handleClick = (observation,imageType) => {
+    const setImageType = (observation,imageType) => {
+        /*
+        if (imageType === "raw") {
+            setMyImageClass("image-normal")
+        }
+        */
         my_dispatch({type: SET_IMAGE_TYPE, image_type: imageType})
     }
 
-    let sdss_button=<Button variant="warning" onClick={() => handleClick(props.observation,'SDSS')}>SDSS</Button>
+    // display the main image
+    function MainImage(props) {
+        let thumbnail =  getThumbnail(props.observation, props.imageType)
+        return <a href={thumbnail} target="_blank"><img class={myImageClass} src={thumbnail} width="1000"/></a>
+    }
+
+    let sdss_button=<Button variant="warning" onClick={() => setImageType(props.observation,'SDSS')}>SDSS</Button>
 
     // conditionally render the buttons if the underlying dataproduct exists
 
     let buttonRaw=''
     if (props.observation.derived_raw_image!==null) {
-        buttonRaw = <Button variant="primary" onClick={() => handleClick(props.observation, "raw")}>
-                        <FontAwesomeIcon icon={faImage} />&nbsp;Original
+        buttonRaw = <Button variant="primary" onClick={() => setImageType(props.observation, "raw")}>
+                        <FontAwesomeIcon icon={faImage} />&nbsp;Raw
                     </Button>
     }
 
     let buttonAnnotated=''
     if (props.observation.derived_annotated_image!==null) {
-        buttonAnnotated = <Button variant="success" onClick={() => handleClick(props.observation, "annotated")}>
+        buttonAnnotated = <Button variant="success" onClick={() => setImageType(props.observation, "annotated")}>
                         <FontAwesomeIcon icon={faProjectDiagram} />&nbsp;Annotated
             </Button>
     }
 
     let buttonAnnotatedGrid=''
     if (props.observation.derived_annotated_grid_image!==null) {
-        buttonAnnotatedGrid = <Button variant="success" onClick={() => handleClick(props.observation, "annotated_grid")}>
+        buttonAnnotatedGrid = <Button variant="success" onClick={() => setImageType(props.observation, "annotated_grid")}>
             <FontAwesomeIcon icon={faGlobe} />&nbsp;Grid
         </Button>
     }
 
     let buttonAnnotatedStars=''
     if (props.observation.derived_annotated_stars_image!==null) {
-        buttonAnnotatedStars = <Button variant="success" onClick={() => handleClick(props.observation, "annotated_stars")}>
+        buttonAnnotatedStars = <Button variant="success" onClick={() => setImageType(props.observation, "annotated_stars")}>
             <FontAwesomeIcon icon={faStar} />&nbsp;Stars
         </Button>
     }
@@ -108,14 +117,14 @@ export default function ImageCard(props) {
     let buttonRedGreen=''
     if (props.observation.derived_red_green_image!==null) {
         buttonRedGreen = <Button variant="success"
-                                  onClick={() => handleClick(props.observation, "redgreen")}>Red/Green
+                                  onClick={() => setImageType(props.observation, "redgreen")}>Red/Green
         </Button>
     }
 
     let buttonFITS=''
     if (props.observation.derived_fits!==null) {
         buttonFITS=<a href = {props.observation.derived_fits} target="_blank" rel="noopener noreferrer">
-                <Button variant="info">FITS (header)</Button>
+                <Button variant="info">FITS</Button>
             </a>
     }
 
@@ -124,10 +133,38 @@ export default function ImageCard(props) {
         // https://js9.si.edu/js9/js9.html?url=http://uilennest.net/astrobase/data/191231001/3836665.fits&colormap=heat&scale=log
         let link  = "https://js9.si.edu/js9/js9.html?url=" + props.observation.derived_fits + "&colormap=viridis&scale=log"
         buttonJS9=<a href = {link} target="_blank" rel="noopener noreferrer">
-            <Button variant="info">FITS viewer (JS9)</Button>
+            <Button variant="info">JS9</Button>
         </a>
     }
 
+    // buttons to manipulate the colors
+    let buttonNormal=''
+    if (props.observation.derived_raw_image!==null) {
+        buttonNormal = <Button variant="warning" onClick={() => setMyImageClass("image-normal")}>
+            <FontAwesomeIcon icon={faImage} />&nbsp;
+        </Button>
+    }
+
+    let buttonInvert=''
+    if (props.observation.derived_raw_image!==null) {
+        buttonInvert = <Button variant="warning" alt="Invert" onClick={() => setMyImageClass("image-invert")}>
+            <FontAwesomeIcon icon={faRetweet} />&nbsp;
+        </Button>
+    }
+
+    let buttonGrayScale=''
+    if (props.observation.derived_raw_image!==null) {
+        buttonGrayScale = <Button variant="warning" onClick={() => setMyImageClass("image-grayscale")}>
+            <FontAwesomeIcon icon={faAdjust} />&nbsp;
+        </Button>
+    }
+
+    let buttonHueRotate=''
+    if (props.observation.derived_raw_image!==null) {
+        buttonHueRotate = <Button variant="warning" onClick={() => setMyImageClass("image-huerotate")}>
+            <FontAwesomeIcon icon={faSlidersH} />&nbsp;
+        </Button>
+    }
 
     let buttonFullScreen=
         <a href = {getThumbnail(props.observation,my_state.image_type)} target="_blank" rel="noopener noreferrer">
@@ -156,7 +193,7 @@ export default function ImageCard(props) {
     return (
         <Card className="card-dataproduct">
             <Card.Body>
-<table>
+                <Table>
                 <tr>
                     <h4><InfoLink observation={props.observation}/>&nbsp;{props.observation.description}</h4>
                     &nbsp;
@@ -164,15 +201,17 @@ export default function ImageCard(props) {
                     {buttonAnnotated}&nbsp;
                     {buttonAnnotatedGrid}&nbsp;
                     {buttonAnnotatedStars}&nbsp;
-                    {buttonFITS}&nbsp;
                     {buttonJS9}&nbsp;
-
+                    {buttonNormal}&nbsp;
+                    {buttonInvert}&nbsp;
+                    {buttonGrayScale}&nbsp;
+                    {buttonHueRotate}&nbsp;
                 </tr>
                 &nbsp;
                 <tr>
                     <MainImage observation={props.observation} imageType={my_state.image_type}/>
                 </tr>
-</table>
+                </Table>
                 (click for fullscreen)
                 {renderQualityButton}&nbsp;
             </Card.Body>

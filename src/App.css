@@ -50,3 +50,13 @@
   object-fit: cover;
   background-color: lightgrey;
 }
+
+.image-invert { filter: invert(100%); }
+.image-saturate { filter: saturate(3); }
+.image-grayscale { filter: grayscale(100%); }
+.image-contrast { filter: contrast(160%); }
+.image-brightness { filter: brightness(0.25); }
+.image-blur { filter: blur(3px); }
+.image-invert { filter: invert(100%); }
+.image-sepia { filter: sepia(100%); }
+.image-huerotate { filter: hue-rotate(180deg); }
