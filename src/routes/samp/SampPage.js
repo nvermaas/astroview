@@ -6,8 +6,8 @@ import SampGrid from './SampGrid'
 export default function SampPage(props) {
     const [ myVOTable, setMyVOTable] = useState([]);
 
-    const pingFunc = function (connection) {
-        connection.notifyAll([new window.samp.Message("samp.app.ping", {})])
+    const pingFunc = function (my_connection) {
+        my_connection.notifyAll([new window.samp.Message("samp.app.ping", {})])
     }
 
     const register = () => {
