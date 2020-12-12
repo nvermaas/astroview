@@ -125,6 +125,11 @@ export const getCommandIcon = (command) => {
         size = "lg"
         color = "green"
     }
+    if (command === 'grid_eq') {
+        icon = faGlobe
+        size = "lg"
+        color = "green"
+    }
     if (command === 'min_max') {
         icon = faMap
         color = "green"

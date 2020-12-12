@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Alert } from 'react-bootstrap';
 import { useLocation } from "react-router-dom"
 import { useGlobalReducer } from '../../contexts/GlobalContext';
 import { RELOAD, REFRESH } from '../../reducers/GlobalStateReducer'
@@ -18,13 +18,16 @@ export default function DoCommandButton(props) {
 
         let url = url_commands + '?command=' + props.command + '&observation_id=' + observation.id
         fetch(url)
-        alert("executing command: "+url)
+        alert("Executing async command: "+url+".\n It can take several minutes for the results are visible.")
 
     }
 
     let style="info"
     switch (props.command) {
         case "grid":
+            style = "outline-success"
+            break;
+        case "grid_eq":
             style = "outline-success"
             break;
         case "stars":

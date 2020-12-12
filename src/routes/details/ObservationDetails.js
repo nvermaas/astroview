@@ -52,9 +52,6 @@ export default function ObservationDetails(props) {
     let astrometryLink = astrometry_url + "/status/"+observation.job
 
     let fov = parseFloat(observation.field_fov) * 3
-    if (fov === 0) {
-        fov = 60
-    }
 
     let mode = ''
     let stacked = 1
@@ -120,7 +117,7 @@ export default function ObservationDetails(props) {
     if (observation.ra_dec_fov != null) {
         renderRaDecFov = <tr>
             <td className="key">fov</td>
-            <td className="value">{observation.ra_dec_fov} deg</td>
+            <td className="value">{observation.ra_dec_fov} deg ({observation.field_fov})</td>
         </tr>
     }
 

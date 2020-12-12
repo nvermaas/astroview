@@ -31,6 +31,10 @@ function getThumbnail(observation, imageType) {
         imageType = 'annotated'
     }
 
+    if ((imageType==='annotated_grid_eq') && (observation.derived_annotated_grid_eq_image===null)) {
+        imageType = 'annotated'
+    }
+
     if ((imageType==='annotated') && (observation.derived_annotated_image===null)) {
         imageType = 'raw'
     }
@@ -45,6 +49,10 @@ function getThumbnail(observation, imageType) {
 
     if (imageType==='annotated_grid') {
         thumbnail = observation.derived_annotated_grid_image
+    } else
+
+    if (imageType==='annotated_grid_eq') {
+        thumbnail = observation.derived_annotated_grid_eq_image
     } else
 
     if (imageType==='annotated_stars') {
@@ -104,6 +112,13 @@ export default function ImageCard(props) {
     if (props.observation.derived_annotated_grid_image!==null) {
         buttonAnnotatedGrid = <Button variant="success" onClick={() => setImageType(props.observation, "annotated_grid")}>
             <FontAwesomeIcon icon={faGlobe} />&nbsp;Grid
+        </Button>
+    }
+
+    let buttonAnnotatedGridEquatorial=''
+    if (props.observation.derived_annotated_grid_eq_image!==null) {
+        buttonAnnotatedGridEquatorial = <Button variant="success" onClick={() => setImageType(props.observation, "annotated_grid_eq")}>
+            <FontAwesomeIcon icon={faGlobe} />&nbsp;EQ
         </Button>
     }
 
@@ -184,7 +199,8 @@ export default function ImageCard(props) {
             <SetQualityButton observation={props.observation} quality="annotated"/>&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;
             <SetAdminEditButton observation={props.observation} />&nbsp;
-            <DoCommandButton observation={props.observation} title="Add Grid" command="grid" />&nbsp;
+            <DoCommandButton observation={props.observation} title="Grid" command="grid" />&nbsp;
+            <DoCommandButton observation={props.observation} title="EQ" command="grid_eq" />&nbsp;
             <DoCommandButton observation={props.observation} title="Stars" command="stars" />&nbsp;
             <DoCommandButton observation={props.observation} title="Min-Max" command="min_max" />&nbsp;
         </div>
@@ -197,9 +213,11 @@ export default function ImageCard(props) {
                 <tr>
                     <h4><InfoLink observation={props.observation}/>&nbsp;{props.observation.description}</h4>
                     &nbsp;
+
                     {buttonRaw}&nbsp;
                     {buttonAnnotated}&nbsp;
                     {buttonAnnotatedGrid}&nbsp;
+                    {buttonAnnotatedGridEquatorial}&nbsp;
                     {buttonAnnotatedStars}&nbsp;
                     {buttonJS9}&nbsp;
                     {buttonNormal}&nbsp;
@@ -213,6 +231,7 @@ export default function ImageCard(props) {
                 </tr>
                 </Table>
                 (click for fullscreen)
+                <h4>Commands</h4>
                 {renderQualityButton}&nbsp;
             </Card.Body>
 
