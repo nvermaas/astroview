@@ -117,7 +117,7 @@ export default function ObservationDetails(props) {
     if (observation.ra_dec_fov != null) {
         renderRaDecFov = <tr>
             <td className="key">fov</td>
-            <td className="value">{observation.ra_dec_fov} deg ({Math.round(observation.field_fov*10)/10}})</td>
+            <td className="value">{observation.ra_dec_fov} deg ({Math.round(observation.field_fov*10)/10})</td>
         </tr>
     }
 
