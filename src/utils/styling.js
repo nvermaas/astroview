@@ -138,5 +138,9 @@ export const getCommandIcon = (command) => {
         icon = faStar
         color = "green"
     }
+    if (command === 'hips') {
+        icon = faGlobe
+        color = "green"
+    }
     return <FontAwesomeIcon size={size} icon={icon} color={color}/>
 }

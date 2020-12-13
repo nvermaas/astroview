@@ -2,6 +2,10 @@ import React from 'react';
 import { useGlobalReducer } from '../contexts/GlobalContext';
 import { Button, InputGroup, Dropdown, DropdownButton, FormControl } from 'react-bootstrap';
 import { getMode, getExposure, getImageTypeIcon, getQualityIcon } from '../utils/styling'
+import CoordSearchButton from '../components/buttons/CoordSearchButton'
+import SearchButton from '../components/buttons/SearchButton'
+import SwitchViewButton from '../components/buttons/SwitchViewButton'
+import SwitchThumbnailButton from '../components/buttons/SwitchThumbnailButton'
 
 import {
     SET_OBSERVATION_QUALITY,
@@ -123,7 +127,12 @@ export function ButtonBar() {
 
 
             <FormControl aria-describedby="basic-addon1" />
-
+            <SwitchThumbnailButton/>
+            &nbsp;
+            <SwitchViewButton/>
+            &nbsp;
+            <CoordSearchButton/>
+            <SearchButton/>
         </InputGroup>
 
     );

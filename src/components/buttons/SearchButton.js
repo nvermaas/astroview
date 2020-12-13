@@ -70,7 +70,7 @@ export default function SearchButton(props) {
         location.pathname === '/collections') {
         return <Form inline>
             <FormControl type="text" placeholder="Orion" className="mr-sm-2" onKeyPress={handleKeyPress} />
-            <Button variant="outline-info" onClick={handleResetClick}>Reset Filter</Button>
+            <Button variant="outline-primary" onClick={handleResetClick}>Reset Filter</Button>
         </Form>
     } else {
         return null

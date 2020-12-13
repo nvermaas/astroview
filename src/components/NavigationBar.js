@@ -10,6 +10,7 @@ import SwitchViewButton from './buttons/SwitchViewButton'
 import SwitchThumbnailButton from './buttons/SwitchThumbnailButton'
 import SearchButton from './buttons/SearchButton'
 import CoordSearchButton from './buttons/CoordSearchButton'
+import DoCommandButton from './buttons/DoCommandButton'
 import AuthControl from "./auth/authControl";
 
 function getLink(taskid) {
@@ -48,13 +49,8 @@ export function NavigationBar() {
                 <Nav.Link target="_blank" href={ASTROBASE_URL_JOBS}>Jobs: {my_state.nr_of_jobs}</Nav.Link>
 
             </Nav>
-            <SwitchThumbnailButton/>
-            &nbsp;
-            <SwitchViewButton/>
-            &nbsp;
+            <DoCommandButton title="Generate HIPS" command="hips" />&nbsp;
 
-            <CoordSearchButton/>
-            <SearchButton/>
             <Nav>
                 <AuthControl />
             </Nav>
