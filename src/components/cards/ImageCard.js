@@ -1,15 +1,15 @@
 import React, { useContext, useState }  from 'react';
 import {Card, Button, Table, Image } from 'react-bootstrap'
-
+import { NavLink, Link } from "react-router-dom"
 import { AuthContext } from '../../contexts/AuthContext'
 import { useGlobalReducer } from '../../contexts/GlobalContext'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faImage, faArrowsAlt, faProjectDiagram, faGlobe, faStar,
-faAdjust, faSlidersH, faRetweet} from '@fortawesome/free-solid-svg-icons'
+faAdjust, faSlidersH, faRetweet, faMapMarkedAlt} from '@fortawesome/free-solid-svg-icons'
 
 
-import { SET_IMAGE_TYPE } from '../../reducers/GlobalStateReducer'
+import { SET_IMAGE_TYPE, ALADIN_RA, ALADIN_DEC, ALADIN_FOV } from '../../reducers/GlobalStateReducer'
 import { getUrlSDSS} from '../../utils/skyserver'
 
 import InfoLink from '../buttons/InfoLink'
@@ -76,12 +76,14 @@ export default function ImageCard(props) {
 
     // dispatch current observation to the global store
     const setImageType = (observation,imageType) => {
-        /*
-        if (imageType === "raw") {
-            setMyImageClass("image-normal")
-        }
-        */
         my_dispatch({type: SET_IMAGE_TYPE, image_type: imageType})
+    }
+
+    // dispatch current observation to the global store
+    const setAladin = (ra, dec, fov) => {
+        my_dispatch({type: ALADIN_RA, aladin_ra: ra.toString()})
+        my_dispatch({type: ALADIN_DEC, aladin_dec: dec.toString()})
+        my_dispatch({type: ALADIN_FOV, aladin_fov: fov.toString()})
     }
 
     // display the main image
@@ -129,13 +131,6 @@ export default function ImageCard(props) {
         </Button>
     }
     
-    let buttonRedGreen=''
-    if (props.observation.derived_red_green_image!==null) {
-        buttonRedGreen = <Button variant="success"
-                                  onClick={() => setImageType(props.observation, "redgreen")}>Red/Green
-        </Button>
-    }
-
     let buttonFITS=''
     if (props.observation.derived_fits!==null) {
         buttonFITS=<a href = {props.observation.derived_fits} target="_blank" rel="noopener noreferrer">
@@ -188,6 +183,11 @@ export default function ImageCard(props) {
             </Button>
         </a>
 
+    let buttonAladin=<Link to="/aladin"><Button variant="info" onClick={() => setAladin(props.observation.field_ra, props.observation.field_dec, props.observation.field_fov)}>
+            <FontAwesomeIcon icon={faMapMarkedAlt} />&nbsp;Sky
+    </Button></Link>
+
+
     // the following only shows when the user is authenticated
     let renderQualityButton
     if (isAuthenticated) {
@@ -219,6 +219,7 @@ export default function ImageCard(props) {
                     {buttonAnnotatedGrid}&nbsp;
                     {buttonAnnotatedGridEquatorial}&nbsp;
                     {buttonAnnotatedStars}&nbsp;
+                    {buttonAladin}&nbsp;
                     {buttonJS9}&nbsp;
                     {buttonNormal}&nbsp;
                     {buttonInvert}&nbsp;

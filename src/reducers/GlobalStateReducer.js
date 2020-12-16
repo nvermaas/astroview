@@ -42,6 +42,10 @@ export const SET_IMAGE_TYPE = 'SET_IMAGE_TYPE'
 export const SET_THUMBNAIL_IMAGE_TYPE = 'SET_THUMBNAIL_IMAGE_TYPE'
 export const SET_VIEW = 'SET_VIEW'
 
+export const ALADIN_RA = 'ALADIN_RA'
+export const ALADIN_DEC = 'ALADIN_DEC'
+export const ALADIN_FOV = 'ALADIN_FOV'
+
 export const initialState = {
         authenticated : false,
         reload : false,
@@ -78,7 +82,11 @@ export const initialState = {
         view: "list",
         status_jobs : "unfetched",
         fetched_jobs: undefined,
-        nr_of_jobs : 0
+        nr_of_jobs : 0,
+
+        aladin_ra: "84.17",
+        aladin_dec: "8.92",
+        aladin_fov: "10"
 }
 
 export const reducer = (state, action) => {
@@ -299,6 +307,24 @@ export const reducer = (state, action) => {
                     ...state,
                     nr_of_jobs: action.nr_of_jobs
                 }
+            };
+
+        case ALADIN_RA:
+            return {
+                ...state,
+                aladin_ra: action.aladin_ra
+            };
+
+        case ALADIN_DEC:
+            return {
+                ...state,
+                aladin_dec: action.aladin_dec
+            };
+
+        case ALADIN_FOV:
+            return {
+                ...state,
+                aladin_fov: action.aladin_fov
             };
 
         default:

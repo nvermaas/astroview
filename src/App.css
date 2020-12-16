@@ -60,3 +60,8 @@
 .image-invert { filter: invert(100%); }
 .image-sepia { filter: sepia(100%); }
 .image-huerotate { filter: hue-rotate(180deg); }
+
+.aladin {
+  width: 100%;
+  height:600px;
+}
