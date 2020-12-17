@@ -15,7 +15,7 @@ import ObservationDetails from '../routes/details/ObservationDetails';
 import LoadCollection from '../routes/collections/LoadCollection';
 import Survey from '../routes/survey/Survey';
 import { About } from '../routes/about/About';
-import { SET_STATUS } from '../reducers/GlobalStateReducer';
+
 
 import { AuthContext } from "../contexts/AuthContext";
 
@@ -204,7 +204,7 @@ function Main () {
                     <Route path="/details/:id" children={<ObservationDetailsForward />} />
                 </Switch>
             </div>
-            <footer><small> (C) 2020 - Nico Vermaas - version 1.11.4 - 16 dec 2020</small></footer>
+            <footer><small> (C) 2020 - Nico Vermaas - version 1.11.4 - 17 dec 2020</small></footer>
         </Router>
     );
 }

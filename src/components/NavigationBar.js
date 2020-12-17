@@ -45,17 +45,15 @@ export function NavigationBar() {
                 <Nav.Link as={NavLink} to="/collections">Collections</Nav.Link>
                 <Nav.Link as={NavLink} to="/projects">Parents</Nav.Link>
                 <Nav.Link as={NavLink} to="/aladin">Skyview</Nav.Link>
+
+                <Nav.Link target="_blank" href={ASTROBASE_URL}>AstroBase</Nav.Link>
                 &nbsp;
 
-                <Nav.Link target="_blank" href={ASTROBASE_URL_HIPS}>HIPS</Nav.Link>
                 &nbsp;
-                <Nav.Link target="_blank" href={ASTROBASE_URL}>AstroBase</Nav.Link>
                 <Nav.Link target="_blank" href={ASTROBASE_URL_JOBS}>Jobs: {my_state.nr_of_jobs}</Nav.Link>
 
                 <Nav.Link target="_blank" href={ASTROBASE_URL_ADMIN}>Admin</Nav.Link>
             </Nav>
-            <DoCommandButton title="Generate HIPS" command="hips" />&nbsp;
-
             <Nav>
                 <AuthControl />
             </Nav>
