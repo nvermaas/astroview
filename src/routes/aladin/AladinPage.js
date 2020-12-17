@@ -11,7 +11,7 @@ export default function AladinPage(props) {
     // https://stackoverflow.com/questions/61347860/using-aladin-lite-app-not-built-for-react-in-react-app
     let defaultSurvey = {survey: "P/DSS2/color"}
     let fov = my_state.aladin_fov
-    if (fov='0') {
+    if (fov==='0') {
         fov = '10'
     }
     return (
