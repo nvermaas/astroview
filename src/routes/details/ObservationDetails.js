@@ -51,7 +51,7 @@ export default function ObservationDetails(props) {
     }
     let astrometryLink = astrometry_url + "/status/"+observation.job
 
-    let fov = parseFloat(observation.field_fov) * 3
+    let fov = parseFloat(observation.field_fov)
 
     let mode = ''
     let stacked = 1
@@ -75,7 +75,7 @@ export default function ObservationDetails(props) {
 
     // links to various datacenters
     let sdss_image = getUrlSDSS(observation.field_ra.RA, observation.field_dec, observation.field_fov, 300, 300, 'S')
-    let url_esa_sky = getUrlESASky(observation.field_ra,observation.field_dec,"J2000",fov,"DSS2 color")
+    let url_esa_sky = getUrlESASky(observation.field_ra,observation.field_dec,"J2000",observation.field_fov,"DSS2 color")
     let url_cds = getUrlCDSPortal(observation.field_ra,observation.field_dec)
 
     // link to AstroBase REST API
@@ -117,7 +117,7 @@ export default function ObservationDetails(props) {
     if (observation.ra_dec_fov != null) {
         renderRaDecFov = <tr>
             <td className="key">fov</td>
-            <td className="value">{observation.ra_dec_fov} deg ({Math.round(observation.field_fov*10)/10})</td>
+            <td className="value">{Math.round(observation.field_fov*10)/10}</td>
         </tr>
     }
 
