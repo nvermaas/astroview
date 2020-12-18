@@ -16,7 +16,10 @@ export default function AladinPage(props) {
     }
     return (
         <div className="aladin">
-            <Aladin ra={my_state.aladin_ra} dec={my_state.aladin_dec} fov={fov}/>
+            <Aladin ra={my_state.aladin_ra}
+                    dec={my_state.aladin_dec}
+                    fov={fov}
+                    data={my_state.fetched_observations}/>
         </div>
     );
 }
