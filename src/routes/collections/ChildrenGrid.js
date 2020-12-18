@@ -6,7 +6,7 @@ import DataTable from 'react-data-table-component';
 import { useGlobalReducer } from '../../contexts/GlobalContext';
 import { ASTROBASE_URL } from '../../utils/skyserver'
 import { getMode, getExposure, getImageTypeIcon, getQualityIcon, getStarsIcon, getDetailsIcon } from '../../utils/styling'
-import { SET_CURRENT_OBSERVATION, SET_STATUS } from '../../reducers/GlobalStateReducer'
+import { SET_STATUS } from '../../reducers/GlobalStateReducer'
 
 export default function ChildrenGrid(props) {
     const [ my_state , my_dispatch] = useGlobalReducer()

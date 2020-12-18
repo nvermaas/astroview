@@ -30,6 +30,9 @@ export const SET_STATUS_JOBS = 'SET_STATUS_JOBS'
 export const SET_FETCHED_JOBS = 'SET_FETCHED_JOBS'
 export const SET_NR_OF_JOBS = 'SET_NR_OF_JOBS'
 
+export const SET_STATUS_BOXES = 'SET_STATUS_BOXES'
+export const SET_FETCHED_BOXES = 'SET_FETCHED_BOXES'
+
 // filter actions
 export const SET_OBSERVATION_IMAGE_TYPE = 'SET_OBSERVATION_IMAGE_TYPE'
 export const SET_OBSERVATION_QUALITY = 'SET_OBSERVATION_QUALITY'
@@ -84,6 +87,9 @@ export const initialState = {
         fetched_jobs: undefined,
         nr_of_jobs : 0,
 
+        status_boxes : "unfetched",
+        fetched_boxes: undefined,
+    
         aladin_ra: "84.17",
         aladin_dec: "8.92",
         aladin_fov: "10"
@@ -293,6 +299,19 @@ export const reducer = (state, action) => {
                 fetched_jobs: action.fetched_jobs
             };
 
+        case SET_STATUS_BOXES:
+            return {
+                ...state,
+                status_boxes: action.status_boxes
+            };
+
+        case SET_FETCHED_BOXES:
+            //alert('SET_FETCHED_BOXES: '+ action.fetched_boxes.length.toString())
+            return {
+                ...state,
+                fetched_boxes: action.fetched_boxes
+            };
+            
         case SET_NR_OF_JOBS:
             // if the number of running jobs got less, then something probably changed in the data... reload
             let prev_nr_of_jobs = state.nr_of_jobs

@@ -31,7 +31,7 @@ export function NavigationBar() {
     const [ my_state , my_dispatch] = useGlobalReducer()
     let ASTROBASE_URL_ADMIN = ASTROBASE_URL + 'admin'
     let ASTROBASE_URL_JOBS = ASTROBASE_URL + 'admin/backend_app/job'
-    let ASTROBASE_URL_HIPS = 'https://uilennest.net/astrobase/hips/'
+    //let ASTROBASE_URL_HIPS = 'https://uilennest.net/astrobase/hips/'
 
     return (
         <Navbar bg="dark" variant="dark">

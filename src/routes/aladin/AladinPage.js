@@ -19,7 +19,7 @@ export default function AladinPage(props) {
             <Aladin ra={my_state.aladin_ra}
                     dec={my_state.aladin_dec}
                     fov={fov}
-                    data={my_state.fetched_observations}/>
+                    data={my_state.fetched_boxes}/>
         </div>
     );
 }

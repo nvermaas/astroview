@@ -17,6 +17,8 @@ import {
     SET_FETCHED_JOBS,
     SET_STATUS_JOBS,
     SET_NR_OF_JOBS,
+    SET_STATUS_BOXES,
+    SET_FETCHED_BOXES,
     RELOAD
 } from './reducers/GlobalStateReducer';
 
@@ -28,6 +30,7 @@ export const url_observations = ASTROBASE_URL + "observations"
 export const url_admin = ASTROBASE_URL + "admin/backend_app/observation"
 export const url_projects = ASTROBASE_URL + "projects"
 export const url_collections = ASTROBASE_URL + "collections"
+export const url_boxes = ASTROBASE_URL + "boxes"
 export const url_jobs = ASTROBASE_URL + "jobs"
 
 export function FetchData () {
@@ -72,6 +75,11 @@ export function FetchData () {
             my_state.collection_page,
             my_state.observation_image_type,
             my_state.reload]
+    );
+
+    useEffect(() => {
+            fetchBoxes(url_boxes)
+        }, [my_state.reload]
     );
 
     // this fetches the observations belonging to the current project when my_state current_project was changed
@@ -302,5 +310,28 @@ export function FetchData () {
                 })
         }
     }
+
+    // get the data from the api
+    const fetchBoxes = (url) => {
+
+        if (my_state.status_boxes !== 'fetching')  {
+
+            my_dispatch({type: SET_STATUS_BOXES, status_boxes: 'fetching'})
+
+            fetch(url)
+                .then(results => {
+                    return results.json();
+                })
+                .then(data => {
+                    my_dispatch({type: SET_FETCHED_BOXES, fetched_boxes: data.results})
+                    my_dispatch({type: SET_STATUS_BOXES, status_boxes: 'fetched'})
+                })
+                .catch(function () {
+                    my_dispatch({type: SET_STATUS_BOXES, status_boxes: 'failed'})
+                    alert("fetch boxes to " + url + " failed.");
+                })
+        }
+    }
+
 }
 
