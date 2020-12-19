@@ -184,9 +184,12 @@ export default function ImageCard(props) {
             </Button>
         </a>
 
-    let buttonAladin=<Link to="/aladin"><Button variant="info" onClick={() => setAladin(props.observation.field_ra, props.observation.field_dec, props.observation.field_fov, props.observation.derived_fits)}>
+    let buttonAladin=<Link to="/aladin">
+        <Button variant="info"
+                onClick={() => setAladin(props.observation.field_ra, props.observation.field_dec, props.observation.field_fov*2, props.observation.derived_fits)}>
             <FontAwesomeIcon icon={faMapMarkedAlt} />&nbsp;Sky
-    </Button></Link>
+        </Button>
+    </Link>
 
 
     // the following only shows when the user is authenticated

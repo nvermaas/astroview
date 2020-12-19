@@ -16,7 +16,7 @@ const Aladin = (props) => {
         aladin.displayFITS(props.fits)
 
         props.data.forEach(function(observation){
-            let url = "/details/"+observation.taskID
+
             let coords = observation.box.split(',')
             let point1 = [coords[0],coords[1]]
             let point2 = [coords[2],coords[3]]
@@ -38,6 +38,7 @@ const Aladin = (props) => {
             )); // radius in degrees
 */
 
+            let url = "/astroview/details/"+observation.taskID
 
             my_catalog.addSources([window.A.marker(
                 observation.field_ra,
