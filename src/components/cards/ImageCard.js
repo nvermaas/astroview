@@ -9,7 +9,7 @@ import { faImage, faArrowsAlt, faProjectDiagram, faGlobe, faStar,
 faAdjust, faSlidersH, faRetweet, faMapMarkedAlt} from '@fortawesome/free-solid-svg-icons'
 
 
-import { SET_IMAGE_TYPE, ALADIN_RA, ALADIN_DEC, ALADIN_FOV } from '../../reducers/GlobalStateReducer'
+import { SET_IMAGE_TYPE, ALADIN_RA, ALADIN_DEC, ALADIN_FOV, ALADIN_FITS } from '../../reducers/GlobalStateReducer'
 import { getUrlSDSS} from '../../utils/skyserver'
 
 import InfoLink from '../buttons/InfoLink'
@@ -80,10 +80,11 @@ export default function ImageCard(props) {
     }
 
     // dispatch current observation to the global store
-    const setAladin = (ra, dec, fov) => {
+    const setAladin = (ra, dec, fov, fits) => {
         my_dispatch({type: ALADIN_RA, aladin_ra: ra.toString()})
         my_dispatch({type: ALADIN_DEC, aladin_dec: dec.toString()})
         my_dispatch({type: ALADIN_FOV, aladin_fov: fov.toString()})
+        my_dispatch({type: ALADIN_FITS, aladin_fits: fits})
     }
 
     // display the main image
@@ -183,7 +184,7 @@ export default function ImageCard(props) {
             </Button>
         </a>
 
-    let buttonAladin=<Link to="/aladin"><Button variant="info" onClick={() => setAladin(props.observation.field_ra, props.observation.field_dec, props.observation.field_fov)}>
+    let buttonAladin=<Link to="/aladin"><Button variant="info" onClick={() => setAladin(props.observation.field_ra, props.observation.field_dec, props.observation.field_fov, props.observation.derived_fits)}>
             <FontAwesomeIcon icon={faMapMarkedAlt} />&nbsp;Sky
     </Button></Link>
 
@@ -202,7 +203,7 @@ export default function ImageCard(props) {
             <DoCommandButton observation={props.observation} title="Grid" command="grid" />&nbsp;
             <DoCommandButton observation={props.observation} title="EQ" command="grid_eq" />&nbsp;
             <DoCommandButton observation={props.observation} title="Stars" command="stars" />&nbsp;
-            <DoCommandButton observation={props.observation} title="Min-Max" command="min_max" />&nbsp;
+            <DoCommandButton observation={props.observation} title="Box" command="min_max" />&nbsp;
         </div>
     }
 

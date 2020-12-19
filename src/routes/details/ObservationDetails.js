@@ -19,6 +19,9 @@ export default function ObservationDetails(props) {
     const [ my_state , my_dispatch] = useGlobalReducer()
 
     function findElement(arr, propName, propValue) {
+        if (arr===undefined) {
+            alert('no arr')
+        }
         for (var i=0; i < arr.length; i++)
             if (arr[i][propName] === propValue)
                 return arr[i];

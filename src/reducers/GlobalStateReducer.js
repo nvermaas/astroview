@@ -48,6 +48,7 @@ export const SET_VIEW = 'SET_VIEW'
 export const ALADIN_RA = 'ALADIN_RA'
 export const ALADIN_DEC = 'ALADIN_DEC'
 export const ALADIN_FOV = 'ALADIN_FOV'
+export const ALADIN_FITS = 'ALADIN_FITS'
 
 export const initialState = {
         authenticated : false,
@@ -92,7 +93,8 @@ export const initialState = {
     
         aladin_ra: "84.17",
         aladin_dec: "8.92",
-        aladin_fov: "10"
+        aladin_fov: "10",
+        aladin_fits: undefined
 }
 
 export const reducer = (state, action) => {
@@ -344,6 +346,12 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 aladin_fov: action.aladin_fov
+            };
+
+        case ALADIN_FITS:
+            return {
+                ...state,
+                aladin_fits: action.aladin_fits
             };
 
         default:
