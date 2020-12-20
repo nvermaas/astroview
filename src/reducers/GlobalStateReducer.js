@@ -22,8 +22,9 @@ export const SET_TOTAL_COLLECTIONS = 'SET_TOTAL_COLLECTIONS'
 export const SET_COLLECTION_PAGE = 'SET_COLLECTION_PAGE'
 export const SET_CURRENT_COLLECTION = 'SET_CURRENT_COLLECTION'
 
-export const SET_CURRENT_OBSERVATION = 'SET_CURRENT_OBSERVATION'
+export const SET_CURRENT_TASK_ID = 'SET_CURRENT_TASK_ID'
 export const SET_ACTIVE_OBSERVATION = 'SET_ACTIVE_OBSERVATION'
+export const SET_CURRENT_OBSERVATION = 'SET_CURRENT_OBSERVATION'
 export const SET_CURRENT_OBSERVATIONS = 'SET_CURRENT_OBSERVATIONS'
 
 export const SET_STATUS_JOBS = 'SET_STATUS_JOBS'
@@ -95,6 +96,7 @@ export const initialState = {
         aladin_dec: "8.92",
         aladin_fov: "10",
         aladin_fits: undefined
+
 }
 
 export const reducer = (state, action) => {
@@ -250,6 +252,13 @@ export const reducer = (state, action) => {
                 current_collection: action.current_collection,
             };
             
+        case SET_CURRENT_TASK_ID:
+            //alert('SET_CURRENT_TASK_ID: '+action.current_task_id)
+            return {
+                ...state,
+                current_task_id: action.current_task_id,
+            };
+
         case SET_CURRENT_OBSERVATION:
             //alert('SET_CURRENT_OBSERVATION: '+action.current_observation)
             return {

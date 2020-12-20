@@ -98,7 +98,7 @@ export function FetchData () {
     useEffect(() => {
             //alert('useEffect: '+my_state.current_observation)
             fetchCurrentObservation(url_observations)
-        }, [my_state.current_observation, my_state.reload]
+        }, [my_state.current_task_id, my_state.reload]
     );
 
 /*
@@ -261,13 +261,13 @@ export function FetchData () {
         }
     }
     
-    // fetch all the observations belonging to the my_state.current_project (a taskid)
+
     const fetchCurrentObservation = (url) => {
         //alert('fetchCurrentObservation: '+my_state.current_observation)
         // only fetch if there is a current_project selected
 
-        if (my_state.current_observation) {
-            url = url + '?fieldsearch=' + my_state.current_observation
+        if (my_state.current_task_id) {
+            url = url + '?fieldsearch=' + my_state.current_task_id
 
             fetch(url)
                 .then(results => {

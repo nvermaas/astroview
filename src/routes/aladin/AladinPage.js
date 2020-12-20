@@ -20,6 +20,7 @@ export default function AladinPage(props) {
                     dec={my_state.aladin_dec}
                     fov={fov}
                     fits={my_state.aladin_fits}
+                    observation={my_state.current_observation}
                     data={my_state.fetched_boxes}/>
         </div>
     );

@@ -14,7 +14,7 @@ export default function ChildrenGrid(props) {
     const handleDetailsClick = (observation) => {
 
         // dispatch current observation to the global store
-        //my_dispatch({type: SET_CURRENT_OBSERVATION, current_observation: observation.taskID})
+        //my_dispatch({type: SET_CURRENT_TASK_ID, current_observation: observation.taskID})
         my_dispatch({type: SET_STATUS, status: "unfetched"})
     }
 

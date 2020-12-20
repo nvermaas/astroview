@@ -9,7 +9,7 @@ import { faImage, faArrowsAlt, faProjectDiagram, faGlobe, faStar,
 faAdjust, faSlidersH, faRetweet, faMapMarkedAlt} from '@fortawesome/free-solid-svg-icons'
 
 
-import { SET_IMAGE_TYPE, ALADIN_RA, ALADIN_DEC, ALADIN_FOV, ALADIN_FITS } from '../../reducers/GlobalStateReducer'
+import { SET_IMAGE_TYPE, ALADIN_RA, ALADIN_DEC, ALADIN_FOV, SET_CURRENT_OBSERVATION } from '../../reducers/GlobalStateReducer'
 import { getUrlSDSS} from '../../utils/skyserver'
 
 import InfoLink from '../buttons/InfoLink'
@@ -80,11 +80,11 @@ export default function ImageCard(props) {
     }
 
     // dispatch current observation to the global store
-    const setAladin = (ra, dec, fov, fits) => {
+    const setAladin = (ra, dec, fov, observation) => {
         my_dispatch({type: ALADIN_RA, aladin_ra: ra.toString()})
         my_dispatch({type: ALADIN_DEC, aladin_dec: dec.toString()})
         my_dispatch({type: ALADIN_FOV, aladin_fov: fov.toString()})
-        my_dispatch({type: ALADIN_FITS, aladin_fits: fits})
+        my_dispatch({type: SET_CURRENT_OBSERVATION, current_observation: observation})
     }
 
     // display the main image
@@ -186,8 +186,8 @@ export default function ImageCard(props) {
 
     let buttonAladin=<Link to="/aladin">
         <Button variant="info"
-                onClick={() => setAladin(props.observation.field_ra, props.observation.field_dec, props.observation.field_fov*2, props.observation.derived_fits)}>
-            <FontAwesomeIcon icon={faMapMarkedAlt} />&nbsp;Sky
+                onClick={() => setAladin(props.observation.field_ra, props.observation.field_dec, props.observation.field_fov*2, props.observation)}>
+            <FontAwesomeIcon icon={faMapMarkedAlt} />&nbsp;Aladin
         </Button>
     </Link>
 

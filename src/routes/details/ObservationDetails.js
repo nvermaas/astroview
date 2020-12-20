@@ -5,7 +5,7 @@ import { useGlobalReducer } from '../../contexts/GlobalContext';
 import { deg2HMS, deg2DMS, padDigits} from '../../utils/astro'
 import { getExposure, getImageTypeIcon, getQualityIcon} from '../../utils/styling'
 import { ASTROBASE_URL, getUrlAladin, getUrlESASky, getUrlSDSS, getUrlCDSPortal} from '../../utils/skyserver'
-import { SET_STATUS, SET_CURRENT_PROJECT, SET_CURRENT_OBSERVATION } from '../../reducers/GlobalStateReducer';
+import { SET_STATUS, SET_CURRENT_PROJECT, SET_CURRENT_TASK_ID } from '../../reducers/GlobalStateReducer';
 
 import DetailsThumbnail from './DetailsThumbnail'
 import ImageCard from '../../components/cards/ImageCard'
@@ -33,7 +33,7 @@ export default function ObservationDetails(props) {
         //alert(my_state.status)
         if (my_state.status==='unfetched') {
             my_dispatch({type: SET_STATUS, status: "fetched"}) // to prevent maximum depth
-            my_dispatch({type: SET_CURRENT_OBSERVATION, current_observation: props.taskid})
+            my_dispatch({type: SET_CURRENT_TASK_ID, current_task_id: props.taskid})
         }
         return <div><LoadingSpinner/></div>
     }
@@ -43,7 +43,7 @@ export default function ObservationDetails(props) {
     if (observation==undefined) {
         // alert('shit')
         // this happens when the observation wasn't fetched yet... just return and wait for the update
-        //my_dispatch({type: SET_CURRENT_OBSERVATION, current_observation: props.taskid})
+        //my_dispatch({type: SET_CURRENT_TASK_ID, current_observation: props.taskid})
         return <div><LoadingSpinner/></div>
     }
 

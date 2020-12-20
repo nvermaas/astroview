@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { Button, Badge } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
 import { useGlobalReducer } from '../../contexts/GlobalContext';
-import { SET_OBSERVATION_PAGE, SET_CURRENT_PROJECT, SET_CURRENT_OBSERVATION } from '../../reducers/GlobalStateReducer'
+import { SET_OBSERVATION_PAGE, SET_CURRENT_PROJECT, SET_CURRENT_TASK_ID } from '../../reducers/GlobalStateReducer'
 
 import { ASTROBASE_URL } from '../../utils/skyserver'
 import { getMode, getExposure, getImageTypeIcon, getQualityIcon, getStarsIcon, getDetailsIcon } from '../../utils/styling'
@@ -15,7 +15,7 @@ export default function ObservationsGrid(props) {
     const handleDetailsClick = (observation) => {
         // dispatch current observation to the global store
         //alert('handleDetailsClick')
-        my_dispatch({type: SET_CURRENT_OBSERVATION, current_observation: observation.taskID})
+        my_dispatch({type: SET_CURRENT_TASK_ID, current_task_id: observation.taskID})
         my_dispatch({type: SET_CURRENT_PROJECT, current_project: observation.taskID})
     }
 

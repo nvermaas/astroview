@@ -33,6 +33,14 @@ export function NavigationBar() {
     let ASTROBASE_URL_JOBS = ASTROBASE_URL + 'admin/backend_app/job'
     //let ASTROBASE_URL_HIPS = 'https://uilennest.net/astrobase/hips/'
 
+    let detailsLink
+    if (my_state.current_task_id) {
+        let taskid = my_state.current_task_id
+        let link = "/details/"+taskid
+        //alert(taskid)
+        detailsLink=<Nav.Link as={NavLink} to={link}>{taskid}</Nav.Link>
+    }
+
     return (
         <Navbar bg="dark" variant="dark">
 
@@ -42,9 +50,10 @@ export function NavigationBar() {
             <Navbar.Brand href="/astroview">&nbsp;AstroView </Navbar.Brand>
             <Nav className="mr-auto">
                 <Nav.Link as={NavLink} to="/observations">Observations</Nav.Link>
+                {detailsLink}
                 <Nav.Link as={NavLink} to="/collections">Collections</Nav.Link>
                 <Nav.Link as={NavLink} to="/projects">Parents</Nav.Link>
-                <Nav.Link as={NavLink} to="/aladin">Skyview</Nav.Link>
+                <Nav.Link as={NavLink} to="/aladin">Aladin</Nav.Link>
 
                 <Nav.Link target="_blank" href={ASTROBASE_URL}>AstroBase</Nav.Link>
                 &nbsp;
