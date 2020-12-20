@@ -28,7 +28,7 @@ const Aladin = (props) => {
             aladin.displayFITS(props.observation.derived_fits)
 
             let coordinates = props.observation.field_ra + "," + props.observation.field_dec
-            let radius = props.observation.field_fov
+            let radius = props.observation.field_fov * 1.5
 
             //aladin.addCatalog(window.A.catalogFromNED(coordinates, 1, {onClick: 'showPopup', shape: 'plus'}));
             aladin.addCatalog(window.A.catalogFromSimbad(coordinates, radius, {color: 'yellow', onClick: 'showTable'}));
