@@ -14,14 +14,24 @@ export default function AladinPage(props) {
     if (fov==='0') {
         fov = '10'
     }
-    return (
-        <div className="aladin">
+
+    let renderPage
+    if (my_state.status_boxes === "fetched") {
+        renderPage = <div className="aladin">
             <Aladin ra={my_state.aladin_ra}
                     dec={my_state.aladin_dec}
                     fov={fov}
-                    fits={my_state.aladin_fits}
+                    mode={my_state.aladin_mode}
                     observation={my_state.current_observation}
                     data={my_state.fetched_boxes}/>
+        </div>
+    } else {
+        renderPage = <LoadingSpinner/>
+    }
+
+    return (
+        <div>
+        {renderPage}
         </div>
     );
 }

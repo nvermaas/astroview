@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMoon, faStar, faStarAndCrescent, faWrench, faSatellite, faMeteor, faGlobe, faMap,
-    faBolt, faQuestionCircle, faImage, faCloudMeatball, faSmog, faThumbsUp, faThumbsDown, faEdit }
+    faBolt, faQuestionCircle, faImage, faCloudMeatball, faSmog, faThumbsUp, faThumbsDown, faEdit,faMapMarkedAlt }
     from '@fortawesome/free-solid-svg-icons'
 
 import { faListAlt } from '@fortawesome/free-regular-svg-icons'
@@ -19,15 +19,6 @@ export const getMode = (observation) => {
     if (observation.iso!=="none") {
         mode = mode + ' ISO' + observation.iso
     }
-
-    //if (observation.exposure_in_seconds>0) {
-    //    mode = mode + ' ' + observation.exposure_in_seconds + 's'
-    //}
-
-    //if (observation.focal_length>0) {
-    //    mode = mode + ' ' + observation.focal_length + 'mm'
-    //}
-
 
     return mode
 }
@@ -131,7 +122,7 @@ export const getCommandIcon = (command) => {
         color = "green"
     }
     if (command === 'min_max') {
-        icon = faMap
+        icon = faMapMarkedAlt
         color = "green"
     }
     if (command === 'stars') {
