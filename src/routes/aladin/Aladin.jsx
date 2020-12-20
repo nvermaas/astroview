@@ -7,19 +7,51 @@ const Aladin = (props) => {
         aladin.setFov(props.fov)
         aladin.gotoRaDec(props.ra, props.dec)
 
-        let my_overlay = window.A.graphicOverlay({color: 'yellow', lineWidth: 1});
-        aladin.addOverlay(my_overlay);
+        let overlay_other = window.A.graphicOverlay({name: 'other quality',color: 'blue', lineWidth: 1});
+        aladin.addOverlay(overlay_other);
 
-        let my_selected_overlay = window.A.graphicOverlay({color: 'red', lineWidth: 1});
+        let overlay_great = window.A.graphicOverlay({name: 'great quality', color: 'yellow', lineWidth: 1});
+        aladin.addOverlay(overlay_great);
+
+        let overlay_good = window.A.graphicOverlay({name: 'good quality',color: 'green', lineWidth: 1});
+        aladin.addOverlay(overlay_good);
+
+        let overlay_medium = window.A.graphicOverlay({name: 'medium quality',color: 'grey', lineWidth: 1});
+        aladin.addOverlay(overlay_medium);
+
+        let overlay_bad = window.A.graphicOverlay({name: 'bad quality',color: 'red', lineWidth: 1});
+        aladin.addOverlay(overlay_bad);
+
+        let my_selected_overlay = window.A.graphicOverlay({name: 'current',color: 'yellow', lineWidth: 1});
         aladin.addOverlay(my_selected_overlay);
 
-        let my_catalog = window.A.catalog({name: 'MyObservations', sourceSize: 20, onClick: 'showTable'});
+        let my_catalog = window.A.catalog({
+            name: 'MyObservations',
+            sourceSize: 20,
+            //labelColumn: 'name',
+            //displayLabel: true,
+            onClick: 'showTable'});
         aladin.addCatalog(my_catalog);
 
         props.data.forEach(function(observation){
 
-            // draw the outline rectangle of the image
-            addBoxesToOverlay(my_overlay, observation, "yellow")
+            if (observation.quality==='great') {
+                addBoxesToOverlay(overlay_great, observation, "yellow")
+            } else
+
+            if (observation.quality==='good') {
+                addBoxesToOverlay(overlay_good, observation, "green")
+            } else
+
+            if (observation.quality==='medium') {
+                addBoxesToOverlay(overlay_medium, observation, "gray")
+            } else
+
+            if (observation.quality==='bad') {
+                addBoxesToOverlay(overlay_bad, observation, "red")
+            } else {
+                addBoxesToOverlay(overlay_other, observation, "blue")
+            }
 
             // draw a clickable icon for each observation
             addToCatalog(my_catalog, observation)
@@ -29,8 +61,8 @@ const Aladin = (props) => {
         // in case of a single observation
         if (props.observation!==undefined) {
             addSingleObservation(aladin, props.observation, props.mode)
-
-            addBoxesToOverlay(my_selected_overlay, props.observation,"red")
+            // show the active rectangle
+            addBoxesToOverlay(my_selected_overlay, props.observation,"yellow")
        }
 
     }, [])
