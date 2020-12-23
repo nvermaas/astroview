@@ -202,7 +202,7 @@ export default function ImageCard(props) {
     if (props.observation.used_in_hips) {
         buttonAladin = <Link to="/aladin">
             <Button variant="info"
-                    onClick={() => setAladin(props.observation.field_ra, props.observation.field_dec, props.observation.field_fov * 2, props.observation, 'quality')}>
+                    onClick={() => setAladin(props.observation.field_ra, props.observation.field_dec, props.observation.field_fov * 2, props.observation, 'fits')}>
                 <FontAwesomeIcon icon={faMapMarkedAlt}/>&nbsp;Fits
             </Button>
         </Link>
