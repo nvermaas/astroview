@@ -193,7 +193,7 @@ export default function ImageCard(props) {
         buttonAladinRectangle = <Link to="/aladin">
             <Button variant="info"
                     onClick={() => setAladin(props.observation.field_ra, props.observation.field_dec, props.observation.field_fov * 2, props.observation, 'rectangle')}>
-                <FontAwesomeIcon icon={faMapMarkedAlt}/>&nbsp;Box
+                <FontAwesomeIcon icon={faMapMarkedAlt}/>&nbsp;Boxes
             </Button>
         </Link>
     }
