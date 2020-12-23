@@ -5,7 +5,7 @@ import DataTable from 'react-data-table-component';
 
 import { useGlobalReducer } from '../../contexts/GlobalContext';
 import { ASTROBASE_URL } from '../../utils/skyserver'
-import { getMode, getExposure, getImageTypeIcon, getQualityIcon, getStarsIcon, getDetailsIcon } from '../../utils/styling'
+import { getMode, getExposure, getImageTypeIcon, getQualityIcon, getHipsIcon, getStarsIcon, getDetailsIcon } from '../../utils/styling'
 import { SET_STATUS } from '../../reducers/GlobalStateReducer'
 
 export default function ChildrenGrid(props) {
@@ -16,6 +16,20 @@ export default function ChildrenGrid(props) {
         // dispatch current observation to the global store
         //my_dispatch({type: SET_CURRENT_TASK_ID, current_observation: observation.taskID})
         my_dispatch({type: SET_STATUS, status: "unfetched"})
+    }
+
+    // generate the details link to forward to
+    const getAladinLink = (observation) => {
+        let details_link = "/aladin"
+
+        // dispatch current observation to the global store
+        // my_dispatch({type: ALADIN_RA, aladin_ra: ra.toString()})
+        // my_dispatch({type: ALADIN_DEC, aladin_dec: dec.toString()})
+        // my_dispatch({type: ALADIN_FOV, aladin_fov: fov.toString()})
+        //my_dispatch({type: ALADIN_MODE, aladin_mode: mode})
+        //my_dispatch({type: SET_CURRENT_OBSERVATION, current_observation: observation})
+
+        return details_link
     }
 
     // generate the details link to forward to
@@ -119,6 +133,18 @@ export default function ChildrenGrid(props) {
                     <Badge pill variant="light">
                         {row.magnitude}
                     </Badge></div>
+            }
+        },
+        {
+            name: 'Box',
+            selector: 'used_in_hips',
+            sortable: true,
+            width: "3%",
+            cell: row => {
+                let icon = getHipsIcon(row.used_in_hips)
+                return <Link to={() => getAladinLink(row)}>
+                    <div>{icon}</div>
+                </Link>
             }
         },
         {

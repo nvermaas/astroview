@@ -1,7 +1,8 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMoon, faStar, faStarAndCrescent, faWrench, faSatellite, faMeteor, faGlobe, faMap,
-    faBolt, faQuestionCircle, faImage, faCloudMeatball, faSmog, faThumbsUp, faThumbsDown, faEdit,faMapMarkedAlt }
+    faBolt, faQuestionCircle, faImage, faCloudMeatball, faSmog, faThumbsUp, faThumbsDown, faEdit,
+    faMapMarkedAlt }
     from '@fortawesome/free-solid-svg-icons'
 
 import { faListAlt } from '@fortawesome/free-regular-svg-icons'
@@ -90,6 +91,23 @@ export const getStarsIcon = (stars) => {
         color = "green"
     } else {
         icon = ["far", "faStar"]
+        size = "md"
+        color="grey"
+    }
+    return <FontAwesomeIcon size={size} icon={icon} color={color}  />
+}
+
+export const getHipsIcon = (used_in_hips) => {
+    let icon = faStar
+    let color = "darkgreen"
+    let size = 'grey'
+
+    if (used_in_hips) {
+        icon = faMapMarkedAlt
+        size = "md"
+        color = "green"
+    } else {
+        icon = ["far", "faMapMarkedAlt"]
         size = "md"
         color="grey"
     }

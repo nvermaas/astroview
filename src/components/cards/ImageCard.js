@@ -229,7 +229,7 @@ export default function ImageCard(props) {
             <DoCommandButton observation={props.observation} title="Add Grid" command="grid" />&nbsp;
             <DoCommandButton observation={props.observation} title="Add EQ" command="grid_eq" />&nbsp;
             <DoCommandButton observation={props.observation} title="Add Stars" command="stars" />&nbsp;
-            <DoCommandButton observation={props.observation} title="Add Box" command="min_max" />&nbsp;
+            <DoCommandButton observation={props.observation} title="Add Boxes" command="min_max" />&nbsp;
             <SetHipsButton observation={props.observation} use_in_hips={!props.observation.used_in_hips}/>&nbsp;
         </div>
     }

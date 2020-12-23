@@ -40,10 +40,10 @@ export default function SetHipsButton(props) {
     let title= "Add"
 
     if (props.observation.used_in_hips) {
-        title = "Del from Sky"
+        title = "Remove from Boxes"
         style = "outline-danger"
     } else {
-        title = "Add To Sky"
+        title = "Add To Boxes"
         style = "outline-success"
     }
 

@@ -3,10 +3,10 @@ import { Link } from "react-router-dom"
 import { Button, Badge } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
 import { useGlobalReducer } from '../../contexts/GlobalContext';
-import { SET_OBSERVATION_PAGE, SET_CURRENT_PROJECT, SET_CURRENT_TASK_ID } from '../../reducers/GlobalStateReducer'
+import { SET_OBSERVATION_PAGE, SET_CURRENT_PROJECT, SET_CURRENT_TASK_ID, SET_CURRENT_OBSERVATION } from '../../reducers/GlobalStateReducer'
 
 import { ASTROBASE_URL } from '../../utils/skyserver'
-import { getMode, getExposure, getImageTypeIcon, getQualityIcon, getStarsIcon, getDetailsIcon } from '../../utils/styling'
+import { getMode, getExposure, getImageTypeIcon, getQualityIcon, getHipsIcon, getStarsIcon, getDetailsIcon } from '../../utils/styling'
 
 
 export default function ObservationsGrid(props) {
@@ -39,6 +39,19 @@ export default function ObservationsGrid(props) {
     }
 
     // generate the details link to forward to
+    const getAladinLink = (observation) => {
+        let details_link = "/aladin"
+
+        // dispatch current observation to the global store
+        // my_dispatch({type: ALADIN_RA, aladin_ra: ra.toString()})
+        // my_dispatch({type: ALADIN_DEC, aladin_dec: dec.toString()})
+        // my_dispatch({type: ALADIN_FOV, aladin_fov: fov.toString()})
+        //my_dispatch({type: ALADIN_MODE, aladin_mode: mode})
+        //my_dispatch({type: SET_CURRENT_OBSERVATION, current_observation: observation})
+
+        return details_link
+    }
+
     const getDetailsLink = (observation) => {
         let details_link = "/details/"+observation.taskID
         return details_link
@@ -56,7 +69,6 @@ export default function ObservationsGrid(props) {
         let dps_link = ASTROBASE_URL + "task/" + observation.taskID.toString()
         return dps_link
     }
-
 
     // generate the api link
     const getParentlink = (observation) => {
@@ -78,18 +90,6 @@ export default function ObservationsGrid(props) {
     }
 
     const columns = [
-        /*
-        {
-            name: 'id',
-            selector: 'id',
-            size: 50,
-            sortable: true,
-            cell: row =>
-                <Link to={() => getDetailsLink(row)}>
-                    {row.id}&nbsp;
-                </Link>,
-        },
-        */
         {
             name: 'Name',
             selector: 'name',
@@ -201,7 +201,6 @@ export default function ObservationsGrid(props) {
             cell: row => {
                 let icon = getQualityIcon(row.quality)
                 return <div>{icon}</div>
-
             }
         },
         {
@@ -227,6 +226,18 @@ export default function ObservationsGrid(props) {
             width: "5%"
         },
 */
+        {
+            name: 'Box',
+            selector: 'used_in_hips',
+            sortable: true,
+            width: "3%",
+            cell: row => {
+                let icon = getHipsIcon(row.used_in_hips)
+                return <Link to={() => getAladinLink(row)}>
+                    <div>{icon}</div>
+                </Link>
+            }
+        },
         {
             name: 'Stars (link)',
             width: "3%",
