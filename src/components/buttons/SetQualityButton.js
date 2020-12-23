@@ -14,6 +14,9 @@ export default function SetQualityButton(props) {
 
 
     const handleClick = (observation) => {
+        // this changes the state of the observation and renders it.
+        observation.quality=props.quality
+
         // this posts a new quality (or rather, it abuses a get)
         let url = url_quality + '/' + observation.id + '/setquality/' + props.quality + '/1'
         fetch(url)

@@ -14,6 +14,7 @@ import { getUrlSDSS} from '../../utils/skyserver'
 
 import InfoLink from '../buttons/InfoLink'
 import SetQualityButton from '../buttons/SetQualityButton'
+import SetHipsButton from '../buttons/SetHipsButton'
 import SetAdminEditButton from '../buttons/SetAdminEditButton'
 import DoCommandButton from '../buttons/DoCommandButton'
 
@@ -187,42 +188,56 @@ export default function ImageCard(props) {
             </Button>
         </a>
 
-    let buttonAladinRectangle=<Link to="/aladin">
-        <Button variant="info"
-                onClick={() => setAladin(props.observation.field_ra, props.observation.field_dec, props.observation.field_fov*2, props.observation, 'rectangle')}>
-            <FontAwesomeIcon icon={faMapMarkedAlt} />&nbsp;Rectangle
-        </Button>
-    </Link>
+    let buttonAladinRectangle
+    if (props.observation.used_in_hips) {
+        buttonAladinRectangle = <Link to="/aladin">
+            <Button variant="info"
+                    onClick={() => setAladin(props.observation.field_ra, props.observation.field_dec, props.observation.field_fov * 2, props.observation, 'rectangle')}>
+                <FontAwesomeIcon icon={faMapMarkedAlt}/>&nbsp;Box
+            </Button>
+        </Link>
+    }
 
-    let buttonAladinQuality=<Link to="/aladin">
-        <Button variant="info"
-                onClick={() => setAladin(props.observation.field_ra, props.observation.field_dec, props.observation.field_fov*2, props.observation, 'quality')}>
-            <FontAwesomeIcon icon={faMapMarkedAlt} />&nbsp;Q
-        </Button>
-    </Link>
-
-    let buttonAladin=<Link to="/aladin">
-        <Button variant="info"
-                onClick={() => setAladin(props.observation.field_ra, props.observation.field_dec, props.observation.field_fov*2, props.observation, 'fits')}>
-            <FontAwesomeIcon icon={faMapMarkedAlt} />&nbsp;Fits
-        </Button>
-    </Link>
+    let buttonAladin
+    if (props.observation.used_in_hips) {
+        buttonAladin = <Link to="/aladin">
+            <Button variant="info"
+                    onClick={() => setAladin(props.observation.field_ra, props.observation.field_dec, props.observation.field_fov * 2, props.observation, 'quality')}>
+                <FontAwesomeIcon icon={faMapMarkedAlt}/>&nbsp;Fits
+            </Button>
+        </Link>
+    }
 
     // the following only shows when the user is authenticated
-    let renderQualityButton
+    let renderQualityButtons
     if (isAuthenticated) {
-        renderQualityButton=<div>
+        renderQualityButtons=<div>
             <SetQualityButton observation={props.observation} quality="great"/>&nbsp;
             <SetQualityButton observation={props.observation} quality="good"/>&nbsp;
             <SetQualityButton observation={props.observation} quality="medium"/>&nbsp;
             <SetQualityButton observation={props.observation} quality="bad"/>&nbsp;
             <SetQualityButton observation={props.observation} quality="annotated"/>&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;
+
+        </div>
+    }
+
+    let renderCommandButtons
+    if (isAuthenticated) {
+        renderCommandButtons=<div>
             <SetAdminEditButton observation={props.observation} />&nbsp;
-            <DoCommandButton observation={props.observation} title="Grid" command="grid" />&nbsp;
-            <DoCommandButton observation={props.observation} title="EQ" command="grid_eq" />&nbsp;
-            <DoCommandButton observation={props.observation} title="Stars" command="stars" />&nbsp;
-            <DoCommandButton observation={props.observation} title="Box" command="min_max" />&nbsp;
+            <DoCommandButton observation={props.observation} title="Add Grid" command="grid" />&nbsp;
+            <DoCommandButton observation={props.observation} title="Add EQ" command="grid_eq" />&nbsp;
+            <DoCommandButton observation={props.observation} title="Add Stars" command="stars" />&nbsp;
+            <DoCommandButton observation={props.observation} title="Add Box" command="min_max" />&nbsp;
+            <SetHipsButton observation={props.observation} use_in_hips={!props.observation.used_in_hips}/>&nbsp;
+        </div>
+    }
+
+    let renderHipsButton
+    if (isAuthenticated) {
+        renderHipsButton=<div>
+            <SetHipsButton observation={props.observation} use_in_hips={!props.observation.used_in_hips}/>&nbsp;
         </div>
     }
 
@@ -254,7 +269,8 @@ export default function ImageCard(props) {
                 </Table>
                 (click for fullscreen)
                 <h4>Commands</h4>
-                {renderQualityButton}&nbsp;
+                {renderQualityButtons}&nbsp;
+                {renderCommandButtons}
             </Card.Body>
 
         </Card>
