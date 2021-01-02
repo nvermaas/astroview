@@ -14,7 +14,6 @@ export default function ObservationsGrid(props) {
 
     const handleDetailsClick = (observation) => {
         // dispatch current observation to the global store
-        //alert('handleDetailsClick')
         my_dispatch({type: SET_CURRENT_TASK_ID, current_task_id: observation.taskID})
         my_dispatch({type: SET_CURRENT_PROJECT, current_project: observation.taskID})
     }
