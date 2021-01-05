@@ -145,7 +145,10 @@ export function FetchData () {
             // apply all the filters in my_state to the url_observations
 
             url = getFilteredUrl(url, my_state, my_state.observation_page)
-            my_dispatch({type: SET_OBSERVATION_PAGE, observation_page: 1})
+
+            // why is this?
+            //my_dispatch({type: SET_OBSERVATION_PAGE, observation_page: 1})
+
             my_dispatch({type: SET_STATUS, status: 'fetching'})
 
             fetch(url)
