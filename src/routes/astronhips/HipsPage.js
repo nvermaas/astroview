@@ -5,7 +5,7 @@ import { Container, Tabs, Tab, Row, Col, Table } from 'react-bootstrap';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import HipsCard from './HipsCard'
 
-// const url = "https://hips.astron.nl/hipslist"
+//const url = "https://hips.astron.nl/hipslist"
 //const url = "http://localhost/hipslist.txt"
 const url = "http://localhost:3000/hipslist.txt"
 
@@ -80,7 +80,7 @@ export default function HipsPage(props) {
     }
 
     // show spinner as long as the data is not read
-    if (!hipsList) return <LoadingSpinner/>
+    if (!hipsList || hipsList.length===0) return <LoadingSpinner/>
 
     // not used, but kept for posterity
     let renderHipsList = <Table>

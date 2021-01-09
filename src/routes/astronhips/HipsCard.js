@@ -8,12 +8,10 @@ export default function HipsCard(props) {
         <Card>
             <Card.Body>
                 <Table>
-                <tr>
-                    <h3><a href={props.data.hips_service_url} target="_blank">{props.data.hips_service_url}</a></h3>
-                </tr>
+                    <p align="left"><a href={props.data.hips_service_url} target="_blank">{props.data.hips_service_url}</a></p>
+
                     <Iframe src={props.data.hips_service_url} width="100%" height={540} />
                     <p>Release Data : {props.data.hips_release_date}</p>
-                    <p>HIPS Status  : {props.data.hips_status}</p>
 
                 </Table>
             </Card.Body>
