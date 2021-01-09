@@ -10,6 +10,7 @@ import Observations from '../routes/observations/ObservationsPage';
 import Projects from '../routes/projects/ProjectsPage';
 import Collections from '../routes/collections/CollectionsPage';
 import AladinPage from '../routes/aladin/AladinPage';
+import HipsPage from '../routes/astronhips/HipsPage';
 import SampPage from '../routes/samp/SampPage';
 import ObservationDetails from '../routes/details/ObservationDetails';
 import LoadCollection from '../routes/collections/LoadCollection';
@@ -201,10 +202,14 @@ function Main () {
                         <AladinPage />
                     </Route>
 
+                    <Route path="/astronhips">
+                        <HipsPage />
+                    </Route>
+
                     <Route path="/details/:id" children={<ObservationDetailsForward />} />
                 </Switch>
             </div>
-            <footer><small> (C) 2020 - Nico Vermaas - version 1.12.2 - 5 jan 2021 17:00</small></footer>
+            <footer><small> (C) 2020 - Nico Vermaas - version 1.12.2 - 8 jan 2021 20:00</small></footer>
         </Router>
     );
 }

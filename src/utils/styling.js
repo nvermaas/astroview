@@ -89,10 +89,6 @@ export const getStarsIcon = (stars) => {
         icon = faStar
         size = "md"
         color = "green"
-    } else {
-        icon = ["far", "faStar"]
-        size = "md"
-        color="grey"
     }
     return <FontAwesomeIcon size={size} icon={icon} color={color}  />
 }

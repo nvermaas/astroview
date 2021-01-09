@@ -54,7 +54,7 @@ export function NavigationBar() {
                 <Nav.Link as={NavLink} to="/collections">Collections</Nav.Link>
                 <Nav.Link as={NavLink} to="/projects">Parents</Nav.Link>
                 <Nav.Link as={NavLink} to="/aladin">Aladin</Nav.Link>
-
+                <Nav.Link as={NavLink} to="/astronhips">HIPS</Nav.Link>
                 <Nav.Link target="_blank" href={ASTROBASE_URL}>AstroBase</Nav.Link>
                 &nbsp;
 
