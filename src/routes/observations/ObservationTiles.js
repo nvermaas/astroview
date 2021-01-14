@@ -37,11 +37,7 @@ export default function ObservationTiles(props) {
             <Container fluid>
                 <div>
                     <Pagination onClick={handlePageChange}>
-                        <Pagination.First />
-                        <Pagination.Prev />
                         {items}
-                        <Pagination.Next />
-                        <Pagination.Last />
                     </Pagination>
                  </div>
                 <Row>
@@ -55,7 +51,11 @@ export default function ObservationTiles(props) {
                         })
                     }
                 </Row>
-
+                <div>
+                    <Pagination onClick={handlePageChange}>
+                        {items}
+                    </Pagination>
+                </div>
             </Container>
         </div>
     );

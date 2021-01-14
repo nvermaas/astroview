@@ -31,7 +31,7 @@ export default function SwitchThumbnailButton(props) {
     let location = useLocation()
     // only show this button in tiles view and on the observation list page
     if (my_state.view === 'tiles') {
-       if (location.pathname === '/observations') {
+        if (location.pathname === '/observations' || location.pathname === '/') {
             return <Button variant="outline-primary" onClick={() => handleClick(props.observation)}>Switch
                 Thumbnail</Button>
         }
