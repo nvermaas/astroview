@@ -50,6 +50,7 @@ export const ALADIN_RA = 'ALADIN_RA'
 export const ALADIN_DEC = 'ALADIN_DEC'
 export const ALADIN_FOV = 'ALADIN_FOV'
 export const ALADIN_MODE = 'ALADIN_MODE'
+export const ALADIN_HIGH_OBS = 'ALADIN_HIGH_OBS'
 
 export const initialState = {
         authenticated : false,
@@ -95,8 +96,8 @@ export const initialState = {
         aladin_ra: "84.17",
         aladin_dec: "8.92",
         aladin_fov: "10",
-        aladin_mode: "rectangle"
-
+        aladin_mode: "rectangle",
+        aladin_high_obs: undefined
 }
 
 export const reducer = (state, action) => {
@@ -362,6 +363,13 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 aladin_mode: action.aladin_mode
+            };
+
+        case ALADIN_HIGH_OBS:
+
+            return {
+                ...state,
+                aladin_high_obs: action.aladin_high_obs
             };
 
         default:

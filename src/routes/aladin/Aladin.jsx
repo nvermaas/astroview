@@ -1,13 +1,53 @@
 import React from 'react';
 
+import { useGlobalReducer } from '../../contexts/GlobalContext'
+import { ALADIN_HIGH_OBS } from '../../reducers/GlobalStateReducer'
 
 const Aladin = (props) => {
+    const [ my_state , my_dispatch] = useGlobalReducer()
     const [ highlightedObservation , setHighlightedObservation] = React.useState([]);
 
     React.useEffect(() => {
         let aladin = window.A.aladin('#aladin-lite-div', { survey: 'P/DSS2/color', fov:60 })
         aladin.setFov(props.fov)
         aladin.gotoRaDec(props.ra, props.dec)
+
+        // create the catalog and overlays layers
+        createLayers(aladin, props.data, props.observation)
+
+        // in case of a single observation
+        if (props.observation!==undefined) {
+            addSingleObservation(aladin, props.observation, props.mode)
+       }
+
+        // add a listener to aladin
+        // define function triggered when  a source is hovered
+        aladin.on('objectHovered', function(object) {
+
+            var msg;
+            if (object) {
+                msg = object.data.my_field_name;
+
+                 // highlight the observation under the mouse
+                let my_observation = object.data.my_observation
+
+                // recreate all the layers, but now with a different highlighted observation
+                createLayers(aladin, props.data, my_observation)
+
+                // save the highlighted observation to the local state
+                // now only used to display it
+                setHighlightedObservation(my_observation)
+
+                // save the highlighed observation to the global state (not used for anything yet)
+                my_dispatch({type: ALADIN_HIGH_OBS, aladin_high_obs: my_observation})
+            }
+        });
+
+    }, [])
+
+    // create the catalog and all the overlay layers
+    const createLayers = (aladin, data, highlighted_observation) => {
+        aladin.removeLayers()
 
         let overlay_other = window.A.graphicOverlay({name: 'other quality',color: 'blue', lineWidth: 1});
         aladin.addOverlay(overlay_other);
@@ -36,8 +76,8 @@ const Aladin = (props) => {
             //displayLabel: true,
             onClick: 'showTable'});
 
-
-        props.data.forEach(function(observation){
+        // loop through all the observations and add them to the appropriate layer based on quality
+        data.forEach(function(observation){
 
             if (observation.quality==='great') {
                 addBoxesToOverlay(overlay_great, observation, "yellow")
@@ -59,49 +99,14 @@ const Aladin = (props) => {
 
             // draw a clickable icon for each observation
             addToCatalog(my_catalog, observation)
-
         })
+
         aladin.addCatalog(my_catalog);
 
-        // in case of a single observation
-        if (props.observation!==undefined) {
-            addSingleObservation(aladin, props.observation, props.mode)
-            // show the active rectangle
-            addBoxesToOverlay(my_selected_overlay, props.observation,"yellow")
-       }
-
-       // add a listener to aladin
-        // define function triggered when  a source is hovered
-        aladin.on('objectHovered', function(object) {
-
-            var msg;
-            if (object) {
-                msg = object.data.my_field_name;
-
-                // unhighlight the previous highlighted observation
-                let previous = highlightedObservation
-                if (previous) {
-
-                    // get quality
-                    // draw box in expected color
-
-                    try {
-                        addBoxesToOverlay(my_selected_overlay, previous, "red")
-                    } catch (e) {
-                    }
-                }
-
-                // highlight the observation under the mouse
-                let my_observation = object.data.my_observation
-                addBoxesToOverlay(my_selected_overlay, my_observation,"yellow")
-
-                // save the highlighted observation to the local state
-                setHighlightedObservation(my_observation)
-            }
-        });
-
-    }, [])
-
+        if (highlighted_observation) {
+            addBoxesToOverlay(my_selected_overlay, highlighted_observation, "yellow")
+        }
+    }
 
     // get the bounding box in world coordinates from an observation
     const getBox = (observation) => {
@@ -178,9 +183,14 @@ const Aladin = (props) => {
         }
     }
 
+    let title = "hover over yellow objects to highlight observation"
+    //alert(highlightedObservation.name)
+    if (highlightedObservation.name) {
+        title = highlightedObservation.name
+    }
     return (
         <div>
-            <h2>{highlightedObservation.name}</h2>
+            <h3>{title}</h3>
             <div id='aladin-lite-div' className="aladin"  />
         </div>
     )
