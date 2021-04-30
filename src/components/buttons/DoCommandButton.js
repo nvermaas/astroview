@@ -29,6 +29,12 @@ export default function DoCommandButton(props) {
         case "grid":
             style = "outline-success"
             break;
+        case "draw_extra":
+            style = "outline-success"
+            break;
+        case "transient":
+            style = "outline-success"
+            break;
         case "grid_eq":
             style = "outline-success"
             break;

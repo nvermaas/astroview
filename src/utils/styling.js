@@ -129,6 +129,11 @@ export const getCommandIcon = (command) => {
     let color = "darkgreen"
     let size = 'md'
 
+    if (command === 'transient') {
+        icon = faMeteor
+        size = "lg"
+        color = "green"
+    }
     if (command === 'grid') {
         icon = faGlobe
         size = "lg"

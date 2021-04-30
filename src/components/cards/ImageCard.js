@@ -222,10 +222,17 @@ export default function ImageCard(props) {
         </div>
     }
 
+    let renderTransientButton
+    if (props.observation.transient) {
+        renderTransientButton=<DoCommandButton observation={props.observation} title="Add Transient" command="transient"/>
+    }
+
+
     let renderCommandButtons
     if (isAuthenticated) {
         renderCommandButtons=<div>
             <SetAdminEditButton observation={props.observation} />&nbsp;
+            {renderTransientButton}&nbsp;
             <DoCommandButton observation={props.observation} title="Add Grid" command="grid" />&nbsp;
             <DoCommandButton observation={props.observation} title="Add EQ" command="grid_eq" />&nbsp;
             <DoCommandButton observation={props.observation} title="Add Stars" command="stars" />&nbsp;
