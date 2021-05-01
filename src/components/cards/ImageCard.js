@@ -6,7 +6,7 @@ import { useGlobalReducer } from '../../contexts/GlobalContext'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faImage, faArrowsAlt, faProjectDiagram, faGlobe, faStar,
-faAdjust, faSlidersH, faRetweet, faMapMarkedAlt, faSquare} from '@fortawesome/free-solid-svg-icons'
+faAdjust, faSlidersH, faRetweet, faMapMarkedAlt, faSquare, faMeteor} from '@fortawesome/free-solid-svg-icons'
 
 
 import { SET_IMAGE_TYPE, ALADIN_RA, ALADIN_DEC, ALADIN_FOV, SET_CURRENT_OBSERVATION, ALADIN_MODE } from '../../reducers/GlobalStateReducer'
@@ -36,6 +36,10 @@ function getThumbnail(observation, imageType) {
         imageType = 'annotated'
     }
 
+    if ((imageType==='annotated_transient') && (observation.derived_annotated_transient_image===null)) {
+        imageType = 'annotated'
+    }
+
     if ((imageType==='annotated') && (observation.derived_annotated_image===null)) {
         imageType = 'raw'
     }
@@ -54,6 +58,10 @@ function getThumbnail(observation, imageType) {
 
     if (imageType==='annotated_grid_eq') {
         thumbnail = observation.derived_annotated_grid_eq_image
+    } else
+
+    if (imageType==='annotated_transient') {
+        thumbnail = observation.derived_annotated_transient_image
     } else
 
     if (imageType==='annotated_stars') {
@@ -126,6 +134,13 @@ export default function ImageCard(props) {
     if (props.observation.derived_annotated_grid_eq_image!==null) {
         buttonAnnotatedGridEquatorial = <Button variant="success" onClick={() => setImageType(props.observation, "annotated_grid_eq")}>
             <FontAwesomeIcon icon={faGlobe} />&nbsp;EQ
+        </Button>
+    }
+
+    let buttonAnnotatedTransient=''
+    if (props.observation.derived_annotated_transient_image) {
+        buttonAnnotatedTransient = <Button variant="success" onClick={() => setImageType(props.observation, "annotated_transient")}>
+            <FontAwesomeIcon icon={faMeteor} />&nbsp;Transient
         </Button>
     }
 
@@ -258,8 +273,10 @@ export default function ImageCard(props) {
 
                     {buttonRaw}&nbsp;
                     {buttonAnnotated}&nbsp;
+                    {buttonAnnotatedTransient}&nbsp;
                     {buttonAnnotatedGrid}&nbsp;
                     {buttonAnnotatedGridEquatorial}&nbsp;
+
                     {buttonAnnotatedStars}&nbsp;
                     {buttonAladinRectangle}&nbsp;
                     {buttonAladin}&nbsp;
