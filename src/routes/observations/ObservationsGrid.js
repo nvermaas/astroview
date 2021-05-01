@@ -404,9 +404,9 @@ export default function ObservationsGrid(props) {
                 onChangePage={handlePageChange}
                 onChangeRowsPerPage={handlePerRowsChange}
 
-                paginationPerPage={25}
+                paginationPerPage={100}
                 // paginationRowsPerPageOptions={[50, 100]}
-                paginationRowsPerPageOptions={[25]}
+                paginationRowsPerPageOptions={[25,100]}
 
                 expandOnRowClicked
                 expandableRows
