@@ -381,9 +381,9 @@ export default function ObservationsGrid(props) {
         &nbsp;
         <a href = {data.derived_annotated_image} target="_blank" rel="noopener noreferrer"><img src={data.derived_annotated_image} height={200} /></a>
         &nbsp;
-        <a href = {data.derived_annotated_image} target="_blank" rel="noopener noreferrer"><img src={data.derived_annotated_image} height={200} /></a>
-        &nbsp;
         <a href = {data.derived_annotated_transient_image} target="_blank" rel="noopener noreferrer"><img src={data.derived_annotated_transient_image} height={200} /></a>
+        &nbsp;
+        <a href = {data.derived_annotated_grid_image} target="_blank" rel="noopener noreferrer"><img src={data.derived_annotated_grid_image} height={200} /></a>
 
     </div>;
 
