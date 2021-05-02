@@ -26,7 +26,8 @@ import { getFilteredUrl, getFilteredUrlCollections } from './utils/filter'
 import { getIds } from './utils/filterObservations'
 import { ASTROBASE_URL } from './utils/skyserver'
 
-export const url_observations = ASTROBASE_URL + "observations2"
+//export const url_observations = ASTROBASE_URL + "observations2"
+export const url_observations = ASTROBASE_URL + "observations"
 export const url_admin = ASTROBASE_URL + "admin/backend_app/observation"
 export const url_projects = ASTROBASE_URL + "projects"
 export const url_collections = ASTROBASE_URL + "collections"
