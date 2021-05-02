@@ -406,7 +406,7 @@ export default function ObservationsGrid(props) {
 
                 paginationPerPage={100}
                 // paginationRowsPerPageOptions={[50, 100]}
-                paginationRowsPerPageOptions={[25,100]}
+                paginationRowsPerPageOptions={[25,50,100]}
 
                 expandOnRowClicked
                 expandableRows

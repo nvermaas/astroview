@@ -56,7 +56,7 @@ function ObservationDetailsForward() {
     const [ my_state , my_dispatch] = useGlobalReducer()
 
     let { id } = useParams();
-    console.log('ObservationDetailsForward('+id+')')
+    //console.log('ObservationDetailsForward('+id+')')
 
     // find the current observation in the fetched observations or projects list by taskID
     let observation = findElement(my_state.fetched_observations, "taskID", id)
@@ -209,7 +209,7 @@ function Main () {
                     <Route path="/details/:id" children={<ObservationDetailsForward />} />
                 </Switch>
             </div>
-            <footer><small> (C) 2021 - Nico Vermaas - version 1.14 - 1 may 2021 15:00</small></footer>
+            <footer><small> (C) 2021 - Nico Vermaas - version 1.14 - 2 may 2021 17:00</small></footer>
         </Router>
     );
 }
