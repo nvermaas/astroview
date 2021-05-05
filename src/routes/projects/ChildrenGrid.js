@@ -136,19 +136,6 @@ export default function ChildrenGrid(props) {
             button: true,
         },
         {
-            name: 'Dataproducts',
-            sortable: true,
-            width: "5%",
-            cell: row => {
-
-                if (row.nr_of_dps > 1) {
-                    return <a href={getDPSlink(row)} target="_blank" rel="noopener noreferrer">
-                        <Button variant="outline-info" onClick={() => handleClick(row)}>DPS</Button>
-                    </a>
-                }
-            }
-        },
-        {
             name: 'Astrobase',
             cell: row =>
                 <a href={getAPI(row)} target="_blank" rel="noopener noreferrer">
