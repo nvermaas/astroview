@@ -6,7 +6,7 @@ import { useGlobalReducer } from '../../contexts/GlobalContext';
 import { SET_OBSERVATION_PAGE, SET_CURRENT_PROJECT, SET_CURRENT_TASK_ID, SET_CURRENT_OBSERVATION } from '../../reducers/GlobalStateReducer'
 
 import { ASTROBASE_URL } from '../../utils/skyserver'
-import { getMode, getExposure, getImageTypeIcon, getQualityIcon, getHipsIcon, getStarsIcon, getDetailsIcon } from '../../utils/styling'
+import { getMode, getExposure, getImageTypeIcon, getQualityIcon, getHipsIcon, getStarsIcon, getTransientIcon, getDetailsIcon } from '../../utils/styling'
 
 
 export default function ObservationsGrid(props) {
@@ -177,10 +177,10 @@ export default function ObservationsGrid(props) {
             }
         },
         {
-            name: 'T(s)',
+            name: 'T(m)',
             selector: 'exposure_in_seconds',
             sortable: true,
-            width: "4%",
+            width: "5%",
             cell: row => {
                 let exposure = getExposure(row)
                 return <div>{exposure}</div>
@@ -236,6 +236,16 @@ export default function ObservationsGrid(props) {
                     <div>{icon}</div>
                 </Link>
             }
+        },
+        {
+            name: 'Trans (link)',
+            width: "3%",
+            cell: row => {
+                let icon = getTransientIcon(row.derived_annotated_transient_image)
+                return <a href={row.derived_annotated_transient_image} target="_blank" rel="noopener noreferrer">
+                    <div>{icon}</div>
+                </a>
+            },
         },
         {
             name: 'Stars (link)',

@@ -28,7 +28,7 @@ export const getExposure = (observation) => {
     let exposure = ''
 
     if (observation.exposure_in_seconds>0) {
-        exposure = observation.exposure_in_seconds
+        exposure = Math.round(parseInt(observation.exposure_in_seconds)/60*10)/10
     }
     if (observation.exposure_in_seconds<0) {
         exposure = "1/"+Math.abs(observation.exposure_in_seconds)
@@ -91,6 +91,23 @@ export const getStarsIcon = (stars) => {
         color = "green"
     } else {
         icon = ["far", "faStar"]
+        size = "md"
+        color="grey"
+    }
+    return <FontAwesomeIcon size={size} icon={icon} color={color}  />
+}
+
+export const getTransientIcon = (transient) => {
+    let icon = faStar
+    let color = "darkgreen"
+    let size = 'grey'
+
+    if (transient) {
+        icon = faMeteor
+        size = "md"
+        color = "green"
+    } else {
+        icon = ["far", "faMeteor"]
         size = "md"
         color="grey"
     }
