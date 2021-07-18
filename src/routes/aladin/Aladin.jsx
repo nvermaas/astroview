@@ -133,6 +133,7 @@ const Aladin = (props) => {
                 my_name: observation.name,
                 popupTitle: '<a href="'+url+'">'+observation.taskID+' - '+observation.name+'</a>',
                 popupDesc: observation.field_name,
+                my_observation : observation
             }
         )
 
@@ -184,7 +185,7 @@ const Aladin = (props) => {
     }
 
     let title = "hover over yellow objects to highlight observation"
-    //alert(highlightedObservation.name)
+    //alert(highlightedObservation)
     if (highlightedObservation.name) {
         title = highlightedObservation.name
     }

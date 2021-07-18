@@ -154,7 +154,7 @@ export default function ImageCard(props) {
     let buttonAnnotatedExoplanet
     if (props.observation.derived_annotated_exoplanets_image) {
         buttonAnnotatedExoplanet = <Button variant="success" onClick={() => setImageType(props.observation, "annotated_exoplanets")}>
-            <FontAwesomeIcon icon={faSatellite} />&nbsp;Exoplanet
+            <FontAwesomeIcon icon={faSatellite} />&nbsp;Exoplanets
         </Button>
     }
 

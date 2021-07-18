@@ -210,7 +210,7 @@ function Main () {
                 </Switch>
             </div>
 
-            <footer><small> (C) 2021 - Nico Vermaas - version 2.2.0 - 18 jul 2021 14:30</small></footer>
+            <footer><small> (C) 2021 - Nico Vermaas - version 2.2.0 - 18 jul 2021 14:45</small></footer>
 
         </Router>
     );
