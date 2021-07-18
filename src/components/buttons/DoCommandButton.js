@@ -35,6 +35,9 @@ export default function DoCommandButton(props) {
         case "transient":
             style = "outline-success"
             break;
+        case "exoplanets":
+            style = "outline-success"
+            break;
         case "grid_eq":
             style = "outline-success"
             break;

@@ -5,9 +5,8 @@ import { AuthContext } from '../../contexts/AuthContext'
 import { useGlobalReducer } from '../../contexts/GlobalContext'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faImage, faArrowsAlt, faProjectDiagram, faGlobe, faStar,
+import { faImage, faArrowsAlt, faProjectDiagram, faGlobe, faStar, faSatellite,
 faAdjust, faSlidersH, faRetweet, faMapMarkedAlt, faSquare, faMeteor} from '@fortawesome/free-solid-svg-icons'
-
 
 import { SET_IMAGE_TYPE, ALADIN_RA, ALADIN_DEC, ALADIN_FOV, SET_CURRENT_OBSERVATION, ALADIN_MODE } from '../../reducers/GlobalStateReducer'
 import { getUrlSDSS} from '../../utils/skyserver'
@@ -40,6 +39,10 @@ function getThumbnail(observation, imageType) {
         imageType = 'annotated'
     }
 
+    if ((imageType==='annotated_exoplanets') && (observation.derived_annotated_exoplanets_image===null)) {
+        imageType = 'annotated'
+    }
+
     if ((imageType==='annotated') && (observation.derived_annotated_image===null)) {
         imageType = 'raw'
     }
@@ -62,6 +65,10 @@ function getThumbnail(observation, imageType) {
 
     if (imageType==='annotated_transient') {
         thumbnail = observation.derived_annotated_transient_image
+    } else
+
+    if (imageType==='annotated_exoplanets') {
+        thumbnail = observation.derived_annotated_exoplanets_image
     } else
 
     if (imageType==='annotated_stars') {
@@ -141,6 +148,13 @@ export default function ImageCard(props) {
     if (props.observation.derived_annotated_transient_image) {
         buttonAnnotatedTransient = <Button variant="success" onClick={() => setImageType(props.observation, "annotated_transient")}>
             <FontAwesomeIcon icon={faMeteor} />&nbsp;Transient
+        </Button>
+    }
+
+    let buttonAnnotatedExoplanet=''
+    if (props.observation.derived_annotated_exoplanet_image) {
+        buttonAnnotatedExoplanet = <Button variant="success" onClick={() => setImageType(props.observation, "annotated_exoplanet")}>
+            <FontAwesomeIcon icon={faSatellite} />&nbsp;Exoplanet
         </Button>
     }
 
@@ -251,6 +265,7 @@ export default function ImageCard(props) {
             <DoCommandButton observation={props.observation} title="Add Grid" command="grid" />&nbsp;
             <DoCommandButton observation={props.observation} title="Add EQ" command="grid_eq" />&nbsp;
             <DoCommandButton observation={props.observation} title="Add Stars" command="stars" />&nbsp;
+            <DoCommandButton observation={props.observation} title="Add Exo" command="exoplanets" />&nbsp;
             <DoCommandButton observation={props.observation} title="Add Boxes" command="min_max" />&nbsp;
             <SetHipsButton observation={props.observation} use_in_hips={!props.observation.used_in_hips}/>&nbsp;
         </div>

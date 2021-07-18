@@ -153,8 +153,8 @@ const Aladin = (props) => {
                 my_observation : observation,
             },
         )]
-        //my_catalog.addSources(source);
-        my_catalog.addSources(marker);
+        my_catalog.addSources(source);
+        //my_catalog.addSources(marker);
     }
 
 
