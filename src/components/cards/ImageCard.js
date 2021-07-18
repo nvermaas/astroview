@@ -289,6 +289,7 @@ export default function ImageCard(props) {
                     {buttonRaw}&nbsp;
                     {buttonAnnotated}&nbsp;
                     {buttonAnnotatedTransient}&nbsp;
+                    {buttonAnnotatedExoplanet}&nbsp;
                     {buttonAnnotatedGrid}&nbsp;
                     {buttonAnnotatedGridEquatorial}&nbsp;
 
