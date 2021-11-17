@@ -22,6 +22,11 @@ export const SET_TOTAL_COLLECTIONS = 'SET_TOTAL_COLLECTIONS'
 export const SET_COLLECTION_PAGE = 'SET_COLLECTION_PAGE'
 export const SET_CURRENT_COLLECTION = 'SET_CURRENT_COLLECTION'
 
+export const SET_STATUS_CUTOUTS = 'SET_STATUS_CUTOUTS'
+export const SET_TOTAL_CUTOUTS = 'SET_TOTAL_CUTOUTS' 
+export const SET_FETCHED_CUTOUTS = 'SET_FETCHED_CUTOUTS'
+export const SET_CURRENT_CUTOUT = 'SET_CURRENT_CUTOUT'
+
 export const SET_CURRENT_TASK_ID = 'SET_CURRENT_TASK_ID'
 export const SET_ACTIVE_OBSERVATION = 'SET_ACTIVE_OBSERVATION'
 export const SET_CURRENT_OBSERVATION = 'SET_CURRENT_OBSERVATION'
@@ -76,7 +81,12 @@ export const initialState = {
         total_collections: undefined,
         collection_page: 1,
         current_collection: undefined,
-     
+
+        status_cutouts : "unfetched",
+        fetched_cutouts: undefined,
+        total_cutouts: undefined,
+        current_cutout: undefined,
+
         observation_image_type: "All",
         observation_quality: "All",
         observation_status: "All",
@@ -251,6 +261,33 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 current_collection: action.current_collection,
+            };
+
+
+        case SET_STATUS_CUTOUTS:
+            return {
+                ...state,
+                status_cutouts: action.status_cutouts
+            };
+
+        case SET_FETCHED_CUTOUTS:
+            //alert('reducer: SET_FETCHED_CUTOUTS '+action.fetched_cutouts)
+            return {
+                ...state,
+                fetched_cutouts: action.fetched_cutouts
+            };
+
+        case SET_TOTAL_CUTOUTS:
+            return {
+                ...state,
+                total_cutouts: action.total_cutouts,
+            };
+
+        case SET_CURRENT_CUTOUT:
+            // alert('SET_CURRENT_CUTOUT '+action.current_cutout)
+            return {
+                ...state,
+                current_cutout: action.current_cutout,
             };
             
         case SET_CURRENT_TASK_ID:

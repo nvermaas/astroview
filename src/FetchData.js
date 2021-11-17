@@ -131,7 +131,7 @@ export function FetchData () {
     );
 
     useEffect(() => {
-            setTimer(setInterval(() => fetchJobs(url_jobs), 10000))
+            setTimer(setInterval(() => fetchJobs(url_jobs), 60000))
 
             // this function is automatically called when the component unmounts
             return function cleanup() {

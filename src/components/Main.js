@@ -9,8 +9,8 @@ import { NavigationBar } from './NavigationBar';
 import Observations from '../routes/observations/ObservationsPage';
 import Projects from '../routes/projects/ProjectsPage';
 import Collections from '../routes/collections/CollectionsPage';
+import Cutouts from '../routes/cutouts/CutoutsPage';
 import AladinPage from '../routes/aladin/AladinPage';
-import HipsPage from '../routes/astronhips/HipsPage';
 import SampPage from '../routes/samp/SampPage';
 import ObservationDetails from '../routes/details/ObservationDetails';
 import LoadCollection from '../routes/collections/LoadCollection';
@@ -186,6 +186,10 @@ function Main () {
                         <Observations />
                     </Route>
 
+                    <Route path="/cutouts">
+                        <Cutouts />
+                    </Route>
+
                     <Route path="/survey">
                         <Survey />
                     </Route>
@@ -202,15 +206,11 @@ function Main () {
                         <AladinPage />
                     </Route>
 
-                    <Route path="/astronhips">
-                        <HipsPage />
-                    </Route>
-
                     <Route path="/details/:id" children={<ObservationDetailsForward />} />
                 </Switch>
             </div>
 
-            <footer><small> (C) 2021 - Nico Vermaas - version 2.2.0 - 18 jul 2021 14:45</small></footer>
+            <footer><small> (C) 2021 - Nico Vermaas - version 2.2.0 - 17 nov 2021 20:00</small></footer>
 
         </Router>
     );

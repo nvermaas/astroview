@@ -45,6 +45,12 @@
   background-color: darkgrey;
 }
 
+.card-img-cutout-dir {
+  width: 30vh;
+  height: 14vw;
+  background-color: darkgrey;
+}
+
 .card-dataproduct {
   display: flex;
   object-fit: cover;
