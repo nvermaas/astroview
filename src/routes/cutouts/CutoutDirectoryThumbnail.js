@@ -26,11 +26,11 @@ export default function CutoutDirectoryThumbnail(props) {
 
         <Card className="card-img-cutout-dir">
             <Card.Img variant top src={props.cutout_directory.thumbnail}
-                      width="200" height="200" />
+                      width="190" height="190" />
 
             <Card.ImgOverlay>
                 <h4>{props.cutout_directory.field_name}</h4>
-                <h5>{props.cutout_directory.directory}</h5>
+                <h6>{props.cutout_directory.directory}</h6>
                 <Button variant="outline-warning" onClick={() => handleDetailsClick(props.cutout_directory)}>Details</Button>&nbsp;
             </Card.ImgOverlay>
 

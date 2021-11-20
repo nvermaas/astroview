@@ -27,7 +27,7 @@ export default function CutoutsPage(props) {
     const fetchImages = (current_cutout) => {
 
         if (!current_cutout) return null
-        let url = ASTROBASE_URL + "cutouts?directory=" + current_cutout.directory
+        let url = ASTROBASE_URL + "cutouts?visible=true&directory=" + current_cutout.directory
 
         if (my_state.status_cutout_images !== 'fetching')  {
 
@@ -73,13 +73,12 @@ export default function CutoutsPage(props) {
             <Container fluid>
 
                 <Row>
-                    <Col sm={3} md={3} lg={3}>
-
+                    <Col sm={2} md={2} lg={2}>
                         <Card>
                             <CutoutDirectories/>
                         </Card>
                    </Col>
-                    <Col sm={9} md={9} lg={9}>
+                    <Col sm={10} md={10} lg={10}>
                         <Card>
                             <ImageGallery photos={photos} />
                         </Card>
