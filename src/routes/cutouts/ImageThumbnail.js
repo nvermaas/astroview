@@ -20,7 +20,11 @@ export default function ImageThumbnail(props) {
     }
 
     const handleBestClick = (directory,url) => {
-        alert('add this url to default thumbnail of the directory')
+        alert('add this url to default thumbnail of directory '+directory)
+    }
+
+    const handleHideClick = (filename) => {
+        alert('hide or delete '+filename)
     }
 
     // generate the details link to forward to
@@ -37,9 +41,7 @@ export default function ImageThumbnail(props) {
                 <img src={props.cutout.derived_url} width={300} height={300} />
             </a>
 
-            /*
-            <Card.Img variant top src={props.cutout.derived_url} width="300" height="300" />
-*/
+
             <Card.ImgOverlay>
                 <tr>
 
@@ -57,9 +59,7 @@ export default function ImageThumbnail(props) {
                     <Button variant="outline-warning" size="sm" onClick={() => handleBestClick(props.cutout.directory, props.cutout.derived_url)}>Best</Button>&nbsp;
                 </td>
                 <td>
-                    <Link to={() => getDetailsLink(props.cutout.observation_taskID)}>
-                        <Button variant="outline-warning" size="sm" onClick={() => handleDetailsClick(props.cutout.observation_taskID)}>Hide</Button>&nbsp;
-                    </Link>
+                    <Button variant="outline-warning" size="sm" onClick={() => handleHideClick(props.cutout.filename)}>Hide</Button>&nbsp;
                 </td>
                 </tr>
             </Card.ImgOverlay>
