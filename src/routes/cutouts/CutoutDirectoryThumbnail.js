@@ -11,7 +11,7 @@ export default function CutoutDirectoryThumbnail(props) {
 
     const handleDetailsClick = (cutout_directory) => {
 
-        alert(cutout_directory.number_of_images)
+        //alert(cutout_directory.number_of_images)
         // dispatch current observation to the global store
         my_dispatch({type: SET_CURRENT_CUTOUT, current_cutout: cutout_directory})
 

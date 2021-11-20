@@ -1,72 +1,93 @@
 import React, {useState, useEffect }  from 'react';
+import { Container, Row, Col, Card, Table } from 'react-bootstrap';
 
-import LoadingSpinner from '../../components/LoadingSpinner';
-import CutoutTiles from './CutoutTiles'
-import { ButtonBar } from '../../components/ButtonBar';
 import { useGlobalReducer } from '../../contexts/GlobalContext';
-import { ASTROBASE_URL } from '../../utils/skyserver'
-
 import {
-    SET_STATUS_CUTOUTS,
-    SET_TOTAL_CUTOUTS,
-    SET_FETCHED_CUTOUTS,
-    SET_CURRENT_CUTOUT,
-    RELOAD
+    SET_STATUS_CUTOUT_IMAGES,
+    SET_FETCHED_CUTOUT_IMAGES,
+    SET_GALLERY_IMAGES,
 } from '../../reducers/GlobalStateReducer';
 
-export const url_cutout_directories = ASTROBASE_URL + "cutout_directories"
+import { ASTROBASE_URL } from '../../utils/skyserver'
+
+import CutoutDirectories from './CutoutsDirectories'
+import ImageGallery from './ImageGallery'
 
 export default function CutoutsPage(props) {
 
     const [ my_state , my_dispatch] = useGlobalReducer()
+    const [ photos, setPhotos] = useState([])
 
     useEffect(() => {
-            fetchData(url_cutout_directories)
-        }, [my_state.reload]
+            fetchImages(my_state.current_cutout)
+        }, [my_state.reload, my_state.current_cutout]
     );
 
-    const fetchData = (url) => {
 
-        if (my_state.status_cutouts !== 'fetching')  {
+    const fetchImages = (current_cutout) => {
 
-            my_dispatch({type: SET_STATUS_CUTOUTS, status_cutouts: 'fetching'})
+        if (!current_cutout) return null
+        let url = ASTROBASE_URL + "cutouts?directory=" + current_cutout.directory
+
+        if (my_state.status_cutout_images !== 'fetching')  {
+
+            my_dispatch({type: SET_STATUS_CUTOUT_IMAGES, status_cutout_images: 'fetching'})
 
             fetch(url)
                 .then(results => {
                     return results.json();
                 })
                 .then(data => {
-                    my_dispatch({type: SET_FETCHED_CUTOUTS, fetched_cutouts: data.results})
-                    my_dispatch({type: SET_STATUS_CUTOUTS, status_cutouts: 'fetched'})
+                    my_dispatch({type: SET_FETCHED_CUTOUT_IMAGES, fetched_cutout_images: data.results})
+                    let gallery_images = getGalleryImages(data.results)
+                    setPhotos(gallery_images)
+                    my_dispatch({type: SET_GALLERY_IMAGES, gallery_images: gallery_images})
+                    my_dispatch({type: SET_STATUS_CUTOUT_IMAGES, status_cutout_images: 'fetched'})
                 })
                 .catch(function () {
-                    my_dispatch({type: SET_STATUS_CUTOUTS, status_cutouts: 'failed'})
-                    alert("fetching cutouts from " + url + " failed.");
+                    my_dispatch({type: SET_STATUS_CUTOUT_IMAGES, status_cutout_images: 'failed'})
+                    alert("fetching cutout_images from " + url + " failed.");
                 })
         }
     }
 
-    // conditional render. Only render the observations when the status is 'fetched'
-    let renderCutouts
+    const getGalleryImages = (cutout_images) => {
 
-    if (my_state.status_cutouts === 'fetched') {
+        let images = []
+        cutout_images.forEach((cutout_image) => {
+            let image = {}
+            image['src'] = cutout_image.derived_url
+            image['width'] = 1
+            image['height'] = 1
+            images.push(image)
+        })
 
-        renderCutouts = <header className="Observations-header">
-                            <CutoutTiles data={my_state.fetched_cutouts}/>
-                        </header>
+        return images
     }
 
-    let renderSpinner
-    if (my_state.status_cutouts === "fetching") {
-        renderSpinner = <LoadingSpinner/>
-    }
+
 
     return (
         <div className="App">
-            <div>
-                {renderSpinner}
-                {renderCutouts}
-            </div>
+
+            <Container fluid>
+
+                <Row>
+                    <Col sm={3} md={3} lg={3}>
+
+                        <Card>
+                            <CutoutDirectories/>
+                        </Card>
+                   </Col>
+                    <Col sm={9} md={9} lg={9}>
+                        <Card>
+                            <ImageGallery photos={photos} />
+                        </Card>
+                    </Col>
+
+                </Row>
+
+            </Container>
         </div>
     );
 }

@@ -5,11 +5,12 @@ import { useGlobalReducer } from '../../contexts/GlobalContext';
 import CutoutDirectoryThumbnail from './CutoutDirectoryThumbnail';
 
 // loop through a list of observations and create a Card with a clickable thumbnail for all of them
-export default function ObservationTiles(props) {
+export default function CutoutTiles(props) {
     const [ my_state , my_dispatch] = useGlobalReducer()
 
     return (
         <div>
+            <header className="Observations-header">
             <Container fluid>
                 <Row>
                     {
@@ -23,6 +24,7 @@ export default function ObservationTiles(props) {
                     }
                 </Row>
             </Container>
+            </header>
         </div>
     );
 

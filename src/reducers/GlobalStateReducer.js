@@ -27,6 +27,11 @@ export const SET_TOTAL_CUTOUTS = 'SET_TOTAL_CUTOUTS'
 export const SET_FETCHED_CUTOUTS = 'SET_FETCHED_CUTOUTS'
 export const SET_CURRENT_CUTOUT = 'SET_CURRENT_CUTOUT'
 
+export const SET_STATUS_CUTOUT_IMAGES = 'SET_STATUS_CUTOUT_IMAGES'
+export const SET_FETCHED_CUTOUT_IMAGES = 'SET_FETCHED_CUTOUT_IMAGES'
+export const SET_CURRENT_CUTOUT_IMAGE = 'SET_CURRENT_CUTOUT_IMAGE'
+export const SET_GALLERY_IMAGES = 'SET_GALLERY_IMAGES'
+
 export const SET_CURRENT_TASK_ID = 'SET_CURRENT_TASK_ID'
 export const SET_ACTIVE_OBSERVATION = 'SET_ACTIVE_OBSERVATION'
 export const SET_CURRENT_OBSERVATION = 'SET_CURRENT_OBSERVATION'
@@ -87,6 +92,11 @@ export const initialState = {
         total_cutouts: undefined,
         current_cutout: undefined,
 
+        status_cutout_images : "unfetched",
+        fetched_cutout_images: undefined,
+        current_cutout_image: undefined,
+        gallery_images: undefined,
+    
         observation_image_type: "All",
         observation_quality: "All",
         observation_status: "All",
@@ -263,7 +273,6 @@ export const reducer = (state, action) => {
                 current_collection: action.current_collection,
             };
 
-
         case SET_STATUS_CUTOUTS:
             return {
                 ...state,
@@ -289,7 +298,34 @@ export const reducer = (state, action) => {
                 ...state,
                 current_cutout: action.current_cutout,
             };
-            
+
+        case SET_STATUS_CUTOUT_IMAGES:
+            return {
+                ...state,
+                status_cutout_images: action.status_cutout_images
+            };
+
+        case SET_FETCHED_CUTOUT_IMAGES:
+            //alert('reducer: SET_FETCHED_CUTOUT_IMAGES '+action.fetched_cutout_images)
+            return {
+                ...state,
+                fetched_cutout_images: action.fetched_cutout_images
+            };
+
+        case SET_CURRENT_CUTOUT_IMAGE:
+            // alert('SET_CURRENT_CUTOUT_IMAGE '+action.current_cutout_image)
+            return {
+                ...state,
+                current_cutout_image: action.current_cutout_image,
+            };
+
+        case SET_GALLERY_IMAGES:
+            //alert('reducer: SET_FETCHED_CUTOUT_IMAGES '+action.fetched_cutout_images)
+            return {
+                ...state,
+                gallery_images: action.gallery_immages
+            };
+
         case SET_CURRENT_TASK_ID:
             //alert('SET_CURRENT_TASK_ID: '+action.current_task_id)
             return {
