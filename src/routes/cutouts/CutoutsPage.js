@@ -82,7 +82,6 @@ export default function CutoutsPage(props) {
                     <Col sm={10} md={10} lg={10}>
                         <Card>
                             <CutoutImages />
-                            <ImageGallery photos={photos} />
                         </Card>
                     </Col>
 

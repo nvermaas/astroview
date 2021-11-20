@@ -31,7 +31,7 @@ export default function DirectoryThumbnail(props) {
             <Card.ImgOverlay>
                 <h4>{props.cutout_directory.field_name}</h4>
                 <h6>{props.cutout_directory.directory}</h6>
-                <Button variant="outline-warning" onClick={() => handleDetailsClick(props.cutout_directory)}>Details</Button>&nbsp;
+                <Button variant="outline-warning" size="sm" onClick={() => handleDetailsClick(props.cutout_directory)}>Details</Button>&nbsp;
             </Card.ImgOverlay>
 
         </Card>

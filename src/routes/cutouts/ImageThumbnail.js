@@ -19,27 +19,49 @@ export default function ImageThumbnail(props) {
         my_dispatch({type: SET_CURRENT_PROJECT, current_project: taskID})
     }
 
+    const handleBestClick = (directory,url) => {
+        alert('add this url to default thumbnail of the directory')
+    }
+
     // generate the details link to forward to
     const getDetailsLink = (taskID) => {
         let details_link = "/details/"+taskID
         return details_link
     }
 
-    let icon = getDetailsIcon(handleDetailsClick,props.cutout.observation_taskID)
+
     return (
 
         <Card className="card-img-cutout">
-            <Card.Img variant top src={props.cutout.derived_url}
-                      width="300" height="300" />
+            <a href = {props.cutout.derived_url} target="_blank" rel="noopener noreferrer">
+                <img src={props.cutout.derived_url} width={300} height={300} />
+            </a>
 
+            /*
+            <Card.Img variant top src={props.cutout.derived_url} width="300" height="300" />
+*/
             <Card.ImgOverlay>
-                <Link to={() => getDetailsLink(props.cutout.observation_taskID)}>
-                    <div>{icon}</div>
-                </Link>
+                <tr>
 
-                <Link to={() => getDetailsLink(props.cutout.observation_taskID)}>
-                    <Button variant="outline-warning" onClick={() => handleDetailsClick(props.cutout.observation_taskID)}>{props.cutout.observation_taskID}</Button>&nbsp;
-                </Link>
+                <td>
+                    <Link to={() => getDetailsLink(props.cutout.observation_taskID)}>
+                        <Button variant="outline-warning" size="sm" onClick={() => handleDetailsClick(props.cutout.observation_taskID)}>{props.cutout.observation_taskID}</Button>&nbsp;
+                    </Link>
+                </td>
+                <td>
+                    <a href = {props.cutout.derived_url} target="_blank" rel="noopener noreferrer">
+                        <Button variant="outline-warning" size="sm">Zoom</Button>&nbsp;
+                    </a>
+                </td>
+                <td>
+                    <Button variant="outline-warning" size="sm" onClick={() => handleBestClick(props.cutout.directory, props.cutout.derived_url)}>Best</Button>&nbsp;
+                </td>
+                <td>
+                    <Link to={() => getDetailsLink(props.cutout.observation_taskID)}>
+                        <Button variant="outline-warning" size="sm" onClick={() => handleDetailsClick(props.cutout.observation_taskID)}>Hide</Button>&nbsp;
+                    </Link>
+                </td>
+                </tr>
             </Card.ImgOverlay>
 
         </Card>

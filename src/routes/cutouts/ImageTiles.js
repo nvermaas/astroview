@@ -13,13 +13,13 @@ export default function ImageTiles(props) {
             <Container fluid>
                 <Row>
                     {
-                        props.data.map((cutout) => {
-                            return (
-                                <Col lg={true}>
-                                    <ImageThumbnail key={cutout.filename} cutout = {cutout} />
-                                </Col>
-                            );
-                        })
+                    props.data.map((cutout) => {
+                        return (
+                            <Col lg={true}>
+                                <ImageThumbnail key={cutout.filename} cutout = {cutout} />
+                            </Col>
+                        );
+                    })
                     }
                 </Row>
             </Container>
