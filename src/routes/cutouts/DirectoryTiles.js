@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useGlobalReducer } from '../../contexts/GlobalContext';
 
-import CutoutDirectoryThumbnail from './CutoutDirectoryThumbnail';
+import DirectoryThumbnail from './DirectoryThumbnail';
 
 // loop through a list of observations and create a Card with a clickable thumbnail for all of them
 export default function CutoutTiles(props) {
@@ -17,7 +17,7 @@ export default function CutoutTiles(props) {
                         props.data.map((cutout_directory) => {
                             return (
                                 <Col lg={true}>
-                                    <CutoutDirectoryThumbnail key={cutout_directory.directory} cutout_directory = {cutout_directory} />
+                                    <DirectoryThumbnail key={cutout_directory.directory} cutout_directory = {cutout_directory} />
                                 </Col>
                             );
                         })

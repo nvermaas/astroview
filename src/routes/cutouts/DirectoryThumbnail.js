@@ -6,7 +6,7 @@ import { useGlobalReducer } from '../../contexts/GlobalContext';
 import { SET_CURRENT_CUTOUT } from '../../reducers/GlobalStateReducer'
 
 // display a single cutout directory on a card
-export default function CutoutDirectoryThumbnail(props) {
+export default function DirectoryThumbnail(props) {
     const [ my_state , my_dispatch] = useGlobalReducer()
 
     const handleDetailsClick = (cutout_directory) => {

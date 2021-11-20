@@ -9,11 +9,11 @@ import {
 } from '../../reducers/GlobalStateReducer';
 
 import LoadingSpinner from '../../components/LoadingSpinner';
-import CutoutTiles from './CutoutTiles'
+import CutoutTiles from './DirectoryTiles'
 
 export const url_cutout_directories = ASTROBASE_URL + "cutout_directories"
 
-export default function CutoutsDirectories(props) {
+export default function CutoutDirectories(props) {
 
     const [ my_state , my_dispatch] = useGlobalReducer()
 

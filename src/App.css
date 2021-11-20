@@ -51,6 +51,12 @@
   background-color: transparent;
 }
 
+.card-img-cutout {
+  width: 35vh;
+  height: 20vw;
+  background-color: transparent;
+}
+
 .card-dataproduct {
   display: flex;
   object-fit: cover;
