@@ -20,6 +20,7 @@ export default function ImageThumbnail(props) {
         my_dispatch({type: SET_CURRENT_PROJECT, current_project: taskID})
     }
 
+
     // make this image the thumbnail of the directory object
     const handleBestClick = (directory, filename, thumbnail) => {
         //alert('add this url to default thumbnail of directory '+directory)
@@ -29,22 +30,24 @@ export default function ImageThumbnail(props) {
         cutout_directory.thumbnail = thumbnail
 
         // trigger the rendering of the cutout directory thumbnail
-        my_dispatch({type: SET_CURRENT_CUTOUT, current_cutout: directory})
+        let current_cutout = my_state.current_cutout
+        my_dispatch({type: SET_CURRENT_CUTOUT, current_cutout: current_cutout})
 
         // abuse GET to call a backend command to set the thumbnail
         let url = ASTROBASE_URL + "cutout_directories" + '/' + directory + '/setthumbnail/' + filename
         fetch(url)
     }
 
-    const handleHideClick = (filename, directory) => {
-        alert('hide or delete '+filename)
+
+    const handleHideClick = (filename) => {
         let cutout_image = searchCutout(filename, my_state.fetched_cutout_images);
         cutout_image.visible = false
 
         // trigger the rendering of the cutout directory thumbnail
-        my_dispatch({type: SET_CURRENT_CUTOUT, current_cutout: directory})
+        let current_cutout = my_state.current_cutout
+        my_dispatch({type: SET_CURRENT_CUTOUT, current_cutout: current_cutout})
 
-        // see SetQualityButton for an example of how to write it to the backend
+
     }
 
     function searchDirectory(nameKey, myArray){
@@ -76,7 +79,7 @@ export default function ImageThumbnail(props) {
                 <Button variant="outline-warning" size="sm" onClick={() => handleBestClick(props.cutout.directory, props.cutout.filename, props.cutout.derived_url)}>Best</Button>&nbsp;
             </td>
             <td>
-                <Button variant="outline-danger" size="sm" onClick={() => handleHideClick(props.cutout.filename, props.cutout.directory)}>Delete</Button>&nbsp;
+                <Button variant="outline-danger" size="sm" onClick={() => handleHideClick(props.cutout.filename)}>Delete</Button>&nbsp;
             </td>
         </div>
     }

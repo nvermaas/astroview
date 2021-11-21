@@ -19,11 +19,6 @@ export default function DirectoryThumbnail(props) {
         alert('hide or delete '+filename)
     }
 
-    // generate the details link to forward to
-    const getLink = (observation) => {
-        let details_link = "/details/"+observation.taskID
-        return details_link
-    }
 
     let renderChangeButtons
     if (isAuthenticated) {
