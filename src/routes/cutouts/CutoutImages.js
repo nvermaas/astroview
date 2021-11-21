@@ -11,8 +11,6 @@ import {
 import LoadingSpinner from '../../components/LoadingSpinner';
 import ImageTiles from './ImageTiles'
 
-export const url_cutout_directories = ASTROBASE_URL + "cutout_directories"
-
 export default function CutoutImages(props) {
 
     const [ my_state , my_dispatch] = useGlobalReducer()
