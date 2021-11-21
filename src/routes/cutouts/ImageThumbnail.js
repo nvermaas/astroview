@@ -43,9 +43,9 @@ export default function ImageThumbnail(props) {
     }
 
 
-    const handleHideClick = (filename) => {
+    const handleRemoveClick = (filename) => {
 
-        if (window.confirm('Remove this file from the database? \n(warning: files are not removed from the file system)')) {
+        if (window.confirm('Remove this image from the database? \n(warning: files are not removed from the file system)')) {
 
             // remove this image from the list of fetched images
             let index = searchCutoutIndex(filename, my_state.fetched_cutout_images);
@@ -101,7 +101,7 @@ export default function ImageThumbnail(props) {
                 <Button variant="outline-warning" size="sm" onClick={() => handleBestClick(props.cutout.directory, props.cutout.filename, props.cutout.derived_url)}>Best</Button>&nbsp;
             </td>
             <td>
-                <Button variant="outline-danger" size="sm" onClick={() => handleHideClick(props.cutout.filename)}>Del</Button>&nbsp;
+                <Button variant="outline-danger" size="sm" onClick={() => handleRemoveClick(props.cutout.filename)}>Del</Button>&nbsp;
             </td>
         </div>
     }
