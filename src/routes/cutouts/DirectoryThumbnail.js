@@ -15,8 +15,12 @@ export default function DirectoryThumbnail(props) {
         my_dispatch({type: SET_CURRENT_CUTOUT, current_cutout: cutout_directory})
     }
 
-    const handleHideClick = (filename) => {
-        alert('hide or delete '+filename)
+    const handleReloadClick = (cutout_directory) => {
+        alert('reload '+cutout_directory.directory)
+    }
+
+    const handleHideClick = (cutout_directory) => {
+        alert('remove '+cutout_directory.directory)
     }
 
 
@@ -24,7 +28,10 @@ export default function DirectoryThumbnail(props) {
     if (isAuthenticated) {
         renderChangeButtons = <div>
             <td>
-                <Button variant="outline-danger" size="sm" onClick={() => handleHideClick(props.cutout.filename)}>Delete</Button>&nbsp;
+                <Button variant="outline-warning" size="sm" onClick={() => handleReloadClick(props.cutout_directory)}>Rerun</Button>&nbsp;
+            </td>
+            <td>
+                <Button variant="outline-danger" size="sm" onClick={() => handleHideClick(props.cutout_directory)}>Del</Button>&nbsp;
             </td>
         </div>
     }
@@ -40,7 +47,7 @@ export default function DirectoryThumbnail(props) {
                 <h6>{props.cutout_directory.directory}</h6>
                 <tr>
                 <td>
-                    <Button variant="outline-warning" size="sm" onClick={() => handleDetailsClick(props.cutout_directory)}>Details</Button>&nbsp;
+                    <Button variant="outline-warning" size="sm" onClick={() => handleDetailsClick(props.cutout_directory)}>Select</Button>&nbsp;
                 </td>
                     {renderChangeButtons}
                 </tr>

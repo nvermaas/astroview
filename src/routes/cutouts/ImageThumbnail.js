@@ -6,7 +6,11 @@ import { useGlobalReducer } from '../../contexts/GlobalContext';
 import { AuthContext } from '../../contexts/AuthContext'
 
 import { ASTROBASE_URL } from '../../utils/skyserver'
-import { SET_CURRENT_CUTOUT, SET_CURRENT_TASK_ID, SET_CURRENT_PROJECT } from '../../reducers/GlobalStateReducer'
+import {
+    SET_CURRENT_CUTOUT,
+    SET_CURRENT_TASK_ID,
+    SET_CURRENT_PROJECT,
+    SET_FETCHED_CUTOUT_IMAGES } from '../../reducers/GlobalStateReducer'
 
 // display a single cutout directory on a card
 export default function ImageThumbnail(props) {
@@ -40,13 +44,23 @@ export default function ImageThumbnail(props) {
 
 
     const handleHideClick = (filename) => {
-        let cutout_image = searchCutout(filename, my_state.fetched_cutout_images);
-        cutout_image.visible = false
 
-        // trigger the rendering of the cutout directory thumbnail
-        let current_cutout = my_state.current_cutout
-        my_dispatch({type: SET_CURRENT_CUTOUT, current_cutout: current_cutout})
+        if (window.confirm('Remove this file from the database? \n(warning: files are not removed from the file system)')) {
 
+            // remove this image from the list of fetched images
+            let index = searchCutoutIndex(filename, my_state.fetched_cutout_images);
+            let fetched_cutout_images = my_state.fetched_cutout_images
+            fetched_cutout_images.splice(index,1)
+            my_dispatch({type: SET_FETCHED_CUTOUT_IMAGES, fetched_cutout_images: fetched_cutout_images})
+
+            // abuse GET to call a backend command to set the thumbnail
+            let url = ASTROBASE_URL + "cutouts" + '/' + filename + '/remove'
+            fetch(url)
+
+            // trigger the rendering of the cutout directory thumbnail
+            let current_cutout = my_state.current_cutout
+            my_dispatch({type: SET_CURRENT_CUTOUT, current_cutout: current_cutout})
+        }
 
     }
 
@@ -66,6 +80,14 @@ export default function ImageThumbnail(props) {
         }
     }
 
+    function searchCutoutIndex(nameKey, myArray){
+        for (var i=0; i < myArray.length; i++) {
+            if (myArray[i].filename === nameKey) {
+                return i;
+            }
+        }
+    }
+
     // generate the details link to forward to
     const getDetailsLink = (taskID) => {
         let details_link = "/details/"+taskID
@@ -79,7 +101,7 @@ export default function ImageThumbnail(props) {
                 <Button variant="outline-warning" size="sm" onClick={() => handleBestClick(props.cutout.directory, props.cutout.filename, props.cutout.derived_url)}>Best</Button>&nbsp;
             </td>
             <td>
-                <Button variant="outline-danger" size="sm" onClick={() => handleHideClick(props.cutout.filename)}>Delete</Button>&nbsp;
+                <Button variant="outline-danger" size="sm" onClick={() => handleHideClick(props.cutout.filename)}>Del</Button>&nbsp;
             </td>
         </div>
     }
