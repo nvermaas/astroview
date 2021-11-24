@@ -1,8 +1,9 @@
 import React from 'react';
 import { useGlobalReducer } from '../contexts/GlobalContext';
-import { Button, InputGroup, Dropdown, DropdownButton, FormControl } from 'react-bootstrap';
+import { Button, InputGroup, Dropdown, DropdownButton, FormControl, Row } from 'react-bootstrap';
 import { getMode, getExposure, getImageTypeIcon, getQualityIcon } from '../utils/styling'
 import CoordSearchButton from '../components/buttons/CoordSearchButton'
+import ResetFilterButton from '../components/buttons/ResetFilterButton'
 import SearchButton from '../components/buttons/SearchButton'
 import SwitchViewButton from '../components/buttons/SwitchViewButton'
 import SwitchThumbnailButton from '../components/buttons/SwitchThumbnailButton'
@@ -125,13 +126,12 @@ export function ButtonBar() {
             </DropdownButton>
             {render_backend_filter}
 
-
-            <FormControl aria-describedby="basic-addon1" />
             <SwitchThumbnailButton/>
             &nbsp;
             <SwitchViewButton/>
             &nbsp;
             <CoordSearchButton/>
+            <ResetFilterButton/>
             <SearchButton/>
         </InputGroup>
 

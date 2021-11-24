@@ -210,7 +210,7 @@ export default function ObservationsGrid(props) {
             cell: row => {
                 return <Link to={() => getDetailsLink(row)}>
                     <div>
-                        <Badge pill variant="light">
+                        <Badge pill bg="light">
                             {row.magnitude}
                         </Badge>
                     </div>

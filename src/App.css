@@ -1,3 +1,5 @@
+
+
 .App {
   text-align: center;
 }
@@ -46,14 +48,14 @@
 }
 
 .card-img-cutout-dir {
-  width: 30vh;
-  height: 14vw;
+  width: 15vw;
+  height: 40vh;
   background-color: transparent;
 }
 
 .card-img-cutout {
-  width: 35vh;
-  height: 20vw;
+  width: 16vw;
+  height: 45vh;
   background-color: transparent;
 }
 

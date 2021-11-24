@@ -6,11 +6,6 @@ import { useGlobalReducer } from '../contexts/GlobalContext';
 import { NavLink, Link } from "react-router-dom"
 
 import { ASTROBASE_URL, EXOPLANETS_URL } from '../utils/skyserver'
-import SwitchViewButton from './buttons/SwitchViewButton'
-import SwitchThumbnailButton from './buttons/SwitchThumbnailButton'
-import SearchButton from './buttons/SearchButton'
-import CoordSearchButton from './buttons/CoordSearchButton'
-import DoCommandButton from './buttons/DoCommandButton'
 import AuthControl from "./auth/authControl";
 
 function getLink(taskid) {

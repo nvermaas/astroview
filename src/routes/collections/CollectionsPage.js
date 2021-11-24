@@ -3,6 +3,7 @@ import React from 'react';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import CollectionsGrid from './CollectionsGrid'
 import { ButtonBarCollections } from '../../components/ButtonBarCollections';
+import { ButtonBar } from '../../components/ButtonBar';
 import { useGlobalReducer } from '../../contexts/GlobalContext';
 
 import { filterCollections } from '../../utils/filterObservations'

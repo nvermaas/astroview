@@ -16,8 +16,13 @@ export default function DirectoryThumbnail(props) {
         my_dispatch({type: SET_CURRENT_CUTOUT, current_cutout: cutout_directory})
     }
 
-    const handleReloadClick = (cutout_directory) => {
-        alert('reload '+cutout_directory.directory)
+    const handleReRunClick = (cutout_directory) => {
+        if (window.confirm('Rerun the command to generate the cutout images for this area?')) {
+
+            let params = cutout_directory.directory.replace(/_/g, ',')
+            let url = ASTROBASE_URL + "run-command?command=image_cutout&params=" + params
+            fetch(url)
+        }
     }
 
     const handleRemoveClick = (cutout_directory) => {
@@ -53,7 +58,7 @@ export default function DirectoryThumbnail(props) {
     if (isAuthenticated) {
         renderChangeButtons = <div>
             <td>
-                <Button variant="outline-warning" size="sm" onClick={() => handleReloadClick(props.cutout_directory)}>Rerun</Button>&nbsp;
+                <Button variant="outline-warning" size="sm" onClick={() => handleReRunClick(props.cutout_directory)}>Rerun</Button>&nbsp;
             </td>
             <td>
                 <Button variant="outline-danger" size="sm" onClick={() => handleRemoveClick(props.cutout_directory)}>Del</Button>&nbsp;
@@ -63,13 +68,17 @@ export default function DirectoryThumbnail(props) {
 
     return (
 
-        <Card className="card-img-cutout-dir">
+        <Card className="card-img-cutout-dir" >
             <Card.Img variant top src={props.cutout_directory.thumbnail}
-                      width="190" height="190" />
+                      width="270" height="270" />
 
             <Card.ImgOverlay>
                 <h4>{props.cutout_directory.field_name}</h4>
-                <h6>{props.cutout_directory.directory}</h6>
+                <h6>{props.cutout_directory.field_ra},{props.cutout_directory.field_dec} ({props.cutout_directory.field_fov} deg)</h6>
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                <tr></tr>
                 <tr>
                 <td>
                     <Button variant="outline-warning" size="sm" onClick={() => handleDetailsClick(props.cutout_directory)}>Select</Button>&nbsp;

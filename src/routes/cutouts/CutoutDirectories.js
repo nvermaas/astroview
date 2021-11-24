@@ -9,7 +9,7 @@ import {
 } from '../../reducers/GlobalStateReducer';
 
 import LoadingSpinner from '../../components/LoadingSpinner';
-import CutoutTiles from './DirectoryTiles'
+import DirectoryTiles from './DirectoryTiles'
 
 export const url_cutout_directories = ASTROBASE_URL + "cutout_directories"
 
@@ -51,7 +51,8 @@ export default function CutoutDirectories(props) {
     return (
         <div className="App">
             <div>
-                <CutoutTiles data={my_state.fetched_cutouts}/>
+                <DirectoryTiles data={my_state.fetched_cutouts}/>
+
             </div>
         </div>
     );

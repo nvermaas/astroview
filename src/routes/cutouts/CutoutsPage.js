@@ -13,12 +13,14 @@ export default function CutoutsPage(props) {
 
             <Container fluid>
                 <Row>
-                    <Col sm={2} md={2} lg={2}>
+                    <Col sm={12} md={12} lg={12}>
                         <Card>
                             <CutoutDirectories/>
                         </Card>
                    </Col>
-                    <Col sm={10} md={10} lg={10}>
+                </Row>
+                <Row>
+                    <Col sm={12} md={12} lg={12}>
                         <Card>
                             <CutoutImages />
                         </Card>

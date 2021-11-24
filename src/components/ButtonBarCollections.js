@@ -28,7 +28,7 @@ export function ButtonBarCollections() {
         my_dispatch({type: SET_OBSERVATION_IMAGE_TYPE, observation_image_type: image_type})
     }
 
-    let image_type_title = "Type : "+my_state.observation_image_type
+    let image_type_title = "Image Type : "+my_state.observation_image_type
 
     let backend_filter
     let render_backend_filter
