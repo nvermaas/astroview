@@ -1,6 +1,6 @@
 import React, {useState, useEffect }  from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
-
+import { ASTROBASE_URL } from '../../utils/skyserver'
 import { useGlobalReducer } from '../../contexts/GlobalContext';
 import {
     SET_CUTOUT_PAGE,
@@ -11,11 +11,24 @@ import CutoutImages from './CutoutImages'
 
 export default function CutoutsPage(props) {
     const [ my_state , my_dispatch] = useGlobalReducer()
-    const [ page , setPage] = useState("directories");
 
     const handleClick = (page) => {
-        setPage(page)
         my_dispatch({type: SET_CUTOUT_PAGE, cutout_page: page})
+    }
+
+    const handleNewCutout = () => {
+        let name = window.prompt('Name')
+        let ra = window.prompt('RA in degrees')
+        let dec = window.prompt('dec in degrees')
+        let fov = window.prompt('Field of View in degrees (1)', 1)
+        let size = window.prompt('Cutout sizes in pixels (1000)', 1000)
+
+        let params = ra + ',' + dec + ',' + name + ',' + fov + ',' + size
+        let url_command = ASTROBASE_URL + "run-command?command=image_cutout&params=" + params
+
+        if (window.confirm('Run this command to create the cutout?\n' + url_command)) {
+            fetch(url_command)
+        }
     }
 
     let renderPage
@@ -34,8 +47,9 @@ export default function CutoutsPage(props) {
 
             <Container fluid>
                 <Row>
-                    <Button variant="outline-primary" onClick={() => handleClick("directories")}>Directories</Button>&nbsp;
-                    <Button variant="outline-primary" onClick={() => handleClick("cutouts")}>Cutouts</Button>
+                    <Button variant="primary" onClick={() => handleClick("directories")}>Directories</Button>&nbsp;
+                    <Button variant="primary" onClick={() => handleClick("cutouts")}>Cutouts</Button>&nbsp;
+                    <Button variant="warning" onClick={() => handleNewCutout()}>New Cutout</Button>
                 </Row>
                 <Row>
                     <Col sm={12} md={12} lg={12}>
