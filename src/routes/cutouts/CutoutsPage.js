@@ -23,7 +23,7 @@ export default function CutoutsPage(props) {
         let fov = window.prompt('Field of View in degrees (1)', 1)
         let size = window.prompt('Cutout sizes in pixels (1000)', 1000)
 
-        let params = ra + ',' + dec + ',' + name + ',' + fov + ',' + size
+        let params = ra + ',' + dec + ',' + fov + ',' + name + ',' + size
         let url_command = ASTROBASE_URL + "run-command?command=image_cutout&params=" + params
 
         if (window.confirm('Run this command to create the cutout?\n' + url_command)) {
