@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 import { useGlobalReducer } from '../../contexts/GlobalContext';
 import { AuthContext } from '../../contexts/AuthContext'
 import { ASTROBASE_URL } from '../../utils/skyserver'
-import { SET_CURRENT_CUTOUT, SET_FETCHED_CUTOUTS } from '../../reducers/GlobalStateReducer'
+import { SET_CURRENT_CUTOUT, SET_FETCHED_CUTOUTS, SET_CUTOUT_PAGE } from '../../reducers/GlobalStateReducer'
 
 // display a single cutout directory on a card
 export default function DirectoryThumbnail(props) {
@@ -14,6 +14,7 @@ export default function DirectoryThumbnail(props) {
 
     const handleDetailsClick = (cutout_directory) => {
         my_dispatch({type: SET_CURRENT_CUTOUT, current_cutout: cutout_directory})
+        my_dispatch({type: SET_CUTOUT_PAGE, cutout_page: "cutouts"})
     }
 
     const handleReRunClick = (cutout_directory) => {

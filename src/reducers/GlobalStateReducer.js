@@ -30,7 +30,7 @@ export const SET_CURRENT_CUTOUT = 'SET_CURRENT_CUTOUT'
 export const SET_STATUS_CUTOUT_IMAGES = 'SET_STATUS_CUTOUT_IMAGES'
 export const SET_FETCHED_CUTOUT_IMAGES = 'SET_FETCHED_CUTOUT_IMAGES'
 export const SET_CURRENT_CUTOUT_IMAGE = 'SET_CURRENT_CUTOUT_IMAGE'
-export const SET_GALLERY_IMAGES = 'SET_GALLERY_IMAGES'
+export const SET_CUTOUT_PAGE = 'SET_CUTOUT_PAGE'
 
 export const SET_CURRENT_TASK_ID = 'SET_CURRENT_TASK_ID'
 export const SET_ACTIVE_OBSERVATION = 'SET_ACTIVE_OBSERVATION'
@@ -95,7 +95,7 @@ export const initialState = {
         status_cutout_images : "unfetched",
         fetched_cutout_images: undefined,
         current_cutout_image: undefined,
-        gallery_images: undefined,
+        cutout_page: "directories",
     
         observation_image_type: "All",
         observation_quality: "All",
@@ -319,11 +319,11 @@ export const reducer = (state, action) => {
                 current_cutout_image: action.current_cutout_image,
             };
 
-        case SET_GALLERY_IMAGES:
+        case SET_CUTOUT_PAGE:
             //alert('reducer: SET_FETCHED_CUTOUT_IMAGES '+action.fetched_cutout_images)
             return {
                 ...state,
-                gallery_images: action.gallery_immages
+                cutout_page: action.cutout_page
             };
 
         case SET_CURRENT_TASK_ID:
