@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext }  from 'react';
-
+import { Container, Row, Col, Card } from 'react-bootstrap';
 import '../App.css';
 
 import { useGlobalReducer } from '../contexts/GlobalContext';
@@ -150,6 +150,7 @@ function Main () {
 
     return (
         <Router basename="astroview">
+            <Container fluid>
             <div>
                 <NavigationBar/>
 
@@ -210,8 +211,8 @@ function Main () {
                 </Switch>
             </div>
 
-            <footer><small> (C) 2021 - Nico Vermaas - version 2.2.1 - 24 nov 2021 16:00</small></footer>
-
+            <footer><small> (C) 2021 - Nico Vermaas - version 2.2.1 - 26 nov 2021 16:00</small></footer>
+            </Container>
         </Router>
     );
 }

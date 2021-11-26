@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Container } from 'react-bootstrap';
 import { Navbar, Nav } from 'react-bootstrap';
 import logo from '../logo.ico';
 import { useGlobalReducer } from '../contexts/GlobalContext';
@@ -37,6 +37,7 @@ export function NavigationBar() {
     }
 
     return (
+
         <Navbar bg="dark" variant="dark">
 
             <a href={ASTROBASE_URL}>

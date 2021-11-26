@@ -17,11 +17,15 @@ export default function DirectoryThumbnail(props) {
     }
 
     const handleReRunClick = (cutout_directory) => {
-        if (window.confirm('Rerun the command to generate the cutout images for this area?')) {
+        let params = cutout_directory.directory.replace(/_/g, ',')
+        let url_remove = ASTROBASE_URL + "cutout_directories" + '/' + cutout_directory.directory + '/remove'
+        let url_command = ASTROBASE_URL + "run-command?command=image_cutout&params=" + params
 
-            let params = cutout_directory.directory.replace(/_/g, ',')
-            let url = ASTROBASE_URL + "run-command?command=image_cutout&params=" + params
-            fetch(url)
+        if (window.confirm('Rerun the commands to generate the cutout images for this area?\n\n'+url_remove+'\n\n'+url_command)) {
+           fetch(url_remove)
+                .then(results => {
+                    fetch(url_command)
+                })
         }
     }
 
