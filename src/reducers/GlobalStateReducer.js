@@ -404,7 +404,7 @@ export const reducer = (state, action) => {
                 return {
                     ...state,
                     nr_of_jobs: action.nr_of_jobs,
-                    reload: !state.reload
+                    //reload: !state.reload
                 };
             } else {
                 return {

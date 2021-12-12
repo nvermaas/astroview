@@ -52,15 +52,14 @@ export function NavigationBar() {
                 <Nav.Link as={NavLink} to="/aladin">SkyView</Nav.Link>
                 <Nav.Link as={NavLink} to="/cutouts">Cutouts</Nav.Link>
                 <Nav.Link target="_blank" href={ASTROBASE_URL}>AstroBase</Nav.Link>
-                <Nav.Link target="_blank" href={EXOPLANETS_URL}>Exoplanets</Nav.Link>
                 &nbsp;
 
                 &nbsp;
                 <Nav.Link target="_blank" href={ASTROBASE_URL_JOBS}>Jobs: {my_state.nr_of_jobs}</Nav.Link>
 
-                <Nav.Link target="_blank" href={ASTROBASE_URL_ADMIN}>Admin</Nav.Link>
             </Nav>
             <Nav>
+                <Nav.Link target="_blank" href={ASTROBASE_URL_ADMIN}>Admin</Nav.Link>
                 <AuthControl />
             </Nav>
         </Navbar>
