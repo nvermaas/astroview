@@ -45,7 +45,7 @@ export default function ImageThumbnail(props) {
 
     const handleRemoveClick = (filename) => {
 
-        if (window.confirm('Remove this image from the database? \n(warning: files are not removed from the file system)')) {
+        //if (window.confirm('Remove this image from the database? \n(warning: files are not removed from the file system)')) {
 
             // remove this image from the list of fetched images
             let index = searchCutoutIndex(filename, my_state.fetched_cutout_images);
@@ -60,7 +60,7 @@ export default function ImageThumbnail(props) {
             // trigger the rendering of the cutout directory thumbnail
             let current_cutout = my_state.current_cutout
             my_dispatch({type: SET_CURRENT_CUTOUT, current_cutout: current_cutout})
-        }
+        //}
 
     }
 
