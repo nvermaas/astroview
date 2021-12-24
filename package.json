@@ -14,8 +14,8 @@
     "react-dom": "^17.0.2",
     "react-image-scroller": "^0.3.0",
     "react-images": "1.0.0",
-    "react-router-dom": "^5.3.0",
-    "react-scripts": "^5.0.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.2.0",
     "styled-components": "^4.4.1",
     "xml2js": "^0.4.23"
   },
