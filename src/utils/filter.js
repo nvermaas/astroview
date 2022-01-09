@@ -2,7 +2,11 @@
 // apply the filters that are set in the state to the url_observations
 export const getFilteredUrl = (url, my_state, page) => {
 
-    url = url + "?page=" + page
+    if (page) {
+        url = url + "?page=" + page
+    } else {
+        url = url + "?"
+    }
 
     if (my_state.backend_filter !== undefined) {
         url = url + my_state.backend_filter

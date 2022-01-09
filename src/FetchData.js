@@ -80,7 +80,14 @@ export function FetchData () {
 
     useEffect(() => {
             fetchBoxes(url_boxes)
-        }, [my_state.reload]
+        }, [my_state.backend_filter,
+            my_state.observation_page,
+            my_state.observation_quality,
+            my_state.observation_status,
+            my_state.observation_iso,
+            my_state.observation_focal_length,
+            my_state.observation_image_type,
+            my_state.reload]
     );
 
     // this fetches the observations belonging to the current project when my_state current_project was changed
@@ -144,11 +151,7 @@ export function FetchData () {
         if (my_state.status !== 'fetching')  {
 
             // apply all the filters in my_state to the url_observations
-
             url = getFilteredUrl(url, my_state, my_state.observation_page)
-
-            // why is this?
-            //my_dispatch({type: SET_OBSERVATION_PAGE, observation_page: 1})
 
             my_dispatch({type: SET_STATUS, status: 'fetching'})
 
@@ -320,6 +323,8 @@ export function FetchData () {
 
         if (my_state.status_boxes !== 'fetching')  {
 
+            // apply the observation filter to the aladin boxes also
+            url = getFilteredUrl(url, my_state, undefined)
             my_dispatch({type: SET_STATUS_BOXES, status_boxes: 'fetching'})
 
             fetch(url)
