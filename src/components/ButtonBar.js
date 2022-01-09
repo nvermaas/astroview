@@ -126,10 +126,11 @@ export function ButtonBar() {
             </DropdownButton>
             {render_backend_filter}
 
-            <SwitchThumbnailButton/>
+
             &nbsp;
             <SwitchViewButton/>
             &nbsp;
+            <SwitchThumbnailButton/>
             <CoordSearchButton/>
             <ResetFilterButton/>
             <SearchButton/>

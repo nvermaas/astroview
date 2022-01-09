@@ -8,6 +8,7 @@ import {
 
 import CutoutDirectories from './CutoutDirectories'
 import CutoutImages from './CutoutImages'
+import NewCutoutModalForm from './NewCutoutModalForm'
 
 export default function CutoutsPage(props) {
     const [ my_state , my_dispatch] = useGlobalReducer()
@@ -49,7 +50,7 @@ export default function CutoutsPage(props) {
                 <Row>
                     <Button variant="primary" onClick={() => handleClick("directories")}>Directories</Button>&nbsp;
                     <Button variant="primary" onClick={() => handleClick("cutouts")}>Cutouts</Button>&nbsp;
-                    <Button variant="warning" onClick={() => handleNewCutout()}>New Cutout</Button>
+                    <NewCutoutModalForm/>
                 </Row>
                 <Row>
                     <Col sm={12} md={12} lg={12}>

@@ -182,3 +182,20 @@ export const getCommandIcon = (command) => {
     }
     return <FontAwesomeIcon size={size} icon={icon} color={color}/>
 }
+
+export const getCutoutIcon = (on) => {
+    let icon = faImage
+    let color = "darkgreen"
+    let size = 'grey'
+
+    if (on) {
+        icon = faImage
+        size = "md"
+        color = "black"
+    } else {
+        icon = ["far", "faImage"]
+        size = "md"
+        color="grey"
+    }
+    return <FontAwesomeIcon size={size} icon={icon} color={color}  />
+}
