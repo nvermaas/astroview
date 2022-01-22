@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import { Navbar, Nav } from 'react-bootstrap';
-import logo from '../logo.ico';
+import logo from '../assets/logo.ico';
 import { useGlobalReducer } from '../contexts/GlobalContext';
 import { NavLink, Link } from "react-router-dom"
 

@@ -5,6 +5,7 @@ import ObservationTiles from './ObservationTiles'
 import ObservationsGrid from './ObservationsGrid'
 import { ButtonBar } from '../../components/ButtonBar';
 import { useGlobalReducer } from '../../contexts/GlobalContext';
+import SplashModal from '../../components/SplashModal'
 
 export default function Observations(props) {
 
@@ -27,7 +28,10 @@ export default function Observations(props) {
 
     let renderSpinner
     if (my_state.status === "fetching") {
-        renderSpinner = <LoadingSpinner/>
+        renderSpinner = <div>
+            <LoadingSpinner/>
+            <SplashModal/>
+        </div>
     }
 
     return (
