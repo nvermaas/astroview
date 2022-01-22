@@ -187,7 +187,7 @@ const Aladin = (props) => {
     let title = "hover over yellow objects to highlight observation"
     //alert(highlightedObservation)
     if (highlightedObservation.name) {
-        title = highlightedObservation.name
+        title = highlightedObservation.name + ' ('+highlightedObservation.taskID+')'
     }
     return (
         <div>
