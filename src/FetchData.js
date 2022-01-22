@@ -19,7 +19,8 @@ import {
     SET_NR_OF_JOBS,
     SET_STATUS_BOXES,
     SET_FETCHED_BOXES,
-    RELOAD
+    RELOAD,
+    SHOW_SPLASH
 } from './reducers/GlobalStateReducer';
 
 import { getFilteredUrl, getFilteredUrlCollections } from './utils/filter'
@@ -163,6 +164,10 @@ export function FetchData () {
                     my_dispatch({type: SET_FETCHED_OBSERVATIONS, fetched_observations: data.results})
                     my_dispatch({type: SET_TOTAL_OBSERVATIONS, total_observations: data.count})
                     my_dispatch({type: SET_STATUS, status: 'fetched'})
+
+                    // after it is shown, switch itoff
+                    my_dispatch({type: SHOW_SPLASH, show_splash: false})
+
                 })
                 .catch(function () {
                     my_dispatch({type: SET_STATUS, status: 'failed'})

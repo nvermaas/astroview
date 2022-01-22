@@ -26,11 +26,17 @@ export default function Observations(props) {
         }
     }
 
+    let renderSplash
+    if (my_state.status === "fetching" && my_state.show_splash) {
+        renderSplash = <div>
+            <SplashModal/>
+        </div>
+    }
+
     let renderSpinner
     if (my_state.status === "fetching") {
         renderSpinner = <div>
             <LoadingSpinner/>
-            <SplashModal/>
         </div>
     }
 
@@ -39,6 +45,7 @@ export default function Observations(props) {
             <div>
                 <ButtonBar/>
                 {renderSpinner}
+                {renderSplash}
                 {renderObservations}
             </div>
         </div>

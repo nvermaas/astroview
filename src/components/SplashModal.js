@@ -2,6 +2,8 @@ import React from "react";
 import { Modal } from "react-bootstrap";
 
 import { useGlobalReducer } from '../contexts/GlobalContext';
+import { SHOW_SPLASH } from '../reducers/GlobalStateReducer'
+
 import LoadingSpinner from '../components/LoadingSpinner';
 import { STATUS } from '../reducers/GlobalStateReducer';
 
@@ -12,8 +14,6 @@ import splash3 from '../assets/splash3.jpg';
 import splash4 from '../assets/splash4.jpg';
 import splash5 from '../assets/splash5.jpg';
 import splash6 from '../assets/splash6.jpg';
-
-
 
 export default function SplashModal(props) {
     const [ my_state , my_dispatch] = useGlobalReducer()

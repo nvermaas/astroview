@@ -4,6 +4,7 @@
 // possible actions
 export const SET_AUTHENTICATED = 'SET_AUTHENTICATED'
 export const RELOAD = 'RELOAD'
+export const SHOW_SPLASH = 'SHOW_SPLASH'
 
 export const SET_STATUS = 'SET_STATUS'
 export const SET_FETCHED_OBSERVATIONS = 'SET_FETCHED_OBSERVATIONS'
@@ -65,6 +66,7 @@ export const ALADIN_HIGH_OBS = 'ALADIN_HIGH_OBS'
 export const initialState = {
         authenticated : false,
         reload : false,
+        show_splash : true,
         taskid: undefined,
         observation: undefined,
 
@@ -134,6 +136,12 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 reload: action.reload
+            };
+
+        case SHOW_SPLASH:
+            return {
+                ...state,
+                show_splash: action.show_splash
             };
 
         case SET_STATUS:
