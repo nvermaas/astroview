@@ -16,9 +16,15 @@ export const getFilteredUrl = (url, my_state, page) => {
         url = url + '&image_type__icontains=' + my_state.observation_image_type
     }
 
+    if (my_state.observation_quality.indexOf(',') >= 0) {
+        url = url + '&quality__in=' + my_state.observation_quality.toLowerCase()
+    } else
+
     if (my_state.observation_quality !== "All") {
         url = url + '&quality__icontains=' + my_state.observation_quality
     }
+
+
 
     if (my_state.observation_status !== "All") {
         url = url + '&my_status__icontains=' + my_state.observation_status

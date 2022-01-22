@@ -43,9 +43,6 @@ export function ButtonBar() {
         my_dispatch({type: SET_OBSERVATION_QUALITY, observation_quality: quality})
     }
 
-    function handleStatus(status) {
-        my_dispatch({type: SET_OBSERVATION_STATUS, observation_status: status})
-    }
 
     function handleISO(iso) {
         my_dispatch({type: SET_OBSERVATION_ISO, observation_iso: iso})
@@ -117,6 +114,7 @@ export function ButtonBar() {
                 id="input-group-dropdown-1"
             >
                 <Dropdown.Item onClick={(e) => handleQuality("All")}>All</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleQuality("Great,Good")}>{getQualityIcon('great')}{' '}Good & Great</Dropdown.Item>
                 <Dropdown.Item onClick={(e) => handleQuality("Great")}>{getQualityIcon('great')}{' '}Great</Dropdown.Item>
                 <Dropdown.Item onClick={(e) => handleQuality("Good")}>{getQualityIcon('good')}{' '}Good</Dropdown.Item>
                 <Dropdown.Item onClick={(e) => handleQuality("Medium")}>{getQualityIcon('medium')}{' '}Medium</Dropdown.Item>
