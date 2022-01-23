@@ -13,6 +13,9 @@ import splash3 from '../../assets/splash3.jpg';
 import splash4 from '../../assets/splash4.jpg';
 import splash5 from '../../assets/splash5.jpg';
 import splash6 from '../../assets/splash6.jpg';
+import splash7 from '../../assets/splash7.jpg';
+import splash8 from '../../assets/splash8.jpg';
+import splash9 from '../../assets/splash9.jpg';
 
 export default function Welcome(props) {
     const [ my_state , my_dispatch] = useGlobalReducer()
@@ -28,7 +31,7 @@ export default function Welcome(props) {
     if (my_state.status==='fetching') {
         renderSpinner = <LoadingSpinner/>
     } else {
-        renderSpinner = <h5>Welcome to my astrophotography collection. All photographs are taken without a telescope and span 20 years from the first feeble single shot attempts to hour long exposures using stacking and tracking</h5>
+        renderSpinner = <h5>Welcome to my astrophotography collection. All photographs are taken without a telescope and span 20 years. From the first feeble single shot attempts to hour long exposures using stacking and tracking.</h5>
         renderContinueButton = <Button variant="primary" onClick={close}>Continue</Button>
     }
 
@@ -40,12 +43,15 @@ export default function Welcome(props) {
             </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <img src={splash1} width={250} height={200} />
-            <img src={splash3} width={250} height={200} />
-            <img src={splash2} width={250} height={200} />
-            <img src={splash4} width={250} height={200} />
-            <img src={splash5} width={250} height={200} />
-            <img src={splash6} width={250} height={200} />
+            <img src={splash1} width={190} height={150} />
+            <img src={splash6} width={190} height={150} />
+            <img src={splash7} width={190} height={150} />
+            <img src={splash4} width={190} height={150} />
+            <img src={splash9} width={190} height={150} />
+            <img src={splash2} width={190} height={150} />
+            <img src={splash3} width={190} height={150} />
+            <img src={splash5} width={190} height={150} />
+
         </Modal.Body>
 
         <Modal.Footer>
