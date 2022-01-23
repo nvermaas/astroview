@@ -2,7 +2,6 @@ import React from "react";
 import { Modal } from "react-bootstrap";
 
 import { useGlobalReducer } from '../contexts/GlobalContext';
-import { SHOW_SPLASH } from '../reducers/GlobalStateReducer'
 
 import LoadingSpinner from '../components/LoadingSpinner';
 import { STATUS } from '../reducers/GlobalStateReducer';

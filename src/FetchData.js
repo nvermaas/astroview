@@ -166,7 +166,7 @@ export function FetchData () {
                     my_dispatch({type: SET_STATUS, status: 'fetched'})
 
                     // after it is shown, switch itoff
-                    my_dispatch({type: SHOW_SPLASH, show_splash: false})
+                    //my_dispatch({type: SHOW_SPLASH, show_splash: false})
 
                 })
                 .catch(function () {

@@ -16,7 +16,7 @@ import ObservationDetails from '../routes/details/ObservationDetails';
 import LoadCollection from '../routes/collections/LoadCollection';
 import Survey from '../routes/survey/Survey';
 import { About } from '../routes/about/About';
-
+import Welcome  from '../routes/welcome/Welcome';
 
 import { AuthContext } from "../contexts/AuthContext";
 
@@ -211,7 +211,7 @@ function Main () {
                 </Switch>
             </div>
 
-            <footer><small> (C) 2021 - Nico Vermaas - version 2.2.3 - 22 jan 2021 20:00</small></footer>
+            <footer><small> (C) 2021 - Nico Vermaas - version 2.2.4 - 23 jan 2021 14:00</small></footer>
             </Container>
         </Router>
     );

@@ -5,7 +5,7 @@ import ObservationTiles from './ObservationTiles'
 import ObservationsGrid from './ObservationsGrid'
 import { ButtonBar } from '../../components/ButtonBar';
 import { useGlobalReducer } from '../../contexts/GlobalContext';
-import SplashModal from '../../components/SplashModal'
+import Welcome from '../../routes/welcome/Welcome';
 
 export default function Observations(props) {
 
@@ -27,9 +27,9 @@ export default function Observations(props) {
     }
 
     let renderSplash
-    if (my_state.status === "fetching" && my_state.show_splash) {
+    if (my_state.show_splash) {
         renderSplash = <div>
-            <SplashModal/>
+            <Welcome/>
         </div>
     }
 
