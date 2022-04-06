@@ -5,13 +5,13 @@
 
 // http://skyserver.sdss.org/dr12/en/help/docs/api.aspx#RestWebServices
 
-export const EXOPLANETS_URL = "https://uilennest.net/exoplanets/"
+export const EXOPLANETS_URL = "https://web-of-wyrd.nl/exoplanets/"
 
 
 export const ASTROBASE_URL =
     process.env.NODE_ENV === "development"
         ? "http://localhost:8000/my_astrobase/"
-        : "https://uilennest.net/my_astrobase/";
+        : "https://web-of-wyrd.nl/my_astrobase/";
 
 // https://uilennest.net/my_astrobase/;
 // http://raspiastro:8008/my_astrobase/
