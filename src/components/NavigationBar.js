@@ -26,6 +26,7 @@ export function NavigationBar() {
     const [ my_state , my_dispatch] = useGlobalReducer()
     let ASTROBASE_URL_ADMIN = ASTROBASE_URL + 'admin'
     let ASTROBASE_URL_JOBS = ASTROBASE_URL + 'admin/backend_app/job'
+    let STARCHARTS_URL = ASTROBASE_URL + 'starchart/'
     //let ASTROBASE_URL_HIPS = 'https://uilennest.net/astrobase/hips/'
 
     let detailsLink
@@ -51,6 +52,7 @@ export function NavigationBar() {
                 <Nav.Link as={NavLink} to="/projects">Parents</Nav.Link>
                 <Nav.Link as={NavLink} to="/aladin">SkyView</Nav.Link>
                 <Nav.Link as={NavLink} to="/cutouts">Cutouts</Nav.Link>
+                <Nav.Link target="_blank" href={STARCHARTS_URL}>Starcharts</Nav.Link>
                 <Nav.Link target="_blank" href={ASTROBASE_URL}>AstroBase</Nav.Link>
                 &nbsp;
 
