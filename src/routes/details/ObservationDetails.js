@@ -15,6 +15,7 @@ import { url_observations, url_admin } from '../../FetchData'
 
 export default function ObservationDetails(props) {
 
+
     // get the observation info from the global state.
     const [ my_state , my_dispatch] = useGlobalReducer()
 

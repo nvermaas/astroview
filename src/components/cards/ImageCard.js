@@ -9,7 +9,7 @@ import { faImage, faArrowsAlt, faProjectDiagram, faGlobe, faStar, faSatellite,
 faAdjust, faSlidersH, faRetweet, faMapMarkedAlt, faSquare, faMeteor} from '@fortawesome/free-solid-svg-icons'
 
 import { SET_IMAGE_TYPE, ALADIN_RA, ALADIN_DEC, ALADIN_FOV, SET_CURRENT_OBSERVATION, ALADIN_MODE } from '../../reducers/GlobalStateReducer'
-import { getUrlSDSS} from '../../utils/skyserver'
+import { getUrlSDSS, ASTROBASE_URL} from '../../utils/skyserver'
 
 import InfoLink from '../buttons/InfoLink'
 import SetQualityButton from '../buttons/SetQualityButton'
@@ -85,6 +85,7 @@ function getThumbnail(observation, imageType) {
 
 // display a single observation on a card
 export default function ImageCard(props) {
+    const STARCHARTS_URL = ASTROBASE_URL + 'create-starchart/'
 
     const [ my_state , my_dispatch] = useGlobalReducer()
     const { isAuthenticated } = useContext(AuthContext);
@@ -154,24 +155,35 @@ export default function ImageCard(props) {
     let buttonAnnotatedExoplanet
     if (props.observation.derived_annotated_exoplanets_image) {
         buttonAnnotatedExoplanet = <Button variant="success" onClick={() => setImageType(props.observation, "annotated_exoplanets")}>
-            <FontAwesomeIcon icon={faSatellite} />&nbsp;Exoplanets
+            <FontAwesomeIcon icon={faSatellite} />&nbsp;Exo
         </Button>
     }
 
     let buttonAnnotatedStars=''
     if (props.observation.derived_annotated_stars_image!==null) {
         buttonAnnotatedStars = <Button variant="success" onClick={() => setImageType(props.observation, "annotated_stars")}>
-            <FontAwesomeIcon icon={faStar} />&nbsp;Stars
+            <FontAwesomeIcon icon={faStar} />&nbsp;Calib
         </Button>
     }
-    
+
+    let ra = (props.observation.ra_min + props.observation.ra_max) / 2
+    let dec = (props.observation.dec_min + props.observation.dec_max) /2
+    let radius = props.observation.field_fov / 2
+    let url = STARCHARTS_URL + '?ra=' + ra.toString() + "&dec=" + dec.toString() + "&radius=" + radius.toString() + "&name="+props.observation.name
+    let buttonStarChart= <a href ={url} target="_blank">
+        <Button variant="success" >
+            <FontAwesomeIcon icon={faStar} />&nbsp;Chart
+    </Button>
+    </a>
+
+
     let buttonFITS=''
     if (props.observation.derived_fits!==null) {
         buttonFITS=<a href = {props.observation.derived_fits} target="_blank" rel="noopener noreferrer">
                 <Button variant="info">FITS</Button>
             </a>
     }
-
+/*
     let buttonJS9=''
     if (props.observation.derived_fits!==null) {
         // https://js9.si.edu/js9/js9.html?url=http://uilennest.net/astrobase/data/191231001/3836665.fits&colormap=heat&scale=log
@@ -180,7 +192,7 @@ export default function ImageCard(props) {
             <Button variant="info">JS9</Button>
         </a>
     }
-
+*/
     // buttons to manipulate the colors
     let buttonNormal=''
     if (props.observation.derived_raw_image!==null) {
@@ -202,14 +214,14 @@ export default function ImageCard(props) {
             <FontAwesomeIcon icon={faAdjust} />&nbsp;
         </Button>
     }
-
+/*
     let buttonHueRotate=''
     if (props.observation.derived_raw_image!==null) {
         buttonHueRotate = <Button variant="warning" onClick={() => setMyImageClass("image-huerotate")}>
             <FontAwesomeIcon icon={faSlidersH} />&nbsp;
         </Button>
     }
-
+*/
     let buttonFullScreen=
         <a href = {getThumbnail(props.observation,my_state.image_type)} target="_blank" rel="noopener noreferrer">
             <Button variant="warning">
@@ -294,13 +306,12 @@ export default function ImageCard(props) {
                     {buttonAnnotatedGridEquatorial}&nbsp;
 
                     {buttonAnnotatedStars}&nbsp;
-                    {buttonAladinRectangle}&nbsp;
+                    {buttonStarChart}&nbsp;
+                    {buttonAladinRectangle}&nbsp;{buttonAnnotatedStars}&nbsp;
                     {buttonAladin}&nbsp;
-                    {buttonJS9}&nbsp;
                     {buttonNormal}&nbsp;
                     {buttonInvert}&nbsp;
                     {buttonGrayScale}&nbsp;
-                    {buttonHueRotate}&nbsp;
                 </tr>
                 &nbsp;
                 <tr>
