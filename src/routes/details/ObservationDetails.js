@@ -199,6 +199,11 @@ export default function ObservationDetails(props) {
                                     <td className="key">Quality</td>
                                     <td className="value">{getQualityIcon(observation.quality)}&nbsp;&nbsp;{observation.quality}{magnitude}</td>
                                 </tr>
+                                <tr>
+                                    <td className="key">Magnitude</td>
+                                    <td className="value">{observation.magnitude}</td>
+                                </tr>
+
                                 {renderScience1}
                                 {renderScience2}
                                 {renderJob}

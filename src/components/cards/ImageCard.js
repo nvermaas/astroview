@@ -162,7 +162,7 @@ export default function ImageCard(props) {
     let buttonAnnotatedStars=''
     if (props.observation.derived_annotated_stars_image!==null) {
         buttonAnnotatedStars = <Button variant="success" onClick={() => setImageType(props.observation, "annotated_stars")}>
-            <FontAwesomeIcon icon={faStar} />&nbsp;Calib
+            <FontAwesomeIcon icon={faStar} />&nbsp;Cal
         </Button>
     }
 
@@ -300,14 +300,13 @@ export default function ImageCard(props) {
 
                     {buttonRaw}&nbsp;
                     {buttonAnnotated}&nbsp;
-                    {buttonAnnotatedTransient}&nbsp;
-                    {buttonAnnotatedExoplanet}&nbsp;
                     {buttonAnnotatedGrid}&nbsp;
                     {buttonAnnotatedGridEquatorial}&nbsp;
-
                     {buttonAnnotatedStars}&nbsp;
                     {buttonStarChart}&nbsp;
-                    {buttonAladinRectangle}&nbsp;{buttonAnnotatedStars}&nbsp;
+                    {buttonAnnotatedTransient}&nbsp;
+                    {buttonAnnotatedExoplanet}&nbsp;
+                    {buttonAladinRectangle}&nbsp;
                     {buttonAladin}&nbsp;
                     {buttonNormal}&nbsp;
                     {buttonInvert}&nbsp;
