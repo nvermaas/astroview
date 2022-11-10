@@ -11,7 +11,7 @@ import {
 import LoadingSpinner from '../../components/LoadingSpinner';
 import DirectoryTiles from './DirectoryTiles'
 
-export const url_cutout_directories = ASTROBASE_URL + "cutout_directories"
+export const url_cutout_directories = ASTROBASE_URL + "cutout_directories/"
 
 export default function CutoutDirectories(props) {
 
@@ -28,7 +28,6 @@ export default function CutoutDirectories(props) {
         if (my_state.status_cutouts !== 'fetching')  {
 
             my_dispatch({type: SET_STATUS_CUTOUTS, status_cutouts: 'fetching'})
-
             fetch(url)
                 .then(results => {
                     return results.json();

@@ -26,7 +26,7 @@ export default function CutoutImages(props) {
         // only try to fetch images if a cutout is selected
         if (!current_cutout) return null
 
-        let url = ASTROBASE_URL + "cutouts?visible=true&directory=" + current_cutout.directory
+        let url = ASTROBASE_URL + "cutouts/?visible=true&directory=" + current_cutout.directory
 
         if (my_state.status_cutout_images !== 'fetching')  {
 
