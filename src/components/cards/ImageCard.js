@@ -9,7 +9,7 @@ import { faImage, faArrowsAlt, faProjectDiagram, faGlobe, faStar, faSatellite,
 faAdjust, faSlidersH, faRetweet, faMapMarkedAlt, faSquare, faMeteor} from '@fortawesome/free-solid-svg-icons'
 
 import { SET_IMAGE_TYPE, ALADIN_RA, ALADIN_DEC, ALADIN_FOV, SET_CURRENT_OBSERVATION, ALADIN_MODE } from '../../reducers/GlobalStateReducer'
-import { getUrlSDSS, ASTROBASE_URL} from '../../utils/skyserver'
+import {getUrlSDSS, ASTROBASE_URL, ALADIN_STARCHARTS_URL} from '../../utils/skyserver'
 
 import InfoLink from '../buttons/InfoLink'
 import SetQualityButton from '../buttons/SetQualityButton'
@@ -170,7 +170,7 @@ export default function ImageCard(props) {
     let dec = (props.observation.dec_min + props.observation.dec_max) /2
     let radius = props.observation.field_fov / 2
     //let url = STARCHARTS_URL + '?ra=' + ra.toString() + "&dec=" + dec.toString() + "&radius=" + radius.toString() + "&name="+props.observation.name
-    let url = STARCHARTS_URL + '?ra=' + ra.toString() + "&dec=" + dec.toString() + "&fov=" + radius.toString() + "&name="+props.observation.name
+    let url = ALADIN_STARCHARTS_URL + '?ra=' + ra.toString() + "&dec=" + dec.toString() + "&fov=" + radius.toString() + "&name="+props.observation.name
 
     let buttonStarChart= <a href ={url} target="_blank">
         <Button variant="success" >
