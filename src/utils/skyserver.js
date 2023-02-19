@@ -6,7 +6,7 @@
 // http://skyserver.sdss.org/dr12/en/help/docs/api.aspx#RestWebServices
 
 export const EXOPLANETS_URL = "https://web-of-wyrd.nl/exoplanets/"
-
+export const ALADIN_STARCHARTS_URL = "https://web-of-wyrd.nl/aladin-starcharts/"
 
 export const ASTROBASE_URL =
     process.env.NODE_ENV === "development"
