@@ -170,7 +170,7 @@ export default function ImageCard(props) {
     let dec = (props.observation.dec_min + props.observation.dec_max) /2
     let radius = props.observation.field_fov / 2
     //let url = STARCHARTS_URL + '?ra=' + ra.toString() + "&dec=" + dec.toString() + "&radius=" + radius.toString() + "&name="+props.observation.name
-    let url = ALADIN_STARCHARTS_URL + '?ra=' + ra.toString() + "&dec=" + dec.toString() + "&fov=" + radius.toString() + "&name="+props.observation.name
+    let url = ALADIN_STARCHARTS_URL + 'starchart?ra=' + ra.toString() + "&dec=" + dec.toString() + "&fov=" + radius.toString() + "&name="+props.observation.name
 
     let buttonStarChart= <a href ={url} target="_blank">
         <Button variant="success" >
