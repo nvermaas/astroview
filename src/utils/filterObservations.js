@@ -47,7 +47,7 @@ export function getProjects(observations, maxResults) {
 }
 
 export function filterProjects(observations, taskid, maxResults) {
-        if (observations==undefined) {
+        if (observations===undefined) {
             return false
         }
       return observations.filter((observation) => {
@@ -71,7 +71,7 @@ export function getChildren(observations, id) {
 }
 
 export function filterCollections(collections, id, maxResults) {
-    if (collections==undefined) {
+    if (collections===undefined) {
         return false
     }
     return collections.filter((collection) => {
