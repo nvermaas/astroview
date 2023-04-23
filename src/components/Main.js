@@ -1,5 +1,5 @@
-import React, {useState, useEffect, useContext }  from 'react';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import React, {useContext }  from 'react';
+import { Container } from 'react-bootstrap';
 import '../App.css';
 
 import { useGlobalReducer } from '../contexts/GlobalContext';
@@ -16,7 +16,6 @@ import ObservationDetails from '../routes/details/ObservationDetails';
 import LoadCollection from '../routes/collections/LoadCollection';
 import Survey from '../routes/survey/Survey';
 import { About } from '../routes/about/About';
-import Welcome  from '../routes/welcome/Welcome';
 
 import { AuthContext } from "../contexts/AuthContext";
 
@@ -53,7 +52,7 @@ function findElement(arr, propName, propValue) {
 // reroute to dataproduct details
 function ObservationDetailsForward() {
     // get the observation info from the global state.
-    const [ my_state , my_dispatch] = useGlobalReducer()
+    const [ my_state ] = useGlobalReducer()
 
     let { id } = useParams();
     //console.log('ObservationDetailsForward('+id+')')
@@ -102,12 +101,7 @@ function ObservationDetailsForward() {
 
 // reroute to projects details
 function ProjectsForward() {
-    const [ my_state , my_dispatch] = useGlobalReducer()
     let { id } = useParams();
-
-    //let backend_filter = '&fieldsearch='+id
-    //alert(backend_filter)
-    //my_dispatch({type: SET_BACKEND_FILTER, backend_filter: backend_filter})
 
     return (
         <Projects taskid={id}/>
@@ -117,7 +111,7 @@ function ProjectsForward() {
 // reroute to collection details
 function CollectionDetailsForward() {
     // get the observation info from the global state.
-    const [ my_state , my_dispatch] = useGlobalReducer()
+    const [ my_state ] = useGlobalReducer()
 
     let { id } = useParams();
 
@@ -141,8 +135,6 @@ function CollectionDetailsForward() {
 
 function Main () {
 
-    // use global state
-    const [ my_state , my_dispatch] = useGlobalReducer()
     const { handleLogin, handleLogout } = useContext(AuthContext);
 
     // fetch all the data. Contains the useEffect hooks that re-fetch the data when the state changes.
@@ -211,7 +203,7 @@ function Main () {
                 </Switch>
             </div>
 
-            <footer><small> (C) 2023 - Nico Vermaas - version 15 april 2023 - 11:00</small></footer>
+            <footer><small> (C) 2023 - Nico Vermaas - version 23 april 2023 - 7:00</small></footer>
             </Container>
         </Router>
     );
