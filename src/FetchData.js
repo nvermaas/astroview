@@ -13,14 +13,12 @@ import {
     SET_TOTAL_COLLECTIONS,
     SET_FETCHED_COLLECTIONS,
     SET_CURRENT_OBSERVATIONS,
-    SET_OBSERVATION_PAGE,
     SET_FETCHED_JOBS,
     SET_STATUS_JOBS,
     SET_NR_OF_JOBS,
     SET_STATUS_BOXES,
     SET_FETCHED_BOXES,
-    RELOAD,
-    SHOW_SPLASH
+
 } from './reducers/GlobalStateReducer';
 
 import { getFilteredUrl, getFilteredUrlCollections } from './utils/filter'
