@@ -1,5 +1,9 @@
 name: build-deploy-astroview
 on: [push]
+
+env:
+    NODE_OPTIONS: --openssl-legacy-provider
+
 jobs:
   build-deploy-astroview:
     runs-on: ubuntu-latest
@@ -8,8 +12,6 @@ jobs:
       - uses: actions/setup-node@v2
       - name: install node packages
         run: npm install
-        env:
-          NODE_OPTIONS: "--openssl-legacy-provider"
       - name: build astroview
         run: npm run build
         env:
