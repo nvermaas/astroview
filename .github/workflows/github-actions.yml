@@ -7,9 +7,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v2
-      - name: install node packages
+      - name: setup node
+        uses: actions/setup-node@v2
+      - run: echo 'NODE_OPTIONS="--openssl-legacy-provider"' >> $GITHUB_ENV
 
+      - name: install node packages
         run: npm install
       - name: build astroview
         run: npm run build
