@@ -1,17 +1,25 @@
 name: build-deploy-astroview
 on: [push]
+
 jobs:
   build-deploy-astroview:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v1
+      - name: setup node
+        uses: actions/setup-node@v2
+
       - name: install node packages
         run: npm install
+        env:
+          NODE_OPTIONS: "--openssl-legacy-provider"
+
       - name: build astroview
         run: npm run build
         env:
            CI: ""
+           NODE_OPTIONS: "--openssl-legacy-provider"
 
       - name: upload files to webserver
         uses: appleboy/scp-action@master
