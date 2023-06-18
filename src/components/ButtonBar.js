@@ -13,6 +13,7 @@ import {
     SET_OBSERVATION_STATUS,
     SET_OBSERVATION_ISO,
     SET_OBSERVATION_FOCAL_LENGTH,
+    SET_OBSERVATION_INSTRUMENT,
     SET_OBSERVATION_PAGE,
     SET_OBSERVATION_IMAGE_TYPE} from '../reducers/GlobalStateReducer'
 
@@ -52,9 +53,15 @@ export function ButtonBar() {
         my_dispatch({type: SET_OBSERVATION_FOCAL_LENGTH, observation_focal_length: focal_length})
     }
 
+    function handleInstrument(instrument) {
+        my_dispatch({type: SET_OBSERVATION_INSTRUMENT, observation_instrument: instrument})
+    }
+    
     let image_type_title = "Image Type : "+my_state.observation_image_type
+    let instrument_title = "Instrument : "+my_state.observation_instrument
     let iso_title = "ISO : "+my_state.observation_iso
     let quality_title = "Quality : "+my_state.observation_quality
+    let focal_length_title = "F(mm) : "+my_state.observation_focal_length
     let status_title = "Status : "+my_state.observation_status
 
     let backend_filter
@@ -89,6 +96,35 @@ export function ButtonBar() {
                 <Dropdown.Item onClick={(e) => handleImageType("other")}>{getImageTypeIcon('other')}{' '}Other</Dropdown.Item>
             </DropdownButton>
 
+            <DropdownButton
+                as={InputGroup.Prepend}
+                variant="outline-secondary"
+                title={quality_title}
+                id="input-group-dropdown-1"
+            >
+                <Dropdown.Item onClick={(e) => handleQuality("All")}>All</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleQuality("Great,Good")}>{getQualityIcon('great')}{' '}Good & Great</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleQuality("Great")}>{getQualityIcon('great')}{' '}Great</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleQuality("Good")}>{getQualityIcon('good')}{' '}Good</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleQuality("Medium")}>{getQualityIcon('medium')}{' '}Medium</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleQuality("Bad")}>{getQualityIcon('bad')}{' '}Bad</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleQuality("Annotated")}>{getQualityIcon('annotated')}{' '}Annotated</Dropdown.Item>
+
+            </DropdownButton>
+
+            <DropdownButton
+                as={InputGroup.Prepend}
+                variant="outline-secondary"
+                title={instrument_title}
+                id="input-group-dropdown-1"
+            >
+                <Dropdown.Item onClick={(e) => handleInstrument("All")}>All</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleInstrument("Powershot G2")}>Powershot G2</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleInstrument("Powershot G15")}>Powershot G15</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleInstrument("Canon 350D - Sigma 18-200")}>Canon 350D - Sigma 18-200</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleInstrument("Canon 2000D - Sigma 18-200")}>Canon 2000D - Sigma 18-200</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleInstrument("Canon 2000D - Samyang 135")}>Canon 2000D - Samyang 135</Dropdown.Item>
+            </DropdownButton>
 
             <DropdownButton
                 as={InputGroup.Prepend}
@@ -105,23 +141,24 @@ export function ButtonBar() {
                 <Dropdown.Item onClick={(e) => handleISO("3200")}>ISO 3200</Dropdown.Item>
                 <Dropdown.Item onClick={(e) => handleISO("6400")}>ISO 6400</Dropdown.Item>
             </DropdownButton>
-
-
+            
             <DropdownButton
                 as={InputGroup.Prepend}
                 variant="outline-secondary"
-                title={quality_title}
+                title={focal_length_title}
                 id="input-group-dropdown-1"
             >
-                <Dropdown.Item onClick={(e) => handleQuality("All")}>All</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleQuality("Great,Good")}>{getQualityIcon('great')}{' '}Good & Great</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleQuality("Great")}>{getQualityIcon('great')}{' '}Great</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleQuality("Good")}>{getQualityIcon('good')}{' '}Good</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleQuality("Medium")}>{getQualityIcon('medium')}{' '}Medium</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleQuality("Bad")}>{getQualityIcon('bad')}{' '}Bad</Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleQuality("Annotated")}>{getQualityIcon('annotated')}{' '}Annotated</Dropdown.Item>
-
+                <Dropdown.Item onClick={(e) => handleFocal("All")}>All</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleFocal("0")}>Unknown</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleFocal("10")}>10mm</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleFocal("18")}>18mm</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleFocal("30")}>30mm</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleFocal("50")}>50mm</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleFocal("100")}>100mm</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleFocal("135")}>135mm</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleFocal("200")}>200mm</Dropdown.Item>
             </DropdownButton>
+
             {render_backend_filter}
 
 

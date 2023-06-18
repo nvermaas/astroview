@@ -50,6 +50,7 @@ export const SET_OBSERVATION_IMAGE_TYPE = 'SET_OBSERVATION_IMAGE_TYPE'
 export const SET_OBSERVATION_QUALITY = 'SET_OBSERVATION_QUALITY'
 export const SET_OBSERVATION_STATUS = 'SET_OBSERVATION_STATUS'
 export const SET_OBSERVATION_ISO = 'SET_OBSERVATION_ISO'
+export const SET_OBSERVATION_INSTRUMENT = 'SET_OBSERVATION_INSTRUMENT'
 export const SET_OBSERVATION_FOCAL_LENGTH = 'SET_OBSERVATION_FOCAL_LENGTH'
 
 export const SET_BACKEND_FILTER = 'SET_BACKEND_FILTER'
@@ -104,6 +105,7 @@ export const initialState = {
         observation_status: "All",
         observation_iso: "All",
         observation_focal_length: "All",
+        observation_instrument: "All",
         backend_filter: undefined,
         image_type: "annotated_grid",
         thumbnail_image_type: "sky_plot",
@@ -181,6 +183,11 @@ export const reducer = (state, action) => {
                 observation_focal_length: action.observation_focal_length
             };
 
+        case SET_OBSERVATION_INSTRUMENT:
+            return {
+                ...state,
+                observation_instrument: action.observation_instrument
+            };
 
         case SET_ACTIVE_OBSERVATION:
             //alert('reducer: SET_ACTIVE_OBSERVATION '+action.observation)

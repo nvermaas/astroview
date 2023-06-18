@@ -24,8 +24,6 @@ export const getFilteredUrl = (url, my_state, page) => {
         url = url + '&quality__icontains=' + my_state.observation_quality
     }
 
-
-
     if (my_state.observation_status !== "All") {
         url = url + '&my_status__icontains=' + my_state.observation_status
     }
@@ -37,6 +35,11 @@ export const getFilteredUrl = (url, my_state, page) => {
     if (my_state.observation_focal_length !== "All") {
         url = url + '&focal_length=' + my_state.observation_focal_length
     }
+
+    if (my_state.observation_instrument !== "All") {
+        url = url + '&instrument=' + my_state.observation_instrument
+    }
+
     return url
 }
 

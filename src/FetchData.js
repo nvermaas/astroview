@@ -26,7 +26,6 @@ import { getIds } from './utils/filterObservations'
 import { ASTROBASE_URL } from './utils/skyserver'
 
 export const url_observations = ASTROBASE_URL + "observations2/"
-//export const url_observations = ASTROBASE_URL + "observations"
 export const url_admin = ASTROBASE_URL + "admin/backend_app/observation2/"
 export const url_projects = ASTROBASE_URL + "projects/"
 export const url_collections = ASTROBASE_URL + "collections2/"
@@ -52,6 +51,7 @@ export function FetchData () {
             my_state.observation_iso,
             my_state.observation_focal_length,
             my_state.observation_image_type,
+            my_state.observation_instrument,
             my_state.reload]
     );
 
@@ -65,6 +65,7 @@ export function FetchData () {
             my_state.observation_iso,
             my_state.observation_focal_length,
             my_state.observation_image_type,
+            my_state.observation_instrument,
             my_state.reload]
     );
 
@@ -85,6 +86,7 @@ export function FetchData () {
             my_state.observation_status,
             my_state.observation_iso,
             my_state.observation_focal_length,
+            my_state.observation_instrument,
             my_state.observation_image_type,
             my_state.reload]
     );
@@ -108,27 +110,6 @@ export function FetchData () {
         }, [my_state.current_task_id, my_state.reload]
     );
 
-/*
-    useEffect(() => {
-     setTimer(setInterval(() => fetchObservations(url_observations), 60000))
-
-        // this function is automatically called when the component unmounts
-        return function cleanup() {
-            clearInterval(timer);
-            }
-        },[]
-    );
-
-    useEffect(() => {
-            setTimer(setInterval(() => fetchCurrentObservation(url_observations), 60000))
-
-            // this function is automatically called when the component unmounts
-            return function cleanup() {
-                clearInterval(timer);
-            }
-        },[]
-    );
-*/
 
     // this executes fetchCollections every time that a filter in the state is changed
     useEffect(() => {
