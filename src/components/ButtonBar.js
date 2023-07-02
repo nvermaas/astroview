@@ -27,6 +27,7 @@ export function ButtonBar() {
         my_dispatch({type: SET_OBSERVATION_QUALITY, observation_quality: "All"})
         my_dispatch({type: SET_OBSERVATION_STATUS, observation_status: "All"})
         my_dispatch({type: SET_OBSERVATION_ISO, observation_iso: "All"})
+        my_dispatch({type: SET_OBSERVATION_INSTRUMENT, observation_instrument: "All"})
         my_dispatch({type: SET_OBSERVATION_FOCAL_LENGTH, observation_focal_length: "All"})
     }
 

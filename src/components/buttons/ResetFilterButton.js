@@ -9,11 +9,11 @@ import {
     SET_OBSERVATION_QUALITY,
     SET_OBSERVATION_STATUS,
     SET_OBSERVATION_ISO,
-    SET_OBSERVATION_FOCAL_LENGTH
+    SET_OBSERVATION_FOCAL_LENGTH, SET_OBSERVATION_INSTRUMENT
 } from '../../reducers/GlobalStateReducer'
 
 // conditionally render the switch view button
-export default function SwitchViewButton(props) {
+export default function ResetFilterButton(props) {
     const [ my_state , my_dispatch] = useGlobalReducer()
 
     const handleResetClick = (event) => {
@@ -24,6 +24,7 @@ export default function SwitchViewButton(props) {
         my_dispatch({type: SET_OBSERVATION_QUALITY, observation_quality: "All"})
         my_dispatch({type: SET_OBSERVATION_STATUS, observation_status: "All"})
         my_dispatch({type: SET_OBSERVATION_ISO, observation_iso: "All"})
+        my_dispatch({type: SET_OBSERVATION_INSTRUMENT, observation_instrument: "All"})
         my_dispatch({type: SET_OBSERVATION_FOCAL_LENGTH, observation_focal_length: "All"})
 
     }

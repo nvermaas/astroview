@@ -90,7 +90,7 @@ export const getStarsIcon = (stars) => {
         size = "md"
         color = "green"
     } else {
-        icon = faStar
+        icon = undefined
         size = "md"
         color="grey"
     }
@@ -107,7 +107,7 @@ export const getTransientIcon = (transient) => {
         size = "md"
         color = "green"
     } else {
-        icon = ["faMeteor"]
+        icon = undefined
         size = "md"
         color="grey"
     }
@@ -124,7 +124,7 @@ export const getHipsIcon = (used_in_hips) => {
         size = "md"
         color = "green"
     } else {
-        icon = faMapMarkedAlt
+        icon = undefined
         size = "md"
         color="grey"
     }
