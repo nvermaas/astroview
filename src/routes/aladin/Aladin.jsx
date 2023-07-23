@@ -26,20 +26,23 @@ const Aladin = (props) => {
 
             var msg;
             if (object) {
-                msg = object.data.my_field_name;
 
-                 // highlight the observation under the mouse
-                let my_observation = object.data.my_observation
+                if (object.data.my_field_name) {
+                    msg = object.data.my_field_name;
 
-                // recreate all the layers, but now with a different highlighted observation
-                createLayers(aladin, props.data, my_observation)
+                    // highlight the observation under the mouse
+                    let my_observation = object.data.my_observation
 
-                // save the highlighted observation to the local state
-                // now only used to display it
-                setHighlightedObservation(my_observation)
+                    // recreate all the layers, but now with a different highlighted observation
+                    createLayers(aladin, props.data, my_observation)
 
-                // save the highlighed observation to the global state (not used for anything yet)
-                my_dispatch({type: ALADIN_HIGH_OBS, aladin_high_obs: my_observation})
+                    // save the highlighted observation to the local state
+                    // now only used to display it
+                    setHighlightedObservation(my_observation)
+
+                    // save the highlighed observation to the global state (not used for anything yet)
+                    my_dispatch({type: ALADIN_HIGH_OBS, aladin_high_obs: my_observation})
+                }
             }
         });
 
@@ -174,21 +177,26 @@ const Aladin = (props) => {
 
         if (mode==='fits') {
             aladin.displayFITS(observation.derived_fits)
+        }
 
-            let coordinates = observation.field_ra + "," + observation.field_dec
-            let radius = observation.field_fov * 1.5
+        let coordinates = observation.field_ra + "," + observation.field_dec
+        let radius = observation.field_fov * 1.5
 
-            if (radius < 5) {
-                aladin.addCatalog(window.A.catalogFromSimbad(coordinates, radius, {color: 'yellow', onClick: 'showTable'}));
-            }
+        if (radius < 5) {
+            aladin.addCatalog(window.A.catalogFromSimbad(coordinates, radius, {color: 'yellow', onClick: 'showTable'}));
         }
     }
 
     let title = "hover over yellow objects to highlight observation"
     //alert(highlightedObservation)
-    if (highlightedObservation.name) {
-        title = highlightedObservation.name + ' ('+highlightedObservation.taskID+')'
+
+    try {
+        if (highlightedObservation.name) {
+            title = highlightedObservation.name + ' (' + highlightedObservation.taskID + ')'
+        }
+    } catch (e) {
     }
+
     return (
         <div>
             <h3>{title}</h3>
