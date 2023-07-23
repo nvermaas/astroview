@@ -3,8 +3,6 @@ on: [push]
 
 jobs:
   build-deploy-astroview:
-    branches:
-      - main
     runs-on: ubuntu-latest
 
     steps:
@@ -24,6 +22,8 @@ jobs:
            NODE_OPTIONS: "--openssl-legacy-provider"
 
       - name: upload files to webserver
+        branches:
+          - main
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.MY_HOST }}
@@ -34,6 +34,8 @@ jobs:
           target: "~/www/repository/astroview"
 
       - name: move files to production
+        branches:
+          - main
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.MY_HOST }}
