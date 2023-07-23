@@ -3,6 +3,8 @@ on: [push]
 
 jobs:
   build-deploy-astroview:
+    branches:
+      - main
     runs-on: ubuntu-latest
 
     steps:
