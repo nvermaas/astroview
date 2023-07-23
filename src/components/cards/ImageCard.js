@@ -11,6 +11,7 @@ faAdjust, faSlidersH, faRetweet, faMapMarkedAlt, faSquare, faMeteor} from '@fort
 import { SET_IMAGE_TYPE, ALADIN_RA, ALADIN_DEC, ALADIN_FOV, SET_CURRENT_OBSERVATION, ALADIN_MODE } from '../../reducers/GlobalStateReducer'
 import {getUrlSDSS, ASTROBASE_URL, ALADIN_STARCHARTS_URL} from '../../utils/skyserver'
 
+import AstroImage from "./AstroImage";
 import InfoLink from '../buttons/InfoLink'
 import SetQualityButton from '../buttons/SetQualityButton'
 import SetHipsButton from '../buttons/SetHipsButton'
@@ -106,11 +107,14 @@ export default function ImageCard(props) {
     }
 
 
-
     // display the main image
     function MainImage(props) {
         let thumbnail =  getThumbnail(props.observation, props.imageType)
-        return <a href={thumbnail} target="_blank"><img class={myImageClass} src={thumbnail} width="1000"/></a>
+        if (props.imageType == 'astro_image') {
+            return <AstroImage observation={props.observation} />
+        } else {
+            return <a href={thumbnail} target="_blank"><img class={myImageClass} src={thumbnail} width="1000"/></a>
+        }
     }
 
     let sdss_button=<Button variant="warning" onClick={() => setImageType(props.observation,'SDSS')}>SDSS</Button>
@@ -122,6 +126,13 @@ export default function ImageCard(props) {
         buttonRaw = <Button variant="primary" onClick={() => setImageType(props.observation, "raw")}>
                         <FontAwesomeIcon icon={faImage} />&nbsp;Raw
                     </Button>
+    }
+
+    let buttonAstroImage=''
+    if (props.observation.derived_fits!==null) {
+        buttonAstroImage = <Button variant="primary" onClick={() => setImageType(props.observation, "astro_image")}>
+            <FontAwesomeIcon icon={faImage} />&nbsp;Info
+        </Button>
     }
 
     let buttonAnnotated=''
@@ -176,7 +187,7 @@ export default function ImageCard(props) {
     let buttonStarChart= <a href ={url} target="_blank">
         <Button variant="success" >
             <FontAwesomeIcon icon={faStar} />&nbsp;Chart
-    </Button>
+        </Button>
     </a>
 
 
@@ -211,20 +222,14 @@ export default function ImageCard(props) {
         </Button>
     }
 
-    let buttonGrayScale=''
-    if (props.observation.derived_raw_image!==null) {
-        buttonGrayScale = <Button variant="warning" onClick={() => setMyImageClass("image-grayscale")}>
-            <FontAwesomeIcon icon={faAdjust} />&nbsp;
-        </Button>
-    }
-/*
+
     let buttonHueRotate=''
     if (props.observation.derived_raw_image!==null) {
         buttonHueRotate = <Button variant="warning" onClick={() => setMyImageClass("image-huerotate")}>
             <FontAwesomeIcon icon={faSlidersH} />&nbsp;
         </Button>
     }
-*/
+
     let buttonFullScreen=
         <a href = {getThumbnail(props.observation,my_state.image_type)} target="_blank" rel="noopener noreferrer">
             <Button variant="warning">
@@ -302,6 +307,7 @@ export default function ImageCard(props) {
                     &nbsp;
 
                     {buttonRaw}&nbsp;
+                    {buttonAstroImage}&nbsp;
                     {buttonAnnotated}&nbsp;
                     {buttonAnnotatedGrid}&nbsp;
                     {buttonAnnotatedGridEquatorial}&nbsp;
@@ -313,7 +319,7 @@ export default function ImageCard(props) {
                     {buttonAladin}&nbsp;
                     {buttonNormal}&nbsp;
                     {buttonInvert}&nbsp;
-                    {buttonGrayScale}&nbsp;
+                    {buttonHueRotate}&nbsp;
                 </tr>
                 &nbsp;
                 <tr>
