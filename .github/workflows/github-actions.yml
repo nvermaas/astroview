@@ -1,9 +1,10 @@
 name: build-deploy-astroview
-on: [push]
+on:
+  push:
+    branches:
+      - master
 
 jobs:
-  branches:
-    - master
   build-deploy-astroview:
     runs-on: ubuntu-latest
 
