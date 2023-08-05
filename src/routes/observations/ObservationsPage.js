@@ -45,7 +45,6 @@ export default function Observations(props) {
             <div>
                 <ButtonBar/>
                 {renderSpinner}
-                {renderSplash}
                 {renderObservations}
             </div>
         </div>

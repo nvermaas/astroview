@@ -6,6 +6,7 @@ import { ButtonBar } from '../../components/ButtonBar';
 import { useGlobalReducer } from '../../contexts/GlobalContext';
 
 import { filterProjects } from '../../utils/filterObservations'
+import Welcome from "../welcome/Welcome";
 
 export default function Projects(props) {
 
@@ -26,6 +27,13 @@ export default function Projects(props) {
         renderProjects = <ProjectsGrid data={projects}/>
     }
 
+    let renderSplash
+    if (my_state.show_splash) {
+        renderSplash = <div>
+            <Welcome/>
+        </div>
+    }
+
     let renderSpinner
     if (my_state.status_projects === "fetching") {
         renderSpinner = <LoadingSpinner/>
@@ -36,6 +44,7 @@ export default function Projects(props) {
             <div>
                 <ButtonBar/>
                 {renderSpinner}
+                {renderSplash}
                 {renderProjects}
             </div>
         </div>
