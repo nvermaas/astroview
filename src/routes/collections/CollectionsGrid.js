@@ -3,11 +3,16 @@ import { Link } from "react-router-dom"
 import { Button,Badge } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
 import { useGlobalReducer } from '../../contexts/GlobalContext';
-import { SET_CURRENT_COLLECTION, SET_COLLECTION_PAGE } from '../../reducers/GlobalStateReducer'
+import {
+    SET_CURRENT_COLLECTION,
+    SET_COLLECTION_PAGE,
+    SET_CURRENT_TASK_ID,
+    SET_CURRENT_PROJECT
+} from '../../reducers/GlobalStateReducer'
 import { ASTROBASE_URL } from '../../utils/skyserver'
 import ChildrenGrid from './ChildrenGrid'
 import { getCollectionChildren } from '../../utils/filterObservations'
-import {getImageTypeIcon } from '../../utils/styling'
+import {getDetailsIcon, getImageTypeIcon} from '../../utils/styling'
 
 export default function ProjectsGrid(props) {
     const [ my_state , my_dispatch] = useGlobalReducer()
@@ -34,6 +39,12 @@ export default function ProjectsGrid(props) {
     const handleExpandOnRowClicked = (row) => {
         alert('handleExpandOnRowClicked')
         my_dispatch({type: SET_CURRENT_COLLECTION, current_collection: row})
+    }
+
+    const handleDetailsClick = (observation) => {
+        // dispatch current observation to the global store
+        my_dispatch({type: SET_CURRENT_TASK_ID, current_task_id: observation.taskID})
+        my_dispatch({type: SET_CURRENT_PROJECT, current_project: observation.taskID})
     }
 
     // generate the details link to forward to
@@ -86,11 +97,12 @@ export default function ProjectsGrid(props) {
 
         {
             name: 'Details',
-            cell: row =>
-                <Link to={() => getDetailsLink(row)}>
-                    <Button variant="warning" onClick={() => handleDefaultClick(row)}>Details</Button>
-                </Link>,
-
+            cell: row => {
+                let icon = getDetailsIcon(handleDefaultClick,row)
+                return <Link to={() => getDetailsLink(row)}>
+                    <div>{icon}</div>
+                </Link>
+            },
             button: true,
         },
     ];

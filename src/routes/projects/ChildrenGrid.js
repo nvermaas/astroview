@@ -5,7 +5,8 @@ import DataTable from 'react-data-table-component';
 import { useGlobalReducer } from '../../contexts/GlobalContext';
 // import { SET_ACTIVE_TASKID } from '../../reducers/GlobalStateReducer'
 import { ASTROBASE_URL } from '../../utils/skyserver'
-import { getMode, getExposure, getImageTypeIcon, getQualityIcon } from '../../utils/styling'
+import {getMode, getExposure, getImageTypeIcon, getQualityIcon, getDetailsIcon} from '../../utils/styling'
+import {SET_CURRENT_PROJECT, SET_CURRENT_TASK_ID} from "../../reducers/GlobalStateReducer";
 
 export default function ChildrenGrid(props) {
     const [ my_state , my_dispatch] = useGlobalReducer()
@@ -15,8 +16,15 @@ export default function ChildrenGrid(props) {
         // my_dispatch({type: SET_ACTIVE_TASKID, taskid: observation.taskID})
     }
 
+    const handleDetailsClick = (observation) => {
+        // dispatch current observation to the global store
+        my_dispatch({type: SET_CURRENT_TASK_ID, current_task_id: observation.taskID})
+        my_dispatch({type: SET_CURRENT_PROJECT, current_project: observation.taskID})
+    }
+
+
     // generate the details link to forward to
-    const getLink = (observation) => {
+    const getDetailsLink = (observation) => {
         let details_link = "/details/"+observation.taskID
         return details_link
     }
@@ -127,12 +135,14 @@ export default function ChildrenGrid(props) {
          },
          */
         {
-            name: 'Details',
-            cell: row =>
-                <Link to={() => getLink(row)}>
-                    <Button variant="warning" onClick={() => handleClick(row)}>Details</Button>
-                </Link>,
-
+            name: 'Details (link)',
+            width: "3%",
+            cell: row => {
+                let icon = getDetailsIcon(handleDetailsClick,row)
+                return <Link to={() => getDetailsLink(row)}>
+                    <div>{icon}</div>
+                </Link>
+            },
             button: true,
         },
         {
