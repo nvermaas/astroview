@@ -157,7 +157,7 @@ function Main () {
                 <Switch>
 
                     <Route exact path="/">
-                        <Observations />
+                        <Projects />
                     </Route>
 
                     <Route exact path="/login" component={handleLogin} />

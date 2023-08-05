@@ -28,7 +28,6 @@ export function NavigationBar() {
     let ASTROBASE_URL_JOBS = ASTROBASE_URL + 'admin/backend_app/job'
     //let STARCHARTS_URL = ASTROBASE_URL + 'starchart/'
     let STARCHARTS_URL = ALADIN_STARCHARTS_URL
-    //let ASTROBASE_URL_HIPS = 'https://uilennest.net/astrobase/hips/'
 
     let detailsLink
     if (my_state.current_task_id) {
@@ -47,10 +46,11 @@ export function NavigationBar() {
             </a>
             <Navbar.Brand href="/astroview">&nbsp;AstroView </Navbar.Brand>
             <Nav className="mr-auto">
+                <Nav.Link as={NavLink} to="/projects">Projects</Nav.Link>
                 <Nav.Link as={NavLink} to="/observations">Observations</Nav.Link>
                 {detailsLink}
                 <Nav.Link as={NavLink} to="/collections">Collections</Nav.Link>
-                <Nav.Link as={NavLink} to="/projects">Parents</Nav.Link>
+
                 <Nav.Link as={NavLink} to="/aladin">SkyView</Nav.Link>
                 <Nav.Link as={NavLink} to="/cutouts">Cutouts</Nav.Link>
                 <Nav.Link target="_blank" href={STARCHARTS_URL}>Starcharts</Nav.Link>

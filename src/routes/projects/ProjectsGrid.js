@@ -3,11 +3,11 @@ import { Link } from "react-router-dom"
 import { Button,Badge } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
 import { useGlobalReducer } from '../../contexts/GlobalContext';
-import { SET_CURRENT_PROJECT, SET_PROJECT_PAGE } from '../../reducers/GlobalStateReducer'
+import {SET_CURRENT_PROJECT, SET_CURRENT_TASK_ID, SET_PROJECT_PAGE} from '../../reducers/GlobalStateReducer'
 import { ASTROBASE_URL } from '../../utils/skyserver'
 import ChildrenGrid from './ChildrenGrid'
 import { getChildren } from '../../utils/filterObservations'
-import { getMode, getExposure, getImageTypeIcon, getQualityIcon } from '../../utils/styling'
+import {getMode, getExposure, getImageTypeIcon, getQualityIcon, getDetailsIcon} from '../../utils/styling'
 
 export default function ProjectsGrid(props) {
     const [ my_state , my_dispatch] = useGlobalReducer()
@@ -29,6 +29,12 @@ export default function ProjectsGrid(props) {
 
     const handlePerRowsChange = () => {
         alert('handlePerRowsChange')
+    }
+
+    const handleDetailsClick = (observation) => {
+        // dispatch current observation to the global store
+        my_dispatch({type: SET_CURRENT_TASK_ID, current_task_id: observation.taskID})
+        my_dispatch({type: SET_CURRENT_PROJECT, current_project: observation.taskID})
     }
 
     // generate the details link to forward to
@@ -62,20 +68,24 @@ export default function ProjectsGrid(props) {
             }
         },
         {
-            name: 'ID (children)',
+            name: 'children',
             selector: 'taskID',
             sortable: true,
-            width: "8%",
+            width: "5%",
             cell: row => {
                 let nr_of_children = row.children.length
-                return <div>{row.taskID}{' '}({nr_of_children})</div>
+                if (nr_of_children > 0) {
+                    return <div>({nr_of_children})</div>
+                } else {
+                    return <div/>
+                }
             }
         },
         {
             name: 'Observation Date',
             selector: 'date',
             sortable: true,
-            width: "8%",
+            width: "10%",
             cell: row => {
                 var d = new Date(row.date.toString());
                 var n = d.toDateString()
@@ -147,12 +157,14 @@ export default function ProjectsGrid(props) {
          },
          */
         {
-            name: 'Details',
-            cell: row =>
-                <Link to={() => getDetailsLink(row)}>
-                    <Button variant="warning" onClick={() => handleDefaultClick(row)}>Details</Button>
-                </Link>,
-
+            name: 'Details (link)',
+            width: "3%",
+            cell: row => {
+                let icon = getDetailsIcon(handleDetailsClick,row)
+                return <Link to={() => getDetailsLink(row)}>
+                    <div>{icon}</div>
+                </Link>
+            },
             button: true,
         },
         {
@@ -305,7 +317,7 @@ export default function ProjectsGrid(props) {
     return (
         <div>
             <DataTable
-                title="Parent Observations (click '>' for children)"
+                title="Projects"
                 columns={columns}
                 data={props.data}
                 conditionalRowStyles={conditionalRowStyles}
