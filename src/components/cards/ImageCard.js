@@ -110,6 +110,7 @@ export default function ImageCard(props) {
     // display the main image
     function MainImage(props) {
         let thumbnail =  getThumbnail(props.observation, props.imageType)
+
         if (props.imageType == 'astro_image') {
             return <AstroImage observation={props.observation} />
         } else {
@@ -307,7 +308,6 @@ export default function ImageCard(props) {
                     &nbsp;
 
                     {buttonRaw}&nbsp;
-                    {buttonAstroImage}&nbsp;
                     {buttonAnnotated}&nbsp;
                     {buttonAnnotatedGrid}&nbsp;
                     {buttonAnnotatedGridEquatorial}&nbsp;

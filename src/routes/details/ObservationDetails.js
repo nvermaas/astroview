@@ -89,7 +89,7 @@ export default function ObservationDetails(props) {
     //alert(admin_api)
 
     let d = new Date(observation.date.toString());
-    let date = d.toDateString()
+    let date = d.toISOString().slice(0, -5) + 'Z'
 
     let my_status = ''
     if (observation.my_status!=='done') {

@@ -10,11 +10,11 @@ export const ALADIN_STARCHARTS_URL = "https://uilennest.net/aladin-starcharts/"
 
 export const ASTROBASE_URL =
     process.env.NODE_ENV === "development"
-        ? "http://localhost:8000/my_astrobase/"
+        //? "http://localhost:8000/my_astrobase/"
+        ? "https://web-of-wyrd.nl/my_astrobase/"
         : "https://web-of-wyrd.nl/my_astrobase/";
 
-// https://uilennest.net/my_astrobase/;
-// http://raspiastro:8008/my_astrobase/
+
 
 // export const ASTROBASE_URL = "http://uilennest.net/raspiastro_astrobase/"
 
