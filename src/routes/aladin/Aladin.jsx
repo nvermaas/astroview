@@ -182,7 +182,7 @@ const Aladin = (props) => {
         let coordinates = observation.field_ra + "," + observation.field_dec
         let radius = observation.field_fov * 1.5
 
-        if (radius < 5) {
+        if (radius < 1) {
             aladin.addCatalog(window.A.catalogFromSimbad(coordinates, radius, {color: 'yellow', onClick: 'showTable'}));
         }
     }
