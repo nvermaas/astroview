@@ -177,7 +177,7 @@ export default function ObservationsGrid(props) {
             }
         },
         {
-            name: 'T(m)',
+            name: 'T(min)',
             selector: 'exposure_in_seconds',
             sortable: true,
             width: "5%",
