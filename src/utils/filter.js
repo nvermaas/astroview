@@ -33,8 +33,13 @@ export const getFilteredUrl = (url, my_state, page) => {
     }
 
     if (my_state.observation_focal_length !== "All") {
-        url = url + '&focal_length=' + my_state.observation_focal_length
+        if (my_state.observation_focal_length == ">=135") {
+            url = url + '&focal_length__gte=135'
+        } else {
+            url = url + '&focal_length=' + my_state.observation_focal_length
+        }
     }
+
 
     if (my_state.observation_instrument !== "All") {
         url = url + '&instrument=' + my_state.observation_instrument

@@ -158,6 +158,7 @@ export function ButtonBar() {
                 <Dropdown.Item onClick={(e) => handleFocal("100")}>100mm</Dropdown.Item>
                 <Dropdown.Item onClick={(e) => handleFocal("135")}>135mm</Dropdown.Item>
                 <Dropdown.Item onClick={(e) => handleFocal("200")}>200mm</Dropdown.Item>
+                <Dropdown.Item onClick={(e) => handleFocal(">=135")}>>=135mm</Dropdown.Item>
             </DropdownButton>
 
             {render_backend_filter}
