@@ -89,7 +89,7 @@ export default function ChildrenGrid(props) {
             }
         },
         {
-            name: 'T(min)',
+            name: 'T(m)',
             selector: 'exposure_in_seconds',
             sortable: true,
             width: "4%",

@@ -111,7 +111,7 @@ export default function ProjectsGrid(props) {
             }
         },
         {
-            name: 'T(s)',
+            name: 'T(m)',
             selector: 'exposure_in_seconds',
             sortable: true,
             width: "4%",

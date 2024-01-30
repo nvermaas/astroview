@@ -203,7 +203,7 @@ function Main () {
                 </Switch>
             </div>
 
-            <footer><small> (C) 2023 - Nico Vermaas - version 29 jan 2023</small></footer>
+            <footer><small> (C) 2023 - Nico Vermaas - version 30 jan 2024</small></footer>
             </Container>
         </Router>
     );
