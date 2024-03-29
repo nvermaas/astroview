@@ -7,7 +7,7 @@ import { faLink } from '@fortawesome/free-solid-svg-icons'
 export default function InfoLink(props) {
 
     // only show the info button when there is a description
-    if (props.observation.url==='') {
+    if (!props.observation.url) {
         return null
     }
 
