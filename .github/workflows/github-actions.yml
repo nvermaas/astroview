@@ -1,6 +1,6 @@
 name: build-deploy-astroview
 on:
-  push:
+  [push,workflow_dispatch]:
     branches:
       - master
 
