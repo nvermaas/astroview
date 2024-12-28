@@ -27,3 +27,9 @@ jobs:
             #cd $HOME/my_nomad_datacenter/jobs
             #nomad stop astroview
             #nomad run astroview.nomad
+            
+            # deploy with docker-compose
+            cd $HOME/shared
+            docker stop astroview
+            docker rm -f astroview
+            docker-compose -p astronest -f ~/shared/docker-compose-astro.yml up -d
