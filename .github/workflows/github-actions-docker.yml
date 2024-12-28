@@ -1,0 +1,29 @@
+name: build-deploy-docker
+on: [push]
+jobs:
+  build-deploy-astroview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: execute build & deploy procedure on local server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.MY_HOST }}
+          username: ${{ secrets.MY_USER }}
+          password: ${{ secrets.MY_PASSWORD }}
+          #key: ${{ secrets.MY_PRIVATE_KEY }}
+          script: |
+            cd ~/my_docker/astroview
+            git pull
+            npm install --openssl-legacy-provider
+            npm audit fix
+            npm run build --openssl-legacy-provider
+            docker build -t astroview:latest .
+            
+            # tag for nomad, which uses rootful docker, so needs a pull from a repo
+            docker tag astroview:latest middle-earth:5000/astroview:latest
+            docker push middle-earth:5000/astroview:latest
+            
+            # deploy with nomad
+            #cd $HOME/my_nomad_datacenter/jobs
+            #nomad stop astroview
+            #nomad run astroview.nomad
