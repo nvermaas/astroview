@@ -20,8 +20,8 @@ jobs:
             docker build -t astroview:latest .
             
             # tag for nomad, which uses rootful docker, so needs a pull from a repo
-            docker tag astroview:latest middle-earth:5000/astroview:latest
-            docker push middle-earth:5000/astroview:latest
+            #docker tag astroview:latest middle-earth:5000/astroview:latest
+            #docker push middle-earth:5000/astroview:latest
             
             # deploy with nomad
             #cd $HOME/my_nomad_datacenter/jobs
