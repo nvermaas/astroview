@@ -1,5 +1,9 @@
 name: build-deploy-docker
-on: [push]
+on:
+  push:
+    branches:
+      - master
+
 jobs:
   build-deploy-astroview:
     runs-on: ubuntu-latest
