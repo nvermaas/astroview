@@ -1,3 +1,6 @@
+# this is the old mechanism where the frontend application is built with npm
+# and then moved to a central ~/www web directory that is served by Apache2.
+# This mechanism is replaced with deployment in Docker, but I leave this in place in case it is needed again.
 name: build-deploy-astroview
 on:
   push:
