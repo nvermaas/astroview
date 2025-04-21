@@ -5,7 +5,7 @@ import logo from '../assets/logo.ico';
 import { useGlobalReducer } from '../contexts/GlobalContext';
 import { NavLink, Link } from "react-router-dom"
 
-import { ASTROBASE_URL, ALADIN_STARCHARTS_URL } from '../utils/skyserver'
+import {ASTROBASE_URL, ALADIN_STARCHARTS_URL, EXOPLANETS_URL} from '../utils/skyserver'
 import AuthControl from "./auth/authControl";
 
 function getLink(taskid) {
@@ -54,6 +54,7 @@ export function NavigationBar() {
                 <Nav.Link as={NavLink} to="/aladin">SkyView</Nav.Link>
                 <Nav.Link as={NavLink} to="/cutouts">Cutouts</Nav.Link>
                 <Nav.Link target="_blank" href={STARCHARTS_URL}>Starcharts</Nav.Link>
+                <Nav.Link target="_blank" href={EXOPLANETS_URL}>Exoplanets</Nav.Link>
                 <Nav.Link target="_blank" href={ASTROBASE_URL}>AstroBase</Nav.Link>
                 &nbsp;
 
