@@ -1,208 +1,168 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import A from 'aladin-lite';
+import { useGlobalReducer } from '../../contexts/GlobalContext';
+import { ALADIN_HIGH_OBS } from '../../reducers/GlobalStateReducer';
 
-import { useGlobalReducer } from '../../contexts/GlobalContext'
-import { ALADIN_HIGH_OBS } from '../../reducers/GlobalStateReducer'
+const Aladin = ({ data, observation, fov = 60, ra, dec, mode }) => {
+    const [my_state, my_dispatch] = useGlobalReducer();
+    const [highlightedObservation, setHighlightedObservation] = useState(null);
 
-const Aladin = (props) => {
-    const [ my_state , my_dispatch] = useGlobalReducer()
-    const [ highlightedObservation , setHighlightedObservation] = React.useState([]);
+    // persistent refs
+    const aladinRef = useRef(null);
+    const overlaysRef = useRef({});
+    const catalogRef = useRef(null);
 
-    React.useEffect(() => {
-        let aladin = window.A.aladin('#aladin-lite-div', { survey: 'P/DSS2/color', fov:60 })
-        aladin.setFov(props.fov)
-        aladin.gotoRaDec(props.ra, props.dec)
+    useEffect(() => {
+        A.init.then(() => {
+            if (!aladinRef.current) {
+                // init viewer once
+                aladinRef.current = A.aladin('#aladin-lite-div', {
+                    survey: 'P/DSS2/color',
+                    fov: parseFloat(fov) || 60,
+                    projection: 'SIN',
+                    cooFrame: 'equatorial',
+                });
 
-        // create the catalog and overlays layers
-        createLayers(aladin, props.data, props.observation)
+                const aladin = aladinRef.current;
 
-        // in case of a single observation
-        if (props.observation!==undefined) {
-            addSingleObservation(aladin, props.observation, props.mode)
-       }
+                // overlays
+                overlaysRef.current = {
+                    other: A.graphicOverlay({ name: 'other', color: 'blue', lineWidth: 1 }),
+                    great: A.graphicOverlay({ name: 'great', color: 'yellow', lineWidth: 1 }),
+                    good: A.graphicOverlay({ name: 'good', color: 'green', lineWidth: 1 }),
+                    medium: A.graphicOverlay({ name: 'medium', color: 'grey', lineWidth: 1 }),
+                    bad: A.graphicOverlay({ name: 'bad', color: 'red', lineWidth: 1 }),
+                    current: A.graphicOverlay({ name: 'current', color: 'yellow', lineWidth: 2 }),
+                };
 
-        // add a listener to aladin
-        // define function triggered when  a source is hovered
-        aladin.on('objectHovered', function(object) {
+                Object.values(overlaysRef.current).forEach((ov) => aladin.addOverlay(ov));
 
-            var msg;
-            if (object) {
+                // catalog
+                catalogRef.current = A.catalog({
+                    name: 'MyObservations',
+                    shape: 'circle',
+                    color: 'yellow',
+                    sourceSize: 20,
+                    onClick: 'showTable',
+                });
+                aladin.addCatalog(catalogRef.current);
 
-                if (object.data.my_field_name) {
-                    msg = object.data.my_field_name;
+                // hover event
+                aladin.on('objectHovered', (object) => {
+                    if (object?.data?.my_field_name) {
+                        const obs = object.data.my_observation;
+                        setHighlightedObservation(obs);
+                        my_dispatch({ type: ALADIN_HIGH_OBS, aladin_high_obs: obs });
+                    }
+                });
+            }
 
-                    // highlight the observation under the mouse
-                    let my_observation = object.data.my_observation
+            // update view
+            aladinRef.current.setFov(fov);
+            aladinRef.current.gotoRaDec(ra, dec);
 
-                    // recreate all the layers, but now with a different highlighted observation
-                    createLayers(aladin, props.data, my_observation)
+            // (re)populate overlays & catalog
+            updateLayersAndCatalog(data, observation);
 
-                    // save the highlighted observation to the local state
-                    // now only used to display it
-                    setHighlightedObservation(my_observation)
-
-                    // save the highlighed observation to the global state (not used for anything yet)
-                    my_dispatch({type: ALADIN_HIGH_OBS, aladin_high_obs: my_observation})
-                }
+            // optional single observation FITS handling
+            if (observation) {
+                addSingleObservation(aladinRef.current, observation, mode);
             }
         });
+    }, [data, observation, fov, ra, dec, mode]);
 
-    }, [])
+    // === helpers ===
 
-    // create the catalog and all the overlay layers
-    const createLayers = (aladin, data, highlighted_observation) => {
-        aladin.removeLayers()
+    const updateLayersAndCatalog = (data, highlighted) => {
+        if (!catalogRef.current) return;
 
-        let overlay_other = window.A.graphicOverlay({name: 'other quality',color: 'blue', lineWidth: 1});
-        aladin.addOverlay(overlay_other);
+        Object.values(overlaysRef.current).forEach((ov) => ov.removeAll());
+        catalogRef.current.clear();
 
-        let overlay_great = window.A.graphicOverlay({name: 'great quality', color: 'yellow', lineWidth: 1});
-        aladin.addOverlay(overlay_great);
+        if (!data || !data.length) return;
 
-        let overlay_good = window.A.graphicOverlay({name: 'good quality',color: 'green', lineWidth: 1});
-        aladin.addOverlay(overlay_good);
-
-        let overlay_medium = window.A.graphicOverlay({name: 'medium quality',color: 'grey', lineWidth: 1});
-        aladin.addOverlay(overlay_medium);
-
-        let overlay_bad = window.A.graphicOverlay({name: 'bad quality',color: 'red', lineWidth: 1});
-        aladin.addOverlay(overlay_bad);
-
-        let my_selected_overlay = window.A.graphicOverlay({name: 'current',color: 'yellow', lineWidth: 1});
-        aladin.addOverlay(my_selected_overlay);
-
-        let my_catalog = window.A.catalog({
-            name: 'MyObservations',
-            shape : 'circle',
-            color : 'yellow',
-            sourceSize: 20,
-            //labelColumn: 'name',
-            //displayLabel: true,
-            onClick: 'showTable'});
-
-        // loop through all the observations and add them to the appropriate layer based on quality
-        data.forEach(function(observation){
-
-            if (observation.quality==='great') {
-                addBoxesToOverlay(overlay_great, observation, "yellow")
-            } else
-
-            if (observation.quality==='good') {
-                addBoxesToOverlay(overlay_good, observation, "green")
-            } else
-
-            if (observation.quality==='medium') {
-                addBoxesToOverlay(overlay_medium, observation, "gray")
-            } else
-
-            if (observation.quality==='bad') {
-                addBoxesToOverlay(overlay_bad, observation, "red")
-            } else {
-                addBoxesToOverlay(overlay_other, observation, "blue")
+        data.forEach((obs) => {
+            switch (obs.quality) {
+                case 'great':
+                    addBoxesToOverlay(overlaysRef.current.great, obs, 'yellow');
+                    break;
+                case 'good':
+                    addBoxesToOverlay(overlaysRef.current.good, obs, 'green');
+                    break;
+                case 'medium':
+                    addBoxesToOverlay(overlaysRef.current.medium, obs, 'grey');
+                    break;
+                case 'bad':
+                    addBoxesToOverlay(overlaysRef.current.bad, obs, 'red');
+                    break;
+                default:
+                    addBoxesToOverlay(overlaysRef.current.other, obs, 'blue');
             }
+            addToCatalog(catalogRef.current, obs);
+        });
 
-            // draw a clickable icon for each observation
-            addToCatalog(my_catalog, observation)
-        })
-
-        aladin.addCatalog(my_catalog);
-
-        if (highlighted_observation) {
-            addBoxesToOverlay(my_selected_overlay, highlighted_observation, "yellow")
+        if (highlighted) {
+            addBoxesToOverlay(overlaysRef.current.current, highlighted, 'yellow');
         }
-    }
+    };
 
-    // get the bounding box in world coordinates from an observation
     const getBox = (observation) => {
-        let coords = observation.box.split(',')
-        let point1 = [coords[0],coords[1]]
-        let point2 = [coords[2],coords[3]]
-        let point3 = [coords[4],coords[5]]
-        let point4 = [coords[6],coords[7]]
-        let box = [point1,point2,point3,point4,point1]
-        return box
-    }
+        const coords = observation.box.split(',').map(parseFloat);
+        const pts = [
+            [coords[0], coords[1]],
+            [coords[2], coords[3]],
+            [coords[4], coords[5]],
+            [coords[6], coords[7]],
+            [coords[0], coords[1]],
+        ];
+        return pts;
+    };
 
+    const addBoxesToOverlay = (overlay, observation, color) => {
+        overlay.add(A.polyline(getBox(observation), { color, lineWidth: 1 }));
+    };
 
-    const addToCatalog = (my_catalog, observation) => {
-        let url = "/astroview/details/"+observation.taskID
+    const addToCatalog = (catalog, obs) => {
+        const url = `/astroview/details/${obs.taskID}`;
+        const source = A.source(obs.field_ra, obs.field_dec, {
+            my_field_name: obs.field_name,
+            my_name: obs.name,
+            my_observation: obs,
+            popupHtml: `
+        <div style="font-family:sans-serif;max-width:200px;">
+          <h4 style="margin:0;"><a href="${url}" target="_blank">${obs.taskID} - ${obs.name}</a></h4>
+          <p style="margin:0;">${obs.field_name}</p>
+        </div>
+      `,
+        });
+        catalog.addSources([source]);
+    };
 
-        let box = getBox(observation)
-
-        let source = window.A.source(
-            observation.field_ra,
-            observation.field_dec,
-            {
-                my_field_name: observation.field_name,
-                my_name: observation.name,
-                popupTitle: '<a href="'+url+'">'+observation.taskID+' - '+observation.name+'</a>',
-                popupDesc: observation.field_name,
-                my_observation : observation
-            }
-        )
-
-        let marker = [window.A.marker(
-            observation.field_ra,
-            observation.field_dec,
-
-            {
-                my_field_name: observation.field_name,
-                my_name: observation.name,
-                popupTitle: '<a href="'+url+'">'+observation.taskID+'</a>',
-                popupDesc: '<hr>'+observation.name +'<br>'+ observation.field_name,
-            },
-
-            {
-                my_field_name: observation.field_name,
-                taskID : observation.taskID,
-                my_observation : observation,
-            },
-        )]
-        my_catalog.addSources(source);
-        //my_catalog.addSources(marker);
-    }
-
-
-    const addBoxesToOverlay = (my_overlay, observation, color) => {
-        let box = getBox(observation)
-        my_overlay.add(window.A.polyline(box, {color: color, lineWidth: 1}));
-    }
-
-
-    const addBoxToOverlay = (my_overlay, box, color) => {
-        my_overlay.add(window.A.polyline(box, {color: color, lineWidth: 1}));
-    }
-
-
-    const addSingleObservation = (aladin, observation, mode) => {
-
-        if (mode==='fits') {
-            aladin.displayFITS(observation.derived_fits)
+    const addSingleObservation = (aladin, obs, mode) => {
+        if (mode === 'fits') {
+            aladin.displayFITS(obs.derived_fits);
         }
-
-        let coordinates = observation.field_ra + "," + observation.field_dec
-        let radius = observation.field_fov * 1.5
-
+        const coords = `${obs.field_ra},${obs.field_dec}`;
+        const radius = obs.field_fov * 1.5;
         if (radius < 1) {
-            aladin.addCatalog(window.A.catalogFromSimbad(coordinates, radius, {color: 'yellow', onClick: 'showTable'}));
+            A.catalogFromSimbad(coords, radius, { color: 'yellow', onClick: 'showTable' }, (cat) =>
+                aladin.addCatalog(cat)
+            );
         }
-    }
+    };
 
-    let title = "hover over yellow objects to highlight observation"
-    //alert(highlightedObservation)
-
-    try {
-        if (highlightedObservation.name) {
-            title = highlightedObservation.name + ' (' + highlightedObservation.taskID + ')'
-        }
-    } catch (e) {
-    }
+    // === render ===
+    const title =
+        highlightedObservation?.name
+            ? `${highlightedObservation.name} (${highlightedObservation.taskID})`
+            : 'Hover over yellow objects to highlight observation';
 
     return (
         <div>
             <h3>{title}</h3>
-            <div id='aladin-lite-div' className="aladin"  />
+            <div id="aladin-lite-div" style={{ width: '100%', height: '500px' }} />
         </div>
-    )
-}
+    );
+};
 
-export default Aladin
+export default Aladin;
