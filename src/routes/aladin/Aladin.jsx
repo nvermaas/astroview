@@ -13,7 +13,6 @@ const Aladin = ({ data, observation, fov = 60, ra, dec, mode }) => {
     const catalogRef = useRef(null);
 
     useEffect(() => {
-        A.init.then(() => {
             if (!aladinRef.current) {
                 // init viewer once
                 aladinRef.current = A.aladin('#aladin-lite-div', {
@@ -49,8 +48,14 @@ const Aladin = ({ data, observation, fov = 60, ra, dec, mode }) => {
 
                 // hover event
                 aladin.on('objectHovered', (object) => {
-                    if (object?.data?.my_field_name) {
+                    if (object?.data?.my_observation) {
                         const obs = object.data.my_observation;
+
+                        // highlight with yellow outline
+                        Object.values(overlaysRef.current).forEach((ov) => ov.removeAll());
+                        updateLayersAndCatalog(data, obs);
+
+                        // update state
                         setHighlightedObservation(obs);
                         my_dispatch({ type: ALADIN_HIGH_OBS, aladin_high_obs: obs });
                     }
@@ -68,7 +73,7 @@ const Aladin = ({ data, observation, fov = 60, ra, dec, mode }) => {
             if (observation) {
                 addSingleObservation(aladinRef.current, observation, mode);
             }
-        });
+
     }, [data, observation, fov, ra, dec, mode]);
 
     // === helpers ===
@@ -119,21 +124,28 @@ const Aladin = ({ data, observation, fov = 60, ra, dec, mode }) => {
     };
 
     const addBoxesToOverlay = (overlay, observation, color) => {
-        overlay.add(A.polyline(getBox(observation), { color, lineWidth: 1 }));
+        overlay.add(
+            A.polyline(getBox(observation), {
+                color,
+                lineWidth: 1,
+                popupHtml: `
+                <div style="font-family:sans-serif;max-width:200px;">
+                    <h4 style="margin:0;">${observation.taskID} - ${observation.name}</h4>
+                    <p>${observation.field_name}</p>
+                </div>
+            `,
+            })
+        );
     };
 
     const addToCatalog = (catalog, obs) => {
         const url = `/astroview/details/${obs.taskID}`;
         const source = A.source(obs.field_ra, obs.field_dec, {
-            my_field_name: obs.field_name,
-            my_name: obs.name,
+            field: obs.field_name,
+            Observation: `<div style="font-family:sans-serif;max-width:200px;">
+                                <h4 style="margin:0;"><a href="${url}" target="_blank">${obs.taskID}</a></h4>
+                            </div>`,
             my_observation: obs,
-            popupHtml: `
-        <div style="font-family:sans-serif;max-width:200px;">
-          <h4 style="margin:0;"><a href="${url}" target="_blank">${obs.taskID} - ${obs.name}</a></h4>
-          <p style="margin:0;">${obs.field_name}</p>
-        </div>
-      `,
         });
         catalog.addSources([source]);
     };
@@ -152,14 +164,19 @@ const Aladin = ({ data, observation, fov = 60, ra, dec, mode }) => {
     };
 
     // === render ===
-    const title =
-        highlightedObservation?.name
-            ? `${highlightedObservation.name} (${highlightedObservation.taskID})`
-            : 'Hover over yellow objects to highlight observation';
+    let header = <h3>Select observation...</h3>
+    let title = 'Hover over yellow objects to highlight observation, click to see details';
+    let url = ''
+
+    if (highlightedObservation) {
+        title = `${highlightedObservation.name} (${highlightedObservation.taskID})`
+        url = 'details/'+highlightedObservation.taskID;
+        header = <h3><a href={url} target="_blank">{title}</a></h3>
+    }
 
     return (
         <div>
-            <h3>{title}</h3>
+            {header}
             <div id="aladin-lite-div" style={{ width: '100%', height: '500px' }} />
         </div>
     );

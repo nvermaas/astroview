@@ -51,7 +51,7 @@ export function NavigationBar() {
                 {detailsLink}
                 <Nav.Link as={NavLink} to="/collections">Collections</Nav.Link>
 
-                <Nav.Link as={NavLink} to="/aladin">SkyView</Nav.Link>
+                <Nav.Link as={NavLink} to="/aladin">Aladin</Nav.Link>
                 <Nav.Link as={NavLink} to="/cutouts">Cutouts</Nav.Link>
                 <Nav.Link target="_blank" href={STARCHARTS_URL}>Starcharts</Nav.Link>
                 <Nav.Link target="_blank" href={EXOPLANETS_URL}>Exoplanets</Nav.Link>
