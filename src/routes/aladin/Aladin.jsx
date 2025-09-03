@@ -48,18 +48,40 @@ const Aladin = ({ data, observation, fov = 60, ra, dec, mode }) => {
 
                 // hover event
                 aladin.on('objectHovered', (object) => {
-                    if (object?.data?.my_observation) {
-                        const obs = object.data.my_observation;
+                    if (!object) return;
 
-                        // highlight with yellow outline
+                    let obs = null;
+
+                    // try to get observation from raDecArray
+                    try {
+                        if (object.raDecArray) {
+                            // this works, but is a bit too sensitive....
+                            // when I move the mouse over the screen it selects tons of observations that I didn't want
+                            //obs = getObservationByBox(object.raDecArray);
+                        }
+                    } catch (e) {
+                        console.warn('Failed to get observation by box:', e);
+                    }
+
+                    // fallback to observation stored in object.data
+                    if (!obs && object.data?.my_observation) {
+                        obs = object.data.my_observation;
+                    }
+
+                    // if we found an observation, highlight and update state
+                    if (obs) {
+                        // clear previous highlights
                         Object.values(overlaysRef.current).forEach((ov) => ov.removeAll());
+
+                        // redraw overlays and catalog
                         updateLayersAndCatalog(data, obs);
 
-                        // update state
+                        // update React state and global state
                         setHighlightedObservation(obs);
                         my_dispatch({ type: ALADIN_HIGH_OBS, aladin_high_obs: obs });
                     }
                 });
+
             }
 
             // update view
@@ -111,6 +133,15 @@ const Aladin = ({ data, observation, fov = 60, ra, dec, mode }) => {
         }
     };
 
+    const getObservationByBox = (box) => {
+        return data.find((observation) => {
+            const points = getBox(observation);
+            const sum_points = points.flat().reduce((acc, cur) => acc + cur, 0);
+            const sum_box = box.flat().reduce((acc, cur) => acc + cur, 0);
+            return sum_points === sum_box;
+        }) || null;
+    };
+
     const getBox = (observation) => {
         const coords = observation.box.split(',').map(parseFloat);
         const pts = [
@@ -137,6 +168,7 @@ const Aladin = ({ data, observation, fov = 60, ra, dec, mode }) => {
             })
         );
     };
+
 
     const addToCatalog = (catalog, obs) => {
         const url = `/astroview/details/${obs.taskID}`;
