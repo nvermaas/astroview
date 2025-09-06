@@ -6,6 +6,7 @@ import { ALADIN_HIGH_OBS } from '../../reducers/GlobalStateReducer';
 const Aladin = ({ data, observation, fov = 60, ra, dec, mode }) => {
     const [my_state, my_dispatch] = useGlobalReducer();
     const [highlightedObservation, setHighlightedObservation] = useState(null);
+    const [focusedObservation, setFocusedObservation] = useState(null);
 
     // persistent refs
     const aladinRef = useRef(null);
@@ -50,35 +51,51 @@ const Aladin = ({ data, observation, fov = 60, ra, dec, mode }) => {
                 aladin.on('objectHovered', (object) => {
                     if (!object) return;
 
-                    let obs = null;
+                    let obs_highlighted = null;
+                    let obs_focus = null;
 
                     // try to get observation from raDecArray
                     try {
                         if (object.raDecArray) {
                             // this works, but is a bit too sensitive....
                             // when I move the mouse over the screen it selects tons of observations that I didn't want
-                            //obs = getObservationByBox(object.raDecArray);
+                            obs_focus = getObservationByBox(object.raDecArray);
+                            setFocusedObservation(obs_focus);
+
+                            // if we found an observation, highlight and update state
+                            if (obs_focus) {
+                                // clear previous highlights
+                                Object.values(overlaysRef.current).forEach((ov) => ov.removeAll());
+
+                                // redraw overlays and catalog
+                                updateLayersAndCatalog(data, obs_focus);
+
+                                // update React state and global state
+                                //setHighlightedObservation(obs_highlighted);
+                                //my_dispatch({ type: ALADIN_HIGH_OBS, aladin_high_obs: obs_highlighted });
+                            }
                         }
+
                     } catch (e) {
                         console.warn('Failed to get observation by box:', e);
                     }
 
                     // fallback to observation stored in object.data
-                    if (!obs && object.data?.my_observation) {
-                        obs = object.data.my_observation;
+                    if (!obs_highlighted && object.data?.my_observation) {
+                        obs_highlighted = object.data.my_observation;
                     }
 
                     // if we found an observation, highlight and update state
-                    if (obs) {
+                    if (obs_highlighted) {
                         // clear previous highlights
                         Object.values(overlaysRef.current).forEach((ov) => ov.removeAll());
 
                         // redraw overlays and catalog
-                        updateLayersAndCatalog(data, obs);
+                        updateLayersAndCatalog(data, obs_highlighted);
 
                         // update React state and global state
-                        setHighlightedObservation(obs);
-                        my_dispatch({ type: ALADIN_HIGH_OBS, aladin_high_obs: obs });
+                        setHighlightedObservation(obs_highlighted);
+                        my_dispatch({ type: ALADIN_HIGH_OBS, aladin_high_obs: obs_highlighted });
                     }
                 });
 
@@ -196,19 +213,28 @@ const Aladin = ({ data, observation, fov = 60, ra, dec, mode }) => {
     };
 
     // === render ===
-    let header = <h3>Select observation...</h3>
+    let header_highlighted = ''
+    let header_focused = ''
     let title = 'Hover over yellow objects to highlight observation, click to see details';
     let url = ''
 
     if (highlightedObservation) {
         title = `${highlightedObservation.name} (${highlightedObservation.taskID})`
         url = 'details/'+highlightedObservation.taskID;
-        header = <h3><a href={url} target="_blank">{title}</a></h3>
+        header_highlighted = <span><b>Marker</b>: <a href={url} target="_blank">{title}</a></span>
     }
+
+    if (focusedObservation) {
+        title = `${focusedObservation.name} (${focusedObservation.taskID})`
+        url = 'details/'+focusedObservation.taskID;
+        header_focused = <span><b>Box</b>: <a href={url} target="_blank">{title}</a></span>
+    }
+
+    let header = <span><td>{header_highlighted}</td><td>&nbsp;&nbsp;&nbsp; &nbsp;</td><td>{header_focused}</td></span>
 
     return (
         <div>
-            {header}
+            <h5>{header}</h5>
             <div id="aladin-lite-div" style={{ width: '100%', height: '500px' }} />
         </div>
     );
