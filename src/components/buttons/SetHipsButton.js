@@ -40,10 +40,10 @@ export default function SetHipsButton(props) {
     let title= "Add"
 
     if (props.observation.used_in_hips) {
-        title = "-Boxes"
+        title = "- Boxes"
         style = "outline-danger"
     } else {
-        title = "+Boxes"
+        title = "+ Boxes"
         style = "outline-success"
     }
 
