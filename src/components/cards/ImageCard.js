@@ -274,7 +274,7 @@ export default function ImageCard(props) {
 
     let renderTransientButton
     if (props.observation.transient) {
-        renderTransientButton=<DoCommandButton observation={props.observation} title="Add Transient" command="transient"/>
+        renderTransientButton=<DoCommandButton observation={props.observation} title="+Transient" command="transient"/>
     }
 
 
@@ -283,11 +283,12 @@ export default function ImageCard(props) {
         renderCommandButtons=<div>
             <SetAdminEditButton observation={props.observation} />&nbsp;
             {renderTransientButton}&nbsp;
-            <DoCommandButton observation={props.observation} title="Add Grid" command="grid" />&nbsp;
-            <DoCommandButton observation={props.observation} title="Add EQ" command="grid_eq" />&nbsp;
-            <DoCommandButton observation={props.observation} title="Add Stars" command="stars" />&nbsp;
-            <DoCommandButton observation={props.observation} title="Add Exo" command="exoplanets" />&nbsp;
-            <DoCommandButton observation={props.observation} title="Add Boxes" command="min_max" />&nbsp;
+            <DoCommandButton observation={props.observation} title="+Ast" command="asteroids" />&nbsp;
+            <DoCommandButton observation={props.observation} title="+Grid" command="grid" />&nbsp;
+            <DoCommandButton observation={props.observation} title="+EQ" command="grid_eq" />&nbsp;
+            <DoCommandButton observation={props.observation} title="+Stars" command="stars" />&nbsp;
+            <DoCommandButton observation={props.observation} title="+Exo" command="exoplanets" />&nbsp;
+            <DoCommandButton observation={props.observation} title="+Boxes" command="min_max" />&nbsp;
             <SetHipsButton observation={props.observation} use_in_hips={!props.observation.used_in_hips}/>&nbsp;
         </div>
     }
