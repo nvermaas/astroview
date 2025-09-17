@@ -152,6 +152,12 @@ export const getCommandIcon = (command) => {
         color = "green"
     }
 
+    if (command === 'asteroids') {
+        icon = faMeteor
+        size = "lg"
+        color = "green"
+    }
+
     if (command === 'exoplanets') {
         icon = faSatellite
         size = "lg"
