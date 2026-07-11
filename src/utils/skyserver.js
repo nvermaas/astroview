@@ -5,14 +5,14 @@
 
 // http://skyserver.sdss.org/dr12/en/help/docs/api.aspx#RestWebServices
 
-export const EXOPLANETS_URL = "https://uilennest.net/exoplanets/"
-export const ALADIN_STARCHARTS_URL = "https://uilennest.net/aladin-starcharts/"
+export const EXOPLANETS_URL = "https://woodland.uilennest.net/exoplanets/"
+export const ALADIN_STARCHARTS_URL = "https://woodland.uilennest.net/aladin-starcharts/"
 
 export const ASTROBASE_URL =
     process.env.NODE_ENV === "development"
         ? "http://localhost:8000/my_astrobase/"
         //? "https://uilennest.net/my_astrobase/"
-        : "https://uilennest.net/my_astrobase/";
+        : "https://woodland.uilennest.net/my_astrobase/";
 
 
 
