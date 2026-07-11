@@ -1,9 +1,9 @@
-name: build-deploy-docker
+name: build-deploy-docker-uilennest
 on:
   workflow_dispatch:
 
 jobs:
-  build-deploy-astroview:
+  build-deploy-docker-uilennest:
     runs-on: ubuntu-latest
     steps:
       - name: execute build & deploy procedure on local server

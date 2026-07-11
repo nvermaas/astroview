@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-deploy-astroview:
+  build-deploy-docker-woodland:
     runs-on: ubuntu-latest
     steps:
       - name: execute build & deploy procedure on local server
