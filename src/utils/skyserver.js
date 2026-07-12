@@ -5,9 +5,9 @@
 
 // http://skyserver.sdss.org/dr12/en/help/docs/api.aspx#RestWebServices
 
-export const EXOPLANETS_URL = "https://uilennest.net/exoplanets/"
+//export const EXOPLANETS_URL = "https://uilennest.net/exoplanets/"
 export const EXOPLANETS_URL = `${window.location.origin}/exoplanets/`
-export const ALADIN_STARCHARTS_URL = "https://uilennest.net/aladin-starcharts/"
+//export const ALADIN_STARCHARTS_URL = "https://uilennest.net/aladin-starcharts/"
 export const ALADIN_STARCHARTS_URL = `${window.location.origin}/aladin-starcharts/`
 
 export const ASTROBASE_URL =
