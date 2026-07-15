@@ -1,16 +1,16 @@
-name: build-deploy-docker-woodland
+name: build-deploy-docker-middle-earth
 on:
   workflow_dispatch:
 
 jobs:
-  build-deploy-docker-woodland:
+  build-deploy-docker-middle-earth:
     runs-on: ubuntu-latest
     steps:
       - name: execute build & deploy procedure on local server
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.MY_HOST_WOODLAND }}
-          port: 22
+          port: 2222
           username: ${{ secrets.MY_USER }}
           password: ${{ secrets.MY_PASSWORD }}
           #key: ${{ secrets.MY_PRIVATE_KEY }}
